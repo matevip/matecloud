@@ -1,6 +1,7 @@
-# matecloud
+<p align="center">
 
+  <img src="https://cdn.cankaojia.cn/matecloud.jpg" width="300">
+</p>
 
-<img style="width:300px;height:77px" src="https://cdn.cankaojia.cn/matecloud.jpg"  alt="MateCloud" align=center />
+MateCloud是一款基于Spring Cloud Alibaba的微服务架构。
 
-基于Spring Cloud Alibaba的微服务平台。
