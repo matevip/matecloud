@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: @spring.active@
+  cloud:
+    nacos:
+      config:
+        namespace: @config.namespace@
+        server-addr: @config.server-addr@
+        group: @config.group@
+        file-extension: yaml
+        prefix: mate
+      discovery:
+        namespace: @config.namespace@
+        server-addr: @config.server-addr@

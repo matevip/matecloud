@@ -1,0 +1,13 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+    loadbalancer:
+      retry:
+        enabled: true
