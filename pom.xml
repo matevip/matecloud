@@ -15,10 +15,11 @@
     <modules>
         <module>mate-core</module>
         <module>mate-gateway</module>
-        <module>mate-oauth</module>
+        <module>mate-uaa</module>
         <module>mate-support</module>
         <module>mate-admin</module>
-        <module>mate-devops</module>
+        <module>mate-rd</module>
+        <module>mate-op</module>
     </modules>
 
     <properties>
