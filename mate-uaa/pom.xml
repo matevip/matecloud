@@ -19,6 +19,11 @@
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
+            <artifactId>mate-config</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
             <artifactId>mate-starter-security</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
