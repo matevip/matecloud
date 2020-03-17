@@ -17,17 +17,28 @@
 package vip.mate.oauth.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 /**
  * TODO
  *
  * @author xuzhanfu
- * @date 2019-10-11 23:21
+ * @date 2019-10-11 23:24
  **/
-
 @Configuration
-@EnableAuthorizationServer
-public class MateAuthServerConfig extends AuthorizationServerConfigurerAdapter {
+@EnableResourceServer
+public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .requestMatchers().antMatchers("/**")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/**").authenticated()
+                .and().httpBasic();
+
+    }
 }

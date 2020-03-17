@@ -16,7 +16,11 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-common</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-pom</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- Nacos -->
         <dependency>
