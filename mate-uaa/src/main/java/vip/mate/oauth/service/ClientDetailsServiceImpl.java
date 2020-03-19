@@ -1,8 +1,9 @@
 package vip.mate.oauth.service;
 
-import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import vip.mate.common.constant.Oauth2Constant;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -21,12 +23,25 @@ import javax.sql.DataSource;
 
 @Slf4j
 @Setter
+@Service
 public class ClientDetailsServiceImpl extends JdbcClientDetailsService {
 
+    @Resource
+    private DataSource dataSource;
+
+    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
     public ClientDetailsServiceImpl(DataSource dataSource) {
         super(dataSource);
+    }
+
+    @Bean
+    @Primary
+    public ClientDetailsServiceImpl clientDetailService() {
+        ClientDetailsServiceImpl clientDetailsService = new ClientDetailsServiceImpl(dataSource);
+        clientDetailsService.setRedisTemplate(redisTemplate);
+        return clientDetailsService;
     }
 
     /**

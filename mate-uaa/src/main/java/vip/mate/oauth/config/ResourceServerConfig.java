@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 /**
- * TODO
+ * 资源服务器配置中心
  *
  * @author xuzhanfu
  * @date 2019-10-11 23:24

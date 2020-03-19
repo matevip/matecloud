@@ -37,7 +37,7 @@ import vip.mate.oauth.service.ClientDetailsServiceImpl;
 import javax.annotation.Resource;
 
 /**
- * TODO
+ * 认证服务器配置中心
  *
  * @author xuzhanfu
  * @date 2019-10-11 23:21
@@ -52,7 +52,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private RedisConnectionFactory redisConnectionFactory;
 
-    @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
     private WebResponseExceptionTranslator webResponseExceptionTranslator;
@@ -65,15 +64,14 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
      */
     @Bean
     public RedisTokenStore redisTokenStore() {
-        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        return tokenStore;
+        return new RedisTokenStore(redisConnectionFactory);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .tokenStore(redisTokenStore())
                 .authenticationManager(authenticationManager)
+                .tokenStore(redisTokenStore())
                 .userDetailsService(userDetailsService)
                 .exceptionTranslator(webResponseExceptionTranslator);
     }
@@ -81,10 +79,12 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security
+                // 允许表单认证请求
                 .allowFormAuthenticationForClients()
+                // spel表达式 访问公钥端点（/auth/token_key）需要认证
                 .tokenKeyAccess("isAuthenticated()")
-                .checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients();
+                // spel表达式 访问令牌解析端点（/auth/check_token）需要认证
+                .checkTokenAccess("isAuthenticated()");
     }
 
     @Override

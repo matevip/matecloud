@@ -17,18 +17,20 @@
 package vip.mate.oauth.config;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import vip.mate.oauth.service.UserDetailsServiceImpl;
 
 /**
- * TODO
+ * 安全配置中心
  *
  * @author xuzhanfu
  * @date 2019-10-11 23:25
@@ -37,28 +39,37 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private PasswordEncoder passwordEncoder;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
+    /**
+     * 必须要定义，否则不支持grant_type=password模式
+     * @return
+     */
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    @SneakyThrows
+    public AuthenticationManager authenticationManagerBean() {
         return super.authenticationManagerBean();
     }
 
     @Override
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .requestMatchers()
-                .antMatchers("/oauth/**")
-                .and()
-                .authorizeRequests()
-                .antMatchers("/oauth/**").authenticated()
-                .and()
-                .csrf().disable();
+        http.httpBasic().and().csrf().disable();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder);
+        auth.
+                userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 }

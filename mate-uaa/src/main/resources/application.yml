@@ -1,5 +1,0 @@
-server:
-  port: 9100
-spring:
-  application:
-    name: @artifactId@
