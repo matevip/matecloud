@@ -10,6 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mate-support</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>mate-develop</module>
+    </modules>
+
+    <dependencies>
+
+    </dependencies>
 
 
 </project>
