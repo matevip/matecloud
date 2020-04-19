@@ -58,9 +58,9 @@ public class ManualGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
+        // pc.setModuleName(scanner("模块名"));
         // 此处设置包名，需要自定义
-        pc.setParent("vip.mate.code");
+        pc.setParent(scanner("包名"));
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -83,8 +83,8 @@ public class ManualGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return projectPath + "/src/main/resources/mapper/"
+                        + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
         /*
