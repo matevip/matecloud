@@ -12,7 +12,7 @@
     <artifactId>mate-support</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>mate-develop</module>
+        <module>mate-code</module>
     </modules>
 
     <dependencies>

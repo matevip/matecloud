@@ -16,7 +16,7 @@
  */
 package vip.mate.common;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Arrays;
@@ -31,9 +31,9 @@ import java.util.concurrent.TimeUnit;
  * @author xuzhanfu
  * @date 2019-10-11 19:02
  **/
+@AllArgsConstructor
 public class RedisService {
 
-    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
     /**
