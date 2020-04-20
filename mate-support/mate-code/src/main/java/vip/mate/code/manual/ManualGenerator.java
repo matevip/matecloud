@@ -40,7 +40,8 @@ public class ManualGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
+        // String projectPath = System.getProperty("user.dir");
+        String projectPath = scanner("生成路径"); //生成路径改为从控制台输入
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("xuzf");
         gc.setOpen(false);
@@ -125,7 +126,7 @@ public class ManualGenerator {
         strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix("mate_");
+        strategy.setTablePrefix(scanner("表前缀"));
         // strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new VelocityTemplateEngine());
