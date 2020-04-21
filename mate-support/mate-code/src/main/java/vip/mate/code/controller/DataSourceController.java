@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.code.entity.DataSource;
 import vip.mate.code.service.IDataSourceService;
-import vip.mate.common.api.R;
+import vip.mate.common.api.ApiResult;
 import vip.mate.common.controller.MateController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,9 +35,9 @@ public class DataSourceController extends MateController {
     @GetMapping("list")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "列表", notes = "查询列表")
-    public R<List<DataSource>> list (DataSource dataSource) {
+    public ApiResult<List<DataSource>> list (DataSource dataSource) {
         List<DataSource> list = dataSourceService.list();
-        return R.data(list);
+        return ApiResult.data(list);
     }
 
 

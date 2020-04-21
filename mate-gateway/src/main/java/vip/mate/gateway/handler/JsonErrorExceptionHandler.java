@@ -2,14 +2,18 @@ package vip.mate.gateway.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -24,6 +28,9 @@ import java.util.Map;
 @Slf4j
 public class JsonErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 
+    @Autowired
+    private ExceptionHandlerAdvice exceptionHandlerAdvice;
+
     public JsonErrorExceptionHandler(ErrorAttributes errorAttributes,
                                      ResourceProperties resourceProperties,
                                      ErrorProperties errorProperties,
@@ -31,23 +38,24 @@ public class JsonErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
         super(errorAttributes, resourceProperties, errorProperties, applicationContext);
     }
 
-    @Override
-    protected Map<String, Object> getErrorAttributes(ServerRequest request, boolean includeStackTrace) {
-        // 这里其实可以根据异常类型进行定制化逻辑
-        Throwable error = super.getError(request);
-        int code = HttpStatus.INTERNAL_SERVER_ERROR.value();
-        if (error instanceof FileNotFoundException) {
-            code = HttpStatus.NOT_FOUND.value();
-        } else if (error instanceof ResponseStatusException && StringUtils.contains(error.getMessage(), HttpStatus.NOT_FOUND.toString())) {
-            code = HttpStatus.NOT_FOUND.value();
-        }
-        Map<String, Object> errorAttributes = new HashMap<>(8);
-        errorAttributes.put("message", error.getMessage());
-        errorAttributes.put("code", code);
-        errorAttributes.put("method", request.methodName());
-        errorAttributes.put("path", request.path());
-        return errorAttributes;
-    }
+//    @Override
+//    protected Map<String, Object> getErrorAttributes(ServerRequest request, boolean includeStackTrace) {
+//        // 这里其实可以根据异常类型进行定制化逻辑
+//        Throwable error = super.getError(request);
+//        int code = HttpStatus.INTERNAL_SERVER_ERROR.value();
+//        if (error instanceof FileNotFoundException) {
+//            code = HttpStatus.NOT_FOUND.value();
+//        } else if (error instanceof ResponseStatusException
+//                && StringUtils.contains(error.getMessage(), HttpStatus.NOT_FOUND.toString())) {
+//            code = HttpStatus.NOT_FOUND.value();
+//        }
+//        Map<String, Object> errorAttributes = new HashMap<>(8);
+//        errorAttributes.put("message", error.getMessage());
+//        errorAttributes.put("code", code);
+//        errorAttributes.put("method", request.methodName());
+//        errorAttributes.put("path", request.path());
+//        return errorAttributes;
+//    }
 
     @Override
     @SuppressWarnings("all")
@@ -55,9 +63,18 @@ public class JsonErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
 
-    @Override
-    protected int getHttpStatus(Map<String, Object> errorAttributes) {
-        return HttpStatus.INTERNAL_SERVER_ERROR.value();
-    }
+//    @Override
+//    protected int getHttpStatus(Map<String, Object> errorAttributes) {
+//        return HttpStatus.INTERNAL_SERVER_ERROR.value();
+//    }
 
+    @Override
+    protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
+        Map<String, Object> error = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
+        int errorStatus = getHttpStatus(error);
+        Throwable throwable = getError(request);
+        return ServerResponse.status(errorStatus)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(BodyInserters.fromObject(exceptionHandlerAdvice.handle(throwable)));
+    }
 }
