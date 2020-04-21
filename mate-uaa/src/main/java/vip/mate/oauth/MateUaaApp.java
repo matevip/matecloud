@@ -18,6 +18,7 @@ package vip.mate.oauth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 认证启动类
@@ -26,6 +27,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2019-10-09 15:06
  **/
 @SpringBootApplication
+@EnableFeignClients(basePackages = "vip.mate.*")
 public class MateUaaApp {
     public static void main(String[] args) {
         SpringApplication.run(MateUaaApp.class, args);
