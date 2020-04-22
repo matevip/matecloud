@@ -35,7 +35,7 @@ public class DataSource extends MateEntity {
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private Integer id;
+    private Long id;
 
     /**
      * 名称
