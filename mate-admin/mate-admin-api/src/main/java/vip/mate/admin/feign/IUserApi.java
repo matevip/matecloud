@@ -15,5 +15,5 @@ public interface IUserApi {
     ApiResult<User> userInfoById(@RequestParam("userId") Long userId);
 
     @GetMapping("/api/user-info")
-    ApiResult<User> userInfo(@RequestParam("account") String account);
+    ApiResult<User> loadUserByUserName(@RequestParam("userName") String userName);
 }

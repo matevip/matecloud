@@ -18,19 +18,16 @@ import javax.annotation.Resource;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Resource
     private IUserApi userApi;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        vip.mate.admin.entity.User user = userApi.userInfo(s).getData();
-        log.info("用户名：" + s);
-        return new User(s,passwordEncoder.encode(user.getPassword()),true,true,
+        vip.mate.admin.entity.User user = userApi.loadUserByUserName(userName).getData();
+        log.info("用户名：{}", userName);
+        return new User(user.getAccount(), user.getPassword(),true,true,
                 true,true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin, ROLE_USER"));
     }
 }

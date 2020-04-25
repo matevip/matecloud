@@ -8,6 +8,7 @@ import vip.mate.admin.entity.User;
 import vip.mate.admin.service.IUserService;
 import vip.mate.common.api.ApiResult;
 
+
 @RestController
 @AllArgsConstructor
 public class UserApi implements IUserApi {
@@ -23,9 +24,9 @@ public class UserApi implements IUserApi {
 
     @Override
     @GetMapping("/api/user-info")
-    public ApiResult<User> userInfo(String account) {
+    public ApiResult<User> loadUserByUserName(String userName) {
         User user = new User();
-        user.setAccount(account);
+        user.setAccount(userName);
         return ApiResult.data(userService.getOne(new QueryWrapper<>(user)));
     }
 }
