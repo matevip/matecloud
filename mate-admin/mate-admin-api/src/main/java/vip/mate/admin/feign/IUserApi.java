@@ -7,7 +7,8 @@ import vip.mate.admin.entity.User;
 import vip.mate.common.api.ApiResult;
 
 @FeignClient(
-    value = "mate-admin"
+    value = "mate-admin",
+    fallback = UserApiFallback.class
 )
 public interface IUserApi {
 
