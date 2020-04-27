@@ -19,7 +19,7 @@ public class MateWebRespExceptionTranslator implements WebResponseExceptionTrans
 
     @Override
     public ResponseEntity translate(Exception e) throws Exception {
-        ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.OK);
+        ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.UNAUTHORIZED);
         String message = "认证失败";
 
         log.error(message, e);
