@@ -30,7 +30,7 @@ import java.util.Map;
 @Slf4j
 @Configuration
 @AllArgsConstructor
-public class LogGlobalFilter implements GlobalFilter, Ordered {
+public class LogRequestGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         //获取数据类型
@@ -54,10 +54,8 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
                     // .log("modify_request_mono", Level.INFO)
                     .flatMap(body -> {
                         recordLog(exchange.getRequest(), body);
-
                         return Mono.just(body);
                     });
-
             return getVoidMono(exchange, chain, String.class, modifiedBody);
         }
         // TODO 这里未来还可以限制一些格式
