@@ -3,6 +3,7 @@ package vip.mate.admin.feign;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.admin.entity.User;
@@ -12,6 +13,7 @@ import vip.mate.common.api.ApiResult;
 @Slf4j
 @RestController
 @AllArgsConstructor
+//@Service(interfaceClass = IUserApi.class)
 public class UserApi implements IUserApi {
 
     private final IUserService userService;

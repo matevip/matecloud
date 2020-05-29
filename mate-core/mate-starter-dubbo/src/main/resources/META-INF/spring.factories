@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  vip.mate.dubbo.config.SpringCloudAlibabaDubboAutoConfiguration
+

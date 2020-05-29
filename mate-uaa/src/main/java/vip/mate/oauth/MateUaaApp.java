@@ -27,7 +27,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2019-10-09 15:06
  **/
 @SpringBootApplication(scanBasePackages = "vip.mate.*")
-@EnableFeignClients(basePackages = "vip.mate.*")
+@EnableFeignClients(basePackages = "vip.mate.*.feign")
 public class MateUaaApp {
     public static void main(String[] args) {
         SpringApplication.run(MateUaaApp.class, args);

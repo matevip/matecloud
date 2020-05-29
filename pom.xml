@@ -20,8 +20,6 @@
         <module>mate-uaa</module>
         <module>mate-support</module>
         <module>mate-admin</module>
-        <module>mate-rd</module>
-        <module>mate-op</module>
     </modules>
 
     <properties>
@@ -29,7 +27,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <spring.boot.version>2.2.6.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.7.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR3</spring.cloud.version>
         <alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
 
@@ -47,6 +45,8 @@
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
         <druid.version>1.1.21</druid.version>
         <mybatis.plus.version>3.3.1</mybatis.plus.version>
+        <!-- Apache Dubbo -->
+        <dubbo.version>2.7.6</dubbo.version>
     </properties>
 
     <dependencyManagement>
@@ -71,6 +71,20 @@
                 <version>${alibaba.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- Dubbo Dependencies -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-dependencies-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-framework-bom</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- Druid -->
             <dependency>
@@ -100,6 +114,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

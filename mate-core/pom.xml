@@ -15,6 +15,7 @@
         <module>mate-starter-common</module>
         <module>mate-starter-security</module>
         <module>mate-starter-bom</module>
+        <module>mate-starter-dubbo</module>
     </modules>
 
     <properties>
