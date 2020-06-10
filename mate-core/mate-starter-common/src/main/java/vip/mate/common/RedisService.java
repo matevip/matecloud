@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class RedisService {
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 指定缓存失效时间

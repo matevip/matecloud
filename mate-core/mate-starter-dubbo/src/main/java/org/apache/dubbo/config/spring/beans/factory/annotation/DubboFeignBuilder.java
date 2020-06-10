@@ -32,9 +32,6 @@ public class DubboFeignBuilder extends Feign.Builder {
 
     @Override
     public <T> T target(Target<T> target) {
-//        ReferenceBeanBuilder beanBuilder = ReferenceBeanBuilder
-//                .create(defaultReference, target.getClass().getClassLoader(), applicationContext)
-//                .interfaceClass(target.type());
         ReferenceBeanBuilder beanBuilder = ReferenceBeanBuilder.create(fromMap(getAttributes(defaultReference,
                 applicationContext.getEnvironment(), true)), applicationContext).interfaceClass(target.type());
         try {

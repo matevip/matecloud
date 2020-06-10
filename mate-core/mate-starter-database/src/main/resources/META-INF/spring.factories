@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  vip.mate.database.config.DatabaseConfiguration,\
+  vip.mate.database.config.MybatisPlusConfiguration
+
+

@@ -12,7 +12,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients(basePackages = "vip.mate.*")
 @SpringBootApplication
-@MapperScan({"vip.mate.admin.mapper"})
 public class MateAdminApp {
     public static void main(String[] args) {
         SpringApplication.run(MateAdminApp.class, args);
