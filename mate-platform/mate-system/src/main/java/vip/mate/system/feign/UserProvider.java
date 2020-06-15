@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vip.mate.core.common.api.ApiResult;
+import vip.mate.core.common.api.Result;
 import vip.mate.system.entity.User;
 import vip.mate.system.service.IUserService;
 
@@ -19,16 +19,16 @@ public class UserProvider implements IUserProvider {
 
     @Override
     @GetMapping("/provider/user-info-by-id")
-    public ApiResult<User> userInfoById(Long userId) {
+    public Result<User> userInfoById(Long userId) {
         User user = userService.getById(userId);
-        return ApiResult.data(user);
+        return Result.data(user);
     }
 
     @Override
     @GetMapping("/provider/user-info")
-    public ApiResult<User> loadUserByUserName(String userName) {
+    public Result<User> loadUserByUserName(String userName) {
         User user = userService.getOne(new QueryWrapper<User>().lambda().in(User::getAccount, userName));
         log.info("feign调用：user:{}", user);
-        return ApiResult.data(user);
+        return Result.data(user);
     }
 }

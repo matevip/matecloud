@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.common.exceptions.InvalidTokenExcepti
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.stereotype.Component;
-import vip.mate.core.common.api.ApiResult;
+import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 
 @Slf4j
@@ -56,8 +56,8 @@ public class MateWebRespExceptionTranslator implements WebResponseExceptionTrans
         return status.body(apiResult(message));
     }
 
-    private ApiResult apiResult (String message){
-        return ApiResult.data(ResultCode.ERROR, message);
+    private Result apiResult (String message){
+        return Result.data(ResultCode.ERROR, message);
     }
 
 

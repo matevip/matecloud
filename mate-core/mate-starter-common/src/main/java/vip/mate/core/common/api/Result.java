@@ -14,7 +14,7 @@ import java.time.ZonedDateTime;
 @Data
 @Getter
 @ApiModel(value = "统一响应消息报文")
-public class ApiResult<T> implements Serializable {
+public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,27 +31,27 @@ public class ApiResult<T> implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
-    private ApiResult() {
+    private Result() {
         this.time = ZonedDateTime.now().toInstant();
     }
 
-    private ApiResult (IResultCode resultCode) {
+    private Result(IResultCode resultCode) {
         this(resultCode, null, resultCode.getMsg());
     }
 
-    private ApiResult (IResultCode resultCode, String msg) {
+    private Result(IResultCode resultCode, String msg) {
         this(resultCode, null, msg);
     }
 
-    private ApiResult (IResultCode resultCode, T data) {
+    private Result(IResultCode resultCode, T data) {
         this(resultCode, data, resultCode.getMsg());
     }
 
-    private ApiResult (IResultCode resultCode, T data, String msg) {
+    private Result(IResultCode resultCode, T data, String msg) {
         this(resultCode.getCode(), data, msg);
     }
 
-    private ApiResult (String code, T data, String msg) {
+    private Result(String code, T data, String msg) {
         this.code = code;
         this.data = data;
         this.msg = msg;
@@ -64,51 +64,51 @@ public class ApiResult<T> implements Serializable {
      * @param <T> 泛型标识
      * @return ApiResult
      */
-    public static <T> ApiResult<T> success (IResultCode resultCode) {
-        return new ApiResult<>(resultCode);
+    public static <T> Result<T> success (IResultCode resultCode) {
+        return new Result<>(resultCode);
     }
 
-    public static <T> ApiResult<T> success(String msg) {
-        return new ApiResult<>(ResultCode.SUCCESS, msg);
+    public static <T> Result<T> success(String msg) {
+        return new Result<>(ResultCode.SUCCESS, msg);
     }
 
-    public static <T> ApiResult<T> success(IResultCode resultCode, String msg) {
-        return new ApiResult<>(resultCode, msg);
+    public static <T> Result<T> success(IResultCode resultCode, String msg) {
+        return new Result<>(resultCode, msg);
     }
 
-    public static <T> ApiResult<T> data(T data) {
+    public static <T> Result<T> data(T data) {
         return data(data, MateConstant.DEFAULT_SUCCESS_MESSAGE);
     }
 
-    public static <T> ApiResult<T> data(T data, String msg) {
+    public static <T> Result<T> data(T data, String msg) {
         return data(ResultCode.SUCCESS.code, data, msg);
     }
 
-    public static <T> ApiResult<T> data(String code, T data, String msg) {
-        return new ApiResult<>(code, data, data == null ? MateConstant.DEFAULT_NULL_MESSAGE : msg);
+    public static <T> Result<T> data(String code, T data, String msg) {
+        return new Result<>(code, data, data == null ? MateConstant.DEFAULT_NULL_MESSAGE : msg);
     }
 
-    public static <T> ApiResult<T> fail() {
-        return new ApiResult<>(ResultCode.FAILURE, ResultCode.FAILURE.getMsg());
+    public static <T> Result<T> fail() {
+        return new Result<>(ResultCode.FAILURE, ResultCode.FAILURE.getMsg());
     }
 
-    public static <T> ApiResult<T> fail(String msg) {
-        return new ApiResult<>(ResultCode.FAILURE, msg);
+    public static <T> Result<T> fail(String msg) {
+        return new Result<>(ResultCode.FAILURE, msg);
     }
 
-    public static <T> ApiResult<T> fail(String code, String msg) {
-        return new ApiResult<>(code, null, msg);
+    public static <T> Result<T> fail(String code, String msg) {
+        return new Result<>(code, null, msg);
     }
 
-    public static <T> ApiResult<T> fail(IResultCode resultCode) {
-        return new ApiResult<>(resultCode);
+    public static <T> Result<T> fail(IResultCode resultCode) {
+        return new Result<>(resultCode);
     }
 
-    public static <T> ApiResult<T> fail(IResultCode resultCode, String msg) {
-        return new ApiResult<>(resultCode, msg);
+    public static <T> Result<T> fail(IResultCode resultCode, String msg) {
+        return new Result<>(resultCode, msg);
     }
 
-    public static <T> ApiResult<T> status(boolean flag) {
+    public static <T> Result<T> status(boolean flag) {
         return flag ? success(MateConstant.DEFAULT_SUCCESS_MESSAGE) : fail(MateConstant.DEFAULT_FAIL_MESSAGE);
     }
 }

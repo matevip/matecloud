@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vip.mate.core.common.api.ApiResult;
-import vip.mate.core.common.controller.MateController;
+import vip.mate.core.common.api.Result;
+import vip.mate.core.web.controller.BaseController;
 import vip.mate.system.entity.User;
 import vip.mate.system.service.IUserService;
 
@@ -22,13 +22,13 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/user")
-public class UserController extends MateController {
+public class UserController extends BaseController {
 
     private final IUserService userService;
 
     @GetMapping("/test")
-    public ApiResult<List<User>> test(){
-        return ApiResult.data(userService.list());
+    public Result<List<User>> test(){
+        return Result.data(userService.list());
     }
 
 }

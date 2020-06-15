@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
-import vip.mate.core.common.api.ApiResult;
+import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 
 
@@ -17,46 +17,46 @@ import vip.mate.core.common.api.ResultCode;
 @Component
 public class ExceptionHandlerAdvice {
     @ExceptionHandler(value = {ResponseStatusException.class})
-    public ApiResult handle(ResponseStatusException ex) {
+    public Result handle(ResponseStatusException ex) {
         log.error("response status exception:{}", ex.getMessage());
         if (StringUtils.contains(ex.getMessage(), HttpStatus.NOT_FOUND.toString())){
-            return ApiResult.fail(ResultCode.NOT_FOUND, ex.getMessage());
+            return Result.fail(ResultCode.NOT_FOUND, ex.getMessage());
         } else {
-            return ApiResult.fail(ResultCode.ERROR);
+            return Result.fail(ResultCode.ERROR);
         }
     }
 
     @ExceptionHandler(value = {ConnectTimeoutException.class})
-    public ApiResult handle(ConnectTimeoutException ex) {
+    public Result handle(ConnectTimeoutException ex) {
         log.error("connect timeout exception:{}", ex.getMessage());
-        return ApiResult.fail(ResultCode.ERROR);
+        return Result.fail(ResultCode.ERROR);
     }
 
     @ExceptionHandler(value = {NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiResult handle(NotFoundException ex) {
+    public Result handle(NotFoundException ex) {
         log.error("not found exception:{}", ex.getMessage());
-        return ApiResult.fail(ResultCode.NOT_FOUND);
+        return Result.fail(ResultCode.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {RuntimeException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiResult handle(RuntimeException ex) {
+    public Result handle(RuntimeException ex) {
         log.error("runtime exception:{}", ex.getMessage());
-        return ApiResult.fail();
+        return Result.fail();
     }
 
     @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiResult handle(Exception ex) {
+    public Result handle(Exception ex) {
         log.error("exception:{}", ex.getMessage());
-        return ApiResult.fail();
+        return Result.fail();
     }
 
     @ExceptionHandler(value = {Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiResult handle(Throwable throwable) {
-        ApiResult result = ApiResult.fail();
+    public Result handle(Throwable throwable) {
+        Result result = Result.fail();
         if (throwable instanceof ResponseStatusException) {
             result = handle((ResponseStatusException) throwable);
         } else if (throwable instanceof ConnectTimeoutException) {

@@ -75,6 +75,11 @@
             </dependency>
             <dependency>
                 <groupId>vip.mate</groupId>
+                <artifactId>mate-starter-feign</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vip.mate</groupId>
                 <artifactId>mate-starter-web</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
