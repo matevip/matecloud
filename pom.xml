@@ -19,7 +19,7 @@
         <module>mate-gateway</module>
         <module>mate-uaa</module>
         <module>mate-support</module>
-        <module>mate-admin</module>
+        <module>mate-platform</module>
     </modules>
 
     <properties>
@@ -43,7 +43,7 @@
         <dependencies>
             <dependency>
                 <groupId>vip.mate</groupId>
-                <artifactId>mate-starter-pom</artifactId>
+                <artifactId>mate-starter-dependencies</artifactId>
                 <version>${matecloud.core.version}</version>
                 <type>pom</type>
                 <scope>import</scope>

@@ -14,7 +14,7 @@
     <modules>
         <module>mate-starter-common</module>
         <module>mate-starter-security</module>
-        <module>mate-starter-bom</module>
+        <module>mate-starter-dependencies</module>
         <module>mate-starter-dubbo</module>
         <module>mate-starter-database</module>
         <module>mate-starter-web</module>
@@ -31,7 +31,7 @@
         <dependencies>
             <dependency>
                 <groupId>vip.mate</groupId>
-                <artifactId>mate-starter-pom</artifactId>
+                <artifactId>mate-starter-dependencies</artifactId>
                 <version>${matecloud.core.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -58,14 +58,5 @@
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
     </dependencies>
-
-
-
-
 </project>

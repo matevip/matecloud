@@ -26,4 +26,4 @@ dubbo:
 
 provider:
   application:
-    name: mate-admin
+    name: mate-system

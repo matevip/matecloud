@@ -3,30 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>matecloud</artifactId>
+        <artifactId>mate-platform</artifactId>
         <groupId>vip.mate</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mate-uaa</artifactId>
+    <artifactId>mate-system</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-security</artifactId>
-        </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-system-api</artifactId>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-dubbo</artifactId>
+            <artifactId>mate-starter-common</artifactId>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
@@ -34,7 +26,17 @@
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
+            <artifactId>mate-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-dubbo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
             <artifactId>mate-starter-database</artifactId>
         </dependency>
     </dependencies>
+
+
 </project>
