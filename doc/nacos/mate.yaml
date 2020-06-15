@@ -17,6 +17,8 @@ spring:
       log-condition-evaluation-delta: false
     livereload:
       port: 23333
+  main:
+    allow-bean-definition-overriding: true
 
 #feign配置
 feign:

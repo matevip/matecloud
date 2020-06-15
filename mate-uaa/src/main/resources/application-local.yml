@@ -8,8 +8,6 @@ spring:
     url: ${mate.datasource.url}
     username: ${mate.datasource.username}
     password: ${mate.datasource.password}
-  main:
-    allow-bean-definition-overriding: true
 
 dubbo:
   registry:
@@ -23,7 +21,6 @@ dubbo:
   cloud:
     # The subscribed services in consumer side
     subscribed-services: ${provider.application.name}
-
   consumer:
     check: false
 
