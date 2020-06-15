@@ -15,7 +15,6 @@
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--Mybatis-->
         <dependency>

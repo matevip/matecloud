@@ -23,13 +23,10 @@
     </modules>
 
     <properties>
+        <matecloud.core.version>1.0-SNAPSHOT</matecloud.core.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <spring.boot.version>2.2.7.RELEASE</spring.boot.version>
-        <spring.cloud.version>Hoxton.SR3</spring.cloud.version>
-        <alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
 
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
@@ -40,85 +37,16 @@
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-dockerfile-plugin.version>1.4.10</maven-dockerfile-plugin.version>
 
-        <mysql.connector.version>8.0.17</mysql.connector.version>
-        <oracle.connector.version>12.2.0.1</oracle.connector.version>
-        <postgresql.connector.version>42.2.6</postgresql.connector.version>
-        <druid.version>1.1.21</druid.version>
-        <mybatis.plus.version>3.3.1</mybatis.plus.version>
-        <!-- Apache Dubbo -->
-        <dubbo.version>2.7.6</dubbo.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <groupId>vip.mate</groupId>
+                <artifactId>mate-starter-pom</artifactId>
+                <version>${matecloud.core.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${alibaba.cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- Dubbo Dependencies -->
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-dependencies-bom</artifactId>
-                <version>${dubbo.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-framework-bom</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <!-- Druid -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
-            <!-- MySql -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.connector.version}</version>
-            </dependency>
-            <!-- Oracle -->
-            <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc7</artifactId>
-                <version>${oracle.connector.version}</version>
-            </dependency>
-            <!-- PostgreSql -->
-            <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>${postgresql.connector.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis.plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo</artifactId>
-                <version>${dubbo.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

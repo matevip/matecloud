@@ -19,18 +19,19 @@
     <dependencies>
         <dependency>
             <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
             <artifactId>mate-config</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dubbo</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-database</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--web 模块-->
         <dependency>
@@ -55,7 +56,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>2.2.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -67,6 +67,4 @@
             <artifactId>spring-cloud-starter-dubbo</artifactId>
         </dependency>
     </dependencies>
-
-
 </project>
