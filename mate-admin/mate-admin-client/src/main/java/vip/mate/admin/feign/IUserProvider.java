@@ -7,14 +7,14 @@ import vip.mate.admin.entity.User;
 import vip.mate.core.common.api.ApiResult;
 
 @FeignClient(
-    value = "mate-admin1",
-    fallback = UserApiFallback.class
+    value = "mate-admin",
+    fallback = UserProviderFallback.class
 )
-public interface IUserApi {
+public interface IUserProvider {
 
-    @GetMapping("/api/user-info-by-id")
+    @GetMapping("/provider/user-info-by-id")
     ApiResult<User> userInfoById(@RequestParam("userId") Long userId);
 
-    @GetMapping("/api/user-info")
+    @GetMapping("/provider/user-info")
     ApiResult<User> loadUserByUserName(@RequestParam("userName") String userName);
 }

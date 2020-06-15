@@ -13,19 +13,19 @@ import vip.mate.core.common.api.ApiResult;
 @RestController
 @AllArgsConstructor
 //@Service(interfaceClass = IUserApi.class)
-public class UserApi implements IUserApi {
+public class UserProvider implements IUserProvider {
 
     private final IUserService userService;
 
     @Override
-    @GetMapping("/api/user-info-by-id")
+    @GetMapping("/provider/user-info-by-id")
     public ApiResult<User> userInfoById(Long userId) {
         User user = userService.getById(userId);
         return ApiResult.data(user);
     }
 
     @Override
-    @GetMapping("/api/user-info")
+    @GetMapping("/provider/user-info")
     public ApiResult<User> loadUserByUserName(String userName) {
         User user = userService.getOne(new QueryWrapper<User>().lambda().in(User::getAccount, userName));
         log.info("feign调用：user:{}", user);

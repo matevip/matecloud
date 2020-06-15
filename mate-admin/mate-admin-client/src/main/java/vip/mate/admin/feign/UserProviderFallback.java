@@ -7,7 +7,7 @@ import vip.mate.core.common.api.ApiResult;
 
 @Slf4j
 @Fallback
-public class UserApiFallback implements IUserApi {
+public class UserProviderFallback implements IUserProvider {
 
     @Override
     public ApiResult<User> userInfoById(Long userId) {
