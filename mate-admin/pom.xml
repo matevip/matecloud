@@ -12,14 +12,18 @@
     <artifactId>mate-admin</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>mate-admin-api</module>
-        <module>mate-admin-app</module>
+        <module>mate-admin-client</module>
+        <module>mate-admin-server</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
@@ -33,38 +37,6 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-database</artifactId>
         </dependency>
-        <!--web 模块-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--undertow容器-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- Dubbo -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-dubbo</artifactId>
-        </dependency>
+
     </dependencies>
 </project>

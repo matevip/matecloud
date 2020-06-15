@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-admin-api</artifactId>
+            <artifactId>mate-admin-client</artifactId>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>

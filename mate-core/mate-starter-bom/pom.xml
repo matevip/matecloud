@@ -75,6 +75,11 @@
             </dependency>
             <dependency>
                 <groupId>vip.mate</groupId>
+                <artifactId>mate-starter-web</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vip.mate</groupId>
                 <artifactId>mate-starter-pom</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
@@ -86,7 +91,7 @@
 
             <dependency>
                 <groupId>vip.mate</groupId>
-                <artifactId>mate-admin-api</artifactId>
+                <artifactId>mate-admin-client</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <!-- 微服务基础包 -->

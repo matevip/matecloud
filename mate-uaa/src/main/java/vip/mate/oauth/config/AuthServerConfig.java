@@ -29,7 +29,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import vip.mate.common.constant.Oauth2Constant;
+import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.oauth.service.ClientDetailsServiceImpl;
 
 import javax.annotation.Resource;

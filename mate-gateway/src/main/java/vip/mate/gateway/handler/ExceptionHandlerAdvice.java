@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
-import vip.mate.common.api.ApiResult;
-import vip.mate.common.api.ResultCode;
+import vip.mate.core.common.api.ApiResult;
+import vip.mate.core.common.api.ResultCode;
 
 
 @Slf4j
