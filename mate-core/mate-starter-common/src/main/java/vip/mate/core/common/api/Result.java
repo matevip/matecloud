@@ -19,7 +19,7 @@ public class Result<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "状态码", required = true)
-    private String code;
+    private int code;
 
     @ApiModelProperty(value = "消息内容", required = true)
     private String msg;
@@ -51,7 +51,7 @@ public class Result<T> implements Serializable {
         this(resultCode.getCode(), data, msg);
     }
 
-    private Result(String code, T data, String msg) {
+    private Result(int code, T data, String msg) {
         this.code = code;
         this.data = data;
         this.msg = msg;
@@ -84,7 +84,7 @@ public class Result<T> implements Serializable {
         return data(ResultCode.SUCCESS.code, data, msg);
     }
 
-    public static <T> Result<T> data(String code, T data, String msg) {
+    public static <T> Result<T> data(int code, T data, String msg) {
         return new Result<>(code, data, data == null ? MateConstant.DEFAULT_NULL_MESSAGE : msg);
     }
 
@@ -96,7 +96,7 @@ public class Result<T> implements Serializable {
         return new Result<>(ResultCode.FAILURE, msg);
     }
 
-    public static <T> Result<T> fail(String code, String msg) {
+    public static <T> Result<T> fail(int code, String msg) {
         return new Result<>(code, null, msg);
     }
 

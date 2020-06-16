@@ -208,6 +208,7 @@
                 <artifactId>jakarta.validation-api</artifactId>
                 <version>${jakarta.validation-api.version}</version>
             </dependency>
+            
         </dependencies>
     </dependencyManagement>
 
