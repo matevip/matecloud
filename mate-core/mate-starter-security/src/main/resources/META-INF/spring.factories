@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  vip.mate.core.security.config.IgnoreUrlPropsConfig
+
+
+

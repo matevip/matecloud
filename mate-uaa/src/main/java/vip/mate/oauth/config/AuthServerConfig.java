@@ -22,17 +22,31 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import vip.mate.core.common.constant.Oauth2Constant;
-import vip.mate.oauth.service.ClientDetailsServiceImpl;
+import vip.mate.core.security.userdetails.MateUser;
+import vip.mate.oauth.service.impl.ClientDetailsServiceImpl;
+import vip.mate.oauth.service.impl.UserDetailsServiceImpl;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 认证服务器配置中心
@@ -46,16 +60,13 @@ import javax.annotation.Resource;
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private ClientDetailsServiceImpl clientService;
+    private final ClientDetailsServiceImpl clientService;
 
-    private RedisConnectionFactory redisConnectionFactory;
+    private final RedisConnectionFactory redisConnectionFactory;
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    private WebResponseExceptionTranslator webResponseExceptionTranslator;
-
-    @Resource
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     /**
      * 配置token存储到redis中
@@ -67,11 +78,17 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        // token增强链
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        // 把jwt增强，与额外信息增强加入到增强链
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
         endpoints
                 .authenticationManager(authenticationManager)
                 .tokenStore(redisTokenStore())
+                .tokenEnhancer(tokenEnhancerChain)
+                .accessTokenConverter(jwtAccessTokenConverter())
                 .userDetailsService(userDetailsService)
-                .exceptionTranslator(webResponseExceptionTranslator);
+                .reuseRefreshTokens(false);
     }
 
     @Override
@@ -90,5 +107,38 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         clientService.setSelectClientDetailsSql(Oauth2Constant.SELECT_CLIENT_DETAIL_SQL);
         clientService.setFindClientDetailsSql(Oauth2Constant.FIND_CLIENT_DETAIL_SQL);
         clients.withClientDetails(clientService);
+    }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey("MATE");
+        return jwtAccessTokenConverter;
+    }
+
+    /**
+     * jwt token增强，添加额外信息
+     * @return
+     */
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return new TokenEnhancer() {
+            @Override
+            public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
+
+                // 添加额外信息的map
+                final Map<String, Object> additionMessage = new HashMap<>(2);
+                // 获取当前登录的用户
+                MateUser user = (MateUser) oAuth2Authentication.getUserAuthentication().getPrincipal();
+
+                // 如果用户不为空 则把id放入jwt token中
+                if (user != null) {
+                    additionMessage.put("userId", user.getId());
+                    additionMessage.put("userName", user.getUsername());
+                }
+                ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(additionMessage);
+                return oAuth2AccessToken;
+            }
+        };
     }
 }

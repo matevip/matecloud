@@ -48,6 +48,7 @@
 
         <!-- Apache Dubbo -->
         <dubbo.version>2.7.6</dubbo.version>
+        <fastjson.version>1.2.71</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -208,7 +209,11 @@
                 <artifactId>jakarta.validation-api</artifactId>
                 <version>${jakarta.validation-api.version}</version>
             </dependency>
-            
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

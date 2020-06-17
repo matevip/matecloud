@@ -41,6 +41,50 @@ public class Oauth2Constant {
     public static final String OAUTH_ERROR = "/oauth/error";
 
     /**
+     * 验证码 key
+     */
+    public static final String VALIDATE_CODE_KEY = "key";
+    /**
+     * 验证码 code
+     */
+    public static final String VALIDATE_CODE_CODE = "code";
+    /**
+     * 认证类型参数 key
+     */
+    public static final String GRANT_TYPE = "grant_type";
+    /**
+     * 登录类型
+     */
+    public static final String LOGIN_TYPE = "login_type";
+
+    /**
+     * 刷新模式
+     */
+    public static final String REFRESH_TOKEN = "refresh_token";
+    /**
+     * 授权码模式
+     */
+    public static final String AUTHORIZATION_CODE = "authorization_code";
+    /**
+     * 客户端模式
+     */
+    public static final String CLIENT_CREDENTIALS = "client_credentials";
+    /**
+     * 密码模式
+     */
+    public static final String PASSWORD = "password";
+    /**
+     * 简化模式
+     */
+    public static final String IMPLICIT = "implicit";
+
+    public static final String CAPTCHA_KEY = "mate.captcha.";
+
+    public static final String CAPTCHA_HEADER_KEY = "key";
+
+    public static final String CAPTCHA_HEADER_CODE = "code";
+
+    /**
      * 自定义client表名
      */
     public static final String CLIENT_TABLE = "mate_client";

@@ -24,10 +24,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import vip.mate.oauth.service.UserDetailsServiceImpl;
+import vip.mate.core.security.config.IgnoreUrlPropsConfig;
+import vip.mate.oauth.service.impl.UserDetailsServiceImpl;
 
 /**
  * 安全配置中心
@@ -38,6 +40,8 @@ import vip.mate.oauth.service.UserDetailsServiceImpl;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final IgnoreUrlPropsConfig ignoreUrlPropsConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -63,7 +67,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and().csrf().disable();
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config
+                = http.requestMatchers().anyRequest()
+                .and()
+                .authorizeRequests();
+        ignoreUrlPropsConfig.getUrls().forEach(e -> {
+            config.antMatchers(e).permitAll();
+        });
+        config
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().disable();
     }
 
     @Override
