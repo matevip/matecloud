@@ -135,6 +135,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 if (user != null) {
                     additionMessage.put("userId", user.getId());
                     additionMessage.put("userName", user.getUsername());
+                    additionMessage.put("avatar", user.getAvatar());
+
                 }
                 ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(additionMessage);
                 return oAuth2AccessToken;

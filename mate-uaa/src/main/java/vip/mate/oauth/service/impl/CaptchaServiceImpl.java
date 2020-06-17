@@ -1,6 +1,6 @@
 package vip.mate.oauth.service.impl;
 
-import com.wf.captcha.ArithmeticCaptcha;
+import com.wf.captcha.SpecCaptcha;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -28,12 +28,8 @@ public class CaptchaServiceImpl implements CaptchaService {
 
         Map<String, String> data = new HashMap<>();
         String uuid = UUID.randomUUID().toString().replace("-","");
-        ArithmeticCaptcha captcha = new ArithmeticCaptcha(100, 48);
-        captcha.setLen(3);  // 几位数运算，默认是两位
-        // 获取运算的公式：3+2=?
-        log.debug("运算公式：" + captcha.getArithmeticString());
+        SpecCaptcha captcha = new SpecCaptcha(130, 48);
         String text = captcha.text();// 获取运算的结果：5
-        log.debug("运算结果：" + text);
         stringRedisTemplate.opsForValue().set(Oauth2Constant.CAPTCHA_KEY + uuid, text, Duration.ofMinutes(30));
         data.put("key", uuid);
         data.put("codeUrl", captcha.toBase64());

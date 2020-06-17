@@ -32,9 +32,9 @@ public class MateResponseBodyAdvice implements ResponseBodyAdvice {
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         log.info("请求返回数据类型class="+ body.getClass().getName());
         if (body.toString().contains("error") && body.toString().contains("Unauthorized")){
-            return Result.data(401, body, "未鉴权");
+            return Result.data(4001, body, "未鉴权");
         }else if (body.toString().contains("error")){
-            return Result.data(10001, body, "未鉴权");
+            return Result.data(5000, body, "密码不正确");
         }
         if (log.isDebugEnabled()) {
             log.debug("请求返回数据body=     " + body.toString());
