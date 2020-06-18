@@ -19,6 +19,7 @@
         <module>mate-starter-database</module>
         <module>mate-starter-web</module>
         <module>mate-starter-feign</module>
+        <module>mate-starter-auth</module>
     </modules>
 
     <properties>

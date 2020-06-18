@@ -78,11 +78,15 @@ public class Oauth2Constant {
      */
     public static final String IMPLICIT = "implicit";
 
+    public static final String SIGN_KEY = "MATE";
+
     public static final String CAPTCHA_KEY = "mate.captcha.";
 
     public static final String CAPTCHA_HEADER_KEY = "key";
 
     public static final String CAPTCHA_HEADER_CODE = "code";
+
+    public static final String HEADER_TOKEN = "Mate-Auth";
 
     /**
      * 自定义client表名

@@ -1,7 +1,7 @@
 package vip.mate.system.service;
 
+import vip.mate.system.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
-import vip.mate.system.entity.User;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import vip.mate.system.entity.User;
  * </p>
  *
  * @author xuzf
- * @since 2020-04-21
+ * @since 2020-06-18
  */
-public interface IUserService extends IService<User> {
+public interface ISysUserService extends IService<SysUser> {
 
 }

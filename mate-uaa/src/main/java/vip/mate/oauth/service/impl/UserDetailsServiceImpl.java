@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vip.mate.core.security.userdetails.MateUser;
-import vip.mate.system.entity.User;
-import vip.mate.system.feign.IUserProvider;
+import vip.mate.system.entity.SysUser;
+import vip.mate.system.feign.ISysUserProvider;
 
 import javax.annotation.Resource;
 
@@ -17,12 +17,12 @@ import javax.annotation.Resource;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
-    private IUserProvider userProvider;
+    private ISysUserProvider sysUserProvider;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        User user = userProvider.loadUserByUserName(userName).getData();
+        SysUser user = sysUserProvider.loadUserByUserName(userName).getData();
         log.info("用户名：{}", userName);
         return new MateUser(user.getId(), user.getDeptId(), user.getTelephone(), user.getAvatar(),
                 user.getTenantId(), user.getAccount(), user.getPassword(), user.getStatus(),

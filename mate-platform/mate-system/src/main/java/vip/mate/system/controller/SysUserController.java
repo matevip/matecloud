@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.web.controller.BaseController;
-import vip.mate.system.entity.User;
-import vip.mate.system.service.IUserService;
+import vip.mate.system.entity.SysUser;
+import vip.mate.system.service.ISysUserService;
 
 import java.util.List;
+
 
 /**
  * <p>
@@ -17,18 +18,18 @@ import java.util.List;
  * </p>
  *
  * @author xuzf
- * @since 2020-04-21
+ * @since 2020-06-18
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/user")
-public class UserController extends BaseController {
+@RequestMapping("/sys-user")
+public class SysUserController extends BaseController {
 
-    private final IUserService userService;
+    private final ISysUserService sysUserService;
 
     @GetMapping("/test")
-    public Result<List<User>> test(){
-        return Result.data(userService.list());
+    public Result<List<SysUser>> test() {
+        return Result.data(sysUserService.list());
     }
 
 }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.common.util.TokenUtil;
 import vip.mate.oauth.service.CaptchaService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @AllArgsConstructor
 public class AuthController {
-
-    public static String BEARER = "bearer";
-    public static Integer AUTH_LENGTH = 7;
 
     @Qualifier("consumerTokenServices")
     private final ConsumerTokenServices consumerTokenServices;
@@ -39,25 +38,8 @@ public class AuthController {
 
     @PostMapping("/auth/logout")
     public Result<?> logout(HttpServletRequest request) {
-        String headerToken = request.getHeader("Mate-Auth");
-        boolean revokeToken = consumerTokenServices.revokeToken(getToken(headerToken));
+        String headerToken = request.getHeader(Oauth2Constant.HEADER_TOKEN);
+        consumerTokenServices.revokeToken(TokenUtil.getToken(headerToken));
         return Result.success("操作成功");
-    }
-
-    /**
-     * 获取token串
-     *
-     * @param auth token
-     * @return String
-     */
-    public static String getToken(String auth) {
-        if ((auth != null) && (auth.length() > AUTH_LENGTH)) {
-            String headStr = auth.substring(0, 6).toLowerCase();
-            if (headStr.compareTo(BEARER) == 0) {
-                auth = auth.substring(7);
-            }
-            return auth;
-        }
-        return null;
     }
 }

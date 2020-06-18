@@ -117,11 +117,11 @@ public class ManualGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("vip.mate.common.entity.MateEntity");
+        strategy.setSuperEntityClass("vip.mate.core.common.entity.MateEntity");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         // 公共父类
-        strategy.setSuperControllerClass("vip.mate.common.controller.MateController");
+        strategy.setSuperControllerClass("vip.mate.core.web.controller.BaseController");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));

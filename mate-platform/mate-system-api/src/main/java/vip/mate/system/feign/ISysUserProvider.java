@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.feign.constant.FeignConstant;
-import vip.mate.system.entity.User;
+import vip.mate.system.entity.SysUser;
 
 @FeignClient(
     value = FeignConstant.MATE_CLOUD_SYSTEM
 )
-public interface IUserProvider {
+public interface ISysUserProvider {
 
     @GetMapping("/provider/user-info-by-id")
-    Result<User> userInfoById(@RequestParam("userId") Long userId);
+    Result<SysUser> userInfoById(@RequestParam("userId") Long userId);
 
     @GetMapping("/provider/user-info")
-    Result<User> loadUserByUserName(@RequestParam("userName") String userName);
+    Result<SysUser> loadUserByUserName(@RequestParam("userName") String userName);
 }

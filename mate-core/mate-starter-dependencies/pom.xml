@@ -86,6 +86,11 @@
             </dependency>
             <dependency>
                 <groupId>vip.mate</groupId>
+                <artifactId>mate-starter-auth</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>vip.mate</groupId>
                 <artifactId>mate-starter-dependencies</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>

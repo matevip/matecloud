@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.code.entity.DataSource;
 import vip.mate.code.service.IDataSourceService;
-import vip.mate.common.api.ApiResult;
-import vip.mate.common.controller.MateController;
+import vip.mate.core.common.api.Result;
+import vip.mate.core.web.controller.BaseController;
 
 import java.util.List;
 
@@ -28,16 +28,16 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/data-source")
 @Api(value = "数据源", tags = {"数据源模块"})
-public class DataSourceController extends MateController {
+public class DataSourceController extends BaseController {
 
     private final IDataSourceService dataSourceService;
 
     @GetMapping("list")
     @ApiOperationSupport(order = 1)
     @ApiOperation(value = "列表", notes = "查询列表")
-    public ApiResult<List<DataSource>> list (DataSource dataSource) {
+    public Result<List<DataSource>> list (DataSource dataSource) {
         List<DataSource> list = dataSourceService.list();
-        return ApiResult.data(list);
+        return Result.data(list);
     }
 
 

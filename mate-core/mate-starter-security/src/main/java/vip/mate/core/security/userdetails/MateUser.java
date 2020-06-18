@@ -8,7 +8,6 @@ import java.util.Collection;
 
 public class MateUser extends User {
 
-
     private static final long serialVersionUID = -5768257947433986L;
 
     /**
@@ -20,7 +19,7 @@ public class MateUser extends User {
      * 部门ID
      */
     @Getter
-    private String deptId;
+    private Long deptId;
 
     /**
      * 手机号
@@ -40,7 +39,7 @@ public class MateUser extends User {
     @Getter
     private String tenantId;
 
-    public MateUser(Long id, String deptId, String phone, String avatar, String tenantId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public MateUser(Long id, Long deptId, String phone, String avatar, String tenantId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.id = id;
         this.deptId = deptId;

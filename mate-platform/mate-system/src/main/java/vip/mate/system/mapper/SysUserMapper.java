@@ -1,7 +1,7 @@
 package vip.mate.system.mapper;
 
+import vip.mate.system.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import vip.mate.system.entity.User;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import vip.mate.system.entity.User;
  * </p>
  *
  * @author xuzf
- * @since 2020-04-21
+ * @since 2020-06-18
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
 }

@@ -20,8 +20,6 @@ public class MateResponseBodyAdvice implements ResponseBodyAdvice {
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
         //此处返回true,表示对任何handler的responsebody都调用beforeBodyWrite方法，如果有特殊方法不使用可以考虑使用注解等方式过滤
-        RequestMatcher matcher = new AntPathRequestMatcher(Oauth2Constant.OAUTH_TOKEN, HttpMethod.POST.toString());
-        log.error("getTypeName():{}", methodParameter.getGenericParameterType().getTypeName());
         if(methodParameter.getGenericParameterType().getTypeName().contains("Result")){
             return false;
         }
@@ -37,7 +35,7 @@ public class MateResponseBodyAdvice implements ResponseBodyAdvice {
             return Result.data(5000, body, "密码不正确");
         }
         if (log.isDebugEnabled()) {
-            log.debug("请求返回数据body=     " + body.toString());
+            log.debug("请求返回数据body=" + body.toString());
         }
         return Result.data(body);
     }

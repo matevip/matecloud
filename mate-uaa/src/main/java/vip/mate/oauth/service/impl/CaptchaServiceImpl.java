@@ -28,7 +28,7 @@ public class CaptchaServiceImpl implements CaptchaService {
 
         Map<String, String> data = new HashMap<>();
         String uuid = UUID.randomUUID().toString().replace("-","");
-        SpecCaptcha captcha = new SpecCaptcha(130, 48);
+        SpecCaptcha captcha = new SpecCaptcha(120, 40);
         String text = captcha.text();// 获取运算的结果：5
         stringRedisTemplate.opsForValue().set(Oauth2Constant.CAPTCHA_KEY + uuid, text, Duration.ofMinutes(30));
         data.put("key", uuid);
