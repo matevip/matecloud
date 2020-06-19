@@ -32,5 +32,9 @@ public class MateConstant {
      * 默认失败消息
      */
     public static final String DEFAULT_FAIL_MESSAGE = "操作失败";
+    /**
+     * 树的根节点值
+     */
+    public static final Long TREE_ROOT = -1L;
 
 }

@@ -43,7 +43,8 @@ public class CaptchaFilter extends OncePerRequestFilter {
                 filterChain.doFilter(httpServletRequest, httpServletResponse);
             } catch (CaptchaException captchaException){
                 ResponseUtil.responseWriter(httpServletResponse, MediaType.APPLICATION_JSON_VALUE,
-                        HttpServletResponse.SC_INTERNAL_SERVER_ERROR, Result.fail(captchaException.getMessage()));
+                        HttpServletResponse.SC_UNAUTHORIZED, Result.fail(HttpServletResponse.SC_UNAUTHORIZED,
+                                captchaException.getMessage()));
             }
         } else {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
