@@ -14,10 +14,6 @@
     <dependencies>
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
             <artifactId>mate-starter-common</artifactId>
         </dependency>
         <dependency>

@@ -96,12 +96,6 @@
             </dependency>
             <dependency>
                 <groupId>vip.mate</groupId>
-                <artifactId>mate-config</artifactId>
-                <version>${matecloud.core.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>vip.mate</groupId>
                 <artifactId>mate-system-api</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>

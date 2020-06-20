@@ -8,7 +8,14 @@ spring:
         server-addr: @config.server-addr@
         group: @config.group@
         file-extension: yaml
-        prefix: mate
+#        prefix: mate
+#        refresh-enabled: true
+#        shared-configs[0]:
+#          data-id: @artifactId@.yaml
+#          group: DEFAULT_GROUP
+#          refresh: true
+
+
       discovery:
         namespace: @config.namespace@
         server-addr: @config.server-addr@
