@@ -1,19 +1,16 @@
 package vip.mate.oauth.controller;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
-import vip.mate.core.common.constant.Oauth2Constant;
-import vip.mate.core.common.util.TokenUtil;
+import vip.mate.core.security.util.SecurityUtil;
+import vip.mate.core.security.util.TokenUtil;
 import vip.mate.oauth.service.CaptchaService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +29,7 @@ public class AuthController {
 
     @GetMapping("/auth/userInfo")
     public Result<?> getUserInfo(HttpServletRequest request) {
-        Claims claims = TokenUtil.getClaims(getToken(request));
+        Claims claims = TokenUtil.getClaims(SecurityUtil.getToken(request));
         String userName = (String)claims.get("userName");
         String avatar = (String) claims.get("avatar");
         Map<String, Object> data = new HashMap<>();
@@ -48,13 +45,8 @@ public class AuthController {
 
     @PostMapping("/auth/logout")
     public Result<?> logout(HttpServletRequest request) {
-//        String headerToken = request.getHeader(Oauth2Constant.HEADER_TOKEN);
-        consumerTokenServices.revokeToken(getToken(request));
+        consumerTokenServices.revokeToken(SecurityUtil.getToken(request));
         return Result.success("操作成功");
     }
 
-    private String getToken(HttpServletRequest request) {
-        String headerToken = request.getHeader(Oauth2Constant.HEADER_TOKEN);
-        return TokenUtil.getToken(headerToken);
-    }
 }

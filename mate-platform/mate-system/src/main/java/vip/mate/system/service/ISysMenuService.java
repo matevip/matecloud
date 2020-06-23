@@ -18,4 +18,6 @@ public interface ISysMenuService extends IService<SysMenu> {
 
     List<SysMenuVO> routes();
 
+    boolean saveAll(SysMenu sysMenu);
+
 }

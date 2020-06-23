@@ -10,11 +10,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import vip.mate.core.auth.annotation.EnableMethodToken;
-import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.Oauth2Constant;
-import vip.mate.core.common.exception.AuthException;
-import vip.mate.core.common.util.TokenUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;

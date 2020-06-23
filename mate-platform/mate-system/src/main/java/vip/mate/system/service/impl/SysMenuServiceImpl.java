@@ -37,4 +37,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         //3. 生成菜单树
         return TreeUtil.list2Tree(sysMenuList, MateConstant.TREE_ROOT);
     }
+
+    @Override
+    public boolean saveAll(SysMenu sysMenu) {
+        if (sysMenu.getType().equals("0")) {
+            sysMenu.setParentId(-1L);
+        }
+        return saveOrUpdate(sysMenu);
+    }
 }

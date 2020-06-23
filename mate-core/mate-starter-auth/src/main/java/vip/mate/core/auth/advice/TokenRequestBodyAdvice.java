@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.exception.AuthException;
-import vip.mate.core.common.util.TokenUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
