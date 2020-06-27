@@ -1,5 +1,7 @@
 package vip.mate.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -94,9 +96,14 @@ public class SysMenu extends MateEntity {
     private LocalDateTime updateTime;
 
     /**
+     * 状态：0：启用　1：禁用
+     */
+    private String status;
+
+    /**
      * 删除标识
      */
-    private String delFlag;
+    private String isDeleted;
 
     /**
      * 租户ID

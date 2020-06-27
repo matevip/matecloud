@@ -1,6 +1,9 @@
 package vip.mate.system.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import vip.mate.system.entity.MenuMeta;
 import vip.mate.system.entity.SysMenu;
@@ -22,6 +25,8 @@ public class SysMenuVO implements Serializable {
     /**
      * 菜单ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
+    @ApiModelProperty(value = "主键")
     private Long id;
 
     /**
@@ -50,6 +55,11 @@ public class SysMenuVO implements Serializable {
     private String icon;
 
     /**
+     * 菜单类型
+     */
+    private String type;
+
+    /**
      * 排序值
      */
     private Integer sort;
@@ -63,6 +73,10 @@ public class SysMenuVO implements Serializable {
     private String redirect;
 
     private Boolean alwaysShow = false;
+
+    private String typeName;
+
+//    private String label;
 
     public void addChildren(SysMenuVO tree) {
         this.children.add(tree);

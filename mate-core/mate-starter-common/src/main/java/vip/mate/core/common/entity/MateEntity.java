@@ -1,5 +1,7 @@
 package vip.mate.core.common.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +16,7 @@ import java.sql.Timestamp;
 public class MateEntity implements Serializable {
 
     private static final long serialVersionUID = -6747032505753527871L;
+
 
 //    @ApiModelProperty(value = "创建人", hidden = true)
 //    private String createBy;

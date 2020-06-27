@@ -5,14 +5,16 @@ import lombok.Getter;
 
 /**
  * 菜单类型
+ *
  * @author aristotle
  */
 @Getter
 @AllArgsConstructor
 public enum MenuTypeEnum {
 
-    MENU("0", "菜单"),
-    BUTTON("1","按钮");
+    DIR("0", "目录"),
+    MENU("1", "菜单"),
+    BUTTON("2", "按钮");
 
     private final String code;
 

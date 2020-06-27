@@ -1,19 +1,23 @@
 package vip.mate.core.database.config;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import vip.mate.core.common.factory.YamlPropertySourceFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
 @EnableTransactionManagement
+@PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-db.yml")
 @MapperScan("vip.mate.**.mapper.**")
 public class MybatisPlusConfiguration {
 

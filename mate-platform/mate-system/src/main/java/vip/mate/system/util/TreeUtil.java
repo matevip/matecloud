@@ -1,6 +1,7 @@
 package vip.mate.system.util;
 
 import org.springframework.beans.BeanUtils;
+import vip.mate.core.web.enums.MenuTypeEnum;
 import vip.mate.system.entity.MenuMeta;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.vo.SysMenuVO;
@@ -56,7 +57,15 @@ public class TreeUtil {
                 tree.setRedirect("noredirect");
                 tree.setAlwaysShow(true);
             }
+//            tree.setLabel(sysMenu.getName());
             tree.setMeta(meta);
+            if (sysMenu.getType().equals("0")){
+                tree.setTypeName(MenuTypeEnum.DIR.getMessage());
+            } else if (sysMenu.getType().equals("1")) {
+                tree.setTypeName(MenuTypeEnum.MENU.getMessage());
+            } else if (sysMenu.getType().equals("2")) {
+                tree.setTypeName(MenuTypeEnum.BUTTON.getMessage());
+            }
             trees.add(tree);
         });
         return trees;

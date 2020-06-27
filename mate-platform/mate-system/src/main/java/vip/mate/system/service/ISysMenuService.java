@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.system.vo.SysMenuVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,6 +19,11 @@ public interface ISysMenuService extends IService<SysMenu> {
 
     List<SysMenuVO> routes();
 
+    List<SysMenu> searchList(Map<String, Object> search);
+
     boolean saveAll(SysMenu sysMenu);
+
+    boolean status(String ids, String status);
+
 
 }
