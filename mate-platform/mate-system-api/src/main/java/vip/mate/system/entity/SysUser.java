@@ -96,7 +96,7 @@ public class SysUser extends MateEntity {
     /**
      * 状态
      */
-    private Boolean status;
+    private String status;
 
     /**
      * 创建人

@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysUserService extends IService<SysUser> {
 
+    public boolean status(String ids, String status);
+
 }

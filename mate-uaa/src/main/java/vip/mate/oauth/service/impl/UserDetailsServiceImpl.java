@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         SysUser user = sysUserProvider.loadUserByUserName(userName).getData();
         log.info("用户名：{}", userName);
         return new MateUser(user.getId(), user.getDeptId(), user.getTelephone(), user.getAvatar(),
-                user.getTenantId(), user.getAccount(), user.getPassword(), user.getStatus(),
+                user.getTenantId(), user.getAccount(), user.getPassword(), user.getStatus().equals("0")?true:false,
                 true, true, true,
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin, ROLE_USER"));
     }
