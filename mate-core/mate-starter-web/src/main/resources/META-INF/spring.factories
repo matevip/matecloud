@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  vip.mate.core.auth.config.TokenConfiguration
+  vip.mate.core.web.config.ExceptionConfiguration
 
 

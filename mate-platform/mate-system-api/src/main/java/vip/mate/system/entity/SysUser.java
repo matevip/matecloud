@@ -119,9 +119,9 @@ public class SysUser extends MateEntity {
     private LocalDateTime updateTime;
 
     /**
-     * 逻辑删除
+     * 删除标识
      */
-    private Boolean isDeleted;
+    private String isDeleted;
 
 
 }

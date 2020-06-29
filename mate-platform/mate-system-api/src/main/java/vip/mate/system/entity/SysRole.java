@@ -1,6 +1,9 @@
 package vip.mate.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import vip.mate.core.common.entity.MateEntity;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -22,6 +25,13 @@ import lombok.experimental.Accessors;
 public class SysRole extends MateEntity {
 
     private static final long serialVersionUID=1L;
+
+    /**
+     * 主键 ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    @ApiModelProperty(value = "主键")
+    private Long id;
 
     /**
      * 角色名称
@@ -61,7 +71,7 @@ public class SysRole extends MateEntity {
     /**
      * 删除标识
      */
-    private String delFlag;
+    private String isDeleted;
 
     /**
      * 租户ID

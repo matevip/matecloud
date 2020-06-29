@@ -1,4 +1,4 @@
-package vip.mate.gateway.auth;
+package vip.mate.gateway.filter;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

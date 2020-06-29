@@ -33,5 +33,9 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-database</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-auth</artifactId>
+        </dependency>
     </dependencies>
 </project>

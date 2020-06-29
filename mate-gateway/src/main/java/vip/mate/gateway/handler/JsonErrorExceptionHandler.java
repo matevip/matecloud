@@ -70,11 +70,11 @@ public class JsonErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     @Override
     protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
-        Map<String, Object> error = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
+        Map<String, Object> error = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
         int errorStatus = getHttpStatus(error);
         Throwable throwable = getError(request);
         return ServerResponse.status(errorStatus)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(BodyInserters.fromObject(exceptionHandlerAdvice.handle(throwable)));
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(exceptionHandlerAdvice.handle(throwable)));
     }
 }

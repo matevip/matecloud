@@ -74,6 +74,6 @@ public class CustomErrorConfig {
     @Bean
     @ConditionalOnMissingBean(value = ErrorAttributes.class, search = SearchStrategy.CURRENT)
     public DefaultErrorAttributes errorAttributes() {
-        return new DefaultErrorAttributes(this.serverProperties.getError().isIncludeException());
+        return new DefaultErrorAttributes();
     }
 }
