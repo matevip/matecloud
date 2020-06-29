@@ -5,6 +5,9 @@ import vip.mate.system.mapper.SysDepartMapper;
 import vip.mate.system.service.ISysDepartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import vip.mate.system.vo.SysDepartVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart> implements ISysDepartService {
 
+    @Override
+    public List<SysDepartVO> tree() {
+        return baseMapper.tree();
+    }
 }

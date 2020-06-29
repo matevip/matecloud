@@ -14,7 +14,7 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 
 @Slf4j
-@Component
+//@Component
 public class MateWebRespExceptionTranslator implements WebResponseExceptionTranslator {
 
     @Override

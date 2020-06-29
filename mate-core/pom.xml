@@ -18,6 +18,7 @@
         <module>mate-starter-web</module>
         <module>mate-starter-feign</module>
         <module>mate-starter-auth</module>
+        <module>mate-starter-rocketmq</module>
     </modules>
 
     <properties>

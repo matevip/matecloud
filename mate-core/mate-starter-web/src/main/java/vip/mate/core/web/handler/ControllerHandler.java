@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.exception.TokenException;
 
+import java.io.FileNotFoundException;
+
 /**
  * Springboot WEB应用全局异常处理
  * @author pangu
@@ -31,9 +33,22 @@ public class ControllerHandler {
     }
 
     /**
+     * FileNotFoundException 异常捕获处理
+     * @param ex 自定义FileNotFoundException异常类型
+     * @return Result
+     */
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Result<?> handleException(FileNotFoundException ex) {
+        log.error("程序异常：" + ex.toString());
+        return Result.fail(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+    }
+
+    /**
      * 通用Exception异常捕获
-     * @param ex
-     * @return
+     * @param ex 自定义Exception异常类型
+     * @return Result
      */
     @ExceptionHandler
     @ResponseBody
@@ -42,6 +57,4 @@ public class ControllerHandler {
         log.error("程序异常：" + ex.toString());
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
-
-
 }

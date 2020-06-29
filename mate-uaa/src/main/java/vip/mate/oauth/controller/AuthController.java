@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
-import vip.mate.core.security.util.SecurityUtil;
-import vip.mate.core.security.util.TokenUtil;
+import vip.mate.core.common.util.SecurityUtil;
+import vip.mate.core.common.util.TokenUtil;
 import vip.mate.oauth.service.CaptchaService;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package vip.mate.core.security.util;
+package vip.mate.core.common.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

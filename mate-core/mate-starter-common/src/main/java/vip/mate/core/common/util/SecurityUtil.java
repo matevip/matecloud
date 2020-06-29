@@ -1,4 +1,4 @@
-package vip.mate.core.auth.util;
+package vip.mate.core.common.util;
 
 import vip.mate.core.common.constant.Oauth2Constant;
 
