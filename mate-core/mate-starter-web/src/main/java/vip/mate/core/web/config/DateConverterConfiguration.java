@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.converter.Converter;
+import vip.mate.core.web.datatype.MateJavaTimeModule;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -41,27 +42,9 @@ public class DateConverterConfiguration {
     @Primary
     public ObjectMapper serializingObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
-        objectMapper.registerModule(javaTimeModule);
+        objectMapper.registerModule(new MateJavaTimeModule());
         return objectMapper;
     }
-
-    public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
-        @Override
-        public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.format(ofPattern(YYYY_MM_DD_HH_MM_SS)));
-        }
-    }
-
-    public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-        @Override
-        public LocalDateTime deserialize(JsonParser p, DeserializationContext deserializationContext) throws IOException {
-            return LocalDateTime.parse(p.getValueAsString(), ofPattern(YYYY_MM_DD_HH_MM_SS));
-        }
-    }
-
 
     /**
      * 自定义类型转换,HTTP请求日期字符串转换日期类型,

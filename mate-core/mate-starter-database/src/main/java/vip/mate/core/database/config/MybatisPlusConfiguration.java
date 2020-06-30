@@ -1,6 +1,7 @@
 package vip.mate.core.database.config;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import vip.mate.core.common.factory.YamlPropertySourceFactory;
+import vip.mate.core.database.handler.MetaEntityHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,4 +47,11 @@ public class MybatisPlusConfiguration {
         paginationInterceptor.setSqlParserList(sqlParserList);
         return paginationInterceptor;
     }
+
+//    @Bean
+//    public GlobalConfig globalConfig() {
+//        GlobalConfig globalConfig = new GlobalConfig();
+//        globalConfig.setMetaObjectHandler(new MetaEntityHandler());
+//        return globalConfig;
+//    }
 }
