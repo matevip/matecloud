@@ -18,7 +18,9 @@ public class MateConstant {
     /**
      * request id key
      */
-    public static final String REQUEST_ID_KEY = "mate_request_id";
+    public static final String REQUEST_ID_KEY = "Mate-Request-Id";
+
+    public static final String START_TIME_KEY = "Mate-ST-Id";
 
     /**
      * 默认为空消息

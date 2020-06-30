@@ -2,7 +2,6 @@ package vip.mate.gateway.filter;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.CachedBodyOutputMessage;
@@ -24,6 +23,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +33,7 @@ import java.util.Map;
 public class LogRequestGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        //获取数据类型
-        log.info("================ Gateway Request Start  ================");
+
         MediaType mediaType = exchange.getRequest().getHeaders().getContentType();
         ServerRequest serverRequest = ServerRequest.create(exchange, HandlerStrategies.withDefaults().messageReaders());
 
@@ -116,41 +115,47 @@ public class LogRequestGlobalFilter implements GlobalFilter, Ordered {
      * @param body 请求的body内容
      */
     private void recordLog(ServerHttpRequest request, Object body) {
-        // 记录要访问的url
-        StringBuilder builder = new StringBuilder(" request url: ");
-        builder.append(request.getURI().getRawPath());
+
+        StringBuilder builder = new StringBuilder(300);
+        // 日志参数
+        List<Object> beforeReqArgs = new ArrayList<>();
+        builder.append("\n\n================ Gateway Request Start  ================\n");
+        // 打印路由
+        builder.append("===> {}: {}\n");
+        // 参数
+        String requestMethod = request.getMethodValue();
+        beforeReqArgs.add(requestMethod);
+        beforeReqArgs.add(request.getURI().getRawPath());
 
         // 记录访问的方法
         HttpMethod method = request.getMethod();
-        if (null != method){
-            builder.append(", method: ").append(method.name());
-        }
+
         // 记录头部信息
-        builder.append(", header { ");
         for (Map.Entry<String, List<String>> entry : request.getHeaders().entrySet()) {
-            builder.append(entry.getKey()).append(":").append(StringUtils.join(entry.getValue(), ",")).append(",");
+            builder.append("===Headers===  {}: {}\n");
+            beforeReqArgs.add(entry.getKey());
+            beforeReqArgs.add(org.apache.commons.lang3.StringUtils.join(entry.getValue()));
         }
 
         // 记录参数
-        builder.append("} param {");
         if (null != method && HttpMethod.GET.matches(method.name())) {
             // 记录请求的参数信息 针对GET 请求
             MultiValueMap<String, String> queryParams = request.getQueryParams();
             for (Map.Entry<String, List<String>> entry : queryParams.entrySet()) {
-                builder.append(entry.getKey()).append("=").append(StringUtils.join(entry.getValue(), ",")).append(",");
+                builder.append("===Params===  {}: {}\n");
+                beforeReqArgs.add(entry.getKey());
+                beforeReqArgs.add(org.apache.commons.lang3.StringUtils.join(entry.getValue()));
             }
-            builder.append("}");
-        }
-        else {
-            builder.append(request.getURI().getQuery());
-            builder.append("} body: ");
-            // 从body中读取参数
-            builder.append(body);
+        } else {
+            builder.append("===Params=== {}\n");
+            beforeReqArgs.add(request.getURI().getQuery());
+            builder.append("===Body=== {}\n");
+            beforeReqArgs.add(body);
         }
 
-        log.info(builder.toString());
-        log.info("================  Gateway Request End  =================");
-//        LogUtil.info(builder.toString());
+        builder.append("================  Gateway Request End  =================\n");
+        // 打印执行时间
+        log.info(builder.toString(), beforeReqArgs.toArray());
     }
 }
 
