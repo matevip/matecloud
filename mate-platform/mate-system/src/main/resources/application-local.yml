@@ -24,3 +24,9 @@ dubbo:
     address: spring-cloud://localhost
 #   The traditional Dubbo's registry
 #    address: nacos://127.0.0.1:8848
+jetcache:
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      uri: redis://127.0.0.1:6379/

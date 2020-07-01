@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.system.vo.SysDepartVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,5 +18,7 @@ import java.util.List;
 public interface ISysDepartService extends IService<SysDepart> {
 
     List<SysDepartVO> tree();
+
+    List<SysDepartVO> searchList(Map<String, Object> search);
 
 }

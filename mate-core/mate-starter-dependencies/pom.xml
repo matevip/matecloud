@@ -45,6 +45,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
+        <jetcache.version>2.6.0</jetcache.version>
 
         <!-- Apache Dubbo -->
         <dubbo.version>2.7.6</dubbo.version>
@@ -55,47 +56,52 @@
         <dependencies>
             <!-- MateCloud Core -->
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-common</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-database</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-dubbo</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-security</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-feign</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-web</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-auth</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-dependencies</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
-                <groupId>vip.mate</groupId>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-jetcache</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-system-api</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
@@ -212,6 +218,16 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-starter-redis</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-starter-redis-lettuce</artifactId>
+                <version>${jetcache.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

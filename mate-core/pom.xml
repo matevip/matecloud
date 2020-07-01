@@ -19,6 +19,7 @@
         <module>mate-starter-feign</module>
         <module>mate-starter-auth</module>
         <module>mate-starter-rocketmq</module>
+        <module>mate-starter-jetcache</module>
     </modules>
 
     <properties>

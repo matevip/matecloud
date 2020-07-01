@@ -1,6 +1,12 @@
 package vip.mate.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
+import vip.mate.core.common.api.Result;
+import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.system.entity.SysDepart;
+import vip.mate.system.entity.SysMenu;
 import vip.mate.system.mapper.SysDepartMapper;
 import vip.mate.system.service.ISysDepartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,6 +14,8 @@ import org.springframework.stereotype.Service;
 import vip.mate.system.vo.SysDepartVO;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -23,5 +31,28 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
     @Override
     public List<SysDepartVO> tree() {
         return baseMapper.tree();
+    }
+
+    @Override
+    public List<SysDepartVO> searchList(Map<String, Object> search) {
+        String keyword = String.valueOf(search.get("keyword"));
+        String startDate = String.valueOf(search.get("startDate"));
+        String endDate = String.valueOf(search.get("endDate"));
+        LambdaQueryWrapper<SysDepart> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.isNotBlank(startDate) && !startDate.equals("null")) {
+            lambdaQueryWrapper.between(SysDepart::getCreateTime, startDate, endDate);
+        }
+        if (StringUtils.isNotBlank(keyword) && !keyword.equals("null")) {
+            lambdaQueryWrapper.like(SysDepart::getName, keyword);
+            lambdaQueryWrapper.or();
+            lambdaQueryWrapper.like(SysDepart::getId, keyword);
+        }
+        List<SysDepart> sysDeparts = this.baseMapper.selectList(lambdaQueryWrapper);
+        List<SysDepartVO> sysDepartVOS = sysDeparts.stream().map(sysDepart -> {
+            SysDepartVO sysDepartVO = new SysDepartVO();
+            BeanUtils.copyProperties(sysDepart, sysDepartVO);
+            return sysDepartVO;
+        }).collect(Collectors.toList());
+        return ForestNodeMerger.merge(sysDepartVOS);
     }
 }

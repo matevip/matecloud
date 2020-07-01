@@ -59,7 +59,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             lambdaQueryWrapper.or();
             lambdaQueryWrapper.like(SysMenu::getId, keyword);
         }
-//        lambdaQueryWrapper.eq(SysMenu::getStatus, "0");
         return this.baseMapper.selectList(lambdaQueryWrapper);
     }
 

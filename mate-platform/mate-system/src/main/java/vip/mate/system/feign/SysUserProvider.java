@@ -14,7 +14,7 @@ import vip.mate.system.service.ISysUserService;
 @AllArgsConstructor
 public class SysUserProvider implements ISysUserProvider {
 
-    private ISysUserService sysUserService;
+    private final ISysUserService sysUserService;
 
     @Override
     @GetMapping("/provider/user-info-by-id")

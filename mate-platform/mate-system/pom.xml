@@ -37,6 +37,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-auth</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-jetcache</artifactId>
+        </dependency>
     </dependencies>
 
 

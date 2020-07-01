@@ -91,7 +91,7 @@ public class SysUser extends MateEntity {
     /**
      * 部门id
      */
-    private Long deptId;
+    private Long departId;
 
     /**
      * 状态
