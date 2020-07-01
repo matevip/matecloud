@@ -20,7 +20,6 @@ public class MateJavaTimeModule extends SimpleModule {
     public static final String PATTERN_DATE = "yyyy-MM-dd";
     public static final String PATTERN_TIME = "HH:mm:ss";
 
-
     /**
      * java 8 时间格式化
      */
