@@ -2,17 +2,26 @@ package vip.mate.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.jsonwebtoken.lang.Collections;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import vip.mate.core.common.api.Result;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
+import vip.mate.system.dto.SysMenuDTO;
 import vip.mate.system.entity.SysRole;
+import vip.mate.system.entity.SysRolePermission;
 import vip.mate.system.entity.SysUser;
+import vip.mate.system.service.ISysRolePermissionService;
 import vip.mate.system.service.ISysRoleService;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -28,6 +37,7 @@ import javax.validation.Valid;
 public class SysRoleController extends BaseController {
 
     private final ISysRoleService sysRoleService;
+    private final ISysRolePermissionService sysRolePermissionService;
 
     @GetMapping("/list")
     public Result<?> list(){
@@ -55,6 +65,18 @@ public class SysRoleController extends BaseController {
             return Result.success("删除成功");
         }
         return Result.fail("删除失败");
+    }
+
+    @GetMapping("/getPermission")
+    public Result<?> getPermission(@RequestParam String id) {
+        LambdaQueryWrapper<SysRolePermission> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(SysRolePermission::getRoleId, id);
+        List<SysRolePermission> sysRolePermissions = sysRolePermissionService.list(lambdaQueryWrapper);
+        List<Long> list = sysRolePermissions.stream().map(sysRolePermission -> {
+            long menuId = sysRolePermission.getMenuId();
+            return menuId;
+        }).collect(Collectors.toList());
+        return Result.data(list);
     }
 }
 

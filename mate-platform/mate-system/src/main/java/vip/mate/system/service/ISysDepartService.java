@@ -1,5 +1,6 @@
 package vip.mate.system.service;
 
+import com.alicp.jetcache.anno.Cached;
 import vip.mate.system.entity.SysDepart;
 import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.system.vo.SysDepartVO;
@@ -17,6 +18,7 @@ import java.util.Map;
  */
 public interface ISysDepartService extends IService<SysDepart> {
 
+    @Cached(name="sysDepartService.tree", expire = 3600)
     List<SysDepartVO> tree();
 
     List<SysDepartVO> searchList(Map<String, Object> search);

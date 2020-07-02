@@ -1,5 +1,6 @@
 package vip.mate.system.service;
 
+import com.alicp.jetcache.anno.Cached;
 import vip.mate.system.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.system.vo.SysMenuVO;
@@ -17,6 +18,7 @@ import java.util.Map;
  */
 public interface ISysMenuService extends IService<SysMenu> {
 
+    @Cached(name="sysMenuService.routes", expire = 3600)
     List<SysMenuVO> routes();
 
     List<SysMenu> searchList(Map<String, Object> search);
