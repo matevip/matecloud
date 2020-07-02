@@ -1,5 +1,6 @@
 package vip.mate.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -122,6 +123,11 @@ public class SysUser extends MateEntity {
      * 删除标识
      */
     private String isDeleted;
+
+    @TableField(exist = false)
+    private String departName;
+    @TableField(exist = false)
+    private String statusName;
 
 
 }

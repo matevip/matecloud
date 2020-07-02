@@ -9,7 +9,9 @@ import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.web.controller.BaseController;
+import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
+import vip.mate.system.dto.SysMenuDTO;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.service.ISysMenuService;
 import vip.mate.system.util.TreeUtil;
@@ -18,6 +20,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -46,7 +49,15 @@ public class SysMenuController extends BaseController {
 
     @GetMapping("/asyncList")
     public Result<?> asyncList(){
-        return Result.data(TreeUtil.list2Tree(sysMenuService.list(), MateConstant.TREE_ROOT));
+        List<SysMenu> sysMenus = sysMenuService.list();
+        List<SysMenuDTO> sysMenuDTOS = sysMenus.stream().map(sysMenu -> {
+            SysMenuDTO sysMenuDTO = new SysMenuDTO();
+            sysMenuDTO.setId(sysMenu.getId());
+            sysMenuDTO.setLabel(sysMenu.getName());
+            sysMenuDTO.setParentId(sysMenu.getParentId());
+            return sysMenuDTO;
+        }).collect(Collectors.toList());
+        return Result.data(ForestNodeMerger.merge(sysMenuDTOS));
     }
 
     @PostMapping("/saveOrUpdate")

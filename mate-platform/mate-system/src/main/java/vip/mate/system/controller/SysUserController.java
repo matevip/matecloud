@@ -34,10 +34,7 @@ public class SysUserController extends BaseController {
 
     @GetMapping("/list")
     public Result<?> list(@RequestParam Map<String, String> query) {
-        long current = CollectionUtil.strToLong(query.get("current"), 0L);
-        long size = CollectionUtil.strToLong(query.get("size"), 0L);
-        IPage<SysUser> page = new Page<>(current, size);
-        return Result.data(sysUserService.page(page));
+        return Result.data(sysUserService.listPage(query));
     }
 
     @PostMapping("/saveOrUpdate")
