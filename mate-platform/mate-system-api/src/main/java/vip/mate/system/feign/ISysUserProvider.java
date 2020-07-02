@@ -20,7 +20,4 @@ public interface ISysUserProvider {
     @GetMapping("/provider/user-info")
     Result<SysUser> loadUserByUserName(@RequestParam("userName") String userName);
 
-    @GetMapping("/provider/user-info-token")
-    Result<SysUser> userInfoToken();
-
 }

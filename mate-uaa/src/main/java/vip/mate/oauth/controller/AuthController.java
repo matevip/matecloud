@@ -1,6 +1,5 @@
 package vip.mate.oauth.controller;
 
-import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,10 +7,11 @@ import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vip.mate.core.auth.service.TokenService;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.SecurityUtil;
-import vip.mate.core.common.util.TokenUtil;
 import vip.mate.oauth.service.CaptchaService;
+import vip.mate.system.entity.SysUser;
 import vip.mate.system.feign.ISysUserProvider;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,17 +30,19 @@ public class AuthController {
 
     private final ISysUserProvider sysUserProvider;
 
-    @GetMapping("/auth/userInfo")
-    public Result<?> getUserInfo() {
-        return sysUserProvider.userInfoToken();
+    private final TokenService tokenService;
 
-//        Claims claims = TokenUtil.getClaims(SecurityUtil.getToken(request));
-//        String userName = (String)claims.get("userName");
-//        String avatar = (String) claims.get("avatar");
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("userName", userName);
-//        data.put("avatar", avatar);
-//        return Result.data(data);
+    @GetMapping("/auth/userInfo")
+    public Result<?> getUserInfo(HttpServletRequest request) {
+        String userName = tokenService.checkToken(request);
+
+        SysUser sysUser = sysUserProvider.loadUserByUserName(userName).getData();
+        Map<String, Object> data = new HashMap<>();
+        data.put("userName", userName);
+        data.put("avatar", sysUser.getAvatar());
+        data.put("roleId", sysUser.getRoleId());
+        data.put("departId", sysUser.getDepartId());
+        return Result.data(data);
     }
 
     @GetMapping("/auth/code")

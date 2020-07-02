@@ -38,6 +38,6 @@ public class TokenServiceImpl implements TokenService {
                 throw new TokenException("Token已过期！");
             }
         }
-        return (String) claims.get("userId");
+        return (String) claims.get("userName");
     }
 }

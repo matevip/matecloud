@@ -21,10 +21,10 @@
             <artifactId>mate-system-api</artifactId>
         </dependency>
         <!-- 此依赖加上后使用dubbo,注释后使用Feign -->
-<!--        <dependency>-->
-<!--            <groupId>vip.mate</groupId>-->
-<!--            <artifactId>mate-starter-dubbo</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-dubbo</artifactId>
+        </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-web</artifactId>
@@ -36,6 +36,10 @@
         <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-auth</artifactId>
         </dependency>
     </dependencies>
 </project>
