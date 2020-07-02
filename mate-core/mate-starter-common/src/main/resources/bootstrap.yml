@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: @spring.active@
+  main:
+    allow-bean-definition-overriding: true
   cloud:
     nacos:
       config:

@@ -12,6 +12,7 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.SecurityUtil;
 import vip.mate.core.common.util.TokenUtil;
 import vip.mate.oauth.service.CaptchaService;
+import vip.mate.system.feign.ISysUserProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -27,15 +28,19 @@ public class AuthController {
 
     private final CaptchaService captchaService;
 
+    private final ISysUserProvider sysUserProvider;
+
     @GetMapping("/auth/userInfo")
-    public Result<?> getUserInfo(HttpServletRequest request) {
-        Claims claims = TokenUtil.getClaims(SecurityUtil.getToken(request));
-        String userName = (String)claims.get("userName");
-        String avatar = (String) claims.get("avatar");
-        Map<String, Object> data = new HashMap<>();
-        data.put("userName", userName);
-        data.put("avatar", avatar);
-        return Result.data(data);
+    public Result<?> getUserInfo() {
+        return sysUserProvider.userInfoToken();
+
+//        Claims claims = TokenUtil.getClaims(SecurityUtil.getToken(request));
+//        String userName = (String)claims.get("userName");
+//        String avatar = (String) claims.get("avatar");
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("userName", userName);
+//        data.put("avatar", avatar);
+//        return Result.data(data);
     }
 
     @GetMapping("/auth/code")

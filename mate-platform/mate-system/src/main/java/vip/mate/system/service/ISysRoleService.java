@@ -2,6 +2,9 @@ package vip.mate.system.service;
 
 import vip.mate.system.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.system.vo.SysRoleVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-06-28
  */
 public interface ISysRoleService extends IService<SysRole> {
+
+    List<SysRoleVO> tree();
 
 }

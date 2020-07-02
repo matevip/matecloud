@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vip.mate.system.mapper.SysRoleMapper">
 
+    <resultMap id="sysRoleVOResultMap" type="vip.mate.system.vo.SysRoleVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <select id="tree" resultMap="sysRoleVOResultMap">
+        select id, role_name as name  from mate_sys_role where is_deleted = 0
+    </select>
 </mapper>

@@ -17,4 +17,5 @@ public interface ISysDictProvider {
 
     @GetMapping("/provider/sys-dict/get-list")
     Result<List<SysDict>> getList(@RequestParam("code") String code);
+
 }

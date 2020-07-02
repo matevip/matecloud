@@ -8,8 +8,7 @@ public interface TokenService {
 
     /**
      * 检验token
-     * @param request
      * @return
      */
-    public boolean checkToken(HttpServletRequest request) throws TokenException;
+    String checkToken(HttpServletRequest request) throws TokenException;
 }

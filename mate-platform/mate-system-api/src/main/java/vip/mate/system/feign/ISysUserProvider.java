@@ -7,6 +7,8 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.feign.constant.FeignConstant;
 import vip.mate.system.entity.SysUser;
 
+import javax.servlet.http.HttpServletRequest;
+
 @FeignClient(
     value = FeignConstant.MATE_CLOUD_SYSTEM
 )
@@ -17,4 +19,8 @@ public interface ISysUserProvider {
 
     @GetMapping("/provider/user-info")
     Result<SysUser> loadUserByUserName(@RequestParam("userName") String userName);
+
+    @GetMapping("/provider/user-info-token")
+    Result<SysUser> userInfoToken();
+
 }

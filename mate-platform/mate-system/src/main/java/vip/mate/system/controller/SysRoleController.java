@@ -96,5 +96,10 @@ public class SysRoleController extends BaseController {
         }
         return Result.data("操作成功");
     }
+
+    @GetMapping("/tree")
+    public Result<?> tree() {
+        return Result.data(sysRoleService.tree());
+    }
 }
 

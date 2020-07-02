@@ -128,6 +128,8 @@ public class SysUser extends MateEntity {
     private String departName;
     @TableField(exist = false)
     private String statusName;
+    @TableField(exist = false)
+    private String roleName;
 
 
 }
