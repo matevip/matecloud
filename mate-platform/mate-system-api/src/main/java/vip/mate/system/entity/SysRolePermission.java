@@ -1,6 +1,9 @@
 package vip.mate.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,6 +24,13 @@ import vip.mate.core.common.entity.MateEntity;
 public class SysRolePermission extends MateEntity {
 
     private static final long serialVersionUID=1L;
+
+    /**
+     * 主键 ID
+     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    @ApiModelProperty(value = "主键")
+    private Long id;
 
     /**
      * 菜单id

@@ -20,6 +20,7 @@ import vip.mate.system.service.ISysRoleService;
 import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,6 +78,23 @@ public class SysRoleController extends BaseController {
             return menuId;
         }).collect(Collectors.toList());
         return Result.data(list);
+    }
+
+    @PostMapping("/savePermission")
+    public Result<?> savePermission(@RequestParam String roleId, @RequestParam String ids) {
+        Collection longs = CollectionUtil.stringToCollection(ids);
+        long roleIdc = CollectionUtil.strToLong(roleId, 0L);
+        LambdaQueryWrapper<SysRolePermission> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(SysRolePermission::getRoleId, roleIdc);
+        sysRolePermissionService.remove(lambdaQueryWrapper);
+        for (Iterator<Long> it = longs.iterator(); it.hasNext();) {
+            SysRolePermission sysRolePermission = new SysRolePermission();
+            long menuId = it.next();
+            sysRolePermission.setMenuId(menuId);
+            sysRolePermission.setRoleId(roleIdc);
+            sysRolePermissionService.saveOrUpdate(sysRolePermission);
+        }
+        return Result.data("操作成功");
     }
 }
 
