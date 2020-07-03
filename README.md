@@ -1,5 +1,4 @@
 <p align="center">
-
   <img src="https://cdn.cankaojia.cn/matecloud.jpg" width="300">
 </p>
 <p align="center">
@@ -12,7 +11,7 @@
 
 ## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
 
-MateCloud是一款基于Spring Cloud Alibaba的微服务架构。
+MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家提供技术框架的基础能力的封装，减少开发工作，让您只关注业务。
 
 ### 功能特点
 1.　采用最新的Spring Cloud Alibaba封装;
@@ -27,4 +26,5 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。
 
 6.　支持报文加密和验证机制（待开发）。
 
-
+### 技术交流
+QQ群：2003638

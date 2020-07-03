@@ -12,10 +12,12 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.SecurityUtil;
 import vip.mate.oauth.service.CaptchaService;
 import vip.mate.system.entity.SysUser;
+import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -30,6 +32,8 @@ public class AuthController {
 
     private final ISysUserProvider sysUserProvider;
 
+    private final ISysRolePermissionProvider sysRolePermissionProvider;
+
     private final TokenService tokenService;
 
     @GetMapping("/auth/userInfo")
@@ -42,6 +46,8 @@ public class AuthController {
         data.put("avatar", sysUser.getAvatar());
         data.put("roleId", sysUser.getRoleId());
         data.put("departId", sysUser.getDepartId());
+        List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(sysUser.getRoleId()));
+        data.put("permissions", stringList);
         return Result.data(data);
     }
 

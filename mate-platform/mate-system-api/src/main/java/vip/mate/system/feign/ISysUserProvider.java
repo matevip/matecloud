@@ -9,9 +9,7 @@ import vip.mate.system.entity.SysUser;
 
 import javax.servlet.http.HttpServletRequest;
 
-@FeignClient(
-    value = FeignConstant.MATE_CLOUD_SYSTEM
-)
+@FeignClient(value = FeignConstant.MATE_CLOUD_SYSTEM)
 public interface ISysUserProvider {
 
     @GetMapping("/provider/user-info-by-id")
