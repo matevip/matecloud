@@ -42,7 +42,7 @@ public class SysMenuController extends BaseController {
 
     @GetMapping("/routes")
     public Result<?> routes(LoginUser loginUser) {
-        return Result.data(sysMenuService.routes());
+        return Result.data(sysMenuService.routes(loginUser.getRoleId()));
     }
 
     @GetMapping("/list")

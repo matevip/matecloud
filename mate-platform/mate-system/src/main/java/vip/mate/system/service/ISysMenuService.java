@@ -19,7 +19,7 @@ import java.util.Map;
 public interface ISysMenuService extends IService<SysMenu> {
 
     @Cached(name="sysMenuService.routes", expire = 3600)
-    List<SysMenuVO> routes();
+    List<SysMenuVO> routes(String roleId);
 
     List<SysMenu> searchList(Map<String, Object> search);
 
