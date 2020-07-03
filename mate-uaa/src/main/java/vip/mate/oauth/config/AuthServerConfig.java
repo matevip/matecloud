@@ -30,20 +30,14 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.security.userdetails.MateUser;
 import vip.mate.oauth.service.impl.ClientDetailsServiceImpl;
-import vip.mate.oauth.service.impl.UserDetailsServiceImpl;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -133,10 +127,10 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
                 // 如果用户不为空 则把id放入jwt token中
                 if (user != null) {
-                    additionMessage.put("userId", user.getId());
+                    additionMessage.put("userId", String.valueOf(user.getId()));
                     additionMessage.put("userName", user.getUsername());
                     additionMessage.put("avatar", user.getAvatar());
-
+                    additionMessage.put("roleId", String.valueOf(user.getRoleId()));
                 }
                 ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(additionMessage);
                 return oAuth2AccessToken;

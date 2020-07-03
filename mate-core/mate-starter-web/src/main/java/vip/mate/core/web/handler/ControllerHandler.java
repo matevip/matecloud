@@ -57,4 +57,17 @@ public class ControllerHandler {
         log.error("程序异常：" + ex.toString());
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
+
+    /**
+     * NullPointerException 空指针异常捕获处理
+     * @param ex 自定义NullPointerException异常类型
+     * @return Result
+     */
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result<?> handleException(NullPointerException ex) {
+        log.error("程序异常：" + ex.toString());
+        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
 }

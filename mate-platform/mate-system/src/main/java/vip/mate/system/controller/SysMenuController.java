@@ -3,11 +3,13 @@ package vip.mate.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
  * @author xuzf
  * @since 2020-06-18
  */
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sys-menu")
@@ -38,7 +41,7 @@ public class SysMenuController extends BaseController {
     private final ISysMenuService sysMenuService;
 
     @GetMapping("/routes")
-    public Result<?> routes() {
+    public Result<?> routes(LoginUser loginUser) {
         return Result.data(sysMenuService.routes());
     }
 

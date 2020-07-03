@@ -22,7 +22,7 @@ import javax.xml.ws.handler.MessageContext;
 public class TokenServiceImpl implements TokenService {
 
     @Override
-    public String checkToken(HttpServletRequest request) throws TokenException {
+    public Claims checkToken(HttpServletRequest request) throws TokenException {
         String headerToken = request.getHeader(Oauth2Constant.HEADER_TOKEN);
         if (StringUtils.isBlank(headerToken)) {
             throw new TokenException("没有携带Token信息！");
@@ -38,6 +38,6 @@ public class TokenServiceImpl implements TokenService {
                 throw new TokenException("Token已过期！");
             }
         }
-        return (String) claims.get("userName");
+        return claims;
     }
 }

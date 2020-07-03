@@ -1,5 +1,6 @@
 package vip.mate.oauth.controller;
 
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,7 +39,8 @@ public class AuthController {
 
     @GetMapping("/auth/userInfo")
     public Result<?> getUserInfo(HttpServletRequest request) {
-        String userName = tokenService.checkToken(request);
+        Claims claims = tokenService.checkToken(request);
+        String userName = (String)claims.get("userName");
 
         SysUser sysUser = sysUserProvider.loadUserByUserName(userName).getData();
         Map<String, Object> data = new HashMap<>();
