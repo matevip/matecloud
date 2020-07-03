@@ -38,12 +38,6 @@ public class MybatisPlusConfiguration {
         return paginationInterceptor;
     }
 
-//    @Bean
-//    public GlobalConfig globalConfig() {
-//        GlobalConfig globalConfig = new GlobalConfig();
-//        globalConfig.setMetaObjectHandler(new MateMetaObjectHandler());
-//        return globalConfig;
-//    }
     /**
      * 自动填充数据
      */
