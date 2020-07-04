@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        SysUser user = sysUserProvider.loadUserByUserName(userName).getData();
+        SysUser user = sysUserProvider.loadUserByUserName(userName);
         log.info("用户名：{}", userName);
         return new MateUser(user.getId(), user.getDepartId(), user.getRoleId(), user.getTelephone(), user.getAvatar(),
                 user.getTenantId(), user.getAccount(), user.getPassword(), user.getStatus().equals("0")?true:false,

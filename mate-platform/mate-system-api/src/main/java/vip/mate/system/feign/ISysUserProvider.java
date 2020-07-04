@@ -16,6 +16,6 @@ public interface ISysUserProvider {
     Result<SysUser> userInfoById(@RequestParam("userId") Long userId);
 
     @GetMapping("/provider/user-info")
-    Result<SysUser> loadUserByUserName(@RequestParam("userName") String userName);
+    SysUser loadUserByUserName(@RequestParam("userName") String userName);
 
 }

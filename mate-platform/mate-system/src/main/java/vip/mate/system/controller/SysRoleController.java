@@ -22,6 +22,7 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -41,8 +42,8 @@ public class SysRoleController extends BaseController {
     private final ISysRolePermissionService sysRolePermissionService;
 
     @GetMapping("/list")
-    public Result<?> list(){
-        return Result.data(sysRoleService.list());
+    public Result<?> list(@RequestParam Map<String, String> query){
+        return Result.data(sysRoleService.listSearch(query));
     }
 
     @PostMapping("/saveOrUpdate")

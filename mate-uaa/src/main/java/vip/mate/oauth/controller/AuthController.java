@@ -42,7 +42,7 @@ public class AuthController {
         Claims claims = tokenService.checkToken(request);
         String userName = (String)claims.get("userName");
 
-        SysUser sysUser = sysUserProvider.loadUserByUserName(userName).getData();
+        SysUser sysUser = sysUserProvider.loadUserByUserName(userName);
         Map<String, Object> data = new HashMap<>();
         data.put("userName", userName);
         data.put("avatar", sysUser.getAvatar());

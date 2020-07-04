@@ -2,6 +2,7 @@ package vip.mate.system.service;
 
 import com.alicp.jetcache.anno.Cached;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.SystemConstant;
 import vip.mate.system.entity.SysDict;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -17,10 +18,10 @@ import java.util.List;
  */
 public interface ISysDictService extends IService<SysDict> {
 
-    @Cached(name="sysDictService.getValue", expire = 3600)
+    @Cached(name= SystemConstant.SYS_DICT_CACHE,  expire = 3600)
     Result<String> getValue(String code, String dictKey);
 
-    @Cached(name="sysDictService.getList", expire = 3600)
+    @Cached(name= SystemConstant.SYS_DICT_CACHE, key="#code", expire = 3600)
     Result<List<SysDict>> getList(String code);
 
 }

@@ -54,7 +54,7 @@ public class TreeUtil {
             tree.setComponent(sysMenu.getPath());
             if (sysMenu.getParentId() == -1L) {
                 tree.setComponent("Layout");
-                tree.setRedirect("noredirect");
+                tree.setRedirect("noRedirect");
                 tree.setAlwaysShow(true);
             }
 //            tree.setLabel(sysMenu.getName());

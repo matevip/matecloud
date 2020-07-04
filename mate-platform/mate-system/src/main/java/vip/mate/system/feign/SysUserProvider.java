@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.SystemConstant;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.service.ISysUserService;
 
@@ -26,11 +27,11 @@ public class SysUserProvider implements ISysUserProvider {
 
     @Override
     @GetMapping("/provider/user-info")
-    @Cached(name="sysUserProvider.loadUserByUserName", expire = 3600)
-    public Result<SysUser> loadUserByUserName(String userName) {
+    //@Cached(name= SystemConstant.SYS_USER_CACHE, key="#userName", expire = 3600)
+    public SysUser loadUserByUserName(String userName) {
         SysUser sysUser = sysUserService.getOne(new QueryWrapper<SysUser>().lambda().in(SysUser::getAccount, userName));
         log.info("feign调用：user:{}", sysUser);
-        return Result.data(sysUser);
+        return sysUser;
     }
 
 }

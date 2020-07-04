@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.system.vo.SysRoleVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,5 +18,7 @@ import java.util.List;
 public interface ISysRoleService extends IService<SysRole> {
 
     List<SysRoleVO> tree();
+
+    List<SysRole> listSearch(Map<String, String> search);
 
 }

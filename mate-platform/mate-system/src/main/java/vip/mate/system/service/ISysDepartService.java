@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public interface ISysDepartService extends IService<SysDepart> {
 
-    @Cached(name="sysDepartService.tree", expire = 3600)
+    //@Cached(name="sysDepartService.tree", expire = 3600)
     List<SysDepartVO> tree();
 
     List<SysDepartVO> searchList(Map<String, Object> search);
