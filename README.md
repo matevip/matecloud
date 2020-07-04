@@ -28,3 +28,9 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家
 
 ### 技术交流
 QQ群：2003638
+
+### 系统演示
+演示地址：https://cloud.mate.vip
+
+账号密码：admin/123456
+

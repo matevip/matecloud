@@ -152,13 +152,13 @@
             </properties>
         </profile>
         <profile>
-            <id>produce</id>
+            <id>prod</id>
             <properties>
                 <spring.active>prod</spring.active>
-                <config.server-addr>127.0.0.1:8848</config.server-addr>
+                <config.server-addr>172.26.85.32:8848</config.server-addr>
                 <config.namespace></config.namespace>
                 <config.group>DEFAULT_GROUP</config.group>
-                <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
+                <discovery.server-addr>172.26.85.32:8848</discovery.server-addr>
             </properties>
         </profile>
         <profile>
@@ -179,5 +179,9 @@
             <name>Release Repository</name>
             <url>http://nexus.mate.vip/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://nexus.mate.vip/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 </project>

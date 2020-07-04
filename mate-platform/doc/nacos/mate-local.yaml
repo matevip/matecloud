@@ -26,10 +26,3 @@ mate:
     url: jdbc:mysql://127.0.0.1:3306/matex?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
-
-jetcache:
-  remote:
-    default:
-      type: redis.lettuce
-      keyConvertor: fastjson
-      uri: redis://127.0.0.1:6379/
