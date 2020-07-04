@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SysMenuDTO extends SysMenu implements INode {
 
     private static final long serialVersionUID = -7053157666510171528L;

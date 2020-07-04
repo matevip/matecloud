@@ -34,7 +34,7 @@ public class DateConverterConfiguration {
         objectMapper = Jackson2ObjectMapperBuilder.json()
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .locale(Locale.CHINA)
-                .timeZone(TimeZone.getDefault())
+                .timeZone(TimeZone.getTimeZone("GMT+8"))
                 .modules(new MateJavaTimeModule())
                 .build();
         return objectMapper;

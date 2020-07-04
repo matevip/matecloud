@@ -25,14 +25,14 @@ public class Result<T> implements Serializable {
     private String msg;
 
     @ApiModelProperty(value = "时间戳", required = true)
-    private Instant time;
+    private long time;
 
     @ApiModelProperty(value = "业务数据")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     private Result() {
-        this.time = ZonedDateTime.now().toInstant();
+        this.time = System.currentTimeMillis();
     }
 
     private Result(IResultCode resultCode) {
@@ -55,7 +55,7 @@ public class Result<T> implements Serializable {
         this.code = code;
         this.data = data;
         this.msg = msg;
-        this.time = ZonedDateTime.now().toInstant();
+        this.time = System.currentTimeMillis();
     }
 
     /**

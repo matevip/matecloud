@@ -35,13 +35,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<SysMenuVO> routes(String roleId) {
         //1. 获取用户的菜单列表，待扩展
         List<SysMenu> menus = this.baseMapper.routes(roleId);
-//        //2. 去掉非菜单类型
-//        List<SysMenu> sysMenuList = menus.stream()
-//                .filter(sysMenu -> MenuTypeEnum.MENU.getCode().equals(sysMenu.getType()) ||
-//                        MenuTypeEnum.DIR.getCode().equals(sysMenu.getType()) )
-//                .sorted(Comparator.comparingInt(SysMenu::getSort))
-//                .collect(Collectors.toList());
-        //3. 生成菜单树
+        //2. 生成菜单树
         return TreeUtil.list2Tree(menus, MateConstant.TREE_ROOT);
     }
 
