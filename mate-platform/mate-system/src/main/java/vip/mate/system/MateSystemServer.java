@@ -3,6 +3,7 @@ package vip.mate.system;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import vip.mate.core.feign.annotation.EnableMateFeign;
 
 /*
@@ -11,8 +12,6 @@ import vip.mate.core.feign.annotation.EnableMateFeign;
  */
 @EnableMateFeign
 @SpringBootApplication
-//@ComponentScan(value="vip.mate.core.auth")
-//@ComponentScan(value="vip.mate.system")
 public class MateSystemServer {
     public static void main(String[] args) {
         SpringApplication.run(MateSystemServer.class, args);

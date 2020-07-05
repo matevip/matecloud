@@ -2,28 +2,20 @@ package vip.mate.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
-import oracle.jdbc.proxy.annotation.Post;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.repository.cdi.Eager;
 import org.springframework.web.bind.annotation.*;
-
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;
-import vip.mate.core.web.tree.INode;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysDepart;
-import vip.mate.system.entity.SysMenu;
 import vip.mate.system.service.ISysDepartService;
-import vip.mate.system.vo.SysDepartVO;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -37,6 +29,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sys-depart")
+@Api(tags = "系统部门资源管理")
 public class SysDepartController extends BaseController {
 
     private final ISysDepartService sysDepartService;

@@ -5,6 +5,10 @@ import com.alicp.jetcache.anno.CacheUpdate;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,6 +38,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sys-user")
+@Api(tags = "系统用户资源管理")
 public class SysUserController extends BaseController {
 
     private final ISysUserService sysUserService;
@@ -41,11 +46,20 @@ public class SysUserController extends BaseController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/list")
+    @ApiOperation(value = "获取分页接口列表", notes = "获取分页接口列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
+            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
+            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
+            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
+            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    })
     public Result<?> list(@RequestParam Map<String, String> query) {
         return Result.data(sysUserService.listPage(query));
     }
 
     @PostMapping("/saveOrUpdate")
+    @ApiOperation(value = "添加系统用户", notes = "添加系统用户,支持新增或修改")
     //@CacheUpdate(name=SystemConstant.SYS_USER_CACHE, key="#sysUser.account", value="#sysUser")
     public Result<?> saveOrUpdate(@Valid @RequestBody SysUser sysUser) {
         String password = sysUser.getPassword();
@@ -60,14 +74,17 @@ public class SysUserController extends BaseController {
     }
 
     @GetMapping("/info")
+    @ApiOperation(value = "获取用户信息", notes = "根据ID查询")
     public Result<?> getSysUser(SysUser sysUser) {
-        LambdaQueryWrapper<SysUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.in(SysUser::getId, sysUser.getId());
-        return Result.data(sysUserService.getOne(lambdaQueryWrapper));
+        return Result.data(sysUserService.getById(sysUser.getId()));
     }
 
     @PostMapping("/delete")
     //@CacheInvalidate(name=SystemConstant.SYS_USER_CACHE, key="#{*}")
+    @ApiOperation(value = "批量删除用户数据", notes = "批量删除用户数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    })
     public Result<?> delete(@RequestParam String ids) {
         if (sysUserService.removeByIds(CollectionUtil.stringToCollection(ids))){
             return Result.success("删除成功");
@@ -76,6 +93,10 @@ public class SysUserController extends BaseController {
     }
 
     @PostMapping("/status")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
+            @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
+    })
     public Result<?> status(@RequestParam String ids, @RequestParam String status) {
         if (sysUserService.status(ids, status)) {
             return Result.success("批量修改成功");

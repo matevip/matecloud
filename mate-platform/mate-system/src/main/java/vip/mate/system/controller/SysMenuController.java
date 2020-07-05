@@ -2,6 +2,7 @@ package vip.mate.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sys-menu")
+@Api(tags = "系统菜单资源管理")
 public class SysMenuController extends BaseController {
 
     private final ISysMenuService sysMenuService;

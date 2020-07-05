@@ -4,6 +4,7 @@ package vip.mate.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.jsonwebtoken.lang.Collections;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sys-role")
+@Api(tags = "系统角色资源管理")
 public class SysRoleController extends BaseController {
 
     private final ISysRoleService sysRoleService;

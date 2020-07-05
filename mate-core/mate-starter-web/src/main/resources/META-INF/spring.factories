@@ -1,5 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   vip.mate.core.web.config.ExceptionConfiguration,\
-  vip.mate.core.web.config.DateConverterConfiguration
+  vip.mate.core.web.config.DateConverterConfiguration,\
+  vip.mate.core.web.config.SwaggerConfiguration
 
 

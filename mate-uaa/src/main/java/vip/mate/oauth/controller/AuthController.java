@@ -1,6 +1,8 @@
 package vip.mate.oauth.controller;
 
 import io.jsonwebtoken.Claims;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +26,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @AllArgsConstructor
+@Api(tags = "认证资源管理")
 public class AuthController {
 
     @Qualifier("consumerTokenServices")
@@ -38,6 +41,7 @@ public class AuthController {
     private final TokenService tokenService;
 
     @GetMapping("/auth/userInfo")
+    @ApiOperation(value = "获取用户信息给VUE", notes = "获取用户信息给VUE")
     public Result<?> getUserInfo(HttpServletRequest request) {
         Claims claims = tokenService.checkToken(request);
         String userName = (String)claims.get("userName");
@@ -54,11 +58,13 @@ public class AuthController {
     }
 
     @GetMapping("/auth/code")
+    @ApiOperation(value = "获取验证码", notes = "获取验证码")
     public Result<?> authCode() {
         return captchaService.getCode();
     }
 
     @PostMapping("/auth/logout")
+    @ApiOperation(value = "退出登录并删除TOKEN", notes = "退出登录并删除TOKEN")
     public Result<?> logout(HttpServletRequest request) {
         consumerTokenServices.revokeToken(SecurityUtil.getToken(request));
         return Result.success("操作成功");

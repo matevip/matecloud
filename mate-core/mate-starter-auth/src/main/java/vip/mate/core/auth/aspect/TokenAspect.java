@@ -20,28 +20,6 @@ public class TokenAspect {
 
     private final TokenService tokenService;
 
-
-//    @Around("@annotation(vip.mate.core.auth.annotation.EnableToken)")
-//    public Object around(ProceedingJoinPoint point) {
-//        MethodSignature methodSignature = (MethodSignature) point.getSignature();
-//        Method method = methodSignature.getMethod();
-//        EnableToken enableToken = method.getAnnotation(EnableToken.class);
-//
-//        if (enableToken != null) {
-//            try {
-//                tokenService.checkToken(request);
-//            } catch (Exception e){
-//                return Result.data(4001, null, e.getMessage());
-//            }
-//        }
-//        try{
-//            return point.proceed();
-//        } catch (Throwable throwable) {
-//            throwable.printStackTrace();
-//        }
-//        return null;
-//    }
-
     /**
      * 定义切入点，切入点为标注自定义注解TokenAnnotation的方法
      *通过@Pointcut注解声明频繁使用的切点表达式

@@ -33,7 +33,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**"); //配置拦截规则
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/sys*"); //配置拦截规则
     }
 
     @Bean
