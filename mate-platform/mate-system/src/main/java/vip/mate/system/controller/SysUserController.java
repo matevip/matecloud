@@ -75,6 +75,9 @@ public class SysUserController extends BaseController {
 
     @GetMapping("/info")
     @ApiOperation(value = "获取用户信息", notes = "根据ID查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "form"),
+    })
     public Result<?> getSysUser(SysUser sysUser) {
         return Result.data(sysUserService.getById(sysUser.getId()));
     }
@@ -93,6 +96,7 @@ public class SysUserController extends BaseController {
     }
 
     @PostMapping("/status")
+    @ApiOperation(value = "批量设置用户状态", notes = "状态包括：启用、禁用")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
             @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
