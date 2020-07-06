@@ -127,9 +127,9 @@
                 <config.group>DEFAULT_GROUP</config.group>
                 <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
         </profile>
         <profile>
             <id>dev</id>
@@ -160,6 +160,9 @@
                 <config.group>DEFAULT_GROUP</config.group>
                 <discovery.server-addr>172.26.85.32:8848</discovery.server-addr>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
         <profile>
             <id>docker</id>
