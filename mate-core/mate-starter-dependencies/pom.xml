@@ -50,6 +50,8 @@
         <!-- Apache Dubbo -->
         <dubbo.version>2.7.6</dubbo.version>
         <fastjson.version>1.2.71</fastjson.version>
+
+        <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
     </properties>
 
     <dependencyManagement>
@@ -228,6 +230,16 @@
                 <groupId>com.alicp.jetcache</groupId>
                 <artifactId>jetcache-starter-redis-lettuce</artifactId>
                 <version>${jetcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server-ui</artifactId>
+                <version>${spring-boot-admin.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

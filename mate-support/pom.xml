@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>mate-code</module>
+        <module>mate-admin</module>
     </modules>
 
     <dependencies>
