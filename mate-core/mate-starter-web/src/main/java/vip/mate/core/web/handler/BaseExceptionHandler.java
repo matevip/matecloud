@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
  */
 @Slf4j
 @ControllerAdvice
-public class ControllerHandler {
+public class BaseExceptionHandler {
 
     /**
      * TokenException 异常捕获处理
