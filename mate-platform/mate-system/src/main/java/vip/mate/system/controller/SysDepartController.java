@@ -1,6 +1,5 @@
 package vip.mate.system.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -9,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;

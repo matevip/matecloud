@@ -1,8 +1,10 @@
 package vip.mate.core.web.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,8 +17,10 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import vip.mate.core.common.constant.MateConstant;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,8 +30,16 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
+@EnableKnife4j
+@Profile({"!prod"})
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration implements WebMvcConfigurer {
+
+    /**
+     * 排除排springboot的错误和监控端点的路径
+     */
+    private static final List<String> DEFAULT_EXCLUDE_PATH = Arrays.asList("/error", "/actuator/**");
+    private static final String BASE_PATH = "/**";
 
     @Bean(value = "userApi")
     @Order(value = 1)
@@ -39,24 +51,25 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .securityContexts(securityContexts())
+                .pathMapping("/");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/statics/**").addResourceLocations("classpath:/statics/");
-        // 解决 SWAGGER 404报错
-        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
+        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     private ApiInfo groupApiInfo(){
         return new ApiInfoBuilder()
                 .title("MateCLoud文档管理中心")
-                .description("<div style='font-size:14px;color:red;'>MateCloud RESTful APIs</div>")
+                .description("MateCloud文档管理")
+                .license("Powered by MateCloud")
                 .termsOfServiceUrl("http://mate.vip/")
                 .contact(new Contact("pangu", "http://doc.mate.vip", "7333791@qq.com"))
-                .version("1.0")
+                .version(MateConstant.MATE_APP_VERSION)
                 .build();
     }
 
@@ -64,6 +77,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
     private List<ApiKey> securitySchemes() {
         List<ApiKey> apiKeyList= new ArrayList();
         apiKeyList.add(new ApiKey("Authorization", "Authorization", "header"));
+        apiKeyList.add(new ApiKey("Mate-Auth", "Mate-Auth", "header"));
         return apiKeyList;
     }
 

@@ -6,6 +6,11 @@ import lombok.experimental.UtilityClass;
 public class MateConstant {
 
     /**
+     * 应用版本号
+     */
+    public static final String MATE_APP_VERSION = "0.8.8";
+
+    /**
      * Spring 应用名 prop key
      */
     public static final String SPRING_APP_NAME_KEY = "spring.application.name";
