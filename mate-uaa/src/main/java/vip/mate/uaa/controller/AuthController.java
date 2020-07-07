@@ -1,4 +1,4 @@
-package vip.mate.oauth.controller;
+package vip.mate.uaa.controller;
 
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.auth.service.TokenService;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.SecurityUtil;
-import vip.mate.oauth.service.CaptchaService;
+import vip.mate.uaa.service.CaptchaService;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;

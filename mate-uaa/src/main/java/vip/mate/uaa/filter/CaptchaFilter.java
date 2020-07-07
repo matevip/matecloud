@@ -1,8 +1,7 @@
-package vip.mate.oauth.filter;
+package vip.mate.uaa.filter;
 
 import com.alibaba.druid.util.StringUtils;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -14,7 +13,7 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.exception.CaptchaException;
 import vip.mate.core.common.util.ResponseUtil;
-import vip.mate.oauth.service.CaptchaService;
+import vip.mate.uaa.service.CaptchaService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

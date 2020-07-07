@@ -1,4 +1,4 @@
-package vip.mate.oauth.controller;
+package vip.mate.uaa.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;

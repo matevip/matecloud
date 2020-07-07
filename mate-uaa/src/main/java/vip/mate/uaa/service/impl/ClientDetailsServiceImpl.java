@@ -1,4 +1,4 @@
-package vip.mate.oauth.service.impl;
+package vip.mate.uaa.service.impl;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

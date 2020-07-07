@@ -14,7 +14,7 @@
  * limitations under the License.
  * Author: xuzhanfu (7333791@qq.com)
  */
-package vip.mate.oauth;
+package vip.mate.uaa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

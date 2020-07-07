@@ -14,7 +14,7 @@
  * limitations under the License.
  * Author: xuzhanfu (7333791@qq.com)
  */
-package vip.mate.oauth.config;
+package vip.mate.uaa.config;
 
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -29,7 +29,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import vip.mate.core.security.config.IgnoreUrlPropsConfig;
-import vip.mate.oauth.service.impl.UserDetailsServiceImpl;
+import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
 
 /**
  * 安全配置中心

@@ -14,7 +14,7 @@
  * limitations under the License.
  * Author: xuzhanfu (7333791@qq.com)
  */
-package vip.mate.oauth.config;
+package vip.mate.uaa.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +36,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.security.userdetails.MateUser;
-import vip.mate.oauth.service.impl.ClientDetailsServiceImpl;
+import vip.mate.uaa.service.impl.ClientDetailsServiceImpl;
 
 import java.util.Arrays;
 import java.util.HashMap;

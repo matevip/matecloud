@@ -1,4 +1,4 @@
-package vip.mate.oauth.translator;
+package vip.mate.uaa.translator;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.common.exceptions.InvalidScopeExcepti
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
-import org.springframework.stereotype.Component;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 

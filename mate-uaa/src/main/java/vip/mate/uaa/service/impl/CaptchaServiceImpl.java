@@ -1,4 +1,4 @@
-package vip.mate.oauth.service.impl;
+package vip.mate.uaa.service.impl;
 
 import com.wf.captcha.SpecCaptcha;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.exception.CaptchaException;
-import vip.mate.oauth.service.CaptchaService;
+import vip.mate.uaa.service.CaptchaService;
 
 import java.time.Duration;
 import java.util.HashMap;
