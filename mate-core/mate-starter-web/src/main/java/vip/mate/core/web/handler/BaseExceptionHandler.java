@@ -1,6 +1,7 @@
 package vip.mate.core.web.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,7 +56,11 @@ public class BaseExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<?> handleException(Exception ex) {
         log.error("程序异常：" + ex.toString());
-        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+        String message = ex.getMessage();
+        if (StringUtils.contains(message, "Bad credentials")){
+            message = "您输入的密码不正确";
+        }
+        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
     }
 
     /**

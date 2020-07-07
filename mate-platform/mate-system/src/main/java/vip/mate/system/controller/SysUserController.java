@@ -108,5 +108,25 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @PostMapping("/savePwd")
+    @ApiOperation(value = "设置用户密码", notes = "设置用户密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "form"),
+            @ApiImplicitParam(name = "password", required = true, value = "密码", paramType = "form")
+    })
+    public Result<?> savePwd(@RequestParam String id, @RequestParam String password) {
+        String pwd = null;
+        if (StringUtils.isNotBlank(password)) {
+            pwd = passwordEncoder.encode(CryptoUtil.encodeMD5(password));
+        }
+        SysUser sysUser = new SysUser();
+        sysUser.setId(CollectionUtil.strToLong(id, 0L));
+        sysUser.setPassword(pwd);
+        if (sysUserService.updateById(sysUser)) {
+            return Result.success("操作成功");
+        }
+        return Result.fail("操作失败");
+    }
+
 }
 
