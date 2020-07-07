@@ -1,7 +1,7 @@
 package vip.mate.code.mapper;
 
-import vip.mate.code.entity.DataSource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import vip.mate.code.entity.SysDataSource;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author xuzf
- * @since 2020-04-20
+ * @since 2020-07-07
  */
-public interface DataSourceMapper extends BaseMapper<DataSource> {
+public interface SysDataSourceMapper extends BaseMapper<SysDataSource> {
 
 }
