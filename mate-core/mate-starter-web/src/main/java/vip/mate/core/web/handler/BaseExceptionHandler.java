@@ -47,6 +47,20 @@ public class BaseExceptionHandler {
     }
 
     /**
+     * NullPointerException 空指针异常捕获处理
+     * @param ex 自定义NullPointerException异常类型
+     * @return Result
+     */
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result<?> handleException(NullPointerException ex) {
+        log.error("程序异常：" + ex.toString());
+        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
+
+
+    /**
      * 通用Exception异常捕获
      * @param ex 自定义Exception异常类型
      * @return Result
@@ -59,20 +73,9 @@ public class BaseExceptionHandler {
         String message = ex.getMessage();
         if (StringUtils.contains(message, "Bad credentials")){
             message = "您输入的密码不正确";
+        } else if (StringUtils.contains(ex.toString(), "InternalAuthenticationServiceException")) {
+            message = "您输入的用户名不存在";
         }
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
-    }
-
-    /**
-     * NullPointerException 空指针异常捕获处理
-     * @param ex 自定义NullPointerException异常类型
-     * @return Result
-     */
-    @ExceptionHandler
-    @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result<?> handleException(NullPointerException ex) {
-        log.error("程序异常：" + ex.toString());
-        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
 }

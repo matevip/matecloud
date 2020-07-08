@@ -8,9 +8,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.MateConstant;
@@ -24,7 +22,6 @@ import vip.mate.system.service.ISysMenuService;
 import vip.mate.system.util.TreeUtil;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -105,7 +102,7 @@ public class SysMenuController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    @PreAuthorize("@mp.hasPerm('sys:menu:delete')")
+//    @PreAuthorize("@mp.hasPerm('sys:menu:delete')")
     public Result<?> delete(@RequestParam String ids) {
         if(sysMenuService.removeByIds(CollectionUtil.stringToCollection(ids))) {
             return Result.success("删除成功");

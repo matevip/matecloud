@@ -14,10 +14,9 @@ import vip.mate.core.auth.service.TokenService;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.SecurityUtil;
 import vip.mate.system.dto.UserInfo;
-import vip.mate.uaa.service.CaptchaService;
-import vip.mate.system.entity.SysUser;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
+import vip.mate.uaa.service.CaptchaService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
