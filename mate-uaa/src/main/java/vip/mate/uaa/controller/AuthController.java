@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.auth.service.TokenService;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.SecurityUtil;
+import vip.mate.system.dto.UserInfo;
 import vip.mate.uaa.service.CaptchaService;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.feign.ISysRolePermissionProvider;
@@ -46,13 +47,13 @@ public class AuthController {
         Claims claims = tokenService.checkToken(request);
         String userName = (String)claims.get("userName");
 
-        SysUser sysUser = sysUserProvider.loadUserByUserName(userName);
+        UserInfo userInfo = sysUserProvider.loadUserByUserName(userName);
         Map<String, Object> data = new HashMap<>();
         data.put("userName", userName);
-        data.put("avatar", sysUser.getAvatar());
-        data.put("roleId", sysUser.getRoleId());
-        data.put("departId", sysUser.getDepartId());
-        List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(sysUser.getRoleId()));
+        data.put("avatar", userInfo.getSysUser().getAvatar());
+        data.put("roleId", userInfo.getSysUser().getRoleId());
+        data.put("departId", userInfo.getSysUser().getDepartId());
+        List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(userInfo.getSysUser().getRoleId()));
         data.put("permissions", stringList);
         return Result.data(data);
     }

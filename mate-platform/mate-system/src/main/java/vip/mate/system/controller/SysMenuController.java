@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import springfox.documentation.annotations.ApiIgnore;
@@ -104,6 +105,7 @@ public class SysMenuController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
+    @PreAuthorize("@mp.hasPerm('sys:menu:delete')")
     public Result<?> delete(@RequestParam String ids) {
         if(sysMenuService.removeByIds(CollectionUtil.stringToCollection(ids))) {
             return Result.success("删除成功");

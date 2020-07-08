@@ -2,9 +2,12 @@ package vip.mate.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.entity.SysRole;
+import vip.mate.system.entity.SysRolePermission;
 import vip.mate.system.mapper.SysRoleMapper;
+import vip.mate.system.service.ISysRolePermissionService;
 import vip.mate.system.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import vip.mate.system.vo.SysRoleVO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -23,6 +27,9 @@ import java.util.Map;
  */
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
+
+    @Autowired
+    private ISysRolePermissionService sysRolePermissionService;
 
     @Override
     public List<SysRoleVO> tree() {
@@ -44,5 +51,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             lambdaQueryWrapper.like(SysRole::getId, keyword);
         }
         return this.baseMapper.selectList(lambdaQueryWrapper);
+    }
+
+    @Override
+    public List<String> getPermission(String id) {
+        LambdaQueryWrapper<SysRolePermission> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(SysRolePermission::getRoleId, id);
+        List<SysRolePermission> sysRolePermissions = sysRolePermissionService.list(lambdaQueryWrapper);
+        List<String> list = sysRolePermissions.stream().map(sysRolePermission -> {
+            String menuId = sysRolePermission.getMenuId().toString();
+            return menuId;
+        }).collect(Collectors.toList());
+        return list;
     }
 }

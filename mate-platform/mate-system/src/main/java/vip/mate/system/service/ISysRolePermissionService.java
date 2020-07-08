@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface ISysRolePermissionService extends IService<SysRolePermission> {
 
-    List<SysRolePermission> getMenuIdByRoleId(String roleId);
+    List<String> getMenuIdByRoleId(String roleId);
 
 }

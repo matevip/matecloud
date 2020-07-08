@@ -21,4 +21,6 @@ public interface ISysRoleService extends IService<SysRole> {
 
     List<SysRole> listSearch(Map<String, String> search);
 
+    List<String> getPermission(String id);
+
 }

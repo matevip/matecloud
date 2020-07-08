@@ -92,14 +92,7 @@ public class SysRoleController extends BaseController {
     @GetMapping("/getPermission")
     @ApiOperation(value = "根据角色ID查询菜单列表", notes = "根据角色ID查询菜单列表")
     public Result<?> getPermission(@RequestParam String id) {
-        LambdaQueryWrapper<SysRolePermission> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(SysRolePermission::getRoleId, id);
-        List<SysRolePermission> sysRolePermissions = sysRolePermissionService.list(lambdaQueryWrapper);
-        List<Long> list = sysRolePermissions.stream().map(sysRolePermission -> {
-            long menuId = sysRolePermission.getMenuId();
-            return menuId;
-        }).collect(Collectors.toList());
-        return Result.data(list);
+        return Result.data(sysRoleService.getPermission(id));
     }
 
     @PostMapping("/savePermission")

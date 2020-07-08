@@ -24,6 +24,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-security</artifactId>
+        </dependency>
         <!-- 此依赖加上后使用dubbo,注释后使用Feign -->
         <dependency>
             <groupId>vip.mate</groupId>
