@@ -9,11 +9,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.code.entity.SysDataSource;
 import vip.mate.code.service.ISysDataSourceService;
+import vip.mate.code.vo.SysDataSourceVO;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,6 +75,12 @@ public class SysDataSourceController extends BaseController {
             return Result.success("删除成功");
         }
         return Result.fail("删除失败");
+    }
+
+    @GetMapping("/option-list")
+    @ApiOperation(value = "数据源列表", notes = "查询数据源作为下拉列表")
+    public Result<?> optionList() {
+        return Result.data(sysDataSourceService.optionList());
     }
 }
 

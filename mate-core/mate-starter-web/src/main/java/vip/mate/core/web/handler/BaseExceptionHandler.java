@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.exception.BaseException;
 import vip.mate.core.common.exception.TokenException;
 
 import java.io.FileNotFoundException;
@@ -19,6 +20,19 @@ import java.io.FileNotFoundException;
 @Slf4j
 @ControllerAdvice
 public class BaseExceptionHandler {
+
+    /**
+     * BaseException 异常捕获处理
+     * @param ex 自定义BaseException异常类型
+     * @return Result
+     */
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Result<?> handleException(BaseException ex) {
+        log.error("程序异常：" + ex.toString());
+        return Result.fail(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+    }
 
     /**
      * TokenException 异常捕获处理

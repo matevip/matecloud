@@ -1,6 +1,5 @@
 package vip.mate.uaa.service.impl;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -9,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import vip.mate.core.common.exception.AuthException;
+import vip.mate.core.common.exception.BaseException;
 import vip.mate.core.security.userdetails.MateUser;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.entity.SysUser;
@@ -27,7 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Resource
     private ISysUserProvider sysUserProvider;
 
-    @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
@@ -37,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("该用户：" + userName + "不存在");
         } else if (userInfo.getSysUser().getStatus().equals("1")) {
             log.info("该用户：{} 已被停用!", userName);
-            throw new AuthException("对不起，您的账号：" + userName + " 已停用");
+            throw new BaseException("对不起，您的账号：" + userName + " 已停用");
         }
         SysUser user = userInfo.getSysUser();
         log.info("用户名：{}", userName);
