@@ -156,7 +156,7 @@
             <properties>
                 <spring.active>prod</spring.active>
                 <config.server-addr>172.26.85.32:8848</config.server-addr>
-                <config.namespace></config.namespace>
+                <config.namespace>568b8eaa-f25d-4f2a-8c87-83dcb4caa955</config.namespace>
                 <config.group>DEFAULT_GROUP</config.group>
                 <discovery.server-addr>172.26.85.32:8848</discovery.server-addr>
             </properties>
