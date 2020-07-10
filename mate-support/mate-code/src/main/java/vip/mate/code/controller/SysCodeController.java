@@ -9,6 +9,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +21,10 @@ import vip.mate.code.service.ISysDataSourceService;
 import vip.mate.code.util.GeneratorUtil;
 import vip.mate.code.util.ZipUtil;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.web.util.FileUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -57,9 +62,10 @@ public class SysCodeController {
 
     @ApiOperation(value = "代码生成并下载", notes = "代码生成并下载")
     @PostMapping("/generator-code")
-    public Result<?> execute(@RequestParam String packageName, @RequestParam String prefix,
-                                           @RequestParam String modelName, @RequestParam String datasourceId,
-                                           @RequestParam String tableName)  {
+    public void execute(@RequestParam String packageName, @RequestParam String prefix,
+                                                      @RequestParam String modelName, @RequestParam String datasourceId,
+                                                      @RequestParam String tableName, HttpServletRequest request,
+                                                      HttpServletResponse response)  {
         SysDataSource sysDataSource = sysDataSourceService.getById(datasourceId);
         String outputDir = System.getProperty("user.dir") + File.separator + "temp" + File.separator + "generator" + File.separator + UUID.randomUUID().toString();
         CodeConfig config = new CodeConfig();
@@ -81,12 +87,9 @@ public class SysCodeController {
         String[] srcDir = {outputDir + File.separator + (config.getPackageName().substring(0, config.getPackageName().indexOf(".")))};
         try {
             ZipUtil.toZip(srcDir, filePath, true);
+            FileUtil.download(filePath, fileName, true, response);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-        Map data = Maps.newHashMap();
-        data.put("filePath", filePath);
-        data.put("fileName", fileName);
-        return Result.data(data);
     }
 }

@@ -52,6 +52,7 @@
         <fastjson.version>1.2.71</fastjson.version>
 
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
+        <poi.version>4.1.2</poi.version>
     </properties>
 
     <dependencyManagement>
@@ -240,6 +241,11 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui</artifactId>
                 <version>${spring-boot-admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

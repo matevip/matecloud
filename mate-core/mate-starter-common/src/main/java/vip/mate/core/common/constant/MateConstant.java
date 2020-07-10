@@ -43,5 +43,9 @@ public class MateConstant {
      * 树的根节点值
      */
     public static final Long TREE_ROOT = -1L;
+    /**
+     * 允许的文件类型，可根据需求添加
+     */
+    public static final String[] VALID_FILE_TYPE = {"xlsx", "zip"};
 
 }

@@ -11,6 +11,7 @@ target/
 .classpath
 .project
 logs/
+temp/
 
 # idea
 .idea/
