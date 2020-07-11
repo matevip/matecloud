@@ -8,7 +8,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import vip.mate.core.auth.service.TokenService;
 import vip.mate.core.common.context.UserContext;
 import vip.mate.core.common.entity.LoginUser;
-import vip.mate.core.web.util.CollectionUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +28,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     }
 
     private LoginUser getUser(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getRequestURI().contains("provider")){
+            return null;
+        }
         Claims claims = tokenService.checkToken(request);
         // 然后根据token获取用户登录信息，这里省略获取用户信息的过程
         LoginUser loginUser = new LoginUser();

@@ -16,8 +16,6 @@ spring:
 #          data-id: @artifactId@.yaml
 #          group: DEFAULT_GROUP
 #          refresh: true
-
-
       discovery:
         namespace: @config.namespace@
         server-addr: @config.server-addr@
