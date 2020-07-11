@@ -58,7 +58,7 @@ public class SysCodeController {
         GlobalConfig gc = new GlobalConfig();
 
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setDbType(DbType.getDbType(sysDataSource.getName()));
+        dsc.setDbType(DbType.getDbType(sysDataSource.getDbType()));
         dsc.setDriverName(sysDataSource.getDriverClass());
         dsc.setUrl(sysDataSource.getUrl());
         dsc.setUsername(sysDataSource.getUsername());
