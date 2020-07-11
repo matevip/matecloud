@@ -23,17 +23,21 @@ public class SecurityPermitAllConfiguration extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception {
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
+        successHandler.setDefaultTargetUrl(adminContextPath + "/");
 
-        http.headers().frameOptions().disable()
-                .and()
-                .authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers(adminContextPath + "/instances").permitAll()
+                .antMatchers(adminContextPath + "/actuator/**").permitAll()
                 .antMatchers(adminContextPath + "/assets/**").permitAll()
                 .antMatchers(adminContextPath + "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
-                .logout().logoutUrl(adminContextPath + "/logout").and()
-                .httpBasic().and()
+                .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler)
+                .and()
+                .logout().logoutUrl(adminContextPath + "/logout")
+                .and()
+                .httpBasic()
+                .and()
                 .csrf().disable();
     }
 
