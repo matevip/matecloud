@@ -13,6 +13,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.entity.LoginUser;
+import vip.mate.core.web.annotation.EnableUser;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
@@ -48,8 +49,8 @@ public class SysMenuController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", required = false, value = "可不填，根据token获取", paramType = "form"),
     })
-    public Result<?> routes(LoginUser loginUser) {
-        return Result.data(sysMenuService.routes(loginUser.getRoleId()));
+    public Result<?> routes(@ApiIgnore @EnableUser LoginUser user) {
+        return Result.data(sysMenuService.routes(user.getRoleId()));
     }
 
     @GetMapping("/list")

@@ -1,13 +1,13 @@
-package vip.mate.core.auth.service.impl;
+package vip.mate.core.web.service.impl;
 
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import vip.mate.core.auth.service.TokenService;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.exception.TokenException;
 import vip.mate.core.common.util.TokenUtil;
+import vip.mate.core.web.service.TokenService;
 
 import javax.servlet.http.HttpServletRequest;
 

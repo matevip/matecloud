@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import vip.mate.core.auth.service.TokenService;
+import vip.mate.core.web.service.TokenService;
 
 import javax.servlet.http.HttpServletRequest;
 

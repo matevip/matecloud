@@ -1,7 +1,8 @@
-package vip.mate.core.auth.service;
+package vip.mate.core.web.service;
 
 import io.jsonwebtoken.Claims;
 import vip.mate.core.common.exception.TokenException;
+
 import javax.servlet.http.HttpServletRequest;
 
 public interface TokenService {
