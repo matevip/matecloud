@@ -1,5 +1,5 @@
 server:
-  port: 10000
+  port: 10001
 spring:
   application:
     name: @artifactId@
@@ -11,3 +11,8 @@ spring:
     loadbalancer:
       retry:
         enabled: true
+mate:
+  route:
+    config:
+      data-id: mate-gateway-router
+      group: DEFAULT_GROUP

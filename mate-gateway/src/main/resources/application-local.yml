@@ -11,3 +11,8 @@ spring:
     loadbalancer:
       retry:
         enabled: true
+mate:
+  route:
+    config:
+      data-id: mate-gateway-router
+      group: DEFAULT_GROUP
