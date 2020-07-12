@@ -18,9 +18,12 @@ import vip.mate.core.common.constant.SystemConstant;
 import vip.mate.core.common.util.CryptoUtil;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
+import vip.mate.core.web.util.ExcelUtil;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.service.ISysUserService;
+import vip.mate.system.vo.SysUserVO;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
@@ -126,6 +129,14 @@ public class SysUserController extends BaseController {
             return Result.success("操作成功");
         }
         return Result.fail("操作失败");
+    }
+
+    @GetMapping("/exportUser")
+    @ApiOperation(value = "导出用户列表", notes = "导出用户列表")
+    public void export(HttpServletResponse response) {
+        List<SysUserVO> sysUserVOS = sysUserService.export();
+        //使用工具类导出excel
+        ExcelUtil.exportExcel(sysUserVOS, null, "用户", SysUserVO.class, "user", response);
     }
 
 }

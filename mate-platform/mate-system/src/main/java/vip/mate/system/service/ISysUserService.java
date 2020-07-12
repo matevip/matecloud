@@ -22,4 +22,6 @@ public interface ISysUserService extends IService<SysUser> {
 
     IPage<SysUser> listPage(Map<String, String> query);
 
+    List<SysUserVO> export();
+
 }

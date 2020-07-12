@@ -25,7 +25,9 @@ public class SysUserVO implements Serializable {
 
     @Excel(name = "部门" ,orderNum = "4", height = 20, width = 30, isImportField = "true_st")
     private String departName;
-    @Excel(name = "角色" ,orderNum = "3", height = 20, width = 30, isImportField = "true_st")
+    @Excel(name = "状态" ,orderNum = "6", height = 20, width = 30, isImportField = "true_st")
     private String statusName;
+    @Excel(name = "角色" ,orderNum = "3", height = 20, width = 30, isImportField = "true_st")
+    private String roleName;
 
 }

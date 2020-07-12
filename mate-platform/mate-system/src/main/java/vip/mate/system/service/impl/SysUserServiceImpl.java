@@ -82,5 +82,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUserIPage;
     }
 
-
+    public List<SysUserVO> export() {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getIsDeleted, "0");
+        List<SysUser> sysUsers = this.baseMapper.selectList(queryWrapper);
+        return sysUsers.stream().map(sysUser -> {
+           SysUserVO sysUserVO = new SysUserVO();
+           BeanUtils.copyProperties(sysUser, sysUserVO);
+           sysUserVO.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
+           sysUserVO.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
+           sysUserVO.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
+           return sysUserVO;
+        }).collect(Collectors.toList());
+    }
 }
