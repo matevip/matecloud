@@ -36,7 +36,7 @@ public class GeneratorUtil {
         gc.setAuthor("pangu");
         gc.setSwagger2(true);
         //主键策略
-        gc.setIdType(IdType.ID_WORKER);
+        gc.setIdType(IdType.AUTO);
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         gc.setServiceName("%sService");
         gc.setServiceImplName("%sServiceImpl");
@@ -58,7 +58,7 @@ public class GeneratorUtil {
             public DbColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
                 //将数据库中datetime转换成date
                 if (fieldType.toLowerCase().contains("datetime")) {
-                    return DbColumnType.DATE;
+                    return DbColumnType.LOCAL_DATE_TIME;
                 }
                 return (DbColumnType) super.processTypeConvert(globalConfig, fieldType);
             }
@@ -132,7 +132,7 @@ public class GeneratorUtil {
         strategy.setSuperControllerClass("vip.mate.core.web.controller.BaseController");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id");
-        strategy.setInclude(config.getTableName());
+        strategy.setInclude(config.getTableName().split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(config.getPrefix());
         // strategy.setTablePrefix(pc.getModuleName() + "_");
