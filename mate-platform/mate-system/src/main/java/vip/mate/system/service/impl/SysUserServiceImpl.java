@@ -3,20 +3,19 @@ package vip.mate.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.system.entity.SysMenu;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.mapper.SysUserMapper;
+import vip.mate.system.poi.SysUserPOI;
 import vip.mate.system.service.ISysDepartService;
 import vip.mate.system.service.ISysDictService;
 import vip.mate.system.service.ISysRoleService;
 import vip.mate.system.service.ISysUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
-import vip.mate.system.vo.SysUserVO;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -82,17 +81,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUserIPage;
     }
 
-    public List<SysUserVO> export() {
+    public List<SysUserPOI> export() {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysUser::getIsDeleted, "0");
         List<SysUser> sysUsers = this.baseMapper.selectList(queryWrapper);
         return sysUsers.stream().map(sysUser -> {
-           SysUserVO sysUserVO = new SysUserVO();
-           BeanUtils.copyProperties(sysUser, sysUserVO);
-           sysUserVO.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
-           sysUserVO.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
-           sysUserVO.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
-           return sysUserVO;
+           SysUserPOI sysUserPOI = new SysUserPOI();
+           BeanUtils.copyProperties(sysUser, sysUserPOI);
+           sysUserPOI.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
+           sysUserPOI.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
+           sysUserPOI.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
+           return sysUserPOI;
         }).collect(Collectors.toList());
     }
 }

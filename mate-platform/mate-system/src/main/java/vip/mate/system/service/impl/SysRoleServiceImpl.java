@@ -1,16 +1,17 @@
 package vip.mate.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import vip.mate.system.entity.SysMenu;
+import org.springframework.stereotype.Service;
 import vip.mate.system.entity.SysRole;
 import vip.mate.system.entity.SysRolePermission;
 import vip.mate.system.mapper.SysRoleMapper;
+import vip.mate.system.poi.SysRolePOI;
 import vip.mate.system.service.ISysRolePermissionService;
 import vip.mate.system.service.ISysRoleService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import vip.mate.system.vo.SysRoleVO;
 
 import java.util.List;
@@ -63,5 +64,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             return menuId;
         }).collect(Collectors.toList());
         return list;
+    }
+
+    @Override
+    public List<SysRolePOI> export() {
+        LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysRole::getIsDeleted, 0);
+        List<SysRole> sysRoles = this.baseMapper.selectList(queryWrapper);
+        return sysRoles.stream().map(sysRole -> {
+            SysRolePOI sysRolePOI = new SysRolePOI();
+            BeanUtils.copyProperties(sysRole, sysRolePOI);
+            return sysRolePOI;
+        }).collect(Collectors.toList());
     }
 }

@@ -48,4 +48,6 @@ public class MateConstant {
      */
     public static final String[] VALID_FILE_TYPE = {"xlsx", "zip"};
 
+    public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
 }

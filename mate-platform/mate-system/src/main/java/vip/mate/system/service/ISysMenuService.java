@@ -1,8 +1,8 @@
 package vip.mate.system.service;
 
-import com.alicp.jetcache.anno.Cached;
-import vip.mate.system.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.system.entity.SysMenu;
+import vip.mate.system.poi.SysMenuPOI;
 import vip.mate.system.vo.SysMenuVO;
 
 import java.util.List;
@@ -26,5 +26,6 @@ public interface ISysMenuService extends IService<SysMenu> {
 
     boolean status(String ids, String status);
 
+    List<SysMenuPOI> export();
 
 }

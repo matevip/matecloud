@@ -12,6 +12,7 @@
 ## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
 
 MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家提供技术框架的基础能力的封装，减少开发工作，让您只关注业务。
+
 ### 技术架构
 <p align="center"> 
     <img src="https://cdn.ckjia.com/MateCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB.png" />

@@ -1,21 +1,21 @@
 package vip.mate.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 import vip.mate.core.common.constant.MateConstant;
-import vip.mate.core.web.enums.MenuTypeEnum;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.mapper.SysMenuMapper;
+import vip.mate.system.poi.SysMenuPOI;
 import vip.mate.system.service.ISysMenuService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import vip.mate.system.util.TreeUtil;
 import vip.mate.system.vo.SysMenuVO;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -74,5 +74,18 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             this.baseMapper.updateById(sysMenu);
         }
         return true;
+    }
+
+    @Override
+    public List<SysMenuPOI> export() {
+        LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysMenu::getIsDeleted, 0);
+        queryWrapper.orderByAsc(SysMenu::getId);
+        List<SysMenu> sysMenus = this.baseMapper.selectList(queryWrapper);
+        return sysMenus.stream().map(sysMenu -> {
+            SysMenuPOI sysMenuPOI = new SysMenuPOI();
+            BeanUtils.copyProperties(sysMenu, sysMenuPOI);
+            return sysMenuPOI;
+        }).collect(Collectors.toList());
     }
 }

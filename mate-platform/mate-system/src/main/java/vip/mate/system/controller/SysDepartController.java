@@ -12,10 +12,14 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
+import vip.mate.core.web.util.ExcelUtil;
 import vip.mate.system.entity.SysDepart;
+import vip.mate.system.poi.SysDepartPOI;
 import vip.mate.system.service.ISysDepartService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -82,6 +86,13 @@ public class SysDepartController extends BaseController {
             return Result.success("删除成功");
         }
         return Result.fail("删除失败");
+    }
+
+    @GetMapping("/export-depart")
+    public void export(HttpServletResponse response) {
+        List<SysDepartPOI> sysDepartPOIS = sysDepartService.export();
+        //使用工具类导出excel
+        ExcelUtil.exportExcel(sysDepartPOIS, null, "部门", SysDepartPOI.class, "depart", response);
     }
 }
 

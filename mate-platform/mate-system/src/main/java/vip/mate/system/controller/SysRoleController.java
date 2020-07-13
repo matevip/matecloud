@@ -2,32 +2,29 @@ package vip.mate.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.jsonwebtoken.lang.Collections;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.system.dto.SysMenuDTO;
+import vip.mate.core.web.util.ExcelUtil;
 import vip.mate.system.entity.SysRole;
 import vip.mate.system.entity.SysRolePermission;
-import vip.mate.system.entity.SysUser;
+import vip.mate.system.poi.SysRolePOI;
 import vip.mate.system.service.ISysRolePermissionService;
 import vip.mate.system.service.ISysRoleService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -121,6 +118,14 @@ public class SysRoleController extends BaseController {
     @ApiOperation(value = "获取角色树列表", notes = "获取角色树列表")
     public Result<?> tree() {
         return Result.data(sysRoleService.tree());
+    }
+
+    @GetMapping("/export-role")
+    @ApiOperation(value = "导出角色列表", notes = "导出角色列表")
+    public void export(@ApiIgnore HttpServletResponse response) {
+        List<SysRolePOI> sysRolePOIS = sysRoleService.export();
+        //使用工具类导出excel
+        ExcelUtil.exportExcel(sysRolePOIS, null, "角色", SysRolePOI.class, "role", response);
     }
 }
 

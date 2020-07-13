@@ -1,10 +1,5 @@
 package vip.mate.system.controller;
 
-import com.alicp.jetcache.anno.CacheInvalidate;
-import com.alicp.jetcache.anno.CacheUpdate;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,19 +8,18 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.common.api.Result;
-import vip.mate.core.common.constant.SystemConstant;
 import vip.mate.core.common.util.CryptoUtil;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.core.web.util.ExcelUtil;
 import vip.mate.system.entity.SysUser;
+import vip.mate.system.poi.SysUserPOI;
 import vip.mate.system.service.ISysUserService;
-import vip.mate.system.vo.SysUserVO;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -131,12 +125,12 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
-    @GetMapping("/exportUser")
+    @GetMapping("/export-user")
     @ApiOperation(value = "导出用户列表", notes = "导出用户列表")
-    public void export(HttpServletResponse response) {
-        List<SysUserVO> sysUserVOS = sysUserService.export();
+    public void export(@ApiIgnore HttpServletResponse response) {
+        List<SysUserPOI> sysUserPOIS = sysUserService.export();
         //使用工具类导出excel
-        ExcelUtil.exportExcel(sysUserVOS, null, "用户", SysUserVO.class, "user", response);
+        ExcelUtil.exportExcel(sysUserPOIS, null, "用户", SysUserPOI.class, "user", response);
     }
 
 }

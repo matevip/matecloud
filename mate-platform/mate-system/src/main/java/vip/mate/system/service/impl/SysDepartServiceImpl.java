@@ -8,6 +8,7 @@ import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.system.entity.SysDepart;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.mapper.SysDepartMapper;
+import vip.mate.system.poi.SysDepartPOI;
 import vip.mate.system.service.ISysDepartService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,17 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
             return sysDepartVO;
         }).collect(Collectors.toList());
         return ForestNodeMerger.merge(sysDepartVOS);
+    }
+
+    @Override
+    public List<SysDepartPOI> export() {
+        LambdaQueryWrapper<SysDepart> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysDepart::getIsDeleted, 0);
+        List<SysDepart> sysDeparts = this.baseMapper.selectList(queryWrapper);
+        return sysDeparts.stream().map(sysDepart -> {
+            SysDepartPOI sysDepartPOI = new SysDepartPOI();
+            BeanUtils.copyProperties(sysDepart, sysDepartPOI);
+            return sysDepartPOI;
+        }).collect(Collectors.toList());
     }
 }

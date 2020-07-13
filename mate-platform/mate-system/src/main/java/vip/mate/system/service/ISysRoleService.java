@@ -2,6 +2,7 @@ package vip.mate.system.service;
 
 import vip.mate.system.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.system.poi.SysRolePOI;
 import vip.mate.system.vo.SysRoleVO;
 
 import java.util.List;
@@ -22,5 +23,7 @@ public interface ISysRoleService extends IService<SysRole> {
     List<SysRole> listSearch(Map<String, String> search);
 
     List<String> getPermission(String id);
+
+    List<SysRolePOI> export();
 
 }

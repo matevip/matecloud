@@ -17,11 +17,14 @@ import vip.mate.core.web.annotation.EnableUser;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
+import vip.mate.core.web.util.ExcelUtil;
 import vip.mate.system.dto.SysMenuDTO;
 import vip.mate.system.entity.SysMenu;
+import vip.mate.system.poi.SysMenuPOI;
 import vip.mate.system.service.ISysMenuService;
 import vip.mate.system.util.TreeUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -122,6 +125,14 @@ public class SysMenuController extends BaseController {
             return Result.success("批量修改成功");
         }
         return Result.fail("操作失败");
+    }
+
+    @GetMapping("/export-menu")
+    @ApiOperation(value = "导出角色列表", notes = "导出角色列表")
+    public void export(@ApiIgnore HttpServletResponse response) {
+        List<SysMenuPOI> sysMenuPOIS = sysMenuService.export();
+        //使用工具类导出excel
+        ExcelUtil.exportExcel(sysMenuPOIS, null, "菜单", SysMenuPOI.class, "menu", response);
     }
 }
 

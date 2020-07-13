@@ -1,9 +1,9 @@
 package vip.mate.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import vip.mate.system.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
-import vip.mate.system.vo.SysUserVO;
+import vip.mate.system.entity.SysUser;
+import vip.mate.system.poi.SysUserPOI;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,6 @@ public interface ISysUserService extends IService<SysUser> {
 
     IPage<SysUser> listPage(Map<String, String> query);
 
-    List<SysUserVO> export();
+    List<SysUserPOI> export();
 
 }
