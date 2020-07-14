@@ -16,12 +16,12 @@ dubbo:
     dubbo:
       name: dubbo
       port: -1
-#  registries:
-#    new:
-#      address: spring-cloud://localhost
-  registry:
+  registries:
+    new:
+      address: spring-cloud://localhost
+#  registry:
 #   The Spring Cloud Dubbo's registry extension
-    address: spring-cloud://localhost
+#    address: spring-cloud://localhost
 #   The traditional Dubbo's registry
 #    address: nacos://127.0.0.1:8848
 jetcache:

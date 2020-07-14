@@ -50,4 +50,10 @@ public class MateConstant {
 
     public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+    /**
+     * 微服务之间传递的唯一标识
+     */
+    public static final String X_REQUEST_ID = "X-Request-Id";
+
+
 }

@@ -16,3 +16,6 @@ mate:
     config:
       data-id: mate-gateway-router
       group: DEFAULT_GROUP
+  request:
+    isTraceId: true
+    isGetIp: true

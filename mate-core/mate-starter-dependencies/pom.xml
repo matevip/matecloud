@@ -48,7 +48,7 @@
         <jetcache.version>2.6.0</jetcache.version>
 
         <!-- Apache Dubbo -->
-        <dubbo.version>2.7.6</dubbo.version>
+        <dubbo.version>2.7.7</dubbo.version>
         <fastjson.version>1.2.71</fastjson.version>
 
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
@@ -269,6 +269,16 @@
                 <groupId>cn.afterturn</groupId>
                 <artifactId>easypoi-annotation</artifactId>
                 <version>${easypoi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
