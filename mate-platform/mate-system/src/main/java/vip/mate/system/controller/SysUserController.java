@@ -125,7 +125,7 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
-    @GetMapping("/export-user")
+    @PostMapping("/export-user")
     @ApiOperation(value = "导出用户列表", notes = "导出用户列表")
     public void export(@ApiIgnore HttpServletResponse response) {
         List<SysUserPOI> sysUserPOIS = sysUserService.export();

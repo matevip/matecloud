@@ -88,7 +88,8 @@ public class SysDepartController extends BaseController {
         return Result.fail("删除失败");
     }
 
-    @GetMapping("/export-depart")
+    @PostMapping("/export-depart")
+    @ApiOperation(value = "导出部门列表", notes = "导出部门列表")
     public void export(HttpServletResponse response) {
         List<SysDepartPOI> sysDepartPOIS = sysDepartService.export();
         //使用工具类导出excel

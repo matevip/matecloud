@@ -127,8 +127,8 @@ public class SysMenuController extends BaseController {
         return Result.fail("操作失败");
     }
 
-    @GetMapping("/export-menu")
-    @ApiOperation(value = "导出角色列表", notes = "导出角色列表")
+    @PostMapping("/export-menu")
+    @ApiOperation(value = "导出菜单列表", notes = "导出菜单列表")
     public void export(@ApiIgnore HttpServletResponse response) {
         List<SysMenuPOI> sysMenuPOIS = sysMenuService.export();
         //使用工具类导出excel

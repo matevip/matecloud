@@ -38,7 +38,7 @@ public class GeneratorUtil {
         //主键策略
         gc.setIdType(IdType.AUTO);
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
-        gc.setServiceName("%sService");
+        gc.setServiceName("I%sService");
         gc.setServiceImplName("%sServiceImpl");
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");

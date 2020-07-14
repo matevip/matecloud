@@ -120,7 +120,7 @@ public class SysRoleController extends BaseController {
         return Result.data(sysRoleService.tree());
     }
 
-    @GetMapping("/export-role")
+    @PostMapping("/export-role")
     @ApiOperation(value = "导出角色列表", notes = "导出角色列表")
     public void export(@ApiIgnore HttpServletResponse response) {
         List<SysRolePOI> sysRolePOIS = sysRoleService.export();
