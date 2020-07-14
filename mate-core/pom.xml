@@ -20,6 +20,7 @@
         <module>mate-starter-auth</module>
         <module>mate-starter-rocketmq</module>
         <module>mate-starter-jetcache</module>
+        <module>mate-starter-log</module>
     </modules>
 
     <properties>

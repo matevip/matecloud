@@ -55,5 +55,10 @@ public class MateConstant {
      */
     public static final String X_REQUEST_ID = "X-Request-Id";
 
+    /**
+     * Java默认临时目录
+     */
+    public static final String JAVA_TEMP_DIR = "java.io.tmpdir";
+
 
 }

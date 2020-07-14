@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.CryptoUtil;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.core.web.util.ExcelUtil;
@@ -42,6 +43,7 @@ public class SysUserController extends BaseController {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Log(value = "用户列表", exception = "用户列表请求异常")
     @GetMapping("/list")
     @ApiOperation(value = "获取分页接口列表", notes = "获取分页接口列表")
     @ApiImplicitParams({

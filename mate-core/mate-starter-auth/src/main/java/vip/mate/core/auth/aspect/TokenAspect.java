@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import vip.mate.core.web.service.TokenService;
+import vip.mate.core.common.util.SecurityUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 public class TokenAspect {
 
     private final HttpServletRequest request;
-
-    private final TokenService tokenService;
 
     /**
      * 定义切入点，切入点为标注自定义注解TokenAnnotation的方法
@@ -35,6 +33,7 @@ public class TokenAspect {
      */
     @Before("TokenAspectPointcut()")
     public void before() throws Exception{
-        tokenService.checkToken(request);// 幂等性校验, 校验通过则放行, 校验失败则抛出异常, 并通过统一异常处理返回友好提示
+//        tokenService.checkToken(request);// 幂等性校验, 校验通过则放行, 校验失败则抛出异常, 并通过统一异常处理返回友好提示
+        SecurityUtil.getClaims(SecurityUtil.getToken(request));
     }
 }

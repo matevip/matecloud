@@ -1,6 +1,5 @@
 package vip.mate.uaa.controller;
 
-import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.common.util.SecurityUtil;
-import vip.mate.core.web.service.TokenService;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
@@ -38,17 +37,16 @@ public class AuthController {
 
     private final ISysRolePermissionProvider sysRolePermissionProvider;
 
-    private final TokenService tokenService;
+//    private final TokenService tokenService;
 
     @GetMapping("/auth/userInfo")
     @ApiOperation(value = "获取用户信息给VUE", notes = "获取用户信息给VUE")
     public Result<?> getUserInfo(HttpServletRequest request) {
-        Claims claims = tokenService.checkToken(request);
-        String userName = (String)claims.get("userName");
 
-        UserInfo userInfo = sysUserProvider.loadUserByUserName(userName);
+        LoginUser loginUser = SecurityUtil.getUsername(request);
+        UserInfo userInfo = sysUserProvider.loadUserByUserName(loginUser.getAccount());
         Map<String, Object> data = new HashMap<>();
-        data.put("userName", userName);
+        data.put("userName", loginUser.getAccount());
         data.put("avatar", userInfo.getSysUser().getAvatar());
         data.put("roleId", userInfo.getSysUser().getRoleId());
         data.put("departId", userInfo.getSysUser().getDepartId());
