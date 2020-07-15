@@ -3,9 +3,7 @@ package vip.mate.system.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import vip.mate.core.common.api.Result;
-import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.feign.constant.FeignConstant;
 import vip.mate.system.entity.SysLog;
 

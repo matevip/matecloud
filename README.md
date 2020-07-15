@@ -5,7 +5,7 @@
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
   <img src="https://img.shields.io/badge/Spring%20Boot-2.3.1.RELEASE-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR5-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR6-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.1.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
@@ -17,6 +17,7 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家
 <p align="center"> 
     <img src="https://cdn.ckjia.com/MateCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB.png" />
 </p>
+
 ### 功能特点
 1.　采用最新的Spring Cloud Alibaba封装;
 

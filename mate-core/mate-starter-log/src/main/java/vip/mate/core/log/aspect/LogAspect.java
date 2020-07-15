@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.core.common.constant.MateConstant;
-import vip.mate.core.common.util.AddressUtil;
+import vip.mate.core.common.util.IPUtil;
 import vip.mate.core.common.util.ClassUtil;
 import vip.mate.core.common.util.RequestHolder;
 import vip.mate.core.common.util.SecurityUtil;
@@ -74,7 +74,7 @@ public class LogAspect {
 
         // 获取IP和地区
         String ip = RequestHolder.getHttpServletRequestIpAddress();
-        String region = AddressUtil.getCityInfo(ip);
+        String region = IPUtil.getCityInfo(ip);
 
         //获取请求参数
         Map<String, Object> paramMap = logIngArgs(point);
@@ -88,7 +88,7 @@ public class LogAspect {
         }
         //　如果是登录请求，则不获取用户信息
         String userName = null;
-        if (!method.contains("oauth") && !(method.contains("code"))){
+        if (!url.contains("oauth") && !(url.contains("code"))){
             userName = SecurityUtil.getUsername(request).getAccount();
         }
         //　封装SysLog

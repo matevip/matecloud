@@ -42,6 +42,9 @@ public class RequestHolder {
         if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
+        if (ip.contains(",")) {
+            ip = ip.split(",")[0];
+        }
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }
 }
