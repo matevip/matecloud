@@ -1,13 +1,14 @@
 package vip.mate.core.log.aspect;
 
 import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -22,30 +23,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.core.common.constant.MateConstant;
-import vip.mate.core.common.util.IPUtil;
 import vip.mate.core.common.util.ClassUtil;
+import vip.mate.core.common.util.IPUtil;
 import vip.mate.core.common.util.RequestHolder;
 import vip.mate.core.common.util.SecurityUtil;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.log.event.LogEvent;
 import vip.mate.system.entity.SysLog;
-import vip.mate.system.feign.ISysLogProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Aspect
 @Component
+@AllArgsConstructor
 public class LogAspect {
 
-    @Autowired
-    private ISysLogProvider sysLogProvider;
+//    @Autowired
+//    private ISysLogProvider sysLogProvider;
+
+    private final ApplicationContext applicationContext;
 
     private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
@@ -54,7 +60,7 @@ public class LogAspect {
     }
 
     @Around("pointcut()")
-    public Object logAround(ProceedingJoinPoint point) throws Throwable {
+    public Object recordLog(ProceedingJoinPoint point) throws Throwable {
         Object result = new Object();
 
         //　获取request
@@ -103,8 +109,9 @@ public class LogAspect {
         sysLog.setExecuteTime(BigDecimal.valueOf(tookTime));
         sysLog.setTitle(logAnn.value());
         sysLog.setParams(JSON.toJSONString(paramMap));
-        sysLogProvider.saveLog(sysLog);
-        log.info("Request Result: {}", JSON.toJSON(sysLog));
+        // 发布事件
+        applicationContext.publishEvent(new LogEvent(sysLog));
+        log.info("Request Result: {}", sysLog);
         return result;
     }
 
