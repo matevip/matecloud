@@ -56,7 +56,7 @@ public class SysClientController extends BaseController {
 
 
     @EnableToken
-    @Log(value = "添加系统客户端", exception = "添加系统客户端请求异常")
+    @Log(value = "新增或修改客户端", exception = "新增或修改客户端请求异常")
     @PostMapping("/save-or-update")
     @ApiOperation(value = "添加系统客户端", notes = "添加系统客户端,支持新增或修改")
     public Result<?> saveOrUpdate(@Valid @RequestBody SysClient sysClient) {

@@ -1,7 +1,10 @@
 package vip.mate.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import vip.mate.system.entity.SysLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysLogService extends IService<SysLog> {
 
+    IPage<SysLog> listPage(Map<String, String> query);
 }

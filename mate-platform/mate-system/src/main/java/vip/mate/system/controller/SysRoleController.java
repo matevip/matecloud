@@ -59,7 +59,7 @@ public class SysRoleController extends BaseController {
     }
 
     @EnableToken
-    @Log(value = "添加系统角色", exception = "添加系统角色请求异常")
+    @Log(value = "新增或修改角色", exception = "新增或修改角色请求异常")
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "添加系统角色", notes = "添加系统角色,支持新增或修改")
     public Result<?> saveOrUpdate(@Valid @RequestBody SysRole sysRole) {

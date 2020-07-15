@@ -64,7 +64,7 @@ public class SysDepartController extends BaseController {
 
     @EnableToken
     @PostMapping("/saveOrUpdate")
-    @Log(value = "添加系统部门资源", exception = "添加系统部门资源请求异常")
+    @Log(value = "新增或修改部门", exception = "新增或修改请求异常")
     @ApiOperation(value = "添加系统部门资源", notes = "添加系统部门资源,支持新增或修改")
     public Result<?> saveOrUpdate(@Valid @RequestBody SysDepart sysDepart) {
         if (sysDepartService.saveOrUpdate(sysDepart)) {

@@ -60,6 +60,7 @@ public class SysUserController extends BaseController {
     }
 
     @EnableToken
+    @Log(value = "新增或修改用户", exception = "新增或修改用户请求异常")
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "添加系统用户", notes = "添加系统用户,支持新增或修改")
     //@CacheUpdate(name=SystemConstant.SYS_USER_CACHE, key="#sysUser.account", value="#sysUser")

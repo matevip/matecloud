@@ -90,7 +90,7 @@ public class SysMenuController extends BaseController {
     }
 
     @EnableToken
-    @Log(value = "添加系统菜单", exception = "添加系统菜单请求异常")
+    @Log(value = "新增或修改菜单", exception = "新增或修改菜单请求异常")
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "添加系统菜单", notes = "添加系统菜单,支持新增或修改")
     public Result<?> saveOrUpdate(@Valid @RequestBody SysMenu sysMenu) {
