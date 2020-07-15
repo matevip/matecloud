@@ -93,7 +93,7 @@ public class SysUserController extends BaseController {
         }
         return Result.fail("删除失败");
     }
-
+    @Log(value = "设置用户状态", exception = "设置用户状态请求异常")
     @PostMapping("/status")
     @ApiOperation(value = "批量设置用户状态", notes = "状态包括：启用、禁用")
     @ApiImplicitParams({
@@ -107,6 +107,7 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @Log(value = "设置用户密码", exception = "设置用户密码请求异常")
     @PostMapping("/savePwd")
     @ApiOperation(value = "设置用户密码", notes = "设置用户密码")
     @ApiImplicitParams({
@@ -127,6 +128,7 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @Log(value = "导出用户", exception = "导出用户请求异常")
     @PostMapping("/export-user")
     @ApiOperation(value = "导出用户列表", notes = "导出用户列表")
     public void export(@ApiIgnore HttpServletResponse response) {

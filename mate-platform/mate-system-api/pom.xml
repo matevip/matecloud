@@ -27,6 +27,7 @@
             <artifactId>mate-starter-database</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
 

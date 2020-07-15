@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.common.util.SecurityUtil;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
@@ -39,6 +40,7 @@ public class AuthController {
 
 //    private final TokenService tokenService;
 
+    @Log(value = "获取用户信息给VUE", exception = "获取用户信息给VUE请求异常")
     @GetMapping("/auth/userInfo")
     @ApiOperation(value = "获取用户信息给VUE", notes = "获取用户信息给VUE")
     public Result<?> getUserInfo(HttpServletRequest request) {
@@ -55,12 +57,14 @@ public class AuthController {
         return Result.data(data);
     }
 
+    @Log(value = "获取验证码", exception = "获取验证码请求异常")
     @GetMapping("/auth/code")
     @ApiOperation(value = "获取验证码", notes = "获取验证码")
     public Result<?> authCode() {
         return captchaService.getCode();
     }
 
+    @Log(value = "退出登录并删除TOKEN", exception = "退出登录并删除TOKEN请求异常")
     @PostMapping("/auth/logout")
     @ApiOperation(value = "退出登录并删除TOKEN", notes = "退出登录并删除TOKEN")
     public Result<?> logout(HttpServletRequest request) {

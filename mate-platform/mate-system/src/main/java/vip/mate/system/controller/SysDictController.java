@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.system.feign.ISysDictProvider;
 
@@ -27,12 +28,14 @@ public class SysDictController extends BaseController {
 
     private final ISysDictProvider sysDictProvider;
 
+    @Log(value = "根据code查询字典列表", exception = "根据code查询字典列表请求异常")
     @GetMapping("/list-code")
     @ApiOperation(value = "根据code查询字典列表", notes = "根据code查询字典列表")
     public Result<?> listCode (String code) {
        return sysDictProvider.getList(code);
     }
 
+    @Log(value = "根据code查询字典列表", exception = "根据code查询字典列表请求异常")
     @GetMapping("/get-dict-value")
     @ApiOperation(value = "根据code查询字典列表", notes = "根据code查询字典列表")
     public Result<?> getDictValue (String code, String dictKey) {
