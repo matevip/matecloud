@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
@@ -40,6 +41,7 @@ public class SysDepartController extends BaseController {
 
     private final ISysDepartService sysDepartService;
 
+    @EnableToken
     @Log(value = "获取系统部门资源列表", exception = "获取系统部门资源列表请求异常")
     @GetMapping("/list")
     @ApiOperation(value = "获取系统部门资源列表", notes = "获取系统部门资源列表，根据query查询")
@@ -52,6 +54,7 @@ public class SysDepartController extends BaseController {
        return Result.data(sysDepartService.searchList(search));
     }
 
+    @EnableToken
     @Log(value = "获取部门树列表", exception = "获取部门树列表请求异常")
     @GetMapping("/tree")
     @ApiOperation(value = "获取部门树列表", notes = "获取部门树列表")
@@ -59,6 +62,7 @@ public class SysDepartController extends BaseController {
         return Result.data(ForestNodeMerger.merge(sysDepartService.tree()));
     }
 
+    @EnableToken
     @PostMapping("/saveOrUpdate")
     @Log(value = "添加系统部门资源", exception = "添加系统部门资源请求异常")
     @ApiOperation(value = "添加系统部门资源", notes = "添加系统部门资源,支持新增或修改")
@@ -69,6 +73,7 @@ public class SysDepartController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @EnableToken
     @GetMapping("/info")
     @Log(value = "获取系统部门信息", exception = "获取系统部门信息请求异常")
     @ApiOperation(value = "获取系统部门信息", notes = "根据ID查询")
@@ -81,6 +86,7 @@ public class SysDepartController extends BaseController {
         return Result.data(sysDepartService.getOne(queryWrapper));
     }
 
+    @EnableToken
     @PostMapping("/delete")
     @Log(value = "批量删除系统部门资源数据", exception = "批量删除系统部门资源数据请求异常")
     @ApiOperation(value = "批量删除系统部门资源数据", notes = "批量删除系统部门资源数据")
@@ -94,6 +100,7 @@ public class SysDepartController extends BaseController {
         return Result.fail("删除失败");
     }
 
+    @EnableToken
     @PostMapping("/export-depart")
     @Log(value = "导出部门列表", exception = "导出部门列表请求异常")
     @ApiOperation(value = "导出部门列表", notes = "导出部门列表")

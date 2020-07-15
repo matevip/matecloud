@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.CryptoUtil;
 import vip.mate.core.log.annotation.Log;
@@ -43,6 +44,7 @@ public class SysUserController extends BaseController {
 
     private final PasswordEncoder passwordEncoder;
 
+    @EnableToken
     @Log(value = "用户列表", exception = "用户列表请求异常")
     @GetMapping("/list")
     @ApiOperation(value = "获取分页接口列表", notes = "获取分页接口列表")
@@ -57,6 +59,7 @@ public class SysUserController extends BaseController {
         return Result.data(sysUserService.listPage(query));
     }
 
+    @EnableToken
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "添加系统用户", notes = "添加系统用户,支持新增或修改")
     //@CacheUpdate(name=SystemConstant.SYS_USER_CACHE, key="#sysUser.account", value="#sysUser")
@@ -72,6 +75,7 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @EnableToken
     @GetMapping("/info")
     @ApiOperation(value = "获取用户信息", notes = "根据ID查询")
     @ApiImplicitParams({
@@ -81,6 +85,7 @@ public class SysUserController extends BaseController {
         return Result.data(sysUserService.getById(sysUser.getId()));
     }
 
+    @EnableToken
     @PostMapping("/delete")
     //@CacheInvalidate(name=SystemConstant.SYS_USER_CACHE, key="#{*}")
     @ApiOperation(value = "批量删除用户数据", notes = "批量删除用户数据")
@@ -93,6 +98,8 @@ public class SysUserController extends BaseController {
         }
         return Result.fail("删除失败");
     }
+
+    @EnableToken
     @Log(value = "设置用户状态", exception = "设置用户状态请求异常")
     @PostMapping("/status")
     @ApiOperation(value = "批量设置用户状态", notes = "状态包括：启用、禁用")
@@ -107,6 +114,7 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @EnableToken
     @Log(value = "设置用户密码", exception = "设置用户密码请求异常")
     @PostMapping("/savePwd")
     @ApiOperation(value = "设置用户密码", notes = "设置用户密码")
@@ -128,6 +136,7 @@ public class SysUserController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @EnableToken
     @Log(value = "导出用户", exception = "导出用户请求异常")
     @PostMapping("/export-user")
     @ApiOperation(value = "导出用户列表", notes = "导出用户列表")

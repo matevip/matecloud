@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
@@ -38,6 +39,7 @@ public class SysClientController extends BaseController {
 
     private final ISysClientService sysClientService;
 
+    @EnableToken
     @Log(value = "客户端分页列表", exception = "客户端分页列表请求异常")
     @GetMapping("/list")
     @ApiOperation(value = "获取分页接口列表", notes = "获取分页接口列表")
@@ -53,6 +55,7 @@ public class SysClientController extends BaseController {
     }
 
 
+    @EnableToken
     @Log(value = "添加系统客户端", exception = "添加系统客户端请求异常")
     @PostMapping("/save-or-update")
     @ApiOperation(value = "添加系统客户端", notes = "添加系统客户端,支持新增或修改")
@@ -63,6 +66,7 @@ public class SysClientController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @EnableToken
     @Log(value = "获取系统客户端信息", exception = "获取系统客户端信息请求异常")
     @GetMapping("/info")
     @ApiOperation(value = "获取系统客户端信息", notes = "根据ID查询")
@@ -73,6 +77,7 @@ public class SysClientController extends BaseController {
         return Result.data(sysClientService.getById(sysClient.getId()));
     }
 
+    @EnableToken
     @Log(value = "批量删除系统客户端", exception = "批量删除系统客户端请求异常")
     @PostMapping("/delete")
     @ApiOperation(value = "批量删除系统客户端", notes = "批量删除系统客户端")
@@ -86,6 +91,7 @@ public class SysClientController extends BaseController {
         return Result.fail("删除失败");
     }
 
+    @EnableToken
     @Log(value = "批量设置系统客户端状态", exception = "批量设置系统客户端状态请求异常")
     @PostMapping("/status")
     @ApiOperation(value = "批量设置系统客户端状态", notes = "状态包括：启用、禁用")
@@ -100,6 +106,7 @@ public class SysClientController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @EnableToken
     @Log(value = "导出客户端列表", exception = "导出客户端列表请求异常")
     @PostMapping("/export-client")
     @ApiOperation(value = "导出客户端列表", notes = "导出客户端列表")

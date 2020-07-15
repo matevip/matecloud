@@ -69,7 +69,8 @@ public class LogAspect {
         // 打印执行时间
         long startTime = System.nanoTime();
         // 请求方法
-        String method = request.getMethod() + ":" + request.getRequestURI();
+        String method = request.getMethod();
+        String url = request.getRequestURI();
 
         // 获取IP和地区
         String ip = RequestHolder.getHttpServletRequestIpAddress();
@@ -95,6 +96,7 @@ public class LogAspect {
         sysLog.setIp(ip);
         sysLog.setCreateBy(userName);
         sysLog.setMethod(method);
+        sysLog.setUrl(url);
         sysLog.setOperation(JSON.toJSON(result).toString());
         sysLog.setLocation(StringUtils.isEmpty(region)?"本地":region);
         sysLog.setTraceId(request.getHeader(MateConstant.X_REQUEST_ID));
@@ -102,7 +104,7 @@ public class LogAspect {
         sysLog.setTitle(logAnn.value());
         sysLog.setParams(JSON.toJSONString(paramMap));
         sysLogProvider.saveLog(sysLog);
-        log.info("Request Result: {}", sysLog);
+        log.info("Request Result: {}", JSON.toJSON(sysLog));
         return result;
     }
 

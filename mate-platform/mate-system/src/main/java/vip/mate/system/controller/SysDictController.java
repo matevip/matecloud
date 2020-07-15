@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
@@ -28,6 +29,7 @@ public class SysDictController extends BaseController {
 
     private final ISysDictProvider sysDictProvider;
 
+    @EnableToken
     @Log(value = "根据code查询字典列表", exception = "根据code查询字典列表请求异常")
     @GetMapping("/list-code")
     @ApiOperation(value = "根据code查询字典列表", notes = "根据code查询字典列表")
@@ -35,6 +37,7 @@ public class SysDictController extends BaseController {
        return sysDictProvider.getList(code);
     }
 
+    @EnableToken
     @Log(value = "根据code查询字典列表", exception = "根据code查询字典列表请求异常")
     @GetMapping("/get-dict-value")
     @ApiOperation(value = "根据code查询字典列表", notes = "根据code查询字典列表")

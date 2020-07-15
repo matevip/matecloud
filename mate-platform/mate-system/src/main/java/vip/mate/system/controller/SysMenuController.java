@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.entity.LoginUser;
@@ -48,6 +49,7 @@ public class SysMenuController extends BaseController {
 
     private final ISysMenuService sysMenuService;
 
+    @EnableToken
     @Log(value = "根据RoleId查询routes列表", exception = "根据RoleId查询routes列表请求异常")
     @GetMapping("/routes")
     @ApiOperation(value = "根据RoleId查询routes列表", notes = "根据RoleId查询routes列表")
@@ -58,6 +60,7 @@ public class SysMenuController extends BaseController {
         return Result.data(sysMenuService.routes(user.getRoleId()));
     }
 
+    @EnableToken
     @Log(value = "获取菜单接口列表", exception = "获取菜单接口列表请求异常")
     @GetMapping("/list")
     @ApiOperation(value = "获取菜单接口列表", notes = "获取菜单接口列表，根据query查询")
@@ -70,6 +73,7 @@ public class SysMenuController extends BaseController {
         return Result.data(TreeUtil.list2Tree(sysMenuService.searchList(search), MateConstant.TREE_ROOT));
     }
 
+    @EnableToken
     @Log(value = "查询所有系统菜单资源列表", exception = "查询所有系统菜单资源列表请求异常")
     @GetMapping("/asyncList")
     @ApiOperation(value = "查询所有系统菜单资源列表", notes = "查询所有菜单列表")
@@ -85,6 +89,7 @@ public class SysMenuController extends BaseController {
         return Result.data(ForestNodeMerger.merge(sysMenuDTOS));
     }
 
+    @EnableToken
     @Log(value = "添加系统菜单", exception = "添加系统菜单请求异常")
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "添加系统菜单", notes = "添加系统菜单,支持新增或修改")
@@ -95,6 +100,7 @@ public class SysMenuController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    @EnableToken
     @Log(value = "获取系统菜单信息", exception = "获取系统菜单信息请求异常")
     @GetMapping("/info")
     @ApiOperation(value = "获取系统菜单信息", notes = "根据ID查询")
@@ -107,6 +113,7 @@ public class SysMenuController extends BaseController {
         return Result.data(sysMenuService.getOne(queryWrapper));
     }
 
+    @EnableToken
     @Log(value = "批量删除系统菜单数据", exception = "批量删除系统菜单数据请求异常")
     @PostMapping("/delete")
     @ApiOperation(value = "批量删除系统菜单数据", notes = "批量删除系统菜单数据")

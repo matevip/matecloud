@@ -65,6 +65,12 @@ public class SysLog extends BaseEntity {
 	*/
 	@ApiModelProperty(value = "执行方法")
 	private String method;
+
+	/**
+	 * 请求路径
+	 */
+	@ApiModelProperty(value = "请求路径")
+	private String url;
 	/**
 	* 参数
 	*/
