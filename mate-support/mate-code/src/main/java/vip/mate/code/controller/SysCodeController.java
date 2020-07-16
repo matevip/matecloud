@@ -93,7 +93,7 @@ public class SysCodeController {
         config.setPrefix(prefix);
         config.setOutputDir(outputDir);
         GeneratorUtil.execute(config);
-        String fileName = tableName + ".zip";
+        String fileName = "code" + UUID.randomUUID().toString() + ".zip";
         String filePath = outputDir + File.separator + fileName;
         // 压缩目录
         String[] srcDir = {outputDir + File.separator + (config.getPackageName().substring(0, config.getPackageName().indexOf(".")))};
