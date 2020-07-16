@@ -1,7 +1,9 @@
 package vip.mate.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.core.database.entity.Search;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.poi.SysUserPOI;
 
@@ -20,7 +22,7 @@ public interface ISysUserService extends IService<SysUser> {
 
     boolean status(String ids, String status);
 
-    IPage<SysUser> listPage(Map<String, String> query);
+    IPage<SysUser> listPage(Page page, Search search);
 
     List<SysUserPOI> export();
 

@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import vip.mate.core.common.util.StringUtil;
+import vip.mate.core.database.entity.Search;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysClient;
 import vip.mate.system.mapper.SysClientMapper;
@@ -16,7 +18,6 @@ import vip.mate.system.service.ISysClientService;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -31,18 +32,12 @@ import java.util.stream.Collectors;
 public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient> implements ISysClientService {
 
     @Override
-    public IPage<SysClient> listPage(Map<String, String> query) {
-        long current = CollectionUtil.strToLong(query.get("current"), 0L);
-        long size = CollectionUtil.strToLong(query.get("size"), 0L);
-        IPage<SysClient> page = new Page<>(current, size);
-
-        String keyword = String.valueOf(query.get("keyword"));
-        String startDate = String.valueOf(query.get("startDate"));
-        String endDate = String.valueOf(query.get("endDate"));
+    public IPage<SysClient> listPage(Page page, Search search) {
         LambdaQueryWrapper<SysClient> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotBlank(startDate) && !startDate.equals("null")) {
-            lambdaQueryWrapper.between(SysClient::getCreateTime, startDate, endDate);
+        if (StringUtil.isNotBlank(search.getStartDate())) {
+            lambdaQueryWrapper.between(SysClient::getCreateTime, search.getStartDate(), search.getEndDate());
         }
+        String keyword = search.getKeyword();
         if (StringUtils.isNotBlank(keyword) && !keyword.equals("null")) {
             lambdaQueryWrapper.like(SysClient::getClientId, keyword);
             lambdaQueryWrapper.or();

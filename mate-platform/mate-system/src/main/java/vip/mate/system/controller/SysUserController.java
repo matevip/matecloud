@@ -1,5 +1,6 @@
 package vip.mate.system.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -12,6 +13,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.util.CryptoUtil;
+import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
@@ -23,7 +25,6 @@ import vip.mate.system.service.ISysUserService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -55,8 +56,8 @@ public class SysUserController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> list(@RequestParam Map<String, String> query) {
-        return Result.data(sysUserService.listPage(query));
+    public Result<?> list(Page page, Search search) {
+        return Result.data(sysUserService.listPage(page, search));
     }
 
     @EnableToken

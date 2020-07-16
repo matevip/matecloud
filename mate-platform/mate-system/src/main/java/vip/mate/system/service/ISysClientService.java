@@ -1,12 +1,13 @@
 package vip.mate.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.core.database.entity.Search;
 import vip.mate.system.entity.SysClient;
 import vip.mate.system.poi.SysClientPOI;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -18,7 +19,7 @@ import java.util.Map;
  */
 public interface ISysClientService extends IService<SysClient> {
 
-    IPage<SysClient> listPage(Map<String, String> query);
+    IPage<SysClient> listPage(Page page, Search search);
 
     boolean status(String ids, String status);
 

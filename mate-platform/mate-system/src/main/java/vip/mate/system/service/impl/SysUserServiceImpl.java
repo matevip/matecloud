@@ -5,9 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import vip.mate.core.common.util.StringUtil;
+import vip.mate.core.database.entity.Search;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.mapper.SysUserMapper;
@@ -20,7 +21,6 @@ import vip.mate.system.service.ISysUserService;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -52,24 +52,18 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public IPage<SysUser> listPage(Map<String, String> query) {
-        long current = CollectionUtil.strToLong(query.get("current"), 0L);
-        long size = CollectionUtil.strToLong(query.get("size"), 0L);
-        IPage<SysUser> page = new Page<>(current, size);
+    public IPage<SysUser> listPage(Page page, Search search) {
 
-        String keyword = String.valueOf(query.get("keyword"));
-        String startDate = String.valueOf(query.get("startDate"));
-        String endDate = String.valueOf(query.get("endDate"));
-        LambdaQueryWrapper<SysUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotBlank(startDate) && !startDate.equals("null")) {
-            lambdaQueryWrapper.between(SysUser::getCreateTime, startDate, endDate);
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtil.isNotBlank(search.getStartDate())) {
+            queryWrapper.between(SysUser::getCreateTime, search.getStartDate(), search.getEndDate());
         }
-        if (StringUtils.isNotBlank(keyword) && !keyword.equals("null")) {
-            lambdaQueryWrapper.like(SysUser::getName, keyword);
-            lambdaQueryWrapper.or();
-            lambdaQueryWrapper.like(SysUser::getId, keyword);
+        if (StringUtil.isNotBlank(search.getKeyword())) {
+            queryWrapper.like(SysUser::getName, search.getKeyword());
+            queryWrapper.or();
+            queryWrapper.like(SysUser::getId, search.getKeyword());
         }
-        IPage<SysUser> sysUserIPage = this.baseMapper.selectPage(page, lambdaQueryWrapper);
+        IPage<SysUser> sysUserIPage = this.baseMapper.selectPage(page, queryWrapper);
         List<SysUser> sysUserList = sysUserIPage.getRecords().stream().map(sysUser -> {
             sysUser.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
             sysUser.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
@@ -77,7 +71,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             return sysUser;
         }).collect(Collectors.toList());
         sysUserIPage.setRecords(sysUserList);
-
         return sysUserIPage;
     }
 
