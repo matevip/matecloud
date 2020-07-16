@@ -10,7 +10,7 @@ import vip.mate.system.entity.SysLog;
 @FeignClient(value = FeignConstant.MATE_CLOUD_SYSTEM)
 public interface ISysLogProvider {
 
-    @PostMapping("/log/save")
+    @PostMapping("/provider/log/save")
     Result<Boolean> saveLog(@RequestBody SysLog sysLog);
 //    Result<Boolean> saveLog(@RequestBody SysLog sysLog, @RequestHeader(MateConstant.X_REQUEST_ID) String traceId);
 

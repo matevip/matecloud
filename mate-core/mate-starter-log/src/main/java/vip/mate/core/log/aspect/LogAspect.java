@@ -103,8 +103,8 @@ public class LogAspect {
         sysLog.setCreateBy(userName);
         sysLog.setMethod(method);
         sysLog.setUrl(url);
-        sysLog.setOperation(JSON.toJSON(result).toString());
-        sysLog.setLocation(StringUtils.isEmpty(region)?"本地":region);
+        sysLog.setOperation(String.valueOf(result));
+        sysLog.setLocation(StringUtils.isEmpty(region) ? "本地" : region);
         sysLog.setTraceId(request.getHeader(MateConstant.X_REQUEST_ID));
         sysLog.setExecuteTime(BigDecimal.valueOf(tookTime));
         sysLog.setTitle(logAnn.value());

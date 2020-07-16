@@ -24,9 +24,6 @@ public class SysLogProvider implements ISysLogProvider{
 
     @Override
     public Result<Boolean> saveLog(SysLog sysLog) {
-        if (!ObjectUtils.isEmpty(sysLog)) {
-            sysLogService.save(sysLog);
-        }
-        return Result.data(true);
+        return Result.data(sysLogService.save(sysLog));
     }
 }
