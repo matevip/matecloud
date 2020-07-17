@@ -21,6 +21,7 @@
         <module>mate-starter-rocketmq</module>
         <module>mate-starter-jetcache</module>
         <module>mate-starter-log</module>
+        <module>mate-starter-minio</module>
     </modules>
 
     <properties>
