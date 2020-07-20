@@ -2,6 +2,7 @@ package vip.mate.system.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import vip.mate.core.feign.constant.FeignConstant;
 
 import java.util.List;
@@ -15,5 +16,5 @@ public interface ISysRolePermissionProvider {
      * @return List
      */
     @GetMapping("/provider/sys-role-permission/get-permission")
-    List<String> getMenuIdByRoleId(String roleId);
+    List<String> getMenuIdByRoleId(@RequestParam("roleId") String roleId);
 }

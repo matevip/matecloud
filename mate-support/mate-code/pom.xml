@@ -27,7 +27,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.3.1.tmp</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
