@@ -121,7 +121,7 @@ public class MinioTemplate implements InitializingBean {
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#putObject
      */
     public void putObject(String bucketName, String objectName, InputStream stream) throws Exception {
-        client.putObject(PutObjectArgs.builder().bucket(bucketName).object(objectName).stream(stream, -1, -1).build());
+        client.putObject(PutObjectArgs.builder().bucket(bucketName).object(objectName).stream(stream, stream.available(), -1).build());
     }
 
     /**
