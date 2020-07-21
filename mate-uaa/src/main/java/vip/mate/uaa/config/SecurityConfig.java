@@ -16,8 +16,8 @@
  */
 package vip.mate.uaa.config;
 
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -39,17 +39,20 @@ import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
  * @date 2019-10-11 23:25
  **/
 @EnableWebSecurity
-@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final IgnoreUrlPropsConfig ignoreUrlPropsConfig;
+    @Autowired
+    @SuppressWarnings("all")
+    private IgnoreUrlPropsConfig ignoreUrlPropsConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    private final SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+    @Autowired
+    @SuppressWarnings("all")
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     /**
      * 必须要定义，否则不支持grant_type=password模式
@@ -73,6 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config
                 = http.requestMatchers().anyRequest()
                 .and()
+                .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
                 .authorizeRequests();
         ignoreUrlPropsConfig.getUrls().forEach(e -> {
             config.antMatchers(e).permitAll();
@@ -84,8 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/v2/api-docs-ext").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                 .csrf().disable();
     }

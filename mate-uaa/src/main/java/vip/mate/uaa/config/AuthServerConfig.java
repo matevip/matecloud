@@ -16,7 +16,7 @@
  */
 package vip.mate.uaa.config;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -38,9 +38,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import vip.mate.core.common.constant.Oauth2Constant;
-import vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig;
 import vip.mate.core.security.userdetails.MateUser;
-import vip.mate.uaa.granter.MateTokenGranter;
 import vip.mate.uaa.granter.SmsCodeTokenGranter;
 import vip.mate.uaa.service.impl.ClientDetailsServiceImpl;
 
@@ -54,19 +52,28 @@ import java.util.*;
  **/
 
 @Configuration
-@AllArgsConstructor
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private final ClientDetailsServiceImpl clientService;
+    @Autowired
+    @SuppressWarnings("all")
+    private ClientDetailsServiceImpl clientService;
 
-    private final RedisConnectionFactory redisConnectionFactory;
+    @Autowired
+    @SuppressWarnings("all")
+    private RedisConnectionFactory redisConnectionFactory;
 
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    @SuppressWarnings("all")
+    private AuthenticationManager authenticationManager;
 
-    private final UserDetailsService userDetailsService;
+    @Autowired
+    @SuppressWarnings("all")
+    private UserDetailsService userDetailsService;
 
-    private final StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    @SuppressWarnings("all")
+    private StringRedisTemplate stringRedisTemplate;
 
 
     /**
@@ -80,8 +87,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
-        //获取自定义tokenGranter
-//        TokenGranter tokenGranter = MateTokenGranter.getTokenGranter(authenticationManager, endpoints, stringRedisTemplate);
         // token增强链
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         // 把jwt增强，与额外信息增强加入到增强链
@@ -89,10 +94,10 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         endpoints
                 .authenticationManager(authenticationManager)
                 .tokenGranter(tokenGranter(endpoints))
-                .tokenStore(redisTokenStore())
                 .tokenEnhancer(tokenEnhancerChain)
                 .accessTokenConverter(jwtAccessTokenConverter())
                 .userDetailsService(userDetailsService)
+                .tokenStore(redisTokenStore())
                 .reuseRefreshTokens(false);
     }
 
