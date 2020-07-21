@@ -72,4 +72,11 @@ public class AuthController {
         return Result.success("操作成功");
     }
 
+    @Log(value = "获取手机验证码", exception = "获取手机验证码请求异常")
+    @ApiOperation(value = "获取手机验证码", notes = "获取手机验证码")
+    @GetMapping("/auth/sms-code")
+    public Result<?> smsCode(String mobile) {
+        return captchaService.getSmsCode(mobile);
+    }
+
 }

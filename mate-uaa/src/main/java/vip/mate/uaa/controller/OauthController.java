@@ -37,6 +37,18 @@ public class OauthController {
         return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
     }
 
+    @Log(value = "手机号码登录", exception = "手机号码登录请求异常")
+    @GetMapping("/mobile")
+    public Result<?> getMobileToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        return custom(tokenEndpoint.getAccessToken(principal, parameters).getBody());
+    }
+
+    @Log(value = "手机号码登录", exception = "手机号码登录请求异常")
+    @PostMapping("/mobile")
+    public Result<?> postMobileToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
+    }
+
     //自定义返回格式
     private Result<?> custom(OAuth2AccessToken accessToken) {
         DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;

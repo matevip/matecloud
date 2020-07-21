@@ -11,6 +11,8 @@ public interface CaptchaService {
      */
     Result<?> getCode();
 
+    Result<?> getSmsCode(String mobile);
+
     /**
      * 校验验证码
      * @param key　KEY

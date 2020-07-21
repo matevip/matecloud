@@ -40,6 +40,13 @@ public class Oauth2Constant {
 
     public static final String OAUTH_ERROR = "/oauth/error";
 
+    public static final String OAUTH_MOBILE = "/oauth/mobile";
+
+    /**
+     * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
+     */
+    public static final String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
+
     /**
      * 验证码 key
      */
@@ -81,6 +88,8 @@ public class Oauth2Constant {
     public static final String SIGN_KEY = "MATE";
 
     public static final String CAPTCHA_KEY = "mate.captcha.";
+
+    public static final String SMS_CODE_KEY = "mate.sms.code.";
 
     public static final String CAPTCHA_HEADER_KEY = "key";
 

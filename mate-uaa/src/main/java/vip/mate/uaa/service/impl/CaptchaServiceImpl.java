@@ -37,16 +37,24 @@ public class CaptchaServiceImpl implements CaptchaService {
     }
 
     @Override
+    public Result<?> getSmsCode(String mobile) {
+
+        String code = "1188";
+        stringRedisTemplate.opsForValue().set(Oauth2Constant.SMS_CODE_KEY + mobile, code, Duration.ofMinutes(5));
+        return Result.success("发送成功");
+    }
+
+    @Override
     public void check(String key, String code) throws CaptchaException {
-        String codeFormRedis = stringRedisTemplate.opsForValue().get(Oauth2Constant.CAPTCHA_KEY + key);
+        String codeFromRedis = stringRedisTemplate.opsForValue().get(Oauth2Constant.CAPTCHA_KEY + key);
 
         if (StringUtils.isBlank(code)) {
             throw new CaptchaException("请输入验证码");
         }
-        if (codeFormRedis == null) {
+        if (codeFromRedis == null) {
             throw new CaptchaException("验证码已过期");
         }
-        if (!StringUtils.equalsIgnoreCase(code, String.valueOf(codeFormRedis))) {
+        if (!StringUtils.equalsIgnoreCase(code, String.valueOf(codeFromRedis))) {
             throw new CaptchaException("验证码不正确");
         }
 

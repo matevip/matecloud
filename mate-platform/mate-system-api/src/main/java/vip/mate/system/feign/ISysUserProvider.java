@@ -19,4 +19,7 @@ public interface ISysUserProvider {
     @GetMapping("/provider/user-info")
     UserInfo loadUserByUserName(@RequestParam("userName") String userName);
 
+    @GetMapping("/provider/mobile")
+    UserInfo loadUserByMobile(@RequestParam("mobile") String mobile);
+
 }

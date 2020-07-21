@@ -34,9 +34,9 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
 
         //1.根据角色ID，查询菜单列表
         List<SysRolePermission> sysRolePermissions = this.baseMapper.selectList(lambdaQueryWrapper);
-        //2.根据menuId从mate_sys_menu表中查询按钮，也就是type＝2，并返回List
+        //2.将menuId转换为List
         List<Long> menuIds = sysRolePermissions.stream().map(SysRolePermission::getMenuId).collect(Collectors.toList());
-        //3.根据menuId查询所有的满足条件的菜单列表
+        //3.根据menuId查询所有的满足条件的菜单列表,其中type=2为按钮
         List<SysMenu> sysMenuList = sysMenuService.list(new LambdaQueryWrapper<SysMenu>()
                 .eq(SysMenu::getType, 2).in(SysMenu::getId, menuIds));
         return sysMenuList.stream().map(SysMenu::getPermission).collect(Collectors.toList());

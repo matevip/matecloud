@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -29,18 +30,21 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig;
 import vip.mate.core.security.userdetails.MateUser;
+import vip.mate.uaa.granter.MateTokenGranter;
+import vip.mate.uaa.granter.SmsCodeTokenGranter;
 import vip.mate.uaa.service.impl.ClientDetailsServiceImpl;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 认证服务器配置中心
@@ -62,6 +66,9 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
+    private final StringRedisTemplate stringRedisTemplate;
+
+
     /**
      * 配置token存储到redis中
      */
@@ -72,12 +79,16 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
+        //获取自定义tokenGranter
+//        TokenGranter tokenGranter = MateTokenGranter.getTokenGranter(authenticationManager, endpoints, stringRedisTemplate);
         // token增强链
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         // 把jwt增强，与额外信息增强加入到增强链
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
         endpoints
                 .authenticationManager(authenticationManager)
+                .tokenGranter(tokenGranter(endpoints))
                 .tokenStore(redisTokenStore())
                 .tokenEnhancer(tokenEnhancerChain)
                 .accessTokenConverter(jwtAccessTokenConverter())
@@ -108,6 +119,20 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey(Oauth2Constant.SIGN_KEY);
         return jwtAccessTokenConverter;
+    }
+
+    /**
+     * 重点
+     * 先获取已经有的五种授权，然后添加我们自己的进去
+     *
+     * @param endpoints AuthorizationServerEndpointsConfigurer
+     * @return TokenGranter
+     */
+    private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints) {
+        List<TokenGranter> granters = new ArrayList<>(Collections.singletonList(endpoints.getTokenGranter()));
+        granters.add(new SmsCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
+                endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
+        return new CompositeTokenGranter(granters);
     }
 
     /**

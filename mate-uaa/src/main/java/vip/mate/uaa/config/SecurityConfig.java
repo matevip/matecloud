@@ -29,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import vip.mate.core.security.config.IgnoreUrlPropsConfig;
+import vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig;
 import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
 
 /**
@@ -47,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
+    private final SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     /**
      * 必须要定义，否则不支持grant_type=password模式
@@ -76,11 +79,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         });
         config
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/oauth/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/v2/api-docs-ext").permitAll()
                 .anyRequest().authenticated()
-                .and().csrf().disable();
+                .and()
+                .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+                .csrf().disable();
     }
 
     @Override
