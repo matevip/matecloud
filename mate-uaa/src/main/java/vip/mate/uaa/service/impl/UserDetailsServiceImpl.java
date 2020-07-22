@@ -62,10 +62,8 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
         }
         SysUser user = userInfo.getSysUser();
         log.info("用户名：{}", userInfo.getSysUser().getAccount());
-        Set<String> stringSet = new HashSet<>();
-        stringSet.addAll(userInfo.getPermissions());
         Collection<? extends GrantedAuthority> authorities
-                = AuthorityUtils.createAuthorityList(stringSet.toArray(new String[0]));
+                = AuthorityUtils.createAuthorityList("*:*:*");
         log.info("authorities: {}", authorities);
         return new MateUser(user.getId(), userInfo.getType(), user.getDepartId(), user.getRoleId(), user.getTelephone(), user.getAvatar(),
                 user.getTenantId(), userInfo.getUserName(), user.getPassword(), user.getStatus().equals("0") ? true : false,
