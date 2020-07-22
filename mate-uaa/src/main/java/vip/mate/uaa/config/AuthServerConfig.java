@@ -16,7 +16,7 @@
  */
 package vip.mate.uaa.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -39,6 +39,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.security.userdetails.MateUser;
+import vip.mate.uaa.granter.CaptchaTokenGranter;
 import vip.mate.uaa.granter.SmsCodeTokenGranter;
 import vip.mate.uaa.service.impl.ClientDetailsServiceImpl;
 
@@ -52,29 +53,19 @@ import java.util.*;
  **/
 
 @Configuration
+@AllArgsConstructor
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    @SuppressWarnings("all")
-    private ClientDetailsServiceImpl clientService;
+    private final ClientDetailsServiceImpl clientService;
 
-    @Autowired
-    @SuppressWarnings("all")
-    private RedisConnectionFactory redisConnectionFactory;
+    private final RedisConnectionFactory redisConnectionFactory;
 
-    @Autowired
-    @SuppressWarnings("all")
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    @SuppressWarnings("all")
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    @SuppressWarnings("all")
-    private StringRedisTemplate stringRedisTemplate;
-
+    private final StringRedisTemplate stringRedisTemplate;
 
     /**
      * 配置token存储到redis中
@@ -86,17 +77,16 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
         // token增强链
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         // 把jwt增强，与额外信息增强加入到增强链
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
         endpoints
                 .authenticationManager(authenticationManager)
-                .tokenGranter(tokenGranter(endpoints))
                 .tokenEnhancer(tokenEnhancerChain)
                 .accessTokenConverter(jwtAccessTokenConverter())
                 .userDetailsService(userDetailsService)
+                .tokenGranter(tokenGranter(endpoints))
                 .tokenStore(redisTokenStore())
                 .reuseRefreshTokens(false);
     }
@@ -137,6 +127,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         List<TokenGranter> granters = new ArrayList<>(Collections.singletonList(endpoints.getTokenGranter()));
         granters.add(new SmsCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
                 endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
+        granters.add(new CaptchaTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
+                endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
         return new CompositeTokenGranter(granters);
     }
 
@@ -161,6 +153,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                     additionMessage.put("userName", user.getUsername());
                     additionMessage.put("avatar", user.getAvatar());
                     additionMessage.put("roleId", String.valueOf(user.getRoleId()));
+                    additionMessage.put("type", user.getType());
                 }
                 ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(additionMessage);
                 return oAuth2AccessToken;

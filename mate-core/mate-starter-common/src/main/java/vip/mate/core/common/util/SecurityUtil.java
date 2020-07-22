@@ -59,6 +59,7 @@ public class SecurityUtil {
         loginUser.setUserId(String.valueOf(claims.get("userId")));
         loginUser.setAccount((String) claims.get("userName"));
         loginUser.setRoleId(String.valueOf(claims.get("roleId")));
+        loginUser.setType(NumberUtil.stoi(String.valueOf(claims.get("type"))));
         UserContext.setUser(loginUser);
         return loginUser;
     }

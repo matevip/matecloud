@@ -1,9 +1,11 @@
 package vip.mate.core.security.handle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,19 +24,19 @@ import java.util.Base64;
 import java.util.HashMap;
 
 @Slf4j
-@Component
 public class SmsCodeSuccessHandler implements AuthenticationSuccessHandler {
+
     @Autowired
-    @SuppressWarnings("all")
     private @NonNull ClientDetailsService clientDetailsService;
+
     @Autowired
-    @SuppressWarnings("all")
     private @NonNull PasswordEncoder passwordEncoder;
+
+    @Lazy
     @Autowired
-    @SuppressWarnings("all")
     private @NonNull AuthorizationServerTokenServices authorizationServerTokenServices;
+
     @Autowired
-    @SuppressWarnings("all")
     private @NonNull ObjectMapper objectMapper;
 
     @Override

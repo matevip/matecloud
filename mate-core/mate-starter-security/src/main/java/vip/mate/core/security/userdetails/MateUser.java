@@ -45,9 +45,16 @@ public class MateUser extends User {
     @Getter
     private String tenantId;
 
-    public MateUser(Long id, Long departId, Long roleId, String phone, String avatar, String tenantId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    /**
+     * 登录类型
+     */
+    @Getter
+    private int type;
+
+    public MateUser(Long id, int type, Long departId, Long roleId, String phone, String avatar, String tenantId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.id = id;
+        this.type = type;
         this.roleId = roleId;
         this.departId = departId;
         this.phone = phone;

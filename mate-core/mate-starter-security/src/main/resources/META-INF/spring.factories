@@ -1,8 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   vip.mate.core.security.config.IgnoreUrlPropsConfig,\
   vip.mate.core.security.config.PermissionService,\
-  vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig,\
-  vip.mate.core.security.handle.SmsCodeSuccessHandler
+  vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig
 
 
 

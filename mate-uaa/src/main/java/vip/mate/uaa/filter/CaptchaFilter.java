@@ -30,23 +30,25 @@ public class CaptchaFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        RequestMatcher matcher = new AntPathRequestMatcher(Oauth2Constant.OAUTH_TOKEN, HttpMethod.POST.toString());
+//        RequestMatcher matcher = new AntPathRequestMatcher(Oauth2Constant.OAUTH_TOKEN, HttpMethod.POST.toString());
+//
+//        if (matcher.matches(httpServletRequest) && StringUtils.equalsIgnoreCase(httpServletRequest.getParameter(Oauth2Constant.GRANT_TYPE), Oauth2Constant.PASSWORD)){
+//
+//            String key = httpServletRequest.getHeader(Oauth2Constant.CAPTCHA_HEADER_KEY);
+//            String code = httpServletRequest.getHeader(Oauth2Constant.CAPTCHA_HEADER_CODE);
+//
+//            try {
+//                captchaService.check(key, code);
+//                filterChain.doFilter(httpServletRequest, httpServletResponse);
+//            } catch (CaptchaException captchaException){
+//                ResponseUtil.responseWriter(httpServletResponse, MediaType.APPLICATION_JSON_VALUE,
+//                        HttpServletResponse.SC_UNAUTHORIZED, Result.fail(HttpServletResponse.SC_UNAUTHORIZED,
+//                                captchaException.getMessage()));
+//            }
+//        } else {
+//            filterChain.doFilter(httpServletRequest, httpServletResponse);
+//        }
+                    filterChain.doFilter(httpServletRequest, httpServletResponse);
 
-        if (matcher.matches(httpServletRequest) && StringUtils.equalsIgnoreCase(httpServletRequest.getParameter(Oauth2Constant.GRANT_TYPE), Oauth2Constant.PASSWORD)){
-
-            String key = httpServletRequest.getHeader(Oauth2Constant.CAPTCHA_HEADER_KEY);
-            String code = httpServletRequest.getHeader(Oauth2Constant.CAPTCHA_HEADER_CODE);
-
-            try {
-                captchaService.check(key, code);
-                filterChain.doFilter(httpServletRequest, httpServletResponse);
-            } catch (CaptchaException captchaException){
-                ResponseUtil.responseWriter(httpServletResponse, MediaType.APPLICATION_JSON_VALUE,
-                        HttpServletResponse.SC_UNAUTHORIZED, Result.fail(HttpServletResponse.SC_UNAUTHORIZED,
-                                captchaException.getMessage()));
-            }
-        } else {
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
-        }
     }
 }

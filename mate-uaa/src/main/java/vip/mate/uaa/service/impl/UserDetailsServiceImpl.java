@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.exception.BaseException;
 import vip.mate.core.security.userdetails.MateUser;
 import vip.mate.core.security.userdetails.MateUserDetailsService;
@@ -31,24 +32,28 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
         UserInfo userInfo = sysUserProvider.loadUserByUserName(userName);
-        return getUserDetails(userInfo);
+        userInfo.setType(Oauth2Constant.LOGIN_USERNAME_TYPE);
+        userInfo.setUserName(userName);
+        return getUserDetails(userInfo, Oauth2Constant.LOGIN_USERNAME_TYPE);
 
     }
 
     @Override
     public UserDetails loadUserByMobile(String mobile) throws UsernameNotFoundException {
         UserInfo userInfo = sysUserProvider.loadUserByMobile(mobile);
-        return getUserDetails(userInfo);
+        userInfo.setType(Oauth2Constant.LOGIN_MOBILE_TYPE);
+        userInfo.setUserName(mobile);
+        return getUserDetails(userInfo, Oauth2Constant.LOGIN_MOBILE_TYPE);
     }
 
 
-    private UserDetails getUserDetails(UserInfo userInfo) {
+    private UserDetails getUserDetails(UserInfo userInfo, int type) {
         if (ObjectUtils.isEmpty(userInfo)) {
-            log.info("该用户：{} 不存在！", userInfo.getSysUser().getAccount());
-            throw new UsernameNotFoundException("该用户：" + userInfo.getSysUser().getAccount() + "不存在");
+            log.info("该用户：{} 不存在！", userInfo.getUserName());
+            throw new UsernameNotFoundException("该用户：" + userInfo.getUserName() + "不存在");
         } else if (userInfo.getSysUser().getStatus().equals("1")) {
-            log.info("该用户：{} 已被停用!", userInfo.getSysUser().getAccount());
-            throw new BaseException("对不起，您的账号：" + userInfo.getSysUser().getAccount() + " 已停用");
+            log.info("该用户：{} 已被停用!", userInfo.getUserName());
+            throw new BaseException("对不起，您的账号：" + userInfo.getUserName() + " 已停用");
         }
         SysUser user = userInfo.getSysUser();
         log.info("用户名：{}", userInfo.getSysUser().getAccount());
@@ -57,8 +62,8 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
         Collection<? extends GrantedAuthority> authorities
                 = AuthorityUtils.createAuthorityList(stringSet.toArray(new String[0]));
         log.info("authorities: {}", authorities);
-        return new MateUser(user.getId(), user.getDepartId(), user.getRoleId(), user.getTelephone(), user.getAvatar(),
-                user.getTenantId(), user.getAccount(), user.getPassword(), user.getStatus().equals("0") ? true : false,
+        return new MateUser(user.getId(), userInfo.getType(), user.getDepartId(), user.getRoleId(), user.getTelephone(), user.getAvatar(),
+                user.getTenantId(), userInfo.getUserName(), user.getPassword(), user.getStatus().equals("0") ? true : false,
                 true, true, true,
                 authorities);
     }

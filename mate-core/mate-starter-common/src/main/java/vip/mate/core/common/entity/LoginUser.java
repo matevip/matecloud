@@ -56,4 +56,10 @@ public class LoginUser implements Serializable {
     @ApiModelProperty(hidden = true)
     private String roleName;
 
+    /**
+     * 登录类型
+     */
+    @ApiModelProperty(hidden = true)
+    private int type;
+
 }

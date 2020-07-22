@@ -46,7 +46,17 @@ public class AuthController {
     public Result<?> getUserInfo(HttpServletRequest request) {
 
         LoginUser loginUser = SecurityUtil.getUsername(request);
-        UserInfo userInfo = sysUserProvider.loadUserByUserName(loginUser.getAccount());
+        UserInfo userInfo = null;
+        /**
+         * 根据type来判断调用哪个接口登录，待扩展社交登录模式
+         * type 1:用户名和密码登录　2：手机号码登录
+         */
+        if (loginUser.getType() == 2) {
+            userInfo = sysUserProvider.loadUserByMobile(loginUser.getAccount());
+        } else {
+            userInfo = sysUserProvider.loadUserByUserName(loginUser.getAccount());
+        }
+
         Map<String, Object> data = new HashMap<>();
         data.put("userName", loginUser.getAccount());
         data.put("avatar", userInfo.getSysUser().getAvatar());

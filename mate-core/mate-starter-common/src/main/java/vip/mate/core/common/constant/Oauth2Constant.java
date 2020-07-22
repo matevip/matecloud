@@ -24,6 +24,7 @@ package vip.mate.core.common.constant;
  **/
 public class Oauth2Constant {
 
+
     private static final String ALL = "/**";
 
     private static final String OAUTH_ALL = "/oauth/**";
@@ -95,6 +96,10 @@ public class Oauth2Constant {
 
     public static final String CAPTCHA_HEADER_CODE = "code";
 
+    public static final int LOGIN_USERNAME_TYPE = 1;
+
+    public static final int LOGIN_MOBILE_TYPE = 2;
+
     public static final String HEADER_TOKEN = "Mate-Auth";
 
     /**
@@ -103,6 +108,8 @@ public class Oauth2Constant {
     public static final String CLIENT_TABLE = "mate_sys_client";
 
     public static final String ENCRYPT = "{mate}";
+
+    public static final String CAPTCHA_ERROR = "验证码不正确！";
 
     /**
      * 基础查询语句

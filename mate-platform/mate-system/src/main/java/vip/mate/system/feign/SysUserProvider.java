@@ -39,7 +39,8 @@ public class SysUserProvider implements ISysUserProvider {
     //@Cached(name= SystemConstant.SYS_USER_CACHE, key="#userName", expire = 3600)
     @ApiOperation(value = "根据用户名获取用户信息", notes = "根据用户名获取用户信息")
     public UserInfo loadUserByUserName(String userName) {
-        SysUser sysUser = sysUserService.getOne(new QueryWrapper<SysUser>().lambda().in(SysUser::getAccount, userName));
+        SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>()
+                .eq(SysUser::getAccount, userName));
         return getUserInfo(sysUser);
     }
 
@@ -52,7 +53,8 @@ public class SysUserProvider implements ISysUserProvider {
     @GetMapping("/provider/mobile")
     @ApiOperation(value = "根据手机号获取用户信息", notes = "根据手机号获取用户信息")
     public UserInfo loadUserByMobile(String mobile) {
-        SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getTelephone, mobile));
+        SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>()
+                .eq(SysUser::getTelephone, mobile));
         return getUserInfo(sysUser);
     }
 
