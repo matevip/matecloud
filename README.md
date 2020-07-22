@@ -19,17 +19,28 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家
 </p>
 
 ### 功能特点
-1.　采用最新的Spring Cloud Alibaba封装;
+- 主体框架：采用最新的Spring Cloud Hoxton SR6, Spring Boot 2.3.1, Spring Cloud Alibaba 2.2.1.RELEASE版本进行系统设计；
 
-2.　Spring Cloud Alibaba + Dubbo对Feign进行RPC改造，同时支持Feign和Dubbo调用;
+- 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
-3.　支持多数据库;
+- 统一认证：统一Oauth2认证协议，采用jwt的方式，实现统一认证，并支持自定义grant_type实现手机号码登录，第三方登录正在开发中；
 
-4.　集成消息中间件RocketMQ，使用异步处理逻辑;
+- 业务监控：利用Spring Boot Admin 来监控各个独立Service的运行状态；利用Hystrix Dashboard来实时查看接口的运行状态和调用频率等。
 
-5.　前端采用vue element ui;
+- 内部调用：集成了feign和dubbo两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
 
-6.　支持报文加密和验证机制（待开发）。
+- 业务熔断：采用Sentinel实现业务熔断处理，避免服务之间出现雪崩;
+
+- 身份注入：通过注解的方式，实现用户登录信息的快速注入；
+
+- 在线文档：通过接入knife4j，实现在线API文档的查看与调试;
+
+- 代码生成：基于Mybatis-plus-generator自动生成代码，提升开发效率，生成模式不断优化中，暂不支持前端代码生成；
+
+- 消息中心：集成消息中间件RocketMQ，对业务进行异步处理;
+
+- 业务分离：采用前后端分离的框架设计，前端采用vue-element-admin
+  
 
 ### 文件结构
 ```lua
@@ -58,15 +69,14 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 QQ群：2003638
 
 ### 系统演示
-演示地址：http://cloud.mate.vip
+- 演示地址：http://cloud.mate.vip
 
-账号密码：admin/123456
+- 账号密码：admin/matecloud
 
-## 后台地址
+如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
 
-github： https://github.com/matevip/matecloud
-
-gitee：https://gitee.com/matevip/matecloud
-
-### 前端地址
-https://github.com/matevip/artemis 
+## 项目源码
+|     |   MateCloud后端源码  |   Artemis前端源码  |
+|---  |--- | --- |
+|  github   |  https://github.com/matevip/matecloud   |  https://github.com/matevip/artemis   |
+|  码云   |  https://gitee.com/matevip/matecloud   |  https://gitee.com/matevip/artemis   |
