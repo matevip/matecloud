@@ -1,7 +1,6 @@
 package vip.mate.uaa.granter;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -11,15 +10,17 @@ import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import vip.mate.core.common.constant.Oauth2Constant;
-import vip.mate.core.common.exception.CaptchaException;
 import vip.mate.core.common.util.HttpContextUtil;
-import vip.mate.uaa.service.CaptchaService;
-import vip.mate.uaa.service.impl.CaptchaServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * 验证码的TokenGranter
+ * @author pangu
+ * @since 2020-7-21
+ */
 public class CaptchaTokenGranter extends AbstractTokenGranter {
 
     private static final String GRANT_TYPE = "captcha";

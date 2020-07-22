@@ -16,7 +16,7 @@ import vip.mate.core.log.annotation.Log;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
-import vip.mate.uaa.service.CaptchaService;
+import vip.mate.uaa.service.ValidateService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -32,13 +32,11 @@ public class AuthController {
     @Qualifier("consumerTokenServices")
     private final ConsumerTokenServices consumerTokenServices;
 
-    private final CaptchaService captchaService;
+    private final ValidateService captchaService;
 
     private final ISysUserProvider sysUserProvider;
 
     private final ISysRolePermissionProvider sysRolePermissionProvider;
-
-//    private final TokenService tokenService;
 
     @Log(value = "获取用户信息给VUE", exception = "获取用户信息给VUE请求异常")
     @GetMapping("/auth/userInfo")

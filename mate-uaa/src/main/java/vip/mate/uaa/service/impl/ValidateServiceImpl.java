@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.exception.CaptchaException;
-import vip.mate.uaa.service.CaptchaService;
+import vip.mate.uaa.service.ValidateService;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class CaptchaServiceImpl implements CaptchaService {
+public class ValidateServiceImpl implements ValidateService {
 
     private final StringRedisTemplate stringRedisTemplate;
 

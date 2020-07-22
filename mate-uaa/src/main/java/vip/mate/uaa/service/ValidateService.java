@@ -3,7 +3,7 @@ package vip.mate.uaa.service;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.exception.CaptchaException;
 
-public interface CaptchaService {
+public interface ValidateService {
 
 
     /**
