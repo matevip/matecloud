@@ -30,24 +30,29 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-
         UserInfo userInfo = sysUserProvider.loadUserByUserName(userName);
+        if (userInfo == null) {
+            throw new UsernameNotFoundException("该用户：" + userName + "不存在");
+        }
         userInfo.setType(Oauth2Constant.LOGIN_USERNAME_TYPE);
         userInfo.setUserName(userName);
-        return getUserDetails(userInfo, Oauth2Constant.LOGIN_USERNAME_TYPE);
+        return getUserDetails(userInfo);
 
     }
 
     @Override
     public UserDetails loadUserByMobile(String mobile) throws UsernameNotFoundException {
         UserInfo userInfo = sysUserProvider.loadUserByMobile(mobile);
+        if (userInfo == null) {
+            throw new UsernameNotFoundException("该用户：" + mobile + "不存在");
+        }
         userInfo.setType(Oauth2Constant.LOGIN_MOBILE_TYPE);
         userInfo.setUserName(mobile);
-        return getUserDetails(userInfo, Oauth2Constant.LOGIN_MOBILE_TYPE);
+        return getUserDetails(userInfo);
     }
 
 
-    private UserDetails getUserDetails(UserInfo userInfo, int type) {
+    private UserDetails getUserDetails(UserInfo userInfo) {
         if (ObjectUtils.isEmpty(userInfo)) {
             log.info("该用户：{} 不存在！", userInfo.getUserName());
             throw new UsernameNotFoundException("该用户：" + userInfo.getUserName() + "不存在");
