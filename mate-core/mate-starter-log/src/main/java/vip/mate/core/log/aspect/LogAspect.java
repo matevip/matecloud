@@ -3,11 +3,14 @@ package vip.mate.core.log.aspect;
 import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
@@ -23,10 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.core.common.constant.MateConstant;
-import vip.mate.core.common.util.ClassUtil;
-import vip.mate.core.common.util.IPUtil;
-import vip.mate.core.common.util.RequestHolder;
-import vip.mate.core.common.util.SecurityUtil;
+import vip.mate.core.common.util.*;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.log.event.LogEvent;
 import vip.mate.system.entity.SysLog;
@@ -42,23 +42,33 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * 日志拦截器
+ * @author pangu
+ */
 @Slf4j
 @Aspect
 @Component
-@AllArgsConstructor
 public class LogAspect {
 
-//    @Autowired
-//    private ISysLogProvider sysLogProvider;
-
-    private final ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
     private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
+
+    public LogAspect(ApplicationContext applicationContext) {
+    }
 
     @Pointcut("@annotation(vip.mate.core.log.annotation.Log)")
     public void pointcut() {
     }
 
+    /**
+     * 配置环绕通知,使用在方法logPointcut()上注册的切入点
+     * @param point
+     * @return
+     * @throws Throwable
+     */
     @Around("pointcut()")
     public Object recordLog(ProceedingJoinPoint point) throws Throwable {
         Object result = new Object();
@@ -106,7 +116,7 @@ public class LogAspect {
         sysLog.setOperation(String.valueOf(result));
         sysLog.setLocation(StringUtils.isEmpty(region) ? "本地" : region);
         sysLog.setTraceId(request.getHeader(MateConstant.X_REQUEST_ID));
-        sysLog.setExecuteTime(BigDecimal.valueOf(tookTime));
+        sysLog.setExecuteTime(tookTime);
         sysLog.setTitle(logAnn.value());
         sysLog.setParams(JSON.toJSONString(paramMap));
         // 发布事件
@@ -114,6 +124,51 @@ public class LogAspect {
         log.info("Request Result: {}", sysLog);
         return result;
     }
+
+    /**
+     * 配置异常通知
+     *
+     * @param point join point for advice
+     * @param e exception
+     */
+    @AfterThrowing(pointcut = "pointcut()", throwing = "e")
+    public void logAfterThrowing(JoinPoint point, Throwable e) {
+        // 打印执行时间
+        long startTime = System.nanoTime();
+
+        SysLog sysLog = new SysLog();
+
+        // 获取IP和地区
+        String ip = RequestHolder.getHttpServletRequestIpAddress();
+        String region = IPUtil.getCityInfo(ip);
+
+
+        //　获取request
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
+
+        // 请求方法
+        String method = request.getMethod();
+        String url = request.getRequestURI();
+
+        //　获取注解里的value值
+        Method targetMethod = resolveMethod((ProceedingJoinPoint) point);
+        Log logAnn = targetMethod.getAnnotation(Log.class);
+
+        sysLog.setExecuteTime(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime));
+        sysLog.setIp(ip);
+        sysLog.setLocation(region);
+        sysLog.setMethod(method);
+        sysLog.setUrl(url);
+        sysLog.setTraceId(request.getHeader(MateConstant.X_REQUEST_ID));
+        sysLog.setType("2");
+        sysLog.setTitle(logAnn.value());
+        sysLog.setException(ThrowableUtil.getStackTrace(e).getBytes());
+        // 发布事件
+        applicationContext.publishEvent(new LogEvent(sysLog));
+        log.info("Error Result: {}", sysLog);
+    }
+
+
 
     private Method resolveMethod(ProceedingJoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();

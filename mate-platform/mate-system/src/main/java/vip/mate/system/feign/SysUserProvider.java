@@ -59,6 +59,9 @@ public class SysUserProvider implements ISysUserProvider {
     }
 
     public UserInfo getUserInfo(SysUser sysUser) {
+        if (sysUser == null) {
+            return null;
+        }
         UserInfo userInfo = new UserInfo();
         userInfo.setSysUser(sysUser);
         userInfo.setPermissions(sysRolePermissionService.getMenuIdByRoleId(sysUser.getRoleId().toString()));

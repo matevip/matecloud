@@ -85,7 +85,7 @@ public class SysLog extends BaseEntity {
 	* 耗时
 	*/
 	@ApiModelProperty(value = "耗时")
-	private BigDecimal executeTime;
+	private Long executeTime;
 	/**
 	* 地区
 	*/
@@ -121,6 +121,11 @@ public class SysLog extends BaseEntity {
 	*/
 	@ApiModelProperty(value = "租户ID")
 	private Integer tenantId;
+	/**
+	 * 异常信息
+	 */
+	@ApiModelProperty(value = "异常信息")
+	private byte[] exception;
 
 
 }
