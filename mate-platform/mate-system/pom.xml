@@ -25,10 +25,10 @@
             <artifactId>mate-starter-web</artifactId>
         </dependency>
         <!-- 此依赖加上后使用dubbo,注释后使用Feign -->
-<!--        <dependency>-->
-<!--            <groupId>vip.mate</groupId>-->
-<!--            <artifactId>mate-starter-dubbo</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-dubbo</artifactId>
+        </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-database</artifactId>
@@ -46,9 +46,8 @@
             <artifactId>mate-starter-log</artifactId>
         </dependency>
     </dependencies>
+
     <build>
-        <!-- 打包名称 -->
-        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -62,15 +61,31 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>db</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <forceTags>true</forceTags>
+                    <baseImage>${docker.baseImage}</baseImage>
+                    <volumes>${docker.volumes}</volumes>
+                    <env>
+                        <JAVA_OPTS>${docker.java.opts}</JAVA_OPTS>
+                    </env>
+                    <entryPoint>["sh","-c","java $JAVA_OPTS ${docker.java.security.egd} -jar /${project.build.finalName}.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>${project.artifactId}</finalName>
     </build>
-
 </project>
