@@ -11,7 +11,9 @@ spring:
         group: @config.group@
         file-extension: yaml
         prefix: mate
-#        refresh-enabled: true
+#        shared-configs:
+#          - @artifactId@-@spring.active@.${spring.cloud.nacos.config.file-extension}
+#            refresh-enabled: true
 #        shared-configs[0]:
 #          data-id: @artifactId@.yaml
 #          group: DEFAULT_GROUP
