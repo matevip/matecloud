@@ -16,6 +16,7 @@
  */
 package vip.mate.uaa.config;
 
+import com.xkcoding.justauth.AuthRequestFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,7 @@ import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.security.userdetails.MateUser;
 import vip.mate.uaa.granter.CaptchaTokenGranter;
 import vip.mate.uaa.granter.SmsCodeTokenGranter;
+import vip.mate.uaa.granter.SocialTokenGranter;
 import vip.mate.uaa.service.impl.ClientDetailsServiceImpl;
 
 import java.util.*;
@@ -128,6 +130,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         granters.add(new SmsCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
                 endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
         granters.add(new CaptchaTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
+                endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
+        granters.add(new SocialTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
                 endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
         return new CompositeTokenGranter(granters);
     }

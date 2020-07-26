@@ -49,6 +49,11 @@ public class Oauth2Constant {
     public static final String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
 
     /**
+     * 社交登录，传递的参数名称
+     */
+    public static final String DEFAULT_PARAMETER_NAME_SOCIAL = "social";
+
+    /**
      * 验证码 key
      */
     public static final String VALIDATE_CODE_KEY = "key";
@@ -121,6 +126,20 @@ public class Oauth2Constant {
     public static final String FIND_CLIENT_DETAIL_SQL = CLIENT_BASE + " order by client_id";
 
     public static final String SELECT_CLIENT_DETAIL_SQL = CLIENT_BASE + " where client_id = ?";
+
+
+    /**
+     * 扩展类型
+     */
+    public static String SOCIAL_TYPE_PARAMETER = "socialType";
+    /**
+     * 用户登录扩展key，如手机号
+     */
+    public static String SOCIAL_KEY_PARAMETER = "socialKey";
+    /**
+     * 用户登录扩展凭证，如手机号的验证码
+     */
+    public static String SOCIAL_CREDENTIALS_PARAMETER = "socialCredentials";
 
 
 

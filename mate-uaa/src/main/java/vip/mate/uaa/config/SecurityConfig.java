@@ -32,6 +32,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import vip.mate.core.security.config.IgnoreUrlPropsConfig;
 import vip.mate.core.security.handle.SmsCodeSuccessHandler;
 import vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig;
+import vip.mate.core.security.social.SocialAuthenticationSecurityConfig;
 import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
 
 /**
@@ -55,6 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     @SuppressWarnings("all")
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+    @Autowired
+    @SuppressWarnings("all")
+    private SocialAuthenticationSecurityConfig socialAuthenticationSecurityConfig;
 
     /**
      * 必须要定义，否则不支持grant_type=password模式
@@ -85,6 +90,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 = http.requestMatchers().anyRequest()
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+                .apply(socialAuthenticationSecurityConfig)
                 .and()
                 .authorizeRequests();
         ignoreUrlPropsConfig.getUrls().forEach(e -> {

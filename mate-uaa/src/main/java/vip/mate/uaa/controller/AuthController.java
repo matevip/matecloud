@@ -1,14 +1,21 @@
 package vip.mate.uaa.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.xkcoding.justauth.AuthRequestFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.config.AuthDefaultSource;
+import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.common.util.SecurityUtil;
@@ -19,9 +26,12 @@ import vip.mate.system.feign.ISysUserProvider;
 import vip.mate.uaa.service.ValidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -37,6 +47,8 @@ public class AuthController {
     private final ISysUserProvider sysUserProvider;
 
     private final ISysRolePermissionProvider sysRolePermissionProvider;
+
+    private final AuthRequestFactory factory;
 
     @Log(value = "获取用户信息给VUE", exception = "获取用户信息给VUE请求异常")
     @GetMapping("/auth/userInfo")
@@ -86,5 +98,44 @@ public class AuthController {
     public Result<?> smsCode(String mobile) {
         return captchaService.getSmsCode(mobile);
     }
+
+
+
+    /**
+     * 登录类型
+     */
+    @GetMapping("/auth/list")
+    public Map<String, String> loginType() {
+        List<String> oauthList = factory.oauthList();
+        return oauthList.stream().collect(Collectors.toMap(oauth -> oauth.toLowerCase() + "登录", oauth -> "http://localhost:10001/mate-uaa/auth/login/" + oauth.toLowerCase()));
+    }
+
+    /**
+     * 登录
+     *
+     * @param oauthType 第三方登录类型
+     * @param response  response
+     * @throws IOException
+     */
+    @RequestMapping("/auth/login/{oauthType}")
+    public void renderAuth(@PathVariable String oauthType, HttpServletResponse response) throws IOException {
+        AuthRequest authRequest = factory.get(oauthType);
+        response.sendRedirect(authRequest.authorize(oauthType + "::" + AuthStateUtils.createState()));
+    }
+
+//    /**
+//     * 登录成功后的回调
+//     *
+//     * @param oauthType 第三方登录类型
+//     * @param callback  携带返回的信息
+//     * @return 登录成功后的信息
+//     */
+//    @RequestMapping("/auth/{oauthType}/callback")
+//    public AuthResponse login(@PathVariable String oauthType, AuthCallback callback) {
+//        AuthRequest authRequest = factory.get(oauthType);
+//        AuthResponse response = authRequest.login(callback);
+//        log.info("【response】= {}", JSON.toJSON(response));
+//        return response;
+//    }
 
 }

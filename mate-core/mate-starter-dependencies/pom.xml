@@ -57,6 +57,9 @@
         <easypoi.version>4.2.0</easypoi.version>
         <ip2region.version>1.7.2</ip2region.version>
         <minio.version>7.1.0</minio.version>
+        <justauth.version>1.15.6</justauth.version>
+        <justauth.springboot.version>1.3.3</justauth.springboot.version>
+        <okhttp.version>4.8.0</okhttp.version>
     </properties>
 
     <dependencyManagement>
@@ -302,6 +305,23 @@
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
             </dependency>
+            <dependency>
+                <groupId>me.zhyd.oauth</groupId>
+                <artifactId>JustAuth</artifactId>
+                <version>${justauth.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xkcoding.justauth</groupId>
+                <artifactId>justauth-spring-boot-starter</artifactId>
+                <version>${justauth.springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

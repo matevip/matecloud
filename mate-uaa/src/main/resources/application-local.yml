@@ -27,3 +27,19 @@ dubbo:
 provider:
   application:
     name: mate-system
+
+justauth:
+  enabled: true
+  type:
+    github:
+      client-id: 75a51afd3b0a2fc32952
+      client-secret: 4da4e132c8b5b8d5bf06093c83f981e2be574c5f
+      redirect-uri: http://localhost:10001/mate-uaa/auth/github/callback
+    wechat_open:
+      client-id: wxdcb******4ff4
+      client-secret: b4e9dc************************a08ed6d
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/wechat/callback
+  cache:
+    type: redis
+    prefix: 'SOCIAL::STATE::'
+    timeout: 1h
