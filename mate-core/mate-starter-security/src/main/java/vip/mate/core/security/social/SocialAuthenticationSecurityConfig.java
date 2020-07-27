@@ -44,7 +44,5 @@ public class SocialAuthenticationSecurityConfig extends SecurityConfigurerAdapte
         // 将社交登录校验器注册到 HttpSecurity， 并将社交登录过滤器添加在 UsernamePasswordAuthenticationFilter 之前
         http.authenticationProvider(socialAuthenticationProvider)
                 .addFilterBefore(socialAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-//        http.authenticationProvider(socialAuthenticationProvider)
-//                .addFilterAfter(socialAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

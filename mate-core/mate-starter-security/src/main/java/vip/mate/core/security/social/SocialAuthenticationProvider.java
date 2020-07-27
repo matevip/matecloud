@@ -24,7 +24,7 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
         /**
          * 调用 {@link UserDetailsService}
          */
-        UserDetails user = userDetailsService.loadUserByMobile(((AuthUser)authenticationToken.getPrincipal()).getUsername());
+        UserDetails user = userDetailsService.loadUserBySocial(((AuthUser)authenticationToken.getPrincipal()).getUsername());
 
         if (Objects.isNull(user)) {
             throw new InternalAuthenticationServiceException("社交登录错误");

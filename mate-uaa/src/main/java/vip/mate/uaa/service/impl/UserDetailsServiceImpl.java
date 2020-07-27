@@ -51,6 +51,18 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
         return getUserDetails(userInfo);
     }
 
+    @Override
+    public UserDetails loadUserBySocial(String openId) throws UsernameNotFoundException {
+        String userName = "admin";
+        UserInfo userInfo = sysUserProvider.loadUserByUserName(userName);
+        if (userInfo == null) {
+            throw new UsernameNotFoundException("该用户：" + userName + "不存在");
+        }
+        userInfo.setType(Oauth2Constant.LOGIN_USERNAME_TYPE);
+        userInfo.setUserName(userName);
+        return getUserDetails(userInfo);
+    }
+
 
     private UserDetails getUserDetails(UserInfo userInfo) {
         if (ObjectUtils.isEmpty(userInfo)) {
