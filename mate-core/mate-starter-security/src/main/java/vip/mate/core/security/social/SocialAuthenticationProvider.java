@@ -1,13 +1,13 @@
 package vip.mate.core.security.social;
 
 import lombok.AllArgsConstructor;
+import me.zhyd.oauth.model.AuthUser;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import vip.mate.core.security.sms.SmsCodeAuthenticationToken;
 import vip.mate.core.security.userdetails.MateUserDetailsService;
 
 import java.util.Objects;
@@ -24,7 +24,7 @@ public class SocialAuthenticationProvider implements AuthenticationProvider {
         /**
          * 调用 {@link UserDetailsService}
          */
-        UserDetails user = userDetailsService.loadUserByMobile((String)authenticationToken.getPrincipal());
+        UserDetails user = userDetailsService.loadUserByMobile(((AuthUser)authenticationToken.getPrincipal()).getUsername());
 
         if (Objects.isNull(user)) {
             throw new InternalAuthenticationServiceException("社交登录错误");

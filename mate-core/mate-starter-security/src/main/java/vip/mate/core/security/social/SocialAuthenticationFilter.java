@@ -32,13 +32,13 @@ public class SocialAuthenticationFilter extends AbstractAuthenticationProcessing
 
     private AuthRequestFactory authRequestFactory;
 
-    private boolean postOnly = true;
+    private boolean postOnly = false;
 
     /**
      * 通过构造函数指定该 Filter 要拦截的 url 和 httpMethod
      */
     protected SocialAuthenticationFilter() {
-        super(new AntPathRequestMatcher(SOCIAL_LOGIN_URL, "GET"));
+        super(new AntPathRequestMatcher(SOCIAL_LOGIN_URL, null));
     }
 
     @Override
