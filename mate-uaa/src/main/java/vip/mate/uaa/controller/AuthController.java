@@ -1,19 +1,22 @@
 package vip.mate.uaa.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.xkcoding.http.HttpUtil;
 import com.xkcoding.justauth.AuthRequestFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.zhyd.oauth.config.AuthDefaultSource;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.utils.AuthStateUtils;
+import okhttp3.OkHttpClient;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.core.common.api.Result;
@@ -123,19 +126,25 @@ public class AuthController {
         response.sendRedirect(authRequest.authorize(oauthType + "::" + AuthStateUtils.createState()));
     }
 
-//    /**
-//     * 登录成功后的回调
-//     *
-//     * @param oauthType 第三方登录类型
-//     * @param callback  携带返回的信息
-//     * @return 登录成功后的信息
-//     */
-//    @RequestMapping("/auth/{oauthType}/callback")
-//    public AuthResponse login(@PathVariable String oauthType, AuthCallback callback) {
-//        AuthRequest authRequest = factory.get(oauthType);
-//        AuthResponse response = authRequest.login(callback);
-//        log.info("【response】= {}", JSON.toJSON(response));
-//        return response;
-//    }
+    /**
+     * 登录成功后的回调
+     *
+     * @param oauthType 第三方登录类型
+     * @param callback  携带返回的信息
+     * @return 登录成功后的信息
+     */
+    @RequestMapping("/auth/callback/{oauthType}")
+    public void login(@PathVariable String oauthType, AuthCallback callback, HttpServletResponse httpServletResponse) throws IOException {
+        AuthRequest authRequest = factory.get(oauthType);
+        AuthResponse response = authRequest.login(callback);
+        log.info("【response】= {}", JSON.toJSON(response));
+        AuthUser authUser = null;
+        // 第三方登录成功
+        if (response.getCode() == AuthResponseStatus.SUCCESS.getCode()) {
+            authUser = (AuthUser) response.getData();
+        }
+        //跳转到指定页面
+        httpServletResponse.sendRedirect("http://localhost:9528/#/socialcallback?code="+authUser.getUsername()+"&state="+oauthType+"-LOGIN");
+    }
 
 }

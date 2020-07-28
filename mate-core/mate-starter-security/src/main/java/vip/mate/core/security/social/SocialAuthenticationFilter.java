@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class SocialAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    public static String SOCIAL_LOGIN_URL = "/auth/callback/**";
+    public static String SOCIAL_LOGIN_URL = "/auth1/callback/**";
 
     /**
      * 请求中的参数
