@@ -52,6 +52,8 @@ public class SocialAuthenticationFilter extends AbstractAuthenticationProcessing
         String socialCredentials = obtainCredentials(request);
         String socialType = obtainSocialType(request);
 
+        log.info("socialkey:{}, socialCredentials:{}, socialType:{}", socialKey, socialCredentials, socialType);
+
         // 2. 封装成 Token 调用 AuthenticationManager 的 authenticate 方法，该方法中根据 Token 的类型去调用对应 Provider 的 authenticated
         SocialAuthenticationToken token;
         if (StrUtil.isNotBlank(socialKey)) {

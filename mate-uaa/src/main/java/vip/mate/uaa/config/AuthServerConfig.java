@@ -69,6 +69,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final StringRedisTemplate stringRedisTemplate;
 
+    private final AuthRequestFactory factory;
+
     /**
      * 配置token存储到redis中
      */
@@ -132,7 +134,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         granters.add(new CaptchaTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
                 endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
         granters.add(new SocialTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
+                endpoints.getOAuth2RequestFactory(), stringRedisTemplate, factory));
         return new CompositeTokenGranter(granters);
     }
 

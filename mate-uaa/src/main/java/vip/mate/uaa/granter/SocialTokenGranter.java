@@ -1,5 +1,13 @@
 package vip.mate.uaa.granter;
 
+import com.alibaba.fastjson.JSON;
+import com.xkcoding.justauth.AuthRequestFactory;
+import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.enums.AuthResponseStatus;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.request.AuthRequest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
@@ -20,6 +28,7 @@ import java.util.Map;
  * @author pangu
  * @since 2020-7-26
  */
+@Slf4j
 public class SocialTokenGranter extends AbstractTokenGranter {
     private static final String GRANT_TYPE = "social";
 
@@ -27,11 +36,14 @@ public class SocialTokenGranter extends AbstractTokenGranter {
 
     private StringRedisTemplate stringRedisTemplate;
 
+    private AuthRequestFactory factory;
+
     public SocialTokenGranter(AuthenticationManager authenticationManager,
                                AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
-                               OAuth2RequestFactory requestFactory, StringRedisTemplate stringRedisTemplate) {
+                               OAuth2RequestFactory requestFactory, StringRedisTemplate stringRedisTemplate, AuthRequestFactory factory) {
         this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
         this.stringRedisTemplate = stringRedisTemplate;
+        this.factory = factory;
     }
 
     protected SocialTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
@@ -43,9 +55,24 @@ public class SocialTokenGranter extends AbstractTokenGranter {
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Map<String, String> parameters = new LinkedHashMap<>(tokenRequest.getRequestParameters());
-        String openId = parameters.get("openId");
+        String code = parameters.get("code");
+        String state = parameters.get("state");
 
-        Authentication userAuth = new SocialAuthenticationToken(openId);
+        String oauthType = code.split("-")[0];
+        code = code.split("-")[1];
+
+        AuthRequest authRequest = factory.get(oauthType);
+        AuthCallback authCallback = AuthCallback.builder().code(code).state(state).build();
+        AuthResponse response = authRequest.login(authCallback);
+        log.info("【response】= {}", JSON.toJSON(response));
+        AuthUser authUser = null;
+        // 第三方登录成功
+        if (response.getCode() == AuthResponseStatus.SUCCESS.getCode()) {
+            authUser = (AuthUser) response.getData();
+        }
+        log.error("authUser:{}", JSON.toJSON(authUser));
+
+        Authentication userAuth = new SocialAuthenticationToken(authUser);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
         try {
             userAuth = authenticationManager.authenticate(userAuth);
@@ -57,7 +84,7 @@ public class SocialTokenGranter extends AbstractTokenGranter {
         // If the username/password are wrong the spec says we should send 400/invalid grant
 
         if (userAuth == null || !userAuth.isAuthenticated()) {
-            throw new InvalidGrantException("Could not authenticate user: " + openId);
+            throw new InvalidGrantException("Could not authenticate user: " + authUser);
         }
 
         OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
