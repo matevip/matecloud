@@ -1,16 +1,11 @@
 package vip.mate.uaa.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.xkcoding.justauth.AuthRequestFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +18,7 @@ import vip.mate.core.log.annotation.Log;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
+import vip.mate.uaa.config.SocialConfig;
 import vip.mate.uaa.service.ValidateService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +45,8 @@ public class AuthController {
     private final ISysRolePermissionProvider sysRolePermissionProvider;
 
     private final AuthRequestFactory factory;
+
+    private final SocialConfig socialConfig;
 
     @Log(value = "获取用户信息给VUE", exception = "获取用户信息给VUE请求异常")
     @GetMapping("/auth/userInfo")
@@ -132,15 +130,7 @@ public class AuthController {
      */
     @RequestMapping("/auth/callback/{oauthType}")
     public void login(@PathVariable String oauthType, AuthCallback callback, HttpServletResponse httpServletResponse) throws IOException {
-//        AuthRequest authRequest = factory.get(oauthType);
-//        AuthResponse response = authRequest.login(callback);
-//        log.info("【response】= {}", JSON.toJSON(response));
-//        AuthUser authUser = null;
-//        // 第三方登录成功
-//        if (response.getCode() == AuthResponseStatus.SUCCESS.getCode()) {
-//            authUser = (AuthUser) response.getData();
-//        }
-        String url = "http://localhost:9528/#/socialcallback?code="+oauthType+"-"+callback.getCode()+"&state="+callback.getState();
+        String url = socialConfig.getUrl() + "?code="+oauthType+"-"+callback.getCode()+"&state="+callback.getState();
         log.error("url:{}", url);
         //跳转到指定页面
         httpServletResponse.sendRedirect(url);

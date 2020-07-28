@@ -8,6 +8,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthorizationException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
@@ -31,6 +33,8 @@ import java.util.Map;
 @Slf4j
 public class SocialTokenGranter extends AbstractTokenGranter {
     private static final String GRANT_TYPE = "social";
+
+    private static final String PREFIX = "SOCIAL::STATE::";
 
     private final AuthenticationManager authenticationManager;
 
@@ -57,6 +61,15 @@ public class SocialTokenGranter extends AbstractTokenGranter {
         Map<String, String> parameters = new LinkedHashMap<>(tokenRequest.getRequestParameters());
         String code = parameters.get("code");
         String state = parameters.get("state");
+
+        String codeFromRedis = stringRedisTemplate.opsForValue().get(PREFIX + state);
+
+        if (StringUtils.isBlank(code)) {
+            throw new UserDeniedAuthorizationException("未传入请求参数");
+        }
+        if (codeFromRedis == null) {
+            throw new UserDeniedAuthorizationException("openId已过期,请重新发起授权请求");
+        }
 
         String oauthType = code.split("-")[0];
         code = code.split("-")[1];
