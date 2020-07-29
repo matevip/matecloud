@@ -49,5 +49,15 @@ public class MateConstant {
      */
     public static final String JAVA_TEMP_DIR = "java.io.tmpdir";
 
+    /**
+     * 版本
+     */
+    public static final String VERSION = "version";
+
+    /**
+     * 默认版本号
+     */
+    public static final String DEFAULT_VERSION = "v1";
+
 
 }

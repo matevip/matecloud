@@ -60,6 +60,8 @@
         <justauth.version>1.15.6</justauth.version>
         <justauth.springboot.version>1.3.3</justauth.springboot.version>
         <okhttp.version>4.8.0</okhttp.version>
+
+        <servlet.version>2.5</servlet.version>
     </properties>
 
     <dependencyManagement>
@@ -118,6 +120,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-minio</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-gray</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
@@ -320,8 +327,11 @@
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp.version}</version>
             </dependency>
-
-
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

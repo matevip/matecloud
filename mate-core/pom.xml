@@ -22,6 +22,7 @@
         <module>mate-starter-jetcache</module>
         <module>mate-starter-log</module>
         <module>mate-starter-minio</module>
+        <module>mate-starter-gray</module>
     </modules>
 
     <properties>
