@@ -5,10 +5,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
-import vip.mate.core.security.handle.SmsCodeSuccessHandler;
 import vip.mate.core.security.userdetails.MateUserDetailsService;
 
 @Component
@@ -21,7 +21,11 @@ public class SmsCodeAuthenticationSecurityConfig
 
     @Autowired
     @SuppressWarnings("all")
-    public AuthenticationSuccessHandler smsCodeSuccessHandler;
+    public AuthenticationSuccessHandler mateAuthenticationSuccessHandler;
+
+    @Autowired
+    @SuppressWarnings("all")
+    public AuthenticationFailureHandler mateAuthenticationFailureHandler;
 
     @Override
     public void configure(HttpSecurity http) {
@@ -29,7 +33,8 @@ public class SmsCodeAuthenticationSecurityConfig
         // 过滤器
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(smsCodeSuccessHandler);
+        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(mateAuthenticationSuccessHandler);
+        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(mateAuthenticationFailureHandler);
 
 
         // 获取验证码提供者

@@ -23,8 +23,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 
+/**
+ * Token验证通过后的处理类，生成Token
+ * @author pangu 7333791@qq.com
+ */
 @Slf4j
-public class SmsCodeSuccessHandler implements AuthenticationSuccessHandler {
+public class MateAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     private @NonNull ClientDetailsService clientDetailsService;

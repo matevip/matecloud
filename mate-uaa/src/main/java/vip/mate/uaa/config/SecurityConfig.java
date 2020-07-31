@@ -28,9 +28,11 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import vip.mate.core.security.config.IgnoreUrlPropsConfig;
-import vip.mate.core.security.handle.SmsCodeSuccessHandler;
+import vip.mate.core.security.handle.MateAuthenticationFailureHandler;
+import vip.mate.core.security.handle.MateAuthenticationSuccessHandler;
 import vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig;
 import vip.mate.core.security.social.SocialAuthenticationSecurityConfig;
 import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
@@ -73,8 +75,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationSuccessHandler smsCodeSuccessHandler() {
-        return new SmsCodeSuccessHandler();
+    public AuthenticationSuccessHandler mateAuthenticationSuccessHandler() {
+        return new MateAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler mateAuthenticationFailureHandler() {
+        return new MateAuthenticationFailureHandler();
     }
 
 
