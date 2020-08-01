@@ -62,6 +62,7 @@
         <okhttp.version>4.8.0</okhttp.version>
 
         <servlet.version>2.5</servlet.version>
+        <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
     </properties>
 
     <dependencyManagement>
@@ -331,6 +332,13 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>${servlet.version}</version>
+            </dependency>
+
+            <!--shardingsphere的springboot依赖jar-->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+                <version>${sharding-jdbc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
