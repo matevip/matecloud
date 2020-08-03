@@ -39,6 +39,11 @@ justauth:
       client-id: wxdcb******4ff4
       client-secret: b4e9dc************************a08ed6d
       redirect-uri: http://oauth.xkcoding.com/demo/oauth/wechat/callback
+    QQ:
+      client-id: 10**********6
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/qq/callback
+      union-id: false
   cache:
     type: redis
     prefix: 'SOCIAL::STATE::'

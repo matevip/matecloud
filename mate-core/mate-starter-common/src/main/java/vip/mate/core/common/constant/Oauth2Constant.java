@@ -128,19 +128,6 @@ public class Oauth2Constant {
     public static final String SELECT_CLIENT_DETAIL_SQL = CLIENT_BASE + " where client_id = ?";
 
 
-    /**
-     * 扩展类型
-     */
-    public static String SOCIAL_TYPE_PARAMETER = "socialType";
-    /**
-     * 用户登录扩展key，如手机号
-     */
-    public static String SOCIAL_KEY_PARAMETER = "socialKey";
-    /**
-     * 用户登录扩展凭证，如手机号的验证码
-     */
-    public static String SOCIAL_CREDENTIALS_PARAMETER = "socialCredentials";
-
 
 
 }

@@ -12,25 +12,11 @@ public class SocialAuthenticationToken extends AbstractAuthenticationToken {
     // ~ Instance fields
     // ================================================================================================
 
-    private String socialType;
-    private String socialKey;
     private final Object principal;
     private Object credentials;
 
     // ~ Constructors
     // ===================================================================================================
-    /**
-     * 认证前使用
-     */
-    public SocialAuthenticationToken(String socialKey, String socialType, Object credentials) {
-        super(null);
-        this.socialKey = socialKey;
-        this.socialType = socialType;
-        this.principal = socialKey;
-        this.credentials = credentials;
-        setAuthenticated(false);
-    }
-
     /**
      * justauth 使用
      */
@@ -38,18 +24,6 @@ public class SocialAuthenticationToken extends AbstractAuthenticationToken {
         super(null);
         this.principal = authUser;
         setAuthenticated(false);
-    }
-
-    /**
-     * 认证成功之后使用
-     */
-    public SocialAuthenticationToken(String socialKey, String socialType, Object principal,
-                                     Collection<? extends GrantedAuthority> authorities) {
-        super(authorities);
-        this.socialKey = socialKey;
-        this.socialType = socialType;
-        this.principal = principal;
-        super.setAuthenticated(true); // must use super, as we override
     }
 
     public SocialAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
@@ -71,16 +45,6 @@ public class SocialAuthenticationToken extends AbstractAuthenticationToken {
     public Object getPrincipal() {
         return this.principal;
     }
-
-
-    public String getSocialType() {
-        return socialType;
-    }
-
-    public String getSocialKey() {
-        return socialKey;
-    }
-
 
     @Override
     @SneakyThrows
