@@ -133,6 +133,11 @@
                 <artifactId>mate-system-api</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-component-api</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
             <!-- 微服务基础包 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

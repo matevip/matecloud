@@ -3,20 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>matecloud</artifactId>
+        <artifactId>mate-platform</artifactId>
         <groupId>vip.mate</groupId>
         <version>1.0.1.RC</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mate-platform</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>mate-system-api</module>
-        <module>mate-system</module>
-        <module>mate-component</module>
-        <module>mate-component-api</module>
-    </modules>
+    <artifactId>mate-component-api</artifactId>
 
 
 </project>
