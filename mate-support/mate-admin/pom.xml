@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-common</artifactId>
+        </dependency>
+        <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
@@ -37,10 +41,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-common</artifactId>
         </dependency>
     </dependencies>
 

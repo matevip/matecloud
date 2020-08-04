@@ -7,7 +7,21 @@ spring:
     admin:
       ui:
         title: @artifactId@-server
+      client:
+        instance:
+          metadata:
+            tags:
+              environment: local
   security:
     user:
       name: "admin"
       password: "admin"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
