@@ -1,7 +1,7 @@
 package vip.mate.system.feign;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.log.util.TrackUtil;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.service.ISysRolePermissionService;
@@ -31,6 +32,8 @@ public class SysUserProvider implements ISysUserProvider {
     @ApiOperation(value = "根据用户ID获取用户信息", notes = "根据用户ID获取用户信息")
     public Result<SysUser> userInfoById(Long userId) {
         SysUser sysUser = sysUserService.getById(userId);
+        // 测试日志埋点
+        TrackUtil.info(SysUserProvider.class.getName(), "userInfoById", JSON.toJSONString(sysUser));
         return Result.data(sysUser);
     }
 
