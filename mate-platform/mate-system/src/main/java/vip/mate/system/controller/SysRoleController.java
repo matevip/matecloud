@@ -105,8 +105,9 @@ public class SysRoleController extends BaseController {
     }
 
     @EnableToken
+    @Log(value = "修改角色权限", exception = "修改角色权限请求异常")
     @PostMapping("/savePermission")
-    @ApiOperation(value = "根据角色ID和菜单ids保存菜单权限", notes = "根据角色ID和菜单ids保存菜单权限")
+    @ApiOperation(value = "修改角色权限", notes = "根据角色ID和菜单ids保存菜单权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", required = true, value = "角色ID", paramType = "form"),
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")

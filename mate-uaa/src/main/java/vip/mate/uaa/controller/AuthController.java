@@ -38,7 +38,7 @@ public class AuthController {
     @Qualifier("consumerTokenServices")
     private final ConsumerTokenServices consumerTokenServices;
 
-    private final ValidateService captchaService;
+    private final ValidateService validateService;
 
     private final ISysUserProvider sysUserProvider;
 
@@ -79,7 +79,7 @@ public class AuthController {
     @GetMapping("/auth/code")
     @ApiOperation(value = "获取验证码", notes = "获取验证码")
     public Result<?> authCode() {
-        return captchaService.getCode();
+        return validateService.getCode();
     }
 
     @Log(value = "退出登录并删除TOKEN", exception = "退出登录并删除TOKEN请求异常")
@@ -94,7 +94,7 @@ public class AuthController {
     @ApiOperation(value = "获取手机验证码", notes = "获取手机验证码")
     @GetMapping("/auth/sms-code")
     public Result<?> smsCode(String mobile) {
-        return captchaService.getSmsCode(mobile);
+        return validateService.getSmsCode(mobile);
     }
 
 
