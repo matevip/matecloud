@@ -57,7 +57,7 @@ public class ValidateServiceImpl implements ValidateService {
         if (codeFromRedis == null) {
             throw new CaptchaException("验证码已过期");
         }
-        if (!StringUtils.equalsIgnoreCase(code, String.valueOf(codeFromRedis))) {
+        if (!StringUtils.equalsIgnoreCase(code, codeFromRedis)) {
             throw new CaptchaException("验证码不正确");
         }
 
