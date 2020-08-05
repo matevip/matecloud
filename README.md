@@ -13,6 +13,16 @@
 
 MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家提供技术框架的基础能力的封装，减少开发工作，让您只关注业务。
 
+### 系统演示
+- 演示地址：http://cloud.mate.vip
+
+- 账号密码：admin/matecloud
+
+如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
+
+### 技术交流
+QQ群：2003638
+
 ### 技术架构
 <p align="center"> 
     <img src="https://cdn.ckjia.com/MateCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB.png" />
@@ -65,15 +75,6 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-code -- 封装代码生成逻辑 [30002]
 │  │  ├─mate-admin -- 封装spring-boot-admin逻辑 [30001]
 ```
-### 技术交流
-QQ群：2003638
-
-### 系统演示
-- 演示地址：http://cloud.mate.vip
-
-- 账号密码：admin/matecloud
-
-如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
 
 ## 项目源码
 |     |   MateCloud后端源码  |   Artemis前端源码  |
