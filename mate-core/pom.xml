@@ -24,6 +24,7 @@
         <module>mate-starter-minio</module>
         <module>mate-starter-gray</module>
         <module>mate-starter-sharding</module>
+        <module>mate-starter-elasticsearch</module>
     </modules>
 
     <properties>
