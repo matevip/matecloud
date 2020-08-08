@@ -52,7 +52,7 @@ public class SysConfig extends BaseEntity {
 	* 值
 	*/
 	@ApiModelProperty(value = "值")
-	private String key;
+	private String cKey;
 	/**
 	* 名称
 	*/
@@ -68,26 +68,11 @@ public class SysConfig extends BaseEntity {
 	*/
 	@ApiModelProperty(value = "备注")
 	private String remark;
+
 	/**
-	* 创建人
-	*/
-	@ApiModelProperty(value = "创建人")
-	private String createBy;
-	/**
-	* 更新人
-	*/
-	@ApiModelProperty(value = "更新人")
-	private String updateBy;
-	/**
-	* 创建时间
-	*/
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime createTime;
-	/**
-	* 修改时间
-	*/
-	@ApiModelProperty(value = "修改时间")
-	private LocalDateTime updateTime;
+	 * 租户ID
+	 */
+	@ApiModelProperty(value = "租户ID")
 	private Integer tenantId;
 	/**
 	* 是否已删除

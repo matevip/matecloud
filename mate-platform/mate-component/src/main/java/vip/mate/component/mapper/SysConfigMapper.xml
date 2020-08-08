@@ -7,7 +7,7 @@
         <result column="id" property="id" />
         <result column="parent_id" property="parentId" />
         <result column="code" property="code" />
-        <result column="key" property="key" />
+        <result column="cKey" property="cKey" />
         <result column="value" property="value" />
         <result column="sort" property="sort" />
         <result column="remark" property="remark" />
@@ -22,7 +22,7 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id,
-        parent_id, code, key, value, sort, remark, create_by, update_by, create_time, update_time, tenant_id, is_deleted
+        parent_id, code, c_key, value, sort, remark, create_by, update_by, create_time, update_time, tenant_id, is_deleted
     </sql>
 
 </mapper>

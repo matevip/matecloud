@@ -14,7 +14,7 @@
  * limitations under the License.
  * Author: xuzhanfu (7333791@qq.com)
  */
-package vip.mate.core.common;
+package vip.mate.core.redis.util;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

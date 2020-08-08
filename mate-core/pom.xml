@@ -25,6 +25,8 @@
         <module>mate-starter-gray</module>
         <module>mate-starter-sharding</module>
         <module>mate-starter-elasticsearch</module>
+        <module>mate-starter-redis</module>
+        <module>mate-starter-oss</module>
     </modules>
 
     <properties>
