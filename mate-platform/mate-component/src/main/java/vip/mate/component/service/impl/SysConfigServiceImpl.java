@@ -37,11 +37,9 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         OssProperties oss = (OssProperties)redisTemplate.opsForValue().get(ComponentConstant.OSS_DEFAULT);
         if (oss == null) {
             oss = new OssProperties();
-            //获取默认的oss配置
-            LambdaQueryWrapper<SysConfig> lsc = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, ComponentConstant.OSS_DEFAULT);
-            SysConfig sysConfig = this.baseMapper.selectOne(lsc);
             //获取默认的code值
-            String code = sysConfig.getValue();
+            String code = getDefaultSysConfig().getValue();
+            //读取默认code的配置参数
             LambdaQueryWrapper<SysConfig> sysConfigLambdaQueryWrapper = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, code);
             List<SysConfig> sysConfigList = this.baseMapper.selectList(sysConfigLambdaQueryWrapper);
             oss = listToProps(sysConfigList, oss);
@@ -88,8 +86,27 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
                 .set(SysConfig::getValue, ossProperties.getBucketName())
                 .eq(SysConfig::getCode, code)
                 .eq(SysConfig::getCKey,ComponentConstant.OSS_BUCKET_NAME);
-        this.update(lsc);
-        return true;
+        return this.update(lsc);
+    }
+
+    @Override
+    public boolean saveDefaultOss(String code) {
+        LambdaUpdateWrapper<SysConfig> lsc = Wrappers.<SysConfig>update().lambda()
+                .set(SysConfig::getValue, code)
+                .eq(SysConfig::getCKey, ComponentConstant.CODE_DEFAULT)
+                .eq(SysConfig::getCode, ComponentConstant.OSS_DEFAULT);
+        return this.update(lsc);
+    }
+
+    @Override
+    public String defaultOss() {
+        return getDefaultSysConfig().getValue();
+    }
+
+    public SysConfig getDefaultSysConfig(){
+        //获取默认的oss配置
+        LambdaQueryWrapper<SysConfig> lsc = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, ComponentConstant.OSS_DEFAULT);
+        return this.baseMapper.selectOne(lsc);
     }
 
     public OssProperties listToProps(List<SysConfig> sysConfigList, OssProperties oss) {

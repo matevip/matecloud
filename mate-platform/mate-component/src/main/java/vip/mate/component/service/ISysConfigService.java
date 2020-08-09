@@ -20,4 +20,8 @@ public interface ISysConfigService extends IService<SysConfig> {
 
     boolean saveConfigOss(OssProperties ossProperties, String code);
 
+    boolean saveDefaultOss(String code);
+
+    String defaultOss();
+
 }

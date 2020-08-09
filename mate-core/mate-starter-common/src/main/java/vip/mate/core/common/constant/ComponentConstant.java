@@ -10,6 +10,8 @@ public class ComponentConstant {
      */
     public final String OSS_DEFAULT = "oss";
 
+    public final String CODE_DEFAULT = "default";
+
     public final String OSS_ENDPOINT = "endpoint";
 
     public final String OSS_CUSTOM_DOMAIN = "customDomain";
