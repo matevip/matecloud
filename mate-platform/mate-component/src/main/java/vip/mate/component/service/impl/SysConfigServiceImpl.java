@@ -34,17 +34,14 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
 
     @Override
     public OssProperties getOssProperties() {
-
-        OssProperties oss = (OssProperties)redisTemplate.opsForValue().get(ComponentConstant.OSS_DEFAULT);
-        if (oss == null) {
-            oss = new OssProperties();
-            //获取默认的code值
-            String code = getDefaultSysConfig().getValue();
-            //读取默认code的配置参数
-            LambdaQueryWrapper<SysConfig> sysConfigLambdaQueryWrapper = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, code);
-            List<SysConfig> sysConfigList = this.baseMapper.selectList(sysConfigLambdaQueryWrapper);
-            oss = listToProps(sysConfigList, oss);
-        }
+        OssProperties oss = new OssProperties();
+        //获取默认的code值
+        String code = getDefaultSysConfig().getValue();
+        //读取默认code的配置参数
+        LambdaQueryWrapper<SysConfig> sysConfigLambdaQueryWrapper = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, code);
+        List<SysConfig> sysConfigList = this.baseMapper.selectList(sysConfigLambdaQueryWrapper);
+        oss = listToProps(sysConfigList, oss);
+        redisTemplate.opsForValue().set(ComponentConstant.OSS_DEFAULT, oss);
         return oss;
     }
 
@@ -55,7 +52,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         List<SysConfig> sysConfigList = this.baseMapper.selectList(sysConfigLambdaQueryWrapper);
         oss = listToProps(sysConfigList, oss);
         //对oss部分字段进行隐藏显示，保护隐私
-        oss.setSecretKey(StringUtil.hide(oss.getSecretKey(), 3, 16));
+        oss.setSecretKey(StringUtil.hide(oss.getSecretKey(), 3, 23));
         return oss;
     }
 
@@ -65,31 +62,33 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         LambdaUpdateWrapper<SysConfig> lsc = Wrappers.<SysConfig>update().lambda()
                 .set(SysConfig::getValue, ossProperties.getEndpoint())
                 .eq(SysConfig::getCode, code)
-                .eq(SysConfig::getCKey,ComponentConstant.OSS_ENDPOINT);
+                .eq(SysConfig::getCKey, ComponentConstant.OSS_ENDPOINT);
         this.update(lsc);
 
         lsc = Wrappers.<SysConfig>update().lambda()
                 .set(SysConfig::getValue, ossProperties.getCustomDomain())
                 .eq(SysConfig::getCode, code)
-                .eq(SysConfig::getCKey,ComponentConstant.OSS_CUSTOM_DOMAIN);
+                .eq(SysConfig::getCKey, ComponentConstant.OSS_CUSTOM_DOMAIN);
         this.update(lsc);
 
         lsc = Wrappers.<SysConfig>update().lambda()
                 .set(SysConfig::getValue, ossProperties.getAccessKey())
                 .eq(SysConfig::getCode, code)
-                .eq(SysConfig::getCKey,ComponentConstant.OSS_ACCESS_KEY);
+                .eq(SysConfig::getCKey, ComponentConstant.OSS_ACCESS_KEY);
         this.update(lsc);
 
         lsc = Wrappers.<SysConfig>update().lambda()
                 .set(SysConfig::getValue, ossProperties.getSecretKey())
                 .eq(SysConfig::getCode, code)
-                .eq(SysConfig::getCKey,ComponentConstant.OSS_SECRET_KEY);
+                .eq(SysConfig::getCKey, ComponentConstant.OSS_SECRET_KEY);
         this.update(lsc);
 
         lsc = Wrappers.<SysConfig>update().lambda()
                 .set(SysConfig::getValue, ossProperties.getBucketName())
                 .eq(SysConfig::getCode, code)
-                .eq(SysConfig::getCKey,ComponentConstant.OSS_BUCKET_NAME);
+                .eq(SysConfig::getCKey, ComponentConstant.OSS_BUCKET_NAME);
+        //更新配置文件至redis
+        this.getOssProperties();
         return this.update(lsc);
     }
 
@@ -99,7 +98,12 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
                 .set(SysConfig::getValue, code)
                 .eq(SysConfig::getCKey, ComponentConstant.CODE_DEFAULT)
                 .eq(SysConfig::getCode, ComponentConstant.OSS_DEFAULT);
-        return this.update(lsc);
+        boolean flag = this.update(lsc);
+        if (flag) {
+            //更新配置文件至redis
+            this.getOssProperties();
+        }
+        return flag;
     }
 
     @Override
@@ -107,7 +111,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return getDefaultSysConfig().getValue();
     }
 
-    public SysConfig getDefaultSysConfig(){
+    public SysConfig getDefaultSysConfig() {
         //获取默认的oss配置
         LambdaQueryWrapper<SysConfig> lsc = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, ComponentConstant.OSS_DEFAULT);
         return this.baseMapper.selectOne(lsc);
@@ -129,7 +133,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
             } else if (s.getCKey().equals(ComponentConstant.OSS_BUCKET_NAME)) {
                 oss.setBucketName(s.getValue());
             }
-            redisTemplate.opsForValue().set(ComponentConstant.OSS_DEFAULT, oss);
+
         }
         return oss;
     }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.mate.component.mapper.SysAttachmentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="vip.mate.component.entity.SysAttachment">
+        <result column="id" property="id" />
+        <result column="storage_id" property="storageId" />
+        <result column="attachment_group_id" property="attachmentGroupId" />
+        <result column="name" property="name" />
+        <result column="size" property="size" />
+        <result column="url" property="url" />
+        <result column="thumb_url" property="thumbUrl" />
+        <result column="type" property="type" />
+        <result column="create_by" property="createBy" />
+        <result column="update_by" property="updateBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="is_recycle" property="isRecycle" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        storage_id, attachment_group_id, name, size, url, thumb_url, type, create_by, update_by, create_time, update_time, is_deleted, is_recycle
+    </sql>
+
+</mapper>
