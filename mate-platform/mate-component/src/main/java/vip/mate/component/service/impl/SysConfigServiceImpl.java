@@ -13,6 +13,7 @@ import vip.mate.component.service.ISysConfigService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.constant.ComponentConstant;
+import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.oss.props.OssProperties;
 
 import java.util.List;
@@ -52,7 +53,10 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         OssProperties oss = new OssProperties();
         LambdaQueryWrapper<SysConfig> sysConfigLambdaQueryWrapper = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, code);
         List<SysConfig> sysConfigList = this.baseMapper.selectList(sysConfigLambdaQueryWrapper);
-        return listToProps(sysConfigList, oss);
+        oss = listToProps(sysConfigList, oss);
+        //对oss部分字段进行隐藏显示，保护隐私
+        oss.setSecretKey(StringUtil.hide(oss.getSecretKey(), 3, 16));
+        return oss;
     }
 
     @Override
