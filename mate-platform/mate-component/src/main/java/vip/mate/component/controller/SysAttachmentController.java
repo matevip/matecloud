@@ -48,7 +48,7 @@ public class SysAttachmentController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> list(Page page, Search search){
+    public Result<?> list(Page page, Search search) {
         return Result.data(sysAttachmentService.listPage(page, search));
     }
 
@@ -66,9 +66,9 @@ public class SysAttachmentController extends BaseController {
     })
     @PostMapping("/delete")
     public Result<?> delete(@RequestParam String ids) {
-      Collection collection =  CollectionUtil.stringToCollection(ids);
+        Collection collection = CollectionUtil.stringToCollection(ids);
 
-        for (Iterator<Long> it = collection.iterator(); it.hasNext();) {
+        for (Iterator<Long> it = collection.iterator(); it.hasNext(); ) {
             long id = it.next();
             sysAttachmentService.delete(id);
         }

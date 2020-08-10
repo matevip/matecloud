@@ -44,7 +44,7 @@
         <knife4j.version>2.0.4</knife4j.version>
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
-        <jakarta.validation-api.version>3.0.0</jakarta.validation-api.version>
+        <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
         <jetcache.version>2.6.0</jetcache.version>
 
         <!-- Apache Dubbo -->
