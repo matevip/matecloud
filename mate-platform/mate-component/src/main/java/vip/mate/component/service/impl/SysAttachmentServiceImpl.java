@@ -51,6 +51,11 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
         return this.baseMapper.selectPage(page, queryWrapper);
     }
 
+    /**
+     * 上传文件
+     * @param file 文件体
+     * @return boolean
+     */
     @Override
     public boolean upload(MultipartFile file) {
 
@@ -58,18 +63,45 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
         String fileName = UUID.randomUUID().toString().replace("-", "")
                 + StringPool.DOT + FilenameUtils.getExtension(file.getOriginalFilename());
         try {
+            //上传文件
+            assert ossProperties != null;
             ossTemplate.putObject(ossProperties.getBucketName(), fileName, file.getInputStream(), file.getSize(), file.getContentType());
-
-            SysAttachment sysAttachment = new SysAttachment();
-            sysAttachment.setName(file.getOriginalFilename());
-            sysAttachment.setUrl("https://" + ossProperties.getCustomDomain() + StringPool.SLASH + fileName);
-            sysAttachment.setSize(file.getSize());
-            sysAttachment.setType(1);
-            this.save(sysAttachment);
+            //生成URL
+            String url = "https://" + ossProperties.getCustomDomain() + StringPool.SLASH + fileName;
+            //上传成功后记录入库
+            this.attachmentLog(file, url);
         } catch (Exception e) {
             log.error("上传失败", e);
             return false;
         }
         return true;
+    }
+
+    /**
+     * 将上传成功的文件记录入库
+     * @param file　文件
+     * @param url　返回的URL
+     * @return boolean
+     */
+    public boolean attachmentLog(MultipartFile file, String url) {
+        SysAttachment sysAttachment = new SysAttachment();
+        String original = file.getOriginalFilename();
+        String originalName = FilenameUtils.getName(original);
+        String fileType = FilenameUtils.getExtension(original);
+        //根据扩展名判断文件是图片或者视频，待优化
+        String imagesStr = "png,jpg,jpeg,gif,tif,bmp";
+        String videoStr = "avi,wmv,mpeg,mp4,mov,flv,rm,rmvb,3gp";
+        int type = 3;
+        assert fileType != null;
+        if (fileType.contains(imagesStr)) {
+            type =1;
+        } else if (fileType.contains(videoStr)){
+            type = 2;
+        }
+        sysAttachment.setName(originalName);
+        sysAttachment.setUrl(url);
+        sysAttachment.setSize(file.getSize());
+        sysAttachment.setType(type);
+        return this.save(sysAttachment);
     }
 }

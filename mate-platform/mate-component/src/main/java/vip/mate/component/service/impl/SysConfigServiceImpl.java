@@ -1,17 +1,16 @@
 package vip.mate.component.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 import vip.mate.component.entity.SysConfig;
 import vip.mate.component.mapper.SysConfigMapper;
 import vip.mate.component.service.ISysConfigService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import vip.mate.core.common.constant.ComponentConstant;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.oss.props.OssProperties;
@@ -32,6 +31,11 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
 
     private final RedisTemplate<String, Object> redisTemplate;
 
+    /**
+     * 获取默认主题
+     *
+     * @return OssProperties
+     */
     @Override
     public OssProperties getOssProperties() {
         OssProperties oss = new OssProperties();
@@ -45,6 +49,12 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return oss;
     }
 
+    /**
+     * 根据code获取主题信息
+     *
+     * @param code code编码
+     * @return OssProperties
+     */
     @Override
     public OssProperties getConfigByCode(String code) {
         OssProperties oss = new OssProperties();
@@ -56,6 +66,13 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return oss;
     }
 
+    /**
+     * 保存配置信息
+     *
+     * @param ossProperties OssProperties
+     * @param code          关键词
+     * @return boolean
+     */
     @Override
     public boolean saveConfigOss(OssProperties ossProperties, String code) {
 
@@ -77,11 +94,14 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
                 .eq(SysConfig::getCKey, ComponentConstant.OSS_ACCESS_KEY);
         this.update(lsc);
 
-        lsc = Wrappers.<SysConfig>update().lambda()
-                .set(SysConfig::getValue, ossProperties.getSecretKey())
-                .eq(SysConfig::getCode, code)
-                .eq(SysConfig::getCKey, ComponentConstant.OSS_SECRET_KEY);
-        this.update(lsc);
+        //如果key包括*号，则表示未有更新，则忽略更新该数据
+        if (!ossProperties.getSecretKey().contains(StringPool.ASTERISK)) {
+            lsc = Wrappers.<SysConfig>update().lambda()
+                    .set(SysConfig::getValue, ossProperties.getSecretKey())
+                    .eq(SysConfig::getCode, code)
+                    .eq(SysConfig::getCKey, ComponentConstant.OSS_SECRET_KEY);
+            this.update(lsc);
+        }
 
         lsc = Wrappers.<SysConfig>update().lambda()
                 .set(SysConfig::getValue, ossProperties.getBucketName())
@@ -92,6 +112,12 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return this.update(lsc);
     }
 
+    /**
+     * 修改默认oss
+     *
+     * @param code 关键词
+     * @return boolean
+     */
     @Override
     public boolean saveDefaultOss(String code) {
         LambdaUpdateWrapper<SysConfig> lsc = Wrappers.<SysConfig>update().lambda()
@@ -106,17 +132,34 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return flag;
     }
 
+    /**
+     * 获取默认oss的code
+     *
+     * @return code
+     */
     @Override
     public String defaultOss() {
         return getDefaultSysConfig().getValue();
     }
 
+    /**
+     * 获取默认OSS配置信息
+     *
+     * @return SysConfig对象
+     */
     public SysConfig getDefaultSysConfig() {
         //获取默认的oss配置
         LambdaQueryWrapper<SysConfig> lsc = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, ComponentConstant.OSS_DEFAULT);
         return this.baseMapper.selectOne(lsc);
     }
 
+    /**
+     * 将list转换为OssProperties
+     *
+     * @param sysConfigList List列表
+     * @param oss           　oss属性
+     * @return OssProperties
+     */
     public OssProperties listToProps(List<SysConfig> sysConfigList, OssProperties oss) {
         //给OssProperties赋值
         for (SysConfig s : sysConfigList) {
