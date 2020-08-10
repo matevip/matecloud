@@ -51,7 +51,3 @@ justauth:
 social:
   vue:
     url: http://localhost:9528/#/socialcallback
-## 配置日志显示在spring boot admin
-logging:
-  file:
-    name: logs/app/mate-uaa/mate-uaa.log

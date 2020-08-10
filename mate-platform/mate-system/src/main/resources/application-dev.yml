@@ -31,7 +31,3 @@ jetcache:
       keyConvertor: fastjson
       uri: redis://127.0.0.1:6379/
 
-## 配置日志显示在spring boot admin
-logging:
-  file:
-    name: logs/app/mate-system/mate-system.log
