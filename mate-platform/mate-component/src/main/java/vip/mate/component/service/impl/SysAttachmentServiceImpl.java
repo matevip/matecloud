@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.component.entity.SysAttachment;
 import vip.mate.component.mapper.SysAttachmentMapper;
@@ -38,6 +40,12 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
 
     private final OssTemplate ossTemplate;
 
+    /**
+     * 分页查询
+     * @param page 分页组件
+     * @param search 搜索内容
+     * @return 分页列表
+     */
     @Override
     public IPage<SysAttachment> listPage(Page page, Search search) {
         LambdaQueryWrapper<SysAttachment> queryWrapper = new LambdaQueryWrapper<>();
@@ -60,7 +68,7 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
     @Override
     public boolean upload(MultipartFile file) {
 
-        OssProperties ossProperties = (OssProperties) redisTemplate.opsForValue().get(ComponentConstant.OSS_DEFAULT);
+        OssProperties ossProperties = getOssProperties();
         String fileName = UUID.randomUUID().toString().replace("-", "")
                 + StringPool.DOT + FilenameUtils.getExtension(file.getOriginalFilename());
         try {
@@ -70,12 +78,22 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
             //生成URL
             String url = "https://" + ossProperties.getCustomDomain() + StringPool.SLASH + fileName;
             //上传成功后记录入库
-            this.attachmentLog(file, url);
+            this.attachmentLog(file, url, fileName);
         } catch (Exception e) {
             log.error("上传失败", e);
             return false;
         }
         return true;
+    }
+
+    @Override
+    @SneakyThrows
+    @Transactional(rollbackFor = Exception.class)
+    public boolean delete(Long id) {
+        OssProperties ossProperties = getOssProperties();
+        SysAttachment sysAttachment = this.getById(id);
+        ossTemplate.removeObject(ossProperties.getBucketName(), sysAttachment.getFileName());
+        return this.removeById(id);
     }
 
     /**
@@ -84,14 +102,23 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
      * @param url　返回的URL
      * @return boolean
      */
-    public boolean attachmentLog(MultipartFile file, String url) {
+    public boolean attachmentLog(MultipartFile file, String url, String fileName) {
         SysAttachment sysAttachment = new SysAttachment();
         String original = file.getOriginalFilename();
         String originalName = FilenameUtils.getName(original);
         sysAttachment.setName(originalName);
         sysAttachment.setUrl(url);
+        sysAttachment.setFileName(fileName);
         sysAttachment.setSize(file.getSize());
         sysAttachment.setType(OssUtil.getFileType(original));
         return this.save(sysAttachment);
+    }
+
+    /**
+     * 从redis里读取OssProperties
+     * @return OssProperties
+     */
+    public OssProperties getOssProperties(){
+        return (OssProperties) redisTemplate.opsForValue().get(ComponentConstant.OSS_DEFAULT);
     }
 }

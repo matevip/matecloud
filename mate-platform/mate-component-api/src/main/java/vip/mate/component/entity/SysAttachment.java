@@ -63,6 +63,13 @@ public class SysAttachment extends BaseEntity {
 	*/
 	@ApiModelProperty(value = "文件地址")
 	private String url;
+
+	/**
+	 * 上传文件名
+	 */
+	@ApiModelProperty(value = "上传文件名")
+	private String fileName;
+
 	/**
 	* 缩略图地址
 	*/

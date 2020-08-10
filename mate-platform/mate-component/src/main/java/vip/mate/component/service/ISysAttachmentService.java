@@ -25,4 +25,6 @@ public interface ISysAttachmentService extends IService<SysAttachment> {
 
     boolean upload(MultipartFile file);
 
+    boolean delete(Long id);
+
 }

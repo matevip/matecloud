@@ -15,7 +15,11 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
+import vip.mate.core.web.util.CollectionUtil;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +52,8 @@ public class SysAttachmentController extends BaseController {
         return Result.data(sysAttachmentService.listPage(page, search));
     }
 
+    @Log(value = "上传文件", exception = "上传文件请求异常")
+    @ApiOperation(value = "上传文件", notes = "上传文件")
     @PostMapping("/upload")
     public Result<?> upload(@RequestParam("file") MultipartFile file) {
         boolean flag = sysAttachmentService.upload(file);
@@ -55,6 +61,23 @@ public class SysAttachmentController extends BaseController {
             return Result.success("操作成功");
         }
         return Result.success("操作失败");
+    }
+
+    @EnableToken
+    @Log(value = "删除文件", exception = "删除文件请求异常")
+    @ApiOperation(value = "删除文件", notes = "删除文件")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    })
+    @PostMapping("/delete")
+    public Result<?> delete(@RequestParam String ids) {
+      Collection collection =  CollectionUtil.stringToCollection(ids);
+
+        for (Iterator<Long> it = collection.iterator(); it.hasNext();) {
+            long id = it.next();
+            sysAttachmentService.delete(id);
+        }
+        return Result.success("删除成功");
     }
 
 }
