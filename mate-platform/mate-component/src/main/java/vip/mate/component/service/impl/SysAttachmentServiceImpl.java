@@ -13,6 +13,7 @@ import vip.mate.component.entity.SysAttachment;
 import vip.mate.component.mapper.SysAttachmentMapper;
 import vip.mate.component.service.ISysAttachmentService;
 import vip.mate.core.common.constant.ComponentConstant;
+import vip.mate.core.common.util.OssUtil;
 import vip.mate.core.common.util.StringPool;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
@@ -87,21 +88,10 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
         SysAttachment sysAttachment = new SysAttachment();
         String original = file.getOriginalFilename();
         String originalName = FilenameUtils.getName(original);
-        String fileType = FilenameUtils.getExtension(original);
-        //根据扩展名判断文件是图片或者视频，待优化
-        String imagesStr = "png,jpg,jpeg,gif,tif,bmp";
-        String videoStr = "avi,wmv,mpeg,mp4,mov,flv,rm,rmvb,3gp";
-        int type = 3;
-        assert fileType != null;
-        if (fileType.contains(imagesStr)) {
-            type =1;
-        } else if (fileType.contains(videoStr)){
-            type = 2;
-        }
         sysAttachment.setName(originalName);
         sysAttachment.setUrl(url);
         sysAttachment.setSize(file.getSize());
-        sysAttachment.setType(type);
+        sysAttachment.setType(OssUtil.getFileType(original));
         return this.save(sysAttachment);
     }
 }
