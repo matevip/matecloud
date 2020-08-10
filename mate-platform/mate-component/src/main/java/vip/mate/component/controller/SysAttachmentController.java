@@ -52,15 +52,10 @@ public class SysAttachmentController extends BaseController {
         return Result.data(sysAttachmentService.listPage(page, search));
     }
 
-    @Log(value = "上传文件", exception = "上传文件请求异常")
     @ApiOperation(value = "上传文件", notes = "上传文件")
     @PostMapping("/upload")
     public Result<?> upload(@RequestParam("file") MultipartFile file) {
-        boolean flag = sysAttachmentService.upload(file);
-        if (flag) {
-            return Result.success("操作成功");
-        }
-        return Result.success("操作失败");
+        return sysAttachmentService.upload(file);
     }
 
     @EnableToken
@@ -79,6 +74,5 @@ public class SysAttachmentController extends BaseController {
         }
         return Result.success("删除成功");
     }
-
 }
 

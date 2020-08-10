@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import vip.mate.component.entity.SysAttachment;
 import vip.mate.component.mapper.SysAttachmentMapper;
 import vip.mate.component.service.ISysAttachmentService;
+import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.ComponentConstant;
 import vip.mate.core.common.util.OssUtil;
 import vip.mate.core.common.util.StringPool;
@@ -22,6 +23,8 @@ import vip.mate.core.database.entity.Search;
 import vip.mate.core.oss.core.OssTemplate;
 import vip.mate.core.oss.props.OssProperties;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -66,24 +69,30 @@ public class SysAttachmentServiceImpl extends ServiceImpl<SysAttachmentMapper, S
      * @return boolean
      */
     @Override
-    public boolean upload(MultipartFile file) {
+    public Result<?> upload(MultipartFile file) {
 
         OssProperties ossProperties = getOssProperties();
         String fileName = UUID.randomUUID().toString().replace("-", "")
                 + StringPool.DOT + FilenameUtils.getExtension(file.getOriginalFilename());
+        Map<String, String> uMap = new HashMap<>(4);
         try {
             //上传文件
             assert ossProperties != null;
             ossTemplate.putObject(ossProperties.getBucketName(), fileName, file.getInputStream(), file.getSize(), file.getContentType());
             //生成URL
             String url = "https://" + ossProperties.getCustomDomain() + StringPool.SLASH + fileName;
+            //自定义返回报文
+
+            uMap.put("bucketName", ossProperties.getBucketName());
+            uMap.put("fileName", fileName);
+            uMap.put("url", url);
             //上传成功后记录入库
             this.attachmentLog(file, url, fileName);
         } catch (Exception e) {
             log.error("上传失败", e);
-            return false;
+            return Result.fail(e.getMessage());
         }
-        return true;
+        return Result.data(uMap);
     }
 
     @Override
