@@ -13,13 +13,23 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class SecurityUtil {
 
+
+    /**
+     * 从HttpServletRequest里获取token
+     * @param request HttpServletRequest
+     * @return token
+     */
+    public static String getHeaderToken(HttpServletRequest request) {
+        return request.getHeader(Oauth2Constant.HEADER_TOKEN);
+    }
+
     /**
      * 从HttpServletRequest里获取token
      * @param request HttpServletRequest
      * @return token
      */
     public static String getToken(HttpServletRequest request) {
-        String headerToken = request.getHeader(Oauth2Constant.HEADER_TOKEN);
+        String headerToken = getHeaderToken(request);
         if (StringUtils.isBlank(headerToken)) {
             throw new TokenException("没有携带Token信息！");
         }

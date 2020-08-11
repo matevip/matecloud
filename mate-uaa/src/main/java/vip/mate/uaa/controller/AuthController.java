@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.common.util.SecurityUtil;
+import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.feign.ISysRolePermissionProvider;
@@ -86,7 +87,9 @@ public class AuthController {
     @PostMapping("/auth/logout")
     @ApiOperation(value = "退出登录并删除TOKEN", notes = "退出登录并删除TOKEN")
     public Result<?> logout(HttpServletRequest request) {
-        consumerTokenServices.revokeToken(SecurityUtil.getToken(request));
+        if (StringUtil.isNotBlank(SecurityUtil.getHeaderToken(request))) {
+            consumerTokenServices.revokeToken(SecurityUtil.getToken(request));
+        }
         return Result.success("操作成功");
     }
 

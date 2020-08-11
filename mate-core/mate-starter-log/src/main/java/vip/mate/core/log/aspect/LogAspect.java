@@ -105,8 +105,7 @@ public class LogAspect {
         String userName = null;
         if (!url.contains("oauth") && !(url.contains("code"))){
             //判断header是否存在，存在则获取用户名
-            String headerToken = request.getHeader(Oauth2Constant.HEADER_TOKEN);
-            if (headerToken != null) {
+            if (StringUtil.isNotBlank(SecurityUtil.getHeaderToken(request))) {
                 userName = SecurityUtil.getUsername(request).getAccount();
             }
         }
