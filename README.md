@@ -66,11 +66,18 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-starter-feign -- 封装feign基础模块
 │  │  ├─mate-starter-jetcache -- 封装JetCache阿里缓存基础模块
 │  │  ├─mate-starter-rocketmq -- 封装RocketMQ基础模块
+│  │  ├─mate-starter-gray -- 封装灰度发布基础模块
+│  │  ├─mate-starter-elasticsearch -- 封装ElasticSearch模块
+│  │  ├─mate-starter-oss -- 封装oss存储基础模块,支持阿里云、七牛云、minio等
+│  │  ├─mate-starter-log -- 封装日志基础模块
+│  │  ├─mate-starter-sharding -- 封装多数据库基础模块
 │  │─mate-gateway -- 统一网关模块 [10001]
 │  │─mate-uaa -- 统一认证中心模块 [20001]
 │  │─mate-platform -- 平台模块项目，目前包含系统子模块
 │  │  ├─mate-system-api -- 系统模块的通用模块，供其他模块引用
 │  │  ├─mate-system -- 系统模块核心功能 [20002]
+│  │  ├─mate-component-api -- 组件模块核心功能，供其他模块引用
+│  │  ├─mate-component -- 组件模块核心功能 [20003]
 │  │─mate-support -- 支持中心项目，目前包括代码生成、admin模块
 │  │  ├─mate-code -- 封装代码生成逻辑 [30002]
 │  │  ├─mate-admin -- 封装spring-boot-admin逻辑 [30001]

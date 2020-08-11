@@ -52,6 +52,7 @@ public class SysAttachmentController extends BaseController {
         return Result.data(sysAttachmentService.listPage(page, search));
     }
 
+    @Log(value = "上传文件", exception = "上传文件请求异常")
     @ApiOperation(value = "上传文件", notes = "上传文件")
     @PostMapping("/upload")
     public Result<?> upload(@RequestParam("file") MultipartFile file) {
