@@ -2,6 +2,7 @@ package vip.mate.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -78,7 +79,8 @@ public class SysMenuController extends BaseController {
     @GetMapping("/asyncList")
     @ApiOperation(value = "查询所有系统菜单资源列表", notes = "查询所有菜单列表")
     public Result<?> asyncList(){
-        List<SysMenu> sysMenus = sysMenuService.list();
+        LambdaQueryWrapper<SysMenu> lsm = Wrappers.<SysMenu>query().lambda().orderByAsc(SysMenu::getSort);
+        List<SysMenu> sysMenus = sysMenuService.list(lsm);
         List<SysMenuDTO> sysMenuDTOS = sysMenus.stream().map(sysMenu -> {
             SysMenuDTO sysMenuDTO = new SysMenuDTO();
             sysMenuDTO.setId(sysMenu.getId());

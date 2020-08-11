@@ -22,6 +22,7 @@
         WHERE
         is_deleted = 0 and type != 2
         and id IN ( SELECT menu_id FROM mate_sys_role_permission WHERE role_id = #{param1})
+        order by sort
     </select>
 
 </mapper>
