@@ -1,7 +1,6 @@
 package vip.mate.core.log.aspect;
 
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.util.*;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.log.event.LogEvent;
@@ -35,7 +35,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +104,11 @@ public class LogAspect {
         //　如果是登录请求，则不获取用户信息
         String userName = null;
         if (!url.contains("oauth") && !(url.contains("code"))){
-            userName = SecurityUtil.getUsername(request).getAccount();
+            //判断header是否存在，存在则获取用户名
+            String headerToken = request.getHeader(Oauth2Constant.HEADER_TOKEN);
+            if (headerToken != null) {
+                userName = SecurityUtil.getUsername(request).getAccount();
+            }
         }
         //　封装SysLog
         SysLog sysLog = new SysLog();
