@@ -19,6 +19,7 @@
         <module>mate-uaa</module>
         <module>mate-support</module>
         <module>mate-platform</module>
+        <module>mate-mq</module>
     </modules>
 
     <properties>
