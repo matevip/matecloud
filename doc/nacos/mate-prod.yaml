@@ -26,6 +26,7 @@ mate:
     url: jdbc:mysql://127.0.0.1:3306/matex?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
+  isPreview: false
 
 jetcache:
   remote:
@@ -33,3 +34,21 @@ jetcache:
       type: redis.lettuce
       keyConvertor: fastjson
       uri: redis://127.0.0.1:6379/
+justauth:
+  enabled: true
+  type:
+    github:
+      client-id: 75a51afd3b0a2fc32952
+      client-secret: dcf425ac897106e**********8b336d2317b
+      redirect-uri: http://localhost:10001/mate-uaa/auth/callback/github
+    wechat_open:
+      client-id: wxdcb******4ff4
+      client-secret: b4e9dc************************a08ed6d
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/wechat/callback
+  cache:
+    type: redis
+    prefix: 'SOCIAL::STATE::'
+    timeout: 1h
+social:
+  vue:
+    url: http://localhost:9528/#/socialcallback

@@ -53,9 +53,6 @@ public class SysLogController extends BaseController {
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     public Result<?> delete(@RequestParam String ids) {
-        if (true) {
-            return Result.fail("演示环境，不能删除日志");
-        }
         if (sysLogService.removeByIds(CollectionUtil.stringToCollection(ids))){
             return Result.success("删除成功");
         }

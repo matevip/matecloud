@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.core.common.constant.MateConstant;
-import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.util.*;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.log.event.LogEvent;

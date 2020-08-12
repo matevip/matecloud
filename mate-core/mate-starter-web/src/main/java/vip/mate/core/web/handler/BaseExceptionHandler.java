@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.exception.BaseException;
+import vip.mate.core.common.exception.PreviewException;
 import vip.mate.core.common.exception.TokenException;
 
 import java.io.FileNotFoundException;
@@ -58,6 +59,19 @@ public class BaseExceptionHandler {
     public Result<?> handleException(FileNotFoundException ex) {
         log.error("程序异常：" + ex.toString());
         return Result.fail(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+    }
+
+    /**
+     * PreviewException 空指针异常捕获处理
+     * @param ex 自定义PreviewException异常类型
+     * @return Result
+     */
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result<?> handleException(PreviewException ex) {
+        log.error("程序异常：" + ex.toString());
+        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
 
     /**

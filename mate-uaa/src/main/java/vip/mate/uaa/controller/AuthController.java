@@ -101,7 +101,6 @@ public class AuthController {
     }
 
 
-
     /**
      * 登录类型
      */
@@ -133,7 +132,7 @@ public class AuthController {
      */
     @RequestMapping("/auth/callback/{oauthType}")
     public void login(@PathVariable String oauthType, AuthCallback callback, HttpServletResponse httpServletResponse) throws IOException {
-        String url = socialConfig.getUrl() + "?code="+oauthType+"-"+callback.getCode()+"&state="+callback.getState();
+        String url = socialConfig.getUrl() + "?code=" + oauthType + "-" + callback.getCode() + "&state=" + callback.getState();
         log.error("url:{}", url);
         //跳转到指定页面
         httpServletResponse.sendRedirect(url);
