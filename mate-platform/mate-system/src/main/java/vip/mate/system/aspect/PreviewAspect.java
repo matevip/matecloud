@@ -33,8 +33,8 @@ public class PreviewAspect {
     public Object aroundApi(ProceedingJoinPoint point) throws Throwable {
         //　获取request
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
-        log.error("进入演示环境拦截器－－－－－－－－－－－－－－－");
-        if (StringUtils.equalsIgnoreCase(request.getMethod(), HttpMethod.POST.name()) && isPreview) {
+        if (StringUtils.equalsIgnoreCase(request.getMethod(), HttpMethod.POST.name()) && isPreview
+        && !(StringUtils.equalsIgnoreCase(request.getRequestURI(), "/provider/log/save"))) {
             log.error("演示环境不能操作！");
             throw new PreviewException("演示环境不能操作！");
         }

@@ -23,8 +23,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import vip.mate.core.database.entity.BaseEntity;
 
-import java.util.Date;
-
 /**
  * 字典表实体类
  *
