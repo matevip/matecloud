@@ -26,6 +26,7 @@
         <module>mate-starter-elasticsearch</module>
         <module>mate-starter-redis</module>
         <module>mate-starter-oss</module>
+        <module>mate-starter-sms</module>
     </modules>
 
     <properties>
