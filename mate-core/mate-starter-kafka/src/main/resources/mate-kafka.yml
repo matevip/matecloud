@@ -1,0 +1,18 @@
+spring:
+  ##Kafka配置
+  cloud:
+    stream:
+      bindings:
+        log_input:
+          destination: mate_log
+        log_output:
+          destination: mate_log
+      default-binder: kafka
+  kafka:
+    bootstrap-servers: localhost:9091
+    consumer:
+      group-id: log_consumer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      client-id: log_producer
