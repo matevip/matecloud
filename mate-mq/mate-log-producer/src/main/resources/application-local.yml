@@ -10,7 +10,7 @@ spring:
         log_input:
           destination: mate_log
         log_output:
-          destinations: mate_log
+          destination: mate_log
       default-binder: kafka
   kafka:
     bootstrap-servers: localhost:9092
