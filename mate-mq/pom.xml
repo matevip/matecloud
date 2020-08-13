@@ -17,6 +17,7 @@
         <module>mate-message-consumer</module>
         <module>mate-log-consumer</module>
         <module>mate-log-producer</module>
+        <module>mate-log-api</module>
     </modules>
 
 

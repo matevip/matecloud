@@ -27,6 +27,7 @@
         <module>mate-starter-redis</module>
         <module>mate-starter-oss</module>
         <module>mate-starter-sms</module>
+        <module>mate-starter-kafka</module>
     </modules>
 
     <properties>

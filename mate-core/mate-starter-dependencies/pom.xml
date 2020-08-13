@@ -136,6 +136,16 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-rocketmq</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-kafka</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-system-api</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
