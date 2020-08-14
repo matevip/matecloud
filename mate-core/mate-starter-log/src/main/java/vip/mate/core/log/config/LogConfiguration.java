@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import vip.mate.core.log.aspect.LogAspect;
 import vip.mate.core.log.event.LogListener;
-import vip.mate.system.feign.ISysLogProvider;
+import vip.mate.core.log.feign.ISysLogProvider;
 
 @EnableAsync
 @Configuration

@@ -1,7 +1,7 @@
 package vip.mate.system.mapper;
 
-import vip.mate.system.entity.SysLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import vip.mate.core.log.entity.SysLog;
 
 /**
  * <p>

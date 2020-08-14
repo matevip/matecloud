@@ -6,8 +6,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import vip.mate.system.entity.SysLog;
-import vip.mate.system.feign.ISysLogProvider;
+import vip.mate.core.log.entity.SysLog;
+import vip.mate.core.log.feign.ISysLogProvider;
 
 /**
  * 注解形式，异步监听事件

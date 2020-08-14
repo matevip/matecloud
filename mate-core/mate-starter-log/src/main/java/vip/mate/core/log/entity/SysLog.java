@@ -14,7 +14,7 @@
  * limitations under the License.
  * Author: pangu(7333791@qq.com)
  */
-package vip.mate.system.entity;
+package vip.mate.core.log.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -23,7 +23,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import vip.mate.core.database.entity.BaseEntity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**

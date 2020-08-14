@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.core.database.entity.Search;
-import vip.mate.system.entity.SysLog;
+import vip.mate.core.log.entity.SysLog;
 
 /**
  * <p>

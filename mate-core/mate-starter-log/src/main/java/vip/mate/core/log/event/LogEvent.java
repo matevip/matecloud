@@ -1,7 +1,7 @@
 package vip.mate.core.log.event;
 
 import org.springframework.context.ApplicationEvent;
-import vip.mate.system.entity.SysLog;
+import vip.mate.core.log.entity.SysLog;
 
 /**
  * 日志事件

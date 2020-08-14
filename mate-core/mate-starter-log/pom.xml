@@ -34,7 +34,8 @@
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-system-api</artifactId>
+            <artifactId>mate-starter-feign</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

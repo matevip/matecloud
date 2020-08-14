@@ -27,8 +27,8 @@ import org.springframework.web.multipart.MultipartFile;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.util.*;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.log.entity.SysLog;
 import vip.mate.core.log.event.LogEvent;
-import vip.mate.system.entity.SysLog;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
