@@ -1,11 +1,18 @@
 package vip.mate.core.common.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 日期工具类
+ *
  * @author pangu
  */
 public class DateUtil {
@@ -21,6 +28,15 @@ public class DateUtil {
     private static final String DATE_FORMATTER_SHORT = "yyyyMMdd";
     private static final String DATETIME_FORMATTER_SHORT = "yyyyMMddHHmmss";
     private static final String TIME_FORMATTER_SHORT = "HHmmss";
+    /**
+     * 24小时时间正则表达式
+     */
+    public static final String MATCH_TIME_24 = "(([0-1][0-9])|2[0-3]):[0-5][0-9]:[0-5][0-9]";
+    /**
+     * 日期正则表达式
+     */
+    public static final String REGEX_DATA = "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))";
+
 
     /**
      * 获取当前时间戳
@@ -536,4 +552,69 @@ public class DateUtil {
     public static Long toSelectEpochMilli(LocalDateTime localDateTime, ZoneId zoneId) {
         return localDateTime.atZone(zoneId).toInstant().toEpochMilli();
     }
+
+    /**
+     * 计算距今天指定天数的日期
+     *
+     * @param days
+     * @return
+     */
+    public static String getDateAfterDays(int days) {
+        Calendar date = Calendar.getInstance();// today
+        date.add(Calendar.DATE, days);
+        SimpleDateFormat simpleDate = new SimpleDateFormat(DATE_FORMATTER);
+        return simpleDate.format(date.getTime());
+    }
+
+    /**
+     * 在指定的日期的前几天或后几天
+     *
+     * @param source 源日期(yyyy-MM-dd)
+     * @param days   指定的天数,正负皆可
+     * @return
+     * @throws ParseException
+     */
+    public static String addDays(String source, int days) {
+        Date date = localDateToDate(parseLocalDate(source, DATE_FORMATTER));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, days);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMATTER);
+        return dateFormat.format(calendar.getTime());
+    }
+
+    /**
+     * LocalDate转换成Date
+     * @param localDate
+     * @return
+     */
+    public static Date localDateToDate(LocalDate localDate) {
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        return Date.from(instant);
+    }
+
+    /**
+     * 24小时时间校验
+     *
+     * @param time
+     * @return
+     */
+    public static boolean isValidate24(String time) {
+        Pattern p = Pattern.compile(MATCH_TIME_24);
+        return p.matcher(time).matches();
+    }
+
+    /**
+     * 日期校验
+     *
+     * @param date
+     * @return
+     */
+    public static boolean isDate(String date) {
+        Pattern pat = Pattern.compile(REGEX_DATA);
+        Matcher mat = pat.matcher(date);
+        return mat.matches();
+    }
+
 }
