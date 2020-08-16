@@ -20,7 +20,7 @@ import vip.mate.core.web.annotation.EnableUser;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.core.web.util.ExcelUtil;
+import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.system.dto.SysMenuDTO;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.poi.SysMenuPOI;

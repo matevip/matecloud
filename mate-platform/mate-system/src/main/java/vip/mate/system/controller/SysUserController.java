@@ -17,7 +17,7 @@ import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.core.web.util.ExcelUtil;
+import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.poi.SysUserPOI;
 import vip.mate.system.service.ISysUserService;

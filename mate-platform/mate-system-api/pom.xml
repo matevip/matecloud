@@ -24,6 +24,11 @@
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-file</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
             <artifactId>mate-starter-database</artifactId>
             <scope>provided</scope>
         </dependency>

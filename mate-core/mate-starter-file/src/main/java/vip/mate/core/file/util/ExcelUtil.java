@@ -1,4 +1,4 @@
-package vip.mate.core.web.util;
+package vip.mate.core.file.util;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;

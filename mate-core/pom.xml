@@ -28,6 +28,7 @@
         <module>mate-starter-oss</module>
         <module>mate-starter-sms</module>
         <module>mate-starter-kafka</module>
+        <module>mate-starter-file</module>
     </modules>
 
     <properties>

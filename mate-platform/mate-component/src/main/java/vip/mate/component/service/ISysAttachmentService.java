@@ -7,10 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import vip.mate.component.entity.SysAttachment;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
-import vip.mate.system.entity.SysLog;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
