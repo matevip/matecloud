@@ -18,9 +18,6 @@ public class XxlJobConfiguration {
     @Value("${mate.job.executor.appname}")
     private String appname;
 
-    @Value("${mate.job.executor.address}")
-    private String address;
-
     @Value("${mate.job.executor.ip}")
     private String ip;
 
@@ -44,7 +41,6 @@ public class XxlJobConfiguration {
         XxlJobExecutor xxlJobExecutor = new XxlJobExecutor();
         xxlJobExecutor.setAdminAddresses(adminAddresses);
         xxlJobExecutor.setAppname(appname);
-        xxlJobExecutor.setAddress(address);
         xxlJobExecutor.setIp(ip);
         xxlJobExecutor.setPort(port);
         xxlJobExecutor.setAccessToken(accessToken);
