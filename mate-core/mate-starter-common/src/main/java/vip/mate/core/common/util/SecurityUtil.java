@@ -2,7 +2,6 @@ package vip.mate.core.common.util;
 
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.context.UserContext;
 import vip.mate.core.common.entity.LoginUser;
@@ -30,10 +29,10 @@ public class SecurityUtil {
      */
     public static String getToken(HttpServletRequest request) {
         String headerToken = getHeaderToken(request);
-        if (StringUtils.isBlank(headerToken)) {
+        if (StringUtil.isBlank(headerToken)) {
             throw new TokenException("没有携带Token信息！");
         }
-        return StringUtils.isNotBlank(headerToken) ? TokenUtil.getToken(headerToken) : "";
+        return StringUtil.isNotBlank(headerToken) ? TokenUtil.getToken(headerToken) : "";
     }
 
     /**
@@ -43,7 +42,7 @@ public class SecurityUtil {
      */
     public static Claims getClaims(String token) {
         Claims claims = null;
-        if (StringUtils.isNotBlank(token)) {
+        if (StringUtil.isNotBlank(token)) {
             try {
                 claims = TokenUtil.getClaims(token);
             } catch (Exception e) {

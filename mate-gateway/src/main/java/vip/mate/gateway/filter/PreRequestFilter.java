@@ -9,8 +9,8 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+import vip.mate.core.cloud.props.MateRequestProperties;
 import vip.mate.core.common.constant.MateConstant;
-import vip.mate.core.common.props.MateRequestProperties;
 
 import java.util.UUID;
 

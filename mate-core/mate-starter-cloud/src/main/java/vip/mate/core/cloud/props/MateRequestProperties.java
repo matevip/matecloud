@@ -1,4 +1,4 @@
-package vip.mate.core.common.props;
+package vip.mate.core.cloud.props;
 
 import lombok.Getter;
 import lombok.Setter;

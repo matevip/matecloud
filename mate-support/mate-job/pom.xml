@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-common</artifactId>
+            <artifactId>mate-starter-cloud</artifactId>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>

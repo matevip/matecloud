@@ -13,11 +13,9 @@
     <packaging>jar</packaging>
 
     <dependencies>
-
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-common</artifactId>
-            <scope>provided</scope>
+            <artifactId>mate-starter-cloud</artifactId>
         </dependency>
         <!--安全模块 -->
 <!--        <dependency>-->
@@ -37,6 +35,17 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

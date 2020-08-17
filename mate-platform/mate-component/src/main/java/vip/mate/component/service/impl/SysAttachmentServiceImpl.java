@@ -16,12 +16,12 @@ import vip.mate.component.mapper.SysAttachmentMapper;
 import vip.mate.component.service.ISysAttachmentService;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.ComponentConstant;
-import vip.mate.core.common.util.OssUtil;
 import vip.mate.core.common.util.StringPool;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.oss.core.OssTemplate;
 import vip.mate.core.oss.props.OssProperties;
+import vip.mate.core.web.util.OssUtil;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -29,6 +29,7 @@
         <module>mate-starter-sms</module>
         <module>mate-starter-kafka</module>
         <module>mate-starter-file</module>
+        <module>mate-starter-cloud</module>
     </modules>
 
     <properties>

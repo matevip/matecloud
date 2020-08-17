@@ -64,6 +64,7 @@
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
 
         <elastic.version>7.8.0</elastic.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
     </properties>
 
     <dependencyManagement>
@@ -72,6 +73,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-common</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-cloud</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
@@ -377,7 +383,11 @@
                 <artifactId>elasticsearch</artifactId>
                 <version>${elastic.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -1,4 +1,4 @@
-package vip.mate.core.common.util;
+package vip.mate.core.web.util;
 
 import org.apache.commons.io.FilenameUtils;
 

@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-common</artifactId>
+            <artifactId>mate-starter-cloud</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
