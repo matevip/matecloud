@@ -13,11 +13,9 @@
     <packaging>pom</packaging>
     <description>MateCloud统一消息中心</description>
     <modules>
-        <module>mate-message-producer</module>
         <module>mate-message-consumer</module>
-        <module>mate-log-consumer</module>
+        <module>mate-message-producer</module>
         <module>mate-log-producer</module>
-        <module>mate-log-api</module>
     </modules>
 
 

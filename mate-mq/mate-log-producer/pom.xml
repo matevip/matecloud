@@ -40,11 +40,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-log-api</artifactId>
-            <version>1.0.1.RC</version>
-        </dependency>
+
     </dependencies>
 
     <build>
