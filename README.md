@@ -29,7 +29,7 @@ QQ群：2003638
 </p>
 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR7, Spring Boot 2.3.2, Spring Cloud Alibaba 2.2.1.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR7, Spring Boot 2.3.3.RELEASE, Spring Cloud Alibaba 2.2.1.RELEASE版本进行系统设计；
 
 - 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -57,6 +57,7 @@ QQ群：2003638
 matecloud -- 父项目,各模块分离，方便集成和微服务
 │  ├─mate-core -- 核心通用模块，主模块
 │  │  ├─mate-starter-common -- 封装通用模块
+│  │  ├─mate-starter-cloud -- 封装微服务模块
 │  │  ├─mate-starter-auth -- 封装token认证模块
 │  │  ├─mate-starter-security -- 封装OAuth2基础模块
 │  │  ├─mate-starter-web -- 封装WEB服务基础模块
@@ -71,6 +72,8 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-starter-oss -- 封装oss存储基础模块,支持阿里云、七牛云、minio等
 │  │  ├─mate-starter-log -- 封装日志基础模块
 │  │  ├─mate-starter-sharding -- 封装多数据库基础模块
+│  │  ├─mate-starter-sms -- 封装短信基础模块
+│  │  ├─mate-starter-kafka -- 封装kafka基础模块
 │  │─mate-gateway -- 统一网关模块 [10001]
 │  │─mate-uaa -- 统一认证中心模块 [20001]
 │  │─mate-platform -- 平台模块项目，目前包含系统子模块
