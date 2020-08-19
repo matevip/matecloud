@@ -124,4 +124,13 @@ public class SpringUtil implements ApplicationContextAware, DisposableBean {
         }
         SpringUtil.addCallback = false;
     }
+
+
+    /**
+     * 获取ApplicationContext
+     */
+    public static ApplicationContext getApplicationContext()
+    {
+        return SpringUtil.applicationContext;
+    }
 }

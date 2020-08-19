@@ -20,7 +20,7 @@
         <matecloud.core.version>1.0.1.RC</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
+        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR7</spring.cloud.version>
         <alibaba.cloud.version>2.2.1.RELEASE</alibaba.cloud.version>
 

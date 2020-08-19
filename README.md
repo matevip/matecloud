@@ -4,7 +4,7 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.2.RELEASE-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.3.RELEASE-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR7-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.1.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
