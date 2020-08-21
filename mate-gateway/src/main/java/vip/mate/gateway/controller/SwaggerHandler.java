@@ -15,9 +15,11 @@ import java.util.Optional;
 public class SwaggerHandler {
 
     @Autowired(required = false)
+    @SuppressWarnings("all")
     private SecurityConfiguration securityConfiguration;
 
     @Autowired(required = false)
+    @SuppressWarnings("all")
     private UiConfiguration uiConfiguration;
 
     private final SwaggerResourcesProvider swaggerResources;

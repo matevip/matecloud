@@ -14,11 +14,14 @@
  * limitations under the License.
  * Author: xuzhanfu (7333791@qq.com)
  */
-package vip.mate.core.redis.util;
+package vip.mate.core.redis.core;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.TimeoutUtils;
+import org.springframework.util.Assert;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +34,11 @@ import java.util.concurrent.TimeUnit;
  * @author xuzhanfu
  * @date 2019-10-11 19:02
  **/
-@AllArgsConstructor
 public class RedisService {
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    @SuppressWarnings("all")
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 指定缓存失效时间
@@ -136,6 +140,29 @@ public class RedisService {
                 redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
             } else {
                 set(key, value);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 普通缓存放入并设置时间
+     *
+     * @param key   键
+     * @param value 值
+     * @return true成功 false 失败
+     */
+    public Boolean set(String key, Object value, Duration timeout) {
+
+        try {
+            Assert.notNull(timeout, "Timeout must not be null!");
+            if (TimeoutUtils.hasMillis(timeout)) {
+                redisTemplate.opsForValue().set(key, value, timeout.toMillis(), TimeUnit.MILLISECONDS);
+            } else {
+                redisTemplate.opsForValue().set(key, value, timeout.getSeconds(), TimeUnit.SECONDS);
             }
             return true;
         } catch (Exception e) {

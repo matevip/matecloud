@@ -9,7 +9,6 @@ import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +19,7 @@ import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthoriza
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import vip.mate.core.redis.core.RedisService;
 import vip.mate.core.security.social.SocialAuthenticationToken;
 
 import java.util.LinkedHashMap;
@@ -38,15 +38,15 @@ public class SocialTokenGranter extends AbstractTokenGranter {
 
     private final AuthenticationManager authenticationManager;
 
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisService redisService;
 
     private AuthRequestFactory factory;
 
     public SocialTokenGranter(AuthenticationManager authenticationManager,
                                AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
-                               OAuth2RequestFactory requestFactory, StringRedisTemplate stringRedisTemplate, AuthRequestFactory factory) {
+                               OAuth2RequestFactory requestFactory, RedisService redisService, AuthRequestFactory factory) {
         this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
-        this.stringRedisTemplate = stringRedisTemplate;
+        this.redisService = redisService;
         this.factory = factory;
     }
 
@@ -62,7 +62,7 @@ public class SocialTokenGranter extends AbstractTokenGranter {
         String code = parameters.get("code");
         String state = parameters.get("state");
 
-        String codeFromRedis = stringRedisTemplate.opsForValue().get(PREFIX + state);
+        String codeFromRedis = redisService.get(PREFIX + state).toString();
 
         if (StringUtils.isBlank(code)) {
             throw new UserDeniedAuthorizationException("未传入请求参数");

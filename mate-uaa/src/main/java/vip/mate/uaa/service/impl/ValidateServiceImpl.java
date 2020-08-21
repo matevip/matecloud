@@ -4,11 +4,11 @@ import com.wf.captcha.ArithmeticCaptcha;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.exception.CaptchaException;
+import vip.mate.core.redis.core.RedisService;
 import vip.mate.uaa.service.ValidateService;
 
 import java.time.Duration;
@@ -21,7 +21,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ValidateServiceImpl implements ValidateService {
 
-    private final StringRedisTemplate stringRedisTemplate;
+    private final RedisService redisService;
 
     @Override
     public Result<?> getCode() {
@@ -33,7 +33,8 @@ public class ValidateServiceImpl implements ValidateService {
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(120, 40);
         captcha.getArithmeticString();  // 获取运算的公式：3+2=?
         String text = captcha.text();  // 获取运算的结果：5
-        stringRedisTemplate.opsForValue().set(Oauth2Constant.CAPTCHA_KEY + uuid, text, Duration.ofMinutes(30));
+//        stringRedisTemplate.opsForValue().set(Oauth2Constant.CAPTCHA_KEY + uuid, text, Duration.ofMinutes(30));
+        redisService.set(Oauth2Constant.CAPTCHA_KEY + uuid, text, Duration.ofMinutes(30));
         data.put("key", uuid);
         data.put("codeUrl", captcha.toBase64());
         return Result.data(data);
@@ -43,13 +44,13 @@ public class ValidateServiceImpl implements ValidateService {
     public Result<?> getSmsCode(String mobile) {
 
         String code = "1188";
-        stringRedisTemplate.opsForValue().set(Oauth2Constant.SMS_CODE_KEY + mobile, code, Duration.ofMinutes(5));
+        redisService.set(Oauth2Constant.SMS_CODE_KEY + mobile, code, Duration.ofMinutes(5));
         return Result.success("发送成功");
     }
 
     @Override
     public void check(String key, String code) throws CaptchaException {
-        String codeFromRedis = stringRedisTemplate.opsForValue().get(Oauth2Constant.CAPTCHA_KEY + key);
+        String codeFromRedis = redisService.get(Oauth2Constant.CAPTCHA_KEY + key).toString();
 
         if (StringUtils.isBlank(code)) {
             throw new CaptchaException("请输入验证码");
@@ -61,6 +62,6 @@ public class ValidateServiceImpl implements ValidateService {
             throw new CaptchaException("验证码不正确");
         }
 
-        stringRedisTemplate.delete(Oauth2Constant.CAPTCHA_KEY + key);
+        redisService.del(Oauth2Constant.CAPTCHA_KEY + key);
     }
 }

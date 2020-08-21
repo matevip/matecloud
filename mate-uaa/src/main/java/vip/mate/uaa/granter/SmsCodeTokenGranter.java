@@ -1,7 +1,6 @@
 package vip.mate.uaa.granter;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +12,7 @@ import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.redis.core.RedisService;
 import vip.mate.core.security.sms.SmsCodeAuthenticationToken;
 
 import java.util.LinkedHashMap;
@@ -29,13 +29,13 @@ public class SmsCodeTokenGranter extends AbstractTokenGranter {
 
     private final AuthenticationManager authenticationManager;
 
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisService redisService;
 
     public SmsCodeTokenGranter(AuthenticationManager authenticationManager,
                                   AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
-                                  OAuth2RequestFactory requestFactory, StringRedisTemplate stringRedisTemplate) {
+                                  OAuth2RequestFactory requestFactory, RedisService redisService) {
         this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
-        this.stringRedisTemplate = stringRedisTemplate;
+        this.redisService = redisService;
     }
 
     protected SmsCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
@@ -50,7 +50,7 @@ public class SmsCodeTokenGranter extends AbstractTokenGranter {
         String mobile = parameters.get("mobile");
         String code = parameters.get("code");
 
-        String codeFromRedis = stringRedisTemplate.opsForValue().get(Oauth2Constant.SMS_CODE_KEY + mobile);
+        String codeFromRedis = redisService.get(Oauth2Constant.SMS_CODE_KEY + mobile).toString();
 
         if (StringUtils.isBlank(code)) {
             throw new UserDeniedAuthorizationException("请输入验证码");
@@ -62,7 +62,7 @@ public class SmsCodeTokenGranter extends AbstractTokenGranter {
             throw new UserDeniedAuthorizationException("验证码不正确");
         }
 
-        stringRedisTemplate.delete(Oauth2Constant.SMS_CODE_KEY + mobile);
+        redisService.del(Oauth2Constant.SMS_CODE_KEY + mobile);
 
 
         Authentication userAuth = new SmsCodeAuthenticationToken(mobile);

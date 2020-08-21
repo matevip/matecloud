@@ -21,7 +21,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -39,6 +38,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.redis.core.RedisService;
 import vip.mate.core.security.userdetails.MateUser;
 import vip.mate.uaa.granter.CaptchaTokenGranter;
 import vip.mate.uaa.granter.SmsCodeTokenGranter;
@@ -67,7 +67,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    private final StringRedisTemplate stringRedisTemplate;
+    private RedisService redisService;
 
     private final AuthRequestFactory factory;
 
@@ -130,11 +130,11 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints) {
         List<TokenGranter> granters = new ArrayList<>(Collections.singletonList(endpoints.getTokenGranter()));
         granters.add(new SmsCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
+                endpoints.getOAuth2RequestFactory(), redisService));
         granters.add(new CaptchaTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), stringRedisTemplate));
+                endpoints.getOAuth2RequestFactory(), redisService));
         granters.add(new SocialTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), stringRedisTemplate, factory));
+                endpoints.getOAuth2RequestFactory(), redisService, factory));
         return new CompositeTokenGranter(granters);
     }
 

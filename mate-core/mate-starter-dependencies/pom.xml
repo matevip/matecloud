@@ -67,6 +67,8 @@
         <commons-collections.version>3.2.2</commons-collections.version>
 
         <dozer.version>6.5.0</dozer.version>
+        <redisson.version>3.13.3</redisson.version>
+        <lettuce.version>5.3.3.RELEASE</lettuce.version>
     </properties>
 
     <dependencyManagement>
@@ -413,6 +415,19 @@
                 <artifactId>dozer-spring4</artifactId>
                 <version>${dozer.version}</version>
             </dependency>
+            <!-- redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <!-- lettuce-core -->
+            <dependency>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+                <version>${lettuce.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

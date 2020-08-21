@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.util.HttpContextUtil;
+import vip.mate.core.redis.core.RedisService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
@@ -27,13 +28,13 @@ public class CaptchaTokenGranter extends AbstractTokenGranter {
 
     private final AuthenticationManager authenticationManager;
 
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisService redisService;
 
     public CaptchaTokenGranter(AuthenticationManager authenticationManager,
                                AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
-                               OAuth2RequestFactory requestFactory, StringRedisTemplate stringRedisTemplate) {
+                               OAuth2RequestFactory requestFactory, RedisService redisService) {
         this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
-        this.stringRedisTemplate = stringRedisTemplate;
+        this.redisService = redisService;
     }
 
     protected CaptchaTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
@@ -49,7 +50,7 @@ public class CaptchaTokenGranter extends AbstractTokenGranter {
         String key = request.getHeader(Oauth2Constant.CAPTCHA_HEADER_KEY);
         String code = request.getHeader(Oauth2Constant.CAPTCHA_HEADER_CODE);
 
-        String codeFromRedis = stringRedisTemplate.opsForValue().get(Oauth2Constant.CAPTCHA_KEY + key);
+        String codeFromRedis = redisService.get(Oauth2Constant.CAPTCHA_KEY + key).toString();
 
         if (StringUtils.isBlank(code)) {
             throw new UserDeniedAuthorizationException("请输入验证码");
@@ -61,7 +62,7 @@ public class CaptchaTokenGranter extends AbstractTokenGranter {
             throw new UserDeniedAuthorizationException("验证码不正确");
         }
 
-        stringRedisTemplate.delete(Oauth2Constant.CAPTCHA_KEY + key);
+        redisService.del(Oauth2Constant.CAPTCHA_KEY + key);
 
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
         String username = parameters.get("username");
