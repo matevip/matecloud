@@ -24,6 +24,7 @@ import vip.mate.core.redis.core.RedisService;
 @ConditionalOnProperty(value = MateRedisProperties.PREFIX + ".enabled", havingValue = "true", matchIfMissing = true)
 public class RedisConfiguration {
 
+    @SuppressWarnings("all")
     @Bean(name = "redisTemplate")
     @ConditionalOnClass(RedisOperations.class)
     public org.springframework.data.redis.core.RedisTemplate redisTemplate(RedisConnectionFactory factory) {
@@ -51,7 +52,7 @@ public class RedisConfiguration {
 
     @Bean
     @ConditionalOnBean(name = "redisTemplate")
-    public RedisService redisUtil() {
+    public RedisService redisService() {
         return new RedisService();
     }
 }
