@@ -20,4 +20,9 @@ public class MateRequestProperties {
      * 是否启用获取IP地址
      */
     private Boolean isGetIp = false;
+
+    /**
+     * 是否启用增强模式
+     */
+    private Boolean enhance = false;
 }

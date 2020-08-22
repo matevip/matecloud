@@ -1,4 +1,4 @@
-package vip.mate.gateway.service;
+package vip.mate.gateway.service.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

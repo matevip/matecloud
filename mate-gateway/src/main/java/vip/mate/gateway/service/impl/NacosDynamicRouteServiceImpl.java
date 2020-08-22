@@ -1,4 +1,4 @@
-package vip.mate.gateway.service;
+package vip.mate.gateway.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.NacosFactory;
@@ -12,6 +12,7 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import vip.mate.gateway.config.NacosGatewayConfig;
+import vip.mate.gateway.service.impl.DynamicRouteServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

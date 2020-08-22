@@ -22,6 +22,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-gray</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-rule</artifactId>
+        </dependency>
         <!--Spring-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

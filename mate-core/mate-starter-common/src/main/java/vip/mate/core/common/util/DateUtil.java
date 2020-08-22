@@ -20,14 +20,14 @@ public class DateUtil {
     /**
      * 自定义格式化
      */
-    private static final String YEAR_MONTH_FORMATTER = "yyyy-MM";
-    private static final String DATE_FORMATTER = "yyyy-MM-dd";
-    private static final String DATETIME_FORMATTER = "yyyy-MM-dd HH:mm:ss";
-    private static final String TIME_FORMATTER = "HH:mm:ss";
-    private static final String YEAR_MONTH_FORMATTER_SHORT = "yyyyMM";
-    private static final String DATE_FORMATTER_SHORT = "yyyyMMdd";
-    private static final String DATETIME_FORMATTER_SHORT = "yyyyMMddHHmmss";
-    private static final String TIME_FORMATTER_SHORT = "HHmmss";
+    public static final String YEAR_MONTH_FORMATTER = "yyyy-MM";
+    public static final String DATE_FORMATTER = "yyyy-MM-dd";
+    public static final String DATETIME_FORMATTER = "yyyy-MM-dd HH:mm:ss";
+    public static final String TIME_FORMATTER = "HH:mm:ss";
+    public static final String YEAR_MONTH_FORMATTER_SHORT = "yyyyMM";
+    public static final String DATE_FORMATTER_SHORT = "yyyyMMdd";
+    public static final String DATETIME_FORMATTER_SHORT = "yyyyMMddHHmmss";
+    public static final String TIME_FORMATTER_SHORT = "HHmmss";
     /**
      * 24小时时间正则表达式
      */
@@ -615,6 +615,18 @@ public class DateUtil {
         Pattern pat = Pattern.compile(REGEX_DATA);
         Matcher mat = pat.matcher(date);
         return mat.matches();
+    }
+
+    /**
+     * 判断当前时间是否在指定时间范围
+     *
+     * @param from 开始时间
+     * @param to   结束时间
+     * @return 结果
+     */
+    public static boolean between(LocalTime from, LocalTime to) {
+        LocalTime now = LocalTime.now();
+        return now.isAfter(from) && now.isBefore(to);
     }
 
 }

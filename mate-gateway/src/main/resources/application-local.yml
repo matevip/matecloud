@@ -19,3 +19,4 @@ mate:
   request:
     isTraceId: true
     isGetIp: true
+    enhance: true

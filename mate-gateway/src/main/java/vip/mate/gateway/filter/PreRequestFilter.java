@@ -1,6 +1,6 @@
 package vip.mate.gateway.filter;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -11,6 +11,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import vip.mate.core.cloud.props.MateRequestProperties;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.gateway.service.SafeRuleService;
 
 import java.util.UUID;
 
@@ -21,16 +22,31 @@ import java.util.UUID;
  */
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PreRequestFilter implements GlobalFilter, Ordered {
 
     private final MateRequestProperties mateRequestProperties;
-
+    private final SafeRuleService safeRuleService;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        /**
+         * 是否开启黑名单
+         * 从redis里查询黑名单是否存在
+         */
+        if (mateRequestProperties.getEnhance()) {
+            log.error("进入黑名单模式");
+            // 检查黑名单
+            Mono<Void> result = safeRuleService.filterBlackList(exchange);
+            if (result != null) {
+                return result;
+            }
+        }
+        /**
+         * 是否开启traceId跟踪
+         */
         if (mateRequestProperties.getIsTraceId()) {
-            //链路追踪id
+            // 链路追踪id
             String traceId = UUID.randomUUID().toString().replace("-","");
             ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                     .headers(h -> h.add(MateConstant.X_REQUEST_ID, traceId))

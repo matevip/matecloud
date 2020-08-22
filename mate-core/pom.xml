@@ -31,6 +31,7 @@
         <module>mate-starter-file</module>
         <module>mate-starter-cloud</module>
         <module>mate-starter-dozer</module>
+        <module>mate-starter-rule</module>
     </modules>
 
     <properties>
