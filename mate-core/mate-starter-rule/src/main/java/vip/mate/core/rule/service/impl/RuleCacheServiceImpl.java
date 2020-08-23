@@ -19,6 +19,7 @@ import java.util.Set;
 public class RuleCacheServiceImpl implements IRuleCacheService {
 
     @Autowired
+    @SuppressWarnings("all")
     private RedisService redisService;
 
     @Override
