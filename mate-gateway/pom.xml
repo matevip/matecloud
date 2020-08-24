@@ -26,6 +26,15 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-rule</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+        </dependency>
         <!--Spring-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

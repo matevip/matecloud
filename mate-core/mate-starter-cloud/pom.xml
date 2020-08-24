@@ -16,6 +16,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-sentinel</artifactId>
+        </dependency>
         <!-- Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -40,19 +44,6 @@
         <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
-        </dependency>
-        <!-- sentinel -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-parameter-flow-control</artifactId>
         </dependency>
     </dependencies>
 
