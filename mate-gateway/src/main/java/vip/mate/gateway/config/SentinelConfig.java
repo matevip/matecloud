@@ -61,6 +61,10 @@ public class SentinelConfig {
         initGatewayRules();
     }
 
+    /**
+     * 样例，可以扩展使用
+     * 文档参见：https://github.com/alibaba/Sentinel/wiki/%E7%BD%91%E5%85%B3%E9%99%90%E6%B5%81
+     */
     private void initCustomizedApis() {
         Set<ApiDefinition> definitions = new HashSet<>();
         ApiDefinition api1 = new ApiDefinition("some_customized_api")
