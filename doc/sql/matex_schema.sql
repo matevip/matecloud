@@ -474,3 +474,24 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2020-08-10 23:08:41
+
+--
+-- Table structure for table `mate_sys_blacklist`
+-- 系统黑名单表
+--
+
+DROP TABLE IF EXISTS `mate_sys_blacklist`;
+CREATE TABLE `mate_sys_blacklist` (
+                                      `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                                      `ip` varchar(20) DEFAULT NULL COMMENT 'IP地址',
+                                      `request_uri` varchar(100) DEFAULT NULL COMMENT '请求地址',
+                                      `request_method` varchar(10) DEFAULT NULL COMMENT '请求方法',
+                                      `start_time` varchar(32) DEFAULT NULL COMMENT '开始时间',
+                                      `end_time` varchar(32) DEFAULT NULL COMMENT '结束时间',
+                                      `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0' COMMENT '状态：0:关闭 1:开启',
+                                      `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
+                                      `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+                                      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                      `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                      PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统黑名单表'
