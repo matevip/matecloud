@@ -17,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISysBlacklistService extends IService<SysBlacklist> {
 
     IPage<SysBlacklist> listPage(Page page, Search search);
+
+    boolean status(String ids, String status);
 }

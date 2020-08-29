@@ -38,4 +38,10 @@ public class RuleCacheServiceImpl implements IRuleCacheService {
                 : RuleConstant.getBlackListCacheKey();
         redisService.sSet(key, JSONObject.toJSONString(blackList));
     }
+
+    public void deleteBlackList(BlackList blackList) {
+        String key = StringUtils.isNotBlank(blackList.getIp()) ? RuleConstant.getBlackListCacheKey(blackList.getIp())
+                : RuleConstant.getBlackListCacheKey();
+        redisService.setRemove(key, blackList);
+    }
 }

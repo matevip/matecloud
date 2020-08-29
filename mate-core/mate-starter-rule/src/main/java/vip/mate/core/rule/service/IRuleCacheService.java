@@ -15,4 +15,6 @@ public interface IRuleCacheService {
     Set<Object> getBlackList();
 
     void setBlackList(BlackList blackList);
+
+    void deleteBlackList(BlackList blackList);
 }

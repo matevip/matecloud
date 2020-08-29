@@ -7,18 +7,22 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.rule.entity.BlackList;
+import vip.mate.core.rule.service.IRuleCacheService;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysBlacklist;
 import vip.mate.system.service.ISysBlacklistService;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 /**
  * <p>
@@ -35,6 +39,8 @@ import javax.validation.Valid;
 public class SysBlacklistController extends BaseController {
 
     private final ISysBlacklistService sysBlacklistService;
+
+    private final IRuleCacheService ruleCacheService;
 
     @EnableToken
     @Log(value = "黑名单分页列表", exception = "黑名单分页列表请求异常")
@@ -57,6 +63,12 @@ public class SysBlacklistController extends BaseController {
     @ApiOperation(value = "添加系统黑名单", notes = "添加系统黑名单,支持新增或修改")
     public Result<?> saveOrUpdate(@Valid @RequestBody SysBlacklist sysBlacklist) {
         if (sysBlacklistService.saveOrUpdate(sysBlacklist)) {
+            //缓存操作-----start
+            SysBlacklist blacklistCurr = sysBlacklistService.getById(sysBlacklist.getId());
+            BlackList blackList = new BlackList();
+            BeanUtils.copyProperties(blacklistCurr, blackList);
+            ruleCacheService.setBlackList(blackList);
+            //缓存操作----end
             return Result.success("操作成功");
         }
         return Result.fail("操作失败");
@@ -81,12 +93,34 @@ public class SysBlacklistController extends BaseController {
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     public Result<?> delete(@RequestParam String ids) {
-        if (sysBlacklistService.removeByIds(CollectionUtil.stringToCollection(ids))){
+        Collection collection = CollectionUtil.stringToCollection(ids);
+        if (sysBlacklistService.removeByIds(collection)){
+            //处理缓存----start
+            for (Object id: collection) {
+                SysBlacklist blacklistCurr = sysBlacklistService.getById(String.valueOf(id));
+                BlackList blackList = new BlackList();
+                BeanUtils.copyProperties(blacklistCurr, blackList);
+                ruleCacheService.deleteBlackList(blackList);
+            }
+            //处理缓存----end
             return Result.success("删除成功");
         }
         return Result.fail("删除失败");
     }
 
-
+    @EnableToken
+    @Log(value = "设置黑名单状态", exception = "设置黑名单状态请求异常")
+    @PostMapping("/status")
+    @ApiOperation(value = "设置黑名单状态", notes = "状态包括：启用、禁用")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
+            @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
+    })
+    public Result<?> status(@RequestParam String ids, @RequestParam String status) {
+        if (sysBlacklistService.status(ids, status)) {
+            return Result.success("批量修改成功");
+        }
+        return Result.fail("操作失败");
+    }
 }
 
