@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import vip.mate.core.auth.annotation.EnableToken;
@@ -62,10 +63,17 @@ public class SysBlacklistController extends BaseController {
     @PostMapping("/save-or-update")
     @ApiOperation(value = "添加系统黑名单", notes = "添加系统黑名单,支持新增或修改")
     public Result<?> saveOrUpdate(@Valid @RequestBody SysBlacklist sysBlacklist) {
+        BlackList blackList = new BlackList();
+        //删除缓存
+        if (sysBlacklist.getId() != null) {
+            SysBlacklist b = sysBlacklistService.getById(sysBlacklist.getId());
+            BeanUtils.copyProperties(b, blackList);
+            ruleCacheService.deleteBlackList(blackList);
+        }
+        //删除缓存
         if (sysBlacklistService.saveOrUpdate(sysBlacklist)) {
             //缓存操作-----start
             SysBlacklist blacklistCurr = sysBlacklistService.getById(sysBlacklist.getId());
-            BlackList blackList = new BlackList();
             BeanUtils.copyProperties(blacklistCurr, blackList);
             ruleCacheService.setBlackList(blackList);
             //缓存操作----end
@@ -92,17 +100,18 @@ public class SysBlacklistController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
+    @Transactional
     public Result<?> delete(@RequestParam String ids) {
         Collection collection = CollectionUtil.stringToCollection(ids);
-        if (sysBlacklistService.removeByIds(collection)){
-            //处理缓存----start
-            for (Object id: collection) {
-                SysBlacklist blacklistCurr = sysBlacklistService.getById(String.valueOf(id));
-                BlackList blackList = new BlackList();
-                BeanUtils.copyProperties(blacklistCurr, blackList);
-                ruleCacheService.deleteBlackList(blackList);
-            }
-            //处理缓存----end
+        BlackList blackList = new BlackList();
+        //处理缓存----start
+        for (Object id : collection) {
+            SysBlacklist blacklistCurr = sysBlacklistService.getById(CollectionUtil.objectToLong(id, 0L));
+            BeanUtils.copyProperties(blacklistCurr, blackList);
+            ruleCacheService.deleteBlackList(blackList);
+        }
+        //处理缓存----end
+        if (sysBlacklistService.removeByIds(collection)) {
             return Result.success("删除成功");
         }
         return Result.fail("删除失败");

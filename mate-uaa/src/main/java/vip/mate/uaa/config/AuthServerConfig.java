@@ -67,7 +67,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    private RedisService redisService;
+    private final RedisService redisService;
 
     private final AuthRequestFactory factory;
 

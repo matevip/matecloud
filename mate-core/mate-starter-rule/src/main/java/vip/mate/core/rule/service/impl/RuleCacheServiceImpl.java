@@ -42,6 +42,6 @@ public class RuleCacheServiceImpl implements IRuleCacheService {
     public void deleteBlackList(BlackList blackList) {
         String key = StringUtils.isNotBlank(blackList.getIp()) ? RuleConstant.getBlackListCacheKey(blackList.getIp())
                 : RuleConstant.getBlackListCacheKey();
-        redisService.setRemove(key, blackList);
+        redisService.setRemove(key, JSONObject.toJSONString(blackList));
     }
 }
