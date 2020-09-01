@@ -5,7 +5,7 @@
     <parent>
         <artifactId>matecloud</artifactId>
         <groupId>vip.mate</groupId>
-        <version>1.0.1.RC</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -25,6 +25,10 @@
 <!--            <groupId>vip.mate</groupId>-->
 <!--            <artifactId>mate-starter-dubbo</artifactId>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-cloud</artifactId>
+        </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-web</artifactId>

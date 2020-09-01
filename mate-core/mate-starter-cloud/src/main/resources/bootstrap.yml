@@ -22,6 +22,15 @@ spring:
         namespace: @config.namespace@
         server-addr: @config.server-addr@
     sentinel:
+      # 是否开启sentinel
+      enabled: true
+      filter:
+        enabled: true
+      # 取消Sentinel控制台懒加载
+      eager: true
       transport:
-        port: @sentinel.port@
+        #port: @sentinel.port@
         dashboard: @sentinel.dashboard@
+feign:
+  sentinel:
+    enabled: true

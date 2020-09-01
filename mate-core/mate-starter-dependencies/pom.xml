@@ -12,12 +12,12 @@
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>1.0.1.RC</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
     <description>MateCloud统一版本依赖</description>
 
     <properties>
-        <matecloud.core.version>1.0.1.RC</matecloud.core.version>
+        <matecloud.core.version>1.0.1</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
@@ -490,6 +490,11 @@
             <dependency>
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-api-gateway-adapter-common</artifactId>
+                <version>${sentinel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-reactor-adapter</artifactId>
                 <version>${sentinel.version}</version>
             </dependency>
 

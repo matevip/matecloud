@@ -6,7 +6,7 @@
 
     <artifactId>mate-core</artifactId>
     <groupId>vip.mate</groupId>
-    <version>1.0.1.RC</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -36,7 +36,7 @@
     </modules>
 
     <properties>
-        <matecloud.core.version>1.0.1.RC</matecloud.core.version>
+        <matecloud.core.version>1.0.1</matecloud.core.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.models.version>1.5.21</swagger.models.version>
         <swagger.bootstrapui.version>1.9.4</swagger.bootstrapui.version>
@@ -140,7 +140,7 @@
                 <config.group>DEFAULT_GROUP</config.group>
                 <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
                 <sentinel.port>8719</sentinel.port>
-                <sentinel.dashboard>127.0.0.1:8088</sentinel.dashboard>
+                <sentinel.dashboard>localhost:8088</sentinel.dashboard>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -155,7 +155,7 @@
                 <config.group>DEFAULT_GROUP</config.group>
                 <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
                 <sentinel.port>8719</sentinel.port>
-                <sentinel.dashboard>localhost:8080</sentinel.dashboard>
+                <sentinel.dashboard>127.0.0.1:8080</sentinel.dashboard>
             </properties>
         </profile>
         <profile>

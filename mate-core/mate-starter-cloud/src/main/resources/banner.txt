@@ -7,5 +7,5 @@ ${AnsiColor.BLUE}       |  \/  |(_)_\(_)|_   _|| __|
 ${AnsiColor.BLUE}       | |\/| | / _ \    | |  | _|
 ${AnsiColor.BLUE}       |_|  |_|/_/ \_\   |_|  |___|
 
-${AnsiColor.BLUE}:: MATE:: ${spring.application.name}
+${AnsiColor.BLUE}:: MATE:: ${spring.application.name} :: v1.0.1
 ${AnsiColor.BLUE}:: Spring-Boot: ${AnsiColor.RED}${spring-boot.version}${AnsiColor.BLUE} :: ${AnsiColor.BRIGHT_BLACK}
