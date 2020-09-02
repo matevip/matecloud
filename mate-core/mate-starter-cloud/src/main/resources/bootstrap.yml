@@ -23,7 +23,7 @@ spring:
         server-addr: @config.server-addr@
     sentinel:
       # 是否开启sentinel
-      enabled: true
+      enabled: false
       filter:
         enabled: true
       # 取消Sentinel控制台懒加载
