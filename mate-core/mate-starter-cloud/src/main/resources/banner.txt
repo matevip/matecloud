@@ -1,11 +1,11 @@
-${AnsiColor.BLUE}          *
-${AnsiColor.BLUE}        (  `     (       *   )
-${AnsiColor.BLUE}        )\))(    )\    ` )  /( (
-${AnsiColor.BLUE}       ((_)()\((((_)(   ( )(_)))\
-${AnsiColor.BLUE}       (_()((_))\ _ )\ (_(_())((_)
-${AnsiColor.BLUE}       |  \/  |(_)_\(_)|_   _|| __|
-${AnsiColor.BLUE}       | |\/| | / _ \    | |  | _|
-${AnsiColor.BLUE}       |_|  |_|/_/ \_\   |_|  |___|
+${AnsiColor.BRIGHT_GREEN}          *
+${AnsiColor.BRIGHT_GREEN}        (  `     (       *   )
+${AnsiColor.BRIGHT_GREEN}        )\))(    )\    ` )  /( (
+${AnsiColor.BRIGHT_GREEN}       ((_)()\((((_)(   ( )(_)))\
+${AnsiColor.BRIGHT_GREEN}       (_()((_))\ _ )\ (_(_())((_)
+${AnsiColor.BRIGHT_GREEN}       |  \/  |(_)_\(_)|_   _|| __|
+${AnsiColor.BRIGHT_GREEN}       | |\/| | / _ \    | |  | _|
+${AnsiColor.BRIGHT_GREEN}       |_|  |_|/_/ \_\   |_|  |___|
 
-${AnsiColor.BLUE}:: MATE:: ${spring.application.name} :: v1.0.1
-${AnsiColor.BLUE}:: Spring-Boot: ${AnsiColor.RED}${spring-boot.version}${AnsiColor.BLUE} :: ${AnsiColor.BRIGHT_BLACK}
+${AnsiColor.BLUE}:: MATECLOUD :: ${spring.application.name}: ${AnsiColor.BRIGHT_GREEN}@spring.active@${AnsiColor.BLUE}: ${AnsiColor.BRIGHT_GREEN}v@project.version@${AnsiColor.BLUE} ::
+${AnsiColor.BLUE}:: Spring-Boot: ${AnsiColor.BRIGHT_GREEN}${spring-boot.version}${AnsiColor.BLUE} :: ${AnsiColor.DEFAULT}
