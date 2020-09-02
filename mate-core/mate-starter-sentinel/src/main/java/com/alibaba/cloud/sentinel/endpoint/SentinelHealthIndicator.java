@@ -1,4 +1,24 @@
+/*
+ * Copyright 2013-2018 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.alibaba.cloud.sentinel.endpoint;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.alibaba.cloud.sentinel.SentinelProperties;
 import com.alibaba.csp.sentinel.datasource.AbstractDataSource;
@@ -6,16 +26,36 @@ import com.alibaba.csp.sentinel.heartbeat.HeartbeatSenderProvider;
 import com.alibaba.csp.sentinel.transport.HeartbeatSender;
 import com.alibaba.csp.sentinel.transport.config.TransportConfig;
 import com.alibaba.csp.sentinel.util.function.Tuple2;
+
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+/**
+ * A {@link HealthIndicator} for Sentinel, which checks the status of Sentinel Dashboard
+ * and DataSource.
+ *
+ * <p>
+ * Check the status of Sentinel Dashboard by sending a heartbeat message to it. If return
+ * true, it's OK.
+ *
+ * Check the status of Sentinel DataSource by calling loadConfig method of
+ * {@link AbstractDataSource}. If no Exception thrown, it's OK.
+ *
+ * If Dashboard and DataSource are both OK, the health status is UP.
+ * </p>
+ *
+ * <p>
+ * Note: If Sentinel isn't enabled, the health status is up. If Sentinel Dashboard isn't
+ * configured, it's OK and mark the status of Dashboard with UNKNOWN. More informations
+ * are provided in details.
+ * </p>
+ *
+ * @author cdfive
+ */
 public class SentinelHealthIndicator extends AbstractHealthIndicator {
 
     private DefaultListableBeanFactory beanFactory;
@@ -44,8 +84,9 @@ public class SentinelHealthIndicator extends AbstractHealthIndicator {
 
         // Check health of Dashboard
         boolean dashboardUp = true;
-        List<Tuple2<String, Integer>> consoleServer = TransportConfig.getConsoleServerList();
-        if (consoleServer == null) {
+        List<Tuple2<String, Integer>> consoleServerList = TransportConfig
+                .getConsoleServerList();
+        if (CollectionUtils.isEmpty(consoleServerList)) {
             // If Dashboard isn't configured, it's OK and mark the status of Dashboard
             // with UNKNOWN.
             detailMap.put("dashboard",
@@ -63,8 +104,10 @@ public class SentinelHealthIndicator extends AbstractHealthIndicator {
             else {
                 // If failed to send heartbeat message, means that the Dashboard is DOWN
                 dashboardUp = false;
-                detailMap.put("dashboard", new Status(Status.DOWN.getCode(),
-                        consoleServer + " can't be connected"));
+                detailMap.put("dashboard",
+                        new Status(Status.DOWN.getCode(), String.format(
+                                "the dashboard servers [%s] one of them can't be connected",
+                                consoleServerList)));
             }
         }
 
