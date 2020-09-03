@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.bouncycastle.util.encoders.UTF8;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
@@ -163,7 +164,8 @@ public class LogAspect {
         sysLog.setTraceId(request.getHeader(MateConstant.X_REQUEST_ID));
         sysLog.setType("2");
         sysLog.setTitle(logAnn.value());
-        sysLog.setException(ThrowableUtil.getStackTrace(e).getBytes());
+        sysLog.setException(ThrowableUtil.stackTraceToString(e.getClass().getName(),
+                e.getMessage(), e.getStackTrace()).getBytes());
         // 发布事件
         applicationContext.publishEvent(new LogEvent(sysLog));
         log.info("Error Result: {}", sysLog);
