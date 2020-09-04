@@ -5,6 +5,10 @@ import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
+/**
+ * 日志消息通道
+ * @author pangu
+ */
 public interface LogChannel {
 
     /**

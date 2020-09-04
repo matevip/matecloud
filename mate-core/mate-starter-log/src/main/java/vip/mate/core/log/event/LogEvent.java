@@ -1,7 +1,7 @@
 package vip.mate.core.log.event;
 
 import org.springframework.context.ApplicationEvent;
-import vip.mate.core.log.entity.SysLog;
+import vip.mate.core.common.dto.CommonLog;
 
 /**
  * 日志事件
@@ -10,7 +10,7 @@ import vip.mate.core.log.entity.SysLog;
  */
 public class LogEvent extends ApplicationEvent {
 
-    public LogEvent(SysLog source) {
+    public LogEvent(CommonLog source) {
         super(source);
     }
 }

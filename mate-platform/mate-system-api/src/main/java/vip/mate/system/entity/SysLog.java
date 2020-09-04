@@ -14,7 +14,7 @@
  * limitations under the License.
  * Author: pangu(7333791@qq.com)
  */
-package vip.mate.core.log.entity;
+package vip.mate.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -124,7 +124,7 @@ public class SysLog extends BaseEntity {
 	 * 异常信息
 	 */
 	@ApiModelProperty(value = "异常信息")
-	private byte[] exception;
+	private String exception;
 
 
 }

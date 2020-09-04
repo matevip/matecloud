@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
-import vip.mate.core.log.entity.SysLog;
+import vip.mate.system.entity.SysLog;
 import vip.mate.system.mapper.SysLogMapper;
 import vip.mate.system.service.ISysLogService;
 

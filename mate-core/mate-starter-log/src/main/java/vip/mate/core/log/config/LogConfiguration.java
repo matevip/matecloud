@@ -8,8 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import vip.mate.core.log.aspect.LogAspect;
 import vip.mate.core.log.event.LogListener;
+import vip.mate.core.log.feign.ICommonLogProvider;
 import vip.mate.core.log.feign.ISysLogProvider;
 
+/**
+ * 日志配置中心
+ * @author pangu
+ */
 @EnableAsync
 @Configuration
 @AllArgsConstructor
@@ -17,6 +22,7 @@ import vip.mate.core.log.feign.ISysLogProvider;
 public class LogConfiguration {
 
     private final ISysLogProvider sysLogProvider;
+//    private final ICommonLogProvider commonLogProvider;
 
     @Bean
     public LogListener sysLogListener() {

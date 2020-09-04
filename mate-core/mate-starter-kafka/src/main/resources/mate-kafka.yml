@@ -4,9 +4,11 @@ spring:
     stream:
       bindings:
         log_input:
-          destination: mate_log
+          destination: mate-log
+          contentType: application/json
         log_output:
-          destination: mate_log
+          destination: mate-log
+          contentType: application/json
       default-binder: kafka
   kafka:
     bootstrap-servers: localhost:9091

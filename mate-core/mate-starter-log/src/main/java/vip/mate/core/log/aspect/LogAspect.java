@@ -9,7 +9,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.bouncycastle.util.encoders.UTF8;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;
@@ -26,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.dto.CommonLog;
 import vip.mate.core.common.util.*;
 import vip.mate.core.log.annotation.Log;
-import vip.mate.core.log.entity.SysLog;
 import vip.mate.core.log.event.LogEvent;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,20 +109,20 @@ public class LogAspect {
             }
         }
         //　封装SysLog
-        SysLog sysLog = new SysLog();
-        sysLog.setIp(ip);
-        sysLog.setCreateBy(userName);
-        sysLog.setMethod(method);
-        sysLog.setUrl(url);
-        sysLog.setOperation(String.valueOf(result));
-        sysLog.setLocation(StringUtils.isEmpty(region) ? "本地" : region);
-        sysLog.setTraceId(request.getHeader(MateConstant.X_REQUEST_ID));
-        sysLog.setExecuteTime(tookTime);
-        sysLog.setTitle(logAnn.value());
-        sysLog.setParams(JSON.toJSONString(paramMap));
+        CommonLog commonLog = new CommonLog();
+        commonLog.setIp(ip)
+        .setCreateBy(userName)
+        .setMethod(method)
+        .setUrl(url)
+        .setOperation(String.valueOf(result))
+        .setLocation(StringUtils.isEmpty(region) ? "本地" : region)
+        .setTraceId(request.getHeader(MateConstant.X_REQUEST_ID))
+        .setExecuteTime(tookTime)
+        .setTitle(logAnn.value())
+        .setParams(JSON.toJSONString(paramMap));
         // 发布事件
-        applicationContext.publishEvent(new LogEvent(sysLog));
-        log.info("Request Result: {}", sysLog);
+        applicationContext.publishEvent(new LogEvent(commonLog));
+        log.info("Request Result: {}", commonLog);
         return result;
     }
 
@@ -138,7 +137,7 @@ public class LogAspect {
         // 打印执行时间
         long startTime = System.nanoTime();
 
-        SysLog sysLog = new SysLog();
+        CommonLog commonLog = new CommonLog();
 
         // 获取IP和地区
         String ip = RequestHolder.getHttpServletRequestIpAddress();
@@ -156,19 +155,18 @@ public class LogAspect {
         Method targetMethod = resolveMethod((ProceedingJoinPoint) point);
         Log logAnn = targetMethod.getAnnotation(Log.class);
 
-        sysLog.setExecuteTime(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime));
-        sysLog.setIp(ip);
-        sysLog.setLocation(region);
-        sysLog.setMethod(method);
-        sysLog.setUrl(url);
-        sysLog.setTraceId(request.getHeader(MateConstant.X_REQUEST_ID));
-        sysLog.setType("2");
-        sysLog.setTitle(logAnn.value());
-        sysLog.setException(ThrowableUtil.stackTraceToString(e.getClass().getName(),
-                e.getMessage(), e.getStackTrace()).getBytes());
+        commonLog.setExecuteTime(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime))
+        .setIp(ip)
+        .setLocation(region)
+        .setMethod(method)
+        .setUrl(url)
+        .setTraceId(request.getHeader(MateConstant.X_REQUEST_ID))
+        .setType("2")
+        .setTitle(logAnn.value())
+        .setException(ThrowableUtil.getStackTrace(e));
         // 发布事件
-        applicationContext.publishEvent(new LogEvent(sysLog));
-        log.info("Error Result: {}", sysLog);
+        applicationContext.publishEvent(new LogEvent(commonLog));
+        log.info("Error Result: {}", commonLog);
     }
 
 

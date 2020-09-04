@@ -6,7 +6,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import vip.mate.core.log.entity.SysLog;
+import vip.mate.core.common.dto.CommonLog;
+import vip.mate.core.log.feign.ICommonLogProvider;
 import vip.mate.core.log.feign.ISysLogProvider;
 
 /**
@@ -20,14 +21,17 @@ import vip.mate.core.log.feign.ISysLogProvider;
 public class LogListener {
 
     private final ISysLogProvider sysLogProvider;
+//    private final ICommonLogProvider commonLogProvider;
 
     @Async
     @Order
     @EventListener(LogEvent.class)
     public void saveSysLog(LogEvent event) {
-        SysLog sysLog = (SysLog) event.getSource();
-        // 保存日志
-        sysLogProvider.saveLog(sysLog);
+        CommonLog commonLog = (CommonLog) event.getSource();
+        // 发送日志到kafka
+        log.info("发送日志:{}", commonLog);
+//        commonLogProvider.sendCommonLog(commonLog);
+        sysLogProvider.saveLog(commonLog);
     }
 
 }

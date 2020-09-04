@@ -4,11 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
-import vip.mate.core.log.entity.SysLog;
+import vip.mate.core.common.dto.CommonLog;
 import vip.mate.core.log.feign.ISysLogProvider;
+import vip.mate.system.entity.SysLog;
 import vip.mate.system.service.ISysLogService;
 
 /**
@@ -26,7 +28,9 @@ public class SysLogProvider implements ISysLogProvider {
     @Override
     @PostMapping("/provider/log/save")
     @ApiOperation(value = "保存日志", notes = "保存日志")
-    public Result<Boolean> saveLog(SysLog sysLog) {
+    public Result<Boolean> saveLog(CommonLog commonLog) {
+        SysLog sysLog = new SysLog();
+        BeanUtils.copyProperties(commonLog, sysLog);
         return Result.data(sysLogService.save(sysLog));
     }
 }

@@ -3,7 +3,7 @@
 <mapper namespace="vip.mate.system.mapper.SysLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="vip.mate.core.log.entity.SysLog">
+    <resultMap id="BaseResultMap" type="vip.mate.system.entity.SysLog">
     <result column="id" property="id" />
         <result column="type" property="type" />
         <result column="trace_id" property="traceId" />
