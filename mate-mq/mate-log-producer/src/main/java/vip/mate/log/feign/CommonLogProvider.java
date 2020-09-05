@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.dto.CommonLog;
@@ -27,7 +28,7 @@ public class CommonLogProvider implements ICommonLogProvider {
     @Override
     @PostMapping("/provider/common-log/send")
     @ApiOperation(value = "发送普通消息", notes = "发送普通消息")
-    public Result<?> sendCommonLog(CommonLog commonLog) {
+    public Result<?> sendCommonLog(@RequestBody CommonLog commonLog) {
         boolean flag = logChannel.sendLogMessage().send(MessageBuilder.withPayload(commonLog).build());
         if (flag) {
             return Result.success("操作成功");

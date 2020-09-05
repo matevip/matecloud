@@ -5,16 +5,28 @@ spring:
       bindings:
         log_input:
           destination: mate-log
-          contentType: application/json
+#          producer:
+#            headerMode: none
+#          content-type: text/plain
         log_output:
           destination: mate-log
-          contentType: application/json
-      default-binder: kafka
-  kafka:
-    bootstrap-servers: localhost:9091
-    consumer:
-      group-id: log_consumer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
-      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
-      client-id: log_producer
+#          consumer:
+#            headerMode: none
+#          content-type: application/json
+#      default-binder: kafka
+      kafka:
+        binder:
+          brokers: localhost:9092
+          zk-nodes: localhost:2181
+          auto-create-topics: true
+
+#  kafka:
+#    bootstrap-servers: localhost:9091
+#    consumer:
+#      key-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+#      group-id: log_consumer
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+#      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+#      client-id: log_producer
