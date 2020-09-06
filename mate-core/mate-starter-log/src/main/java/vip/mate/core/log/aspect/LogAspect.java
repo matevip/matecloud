@@ -1,6 +1,7 @@
 package vip.mate.core.log.aspect;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -34,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,11 +52,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class LogAspect {
 
     @Autowired
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
     private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
     public LogAspect(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     @Pointcut("@annotation(vip.mate.core.log.annotation.Log)")
@@ -91,7 +94,10 @@ public class LogAspect {
         String region = IPUtil.getCityInfo(ip);
 
         //获取请求参数
-        Map<String, Object> paramMap = logIngArgs(point);
+        //Map<String, Object> paramMap = logIngArgs(point);
+        // 参数
+        Object[] args = point.getArgs();
+        String requestParam = getArgs(args, request);
 
         // 计算耗时
         long tookTime = 0L;
@@ -119,7 +125,7 @@ public class LogAspect {
         .setTraceId(request.getHeader(MateConstant.X_REQUEST_ID))
         .setExecuteTime(tookTime)
         .setTitle(logAnn.value())
-        .setParams(JSON.toJSONString(paramMap));
+        .setParams(JSON.toJSONString(requestParam));
         // 发布事件
         applicationContext.publishEvent(new LogEvent(commonLog));
         log.info("Request Result: {}", commonLog);
@@ -169,8 +175,6 @@ public class LogAspect {
         log.info("Error Result: {}", commonLog);
     }
 
-
-
     private Method resolveMethod(ProceedingJoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Class<?> targetClass = point.getTarget().getClass();
@@ -195,87 +199,27 @@ public class LogAspect {
         return null;
     }
 
-
     /**
-     * 记录请求参数
-     *
-     * @param point         ProceedingJoinPoint
+     * 获取请求参数
+     * @param args
+     * @param request
+     * @return
      */
-    public Map<String, Object> logIngArgs(ProceedingJoinPoint point) {
-        MethodSignature ms = (MethodSignature) point.getSignature();
-        Method method = ms.getMethod();
-        Object[] args = point.getArgs();
-        // 请求参数处理
-        final Map<String, Object> paraMap = new HashMap<>(16);
-        // 一次请求只能有一个 request body
-        Object requestBodyValue = null;
-        for (int i = 0; i < args.length; i++) {
-            // 读取方法参数
-            MethodParameter methodParam = getMethodParameter(method, i);
-            // PathVariable 参数跳过
-            PathVariable pathVariable = methodParam.getParameterAnnotation(PathVariable.class);
-            if (pathVariable != null) {
-                continue;
+    private String getArgs(Object[] args, HttpServletRequest request) {
+        String strArgs = StringPool.EMPTY;
+
+        try {
+            if (!request.getContentType().contains("multipart/form-data")) {
+                strArgs = JSONObject.toJSONString(args);
             }
-            RequestBody requestBody = methodParam.getParameterAnnotation(RequestBody.class);
-            String parameterName = methodParam.getParameterName();
-            Object value = args[i];
-            // 如果是body的json则是对象
-            if (requestBody != null) {
-                requestBodyValue = value;
-                continue;
-            }
-            // 处理 参数
-            if (value instanceof HttpServletRequest) {
-                paraMap.putAll(((HttpServletRequest) value).getParameterMap());
-                continue;
-            } else if (value instanceof WebRequest) {
-                paraMap.putAll(((WebRequest) value).getParameterMap());
-                continue;
-            } else if (value instanceof HttpServletResponse) {
-                continue;
-            } else if (value instanceof MultipartFile) {
-                MultipartFile multipartFile = (MultipartFile) value;
-                String name = multipartFile.getName();
-                String fileName = multipartFile.getOriginalFilename();
-                paraMap.put(name, fileName);
-                continue;
-            } else if (value instanceof List) {
-                List<?> list = (List<?>) value;
-                AtomicBoolean isSkip = new AtomicBoolean(false);
-                for (Object o : list) {
-                    if ("StandardMultipartFile".equalsIgnoreCase(o.getClass().getSimpleName())) {
-                        isSkip.set(true);
-                        break;
-                    }
-                }
-                if (isSkip.get()) {
-                    paraMap.put(parameterName, "此参数不能序列化为json");
-                    continue;
-                }
-            }
-            // 参数名
-            RequestParam requestParam = methodParam.getParameterAnnotation(RequestParam.class);
-            String paraName = parameterName;
-            if (requestParam != null && StringUtils.isEmpty(requestParam.value())) {
-                paraName = requestParam.value();
-            }
-            if (value == null) {
-                paraMap.put(paraName, null);
-            } else if (ClassUtil.isPrimitiveOrWrapper(value.getClass())) {
-                paraMap.put(paraName, value);
-            } else if (value instanceof InputStream) {
-                paraMap.put(paraName, "InputStream");
-            } else if (value instanceof InputStreamSource) {
-                paraMap.put(paraName, "InputStreamSource");
-            } else if (!StringUtils.isEmpty(JSON.toJSONString(value))) {
-                // 判断模型能被 json 序列化，则添加
-                paraMap.put(paraName, value);
-            } else {
-                paraMap.put(paraName, "此参数不能序列化为json");
+        } catch (Exception e) {
+            try {
+                strArgs = Arrays.toString(args);
+            } catch (Exception ex) {
+                log.warn("解析参数异常", ex);
             }
         }
-       return paraMap;
+        return strArgs;
     }
 
     /**
