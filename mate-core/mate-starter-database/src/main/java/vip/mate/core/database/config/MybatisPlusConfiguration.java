@@ -1,23 +1,23 @@
 package vip.mate.core.database.config;
 
-import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.core.parser.ISqlParser;
-import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import vip.mate.core.common.factory.YamlPropertySourceFactory;
 import vip.mate.core.database.handler.MateMetaObjectHandler;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * mybatis plus配置中心
+ * @author xuzhanfu
+ */
 @Slf4j
 @Configuration
 @EnableTransactionManagement
@@ -26,16 +26,31 @@ import java.util.List;
 public class MybatisPlusConfiguration {
 
     /**
-     *分页查询拦截器
+     * 单页分页条数限制(默认无限制,参见 插件#handlerLimit 方法)
+     */
+    private static final Long MAX_LIMIT = 1000L;
+
+    /**
+     * 新的分页插件,一缓和二缓遵循mybatis的规则,
+     * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
+     * 避免缓存出现问题(该属性会在旧插件移除后一同移除)
      */
     @Bean
-    @Order(-2)
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        List<ISqlParser> sqlParserList = new ArrayList<>();
-        sqlParserList.add(new BlockAttackSqlParser());
-        paginationInterceptor.setSqlParserList(sqlParserList);
-        return paginationInterceptor;
+    public MybatisPlusInterceptor paginationInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        //分页插件: PaginationInnerInterceptor
+        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+        paginationInnerInterceptor.setMaxLimit(MAX_LIMIT);
+        //防止全表更新与删除插件: BlockAttackInnerInterceptor
+        BlockAttackInnerInterceptor blockAttackInnerInterceptor = new BlockAttackInnerInterceptor();
+        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+        interceptor.addInnerInterceptor(blockAttackInnerInterceptor);
+        return interceptor;
+    }
+
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() {
+        return configuration -> configuration.setUseDeprecatedExecutor(Boolean.FALSE);
     }
 
     /**

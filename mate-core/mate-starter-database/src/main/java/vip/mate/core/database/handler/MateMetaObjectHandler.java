@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+/**
+ * 自动填充时间字段
+ * @author xuzhanfu
+ */
 @Component
 public class MateMetaObjectHandler implements MetaObjectHandler {
 
