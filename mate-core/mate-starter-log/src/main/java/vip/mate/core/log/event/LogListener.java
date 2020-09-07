@@ -22,7 +22,7 @@ public class LogListener {
 
     private ISysLogProvider sysLogProvider;
     private ICommonLogProvider commonLogProvider;
-    private LogProperties logProperties;
+    private final LogProperties logProperties;
 
     public LogListener(ISysLogProvider sysLogProvider, LogProperties logProperties) {
         this.sysLogProvider = sysLogProvider;

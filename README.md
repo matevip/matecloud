@@ -5,7 +5,7 @@
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
   <img src="https://img.shields.io/badge/Spring%20Boot-2.3.3.RELEASE-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR7-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR8-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.1.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
@@ -21,6 +21,9 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
 
 ### 技术交流
+<p align="center"> 
+    <img src="https://cdn.ckjia.com/matecloud_qun.jpg" />
+</p>
 QQ群：2003638
 
 ### 技术架构
@@ -29,7 +32,7 @@ QQ群：2003638
 </p>
 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR7, Spring Boot 2.3.3.RELEASE, Spring Cloud Alibaba 2.2.1.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.3.RELEASE, Spring Cloud Alibaba 2.2.1.RELEASE版本进行系统设计；
 
 - 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
