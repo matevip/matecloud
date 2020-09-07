@@ -3,10 +3,8 @@ package vip.mate.core.web.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.exception.BaseException;
 import vip.mate.core.common.exception.PreviewException;
@@ -19,7 +17,8 @@ import java.io.FileNotFoundException;
  * @author pangu
  */
 @Slf4j
-@ControllerAdvice
+@ResponseBody
+@RestControllerAdvice
 public class BaseExceptionHandler {
 
     /**
@@ -28,7 +27,6 @@ public class BaseExceptionHandler {
      * @return Result
      */
     @ExceptionHandler
-    @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Result<?> handleException(BaseException ex) {
         log.error("程序异常：" + ex.toString());
@@ -41,24 +39,21 @@ public class BaseExceptionHandler {
      * @return Result
      */
     @ExceptionHandler
-    @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Result<?> handleException(TokenException ex) {
-        log.error("程序异常：" + ex.toString());
+        log.error("程序异常==>errorCode:{}, exception:{}", HttpStatus.UNAUTHORIZED.value(), ex);
         return Result.fail(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
     }
 
     /**
-     * FileNotFoundException 异常捕获处理
-     * @param ex 自定义FileNotFoundException异常类型
+     * FileNotFoundException,NoHandlerFoundException 异常捕获处理
+     * @param exception 自定义FileNotFoundException异常类型
      * @return Result
      */
-    @ExceptionHandler
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Result<?> handleException(FileNotFoundException ex) {
-        log.error("程序异常：" + ex.toString());
-        return Result.fail(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+    @ExceptionHandler({FileNotFoundException.class, NoHandlerFoundException.class})
+    public Result<?> noFoundException(Exception exception) {
+        log.error("程序异常==>errorCode:{}, exception:{}", HttpStatus.NOT_FOUND.value(), exception);
+        return Result.fail(HttpStatus.NOT_FOUND.value(), exception.getMessage());
     }
 
     /**
@@ -67,7 +62,6 @@ public class BaseExceptionHandler {
      * @return Result
      */
     @ExceptionHandler
-    @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<?> handleException(PreviewException ex) {
         log.error("程序异常：" + ex.toString());
@@ -80,10 +74,9 @@ public class BaseExceptionHandler {
      * @return Result
      */
     @ExceptionHandler
-    @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<?> handleException(NullPointerException ex) {
-        log.error("程序异常：" + ex.toString());
+        log.error("程序异常：{}" + ex.toString());
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
 
@@ -94,7 +87,6 @@ public class BaseExceptionHandler {
      * @return Result
      */
     @ExceptionHandler
-    @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<?> handleException(Exception ex) {
         log.error("程序异常：" + ex.toString());
