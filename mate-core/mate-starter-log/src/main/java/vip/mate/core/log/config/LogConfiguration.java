@@ -12,6 +12,7 @@ import vip.mate.core.log.event.LogListener;
 import vip.mate.core.log.feign.ICommonLogProvider;
 import vip.mate.core.log.feign.ISysLogProvider;
 import vip.mate.core.log.props.LogProperties;
+import vip.mate.core.log.props.LogType;
 
 /**
  * 日志配置中心
@@ -31,10 +32,10 @@ public class LogConfiguration {
 
     @Bean
     public LogListener sysLogListener() {
-        if (logProperties.getEnable().equals(Boolean.TRUE)) {
-            return new LogListener(commonLogProvider, logProperties.getEnable());
+        if (logProperties.getLogType().equals(LogType.KAFKA)) {
+            return new LogListener(commonLogProvider, logProperties);
         }
-        return new LogListener(sysLogProvider, logProperties.getEnable());
+        return new LogListener(sysLogProvider, logProperties);
 
     }
 

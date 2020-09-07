@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import vip.mate.core.common.dto.CommonLog;
 import vip.mate.core.log.feign.ICommonLogProvider;
 import vip.mate.core.log.feign.ISysLogProvider;
+import vip.mate.core.log.props.LogProperties;
+import vip.mate.core.log.props.LogType;
 
 /**
  * 注解形式，异步监听事件
@@ -20,25 +22,26 @@ public class LogListener {
 
     private ISysLogProvider sysLogProvider;
     private ICommonLogProvider commonLogProvider;
-    private boolean enable = false;
+    private LogProperties logProperties;
 
-    public LogListener(ISysLogProvider sysLogProvider, boolean enable) {
+    public LogListener(ISysLogProvider sysLogProvider, LogProperties logProperties) {
         this.sysLogProvider = sysLogProvider;
-        this.enable = enable;
+        this.logProperties = logProperties;
     }
 
-    public LogListener(ICommonLogProvider commonLogProvider, boolean enable) {
+    public LogListener(ICommonLogProvider commonLogProvider, LogProperties logProperties) {
         this.commonLogProvider = commonLogProvider;
-        this.enable = enable;
+        this.logProperties = logProperties;
     }
+
     @Async
     @Order
     @EventListener(LogEvent.class)
     public void saveSysLog(LogEvent event) {
         CommonLog commonLog = (CommonLog) event.getSource();
         // 发送日志到kafka
-        log.debug("发送日志:{}", commonLog);
-        if (this.enable) {
+        log.info("发送日志:{}", commonLog);
+        if (logProperties.getLogType().equals(LogType.KAFKA)) {
             commonLogProvider.sendCommonLog(commonLog);
         } else {
             sysLogProvider.saveLog(commonLog);

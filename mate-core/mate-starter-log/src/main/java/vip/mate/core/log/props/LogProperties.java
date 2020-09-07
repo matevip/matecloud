@@ -9,7 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author pangu
  * @date 2020-9-5
  */
-
 @Getter
 @Setter
 @ConfigurationProperties(LogProperties.PREFIX)
@@ -20,8 +19,13 @@ public class LogProperties {
     public static final String PREFIX = "mate.kafka";
 
     /**
-     * 日志记录的总开关（通过kafka）
+     * 是否启用
      */
-    private Boolean enable = false;
+    private Boolean enable = true;
+
+    /**
+     * 记录日志类型
+     */
+    private LogType logType = LogType.DB;
 
 }
