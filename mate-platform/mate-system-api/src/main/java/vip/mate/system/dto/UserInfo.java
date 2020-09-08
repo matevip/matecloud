@@ -8,6 +8,10 @@ import vip.mate.system.entity.SysUser;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 用户信息
+ * @author pangu
+ */
 @Data
 @ApiModel(value = "用户信息封装")
 public class UserInfo implements Serializable {
@@ -43,6 +47,12 @@ public class UserInfo implements Serializable {
      */
     @ApiModelProperty(value = "用户名")
     private String userName;
+
+    /**
+     * 租户ID
+     */
+    @ApiModelProperty(value = "租户ID")
+    private String tenantId;
 
 
 }

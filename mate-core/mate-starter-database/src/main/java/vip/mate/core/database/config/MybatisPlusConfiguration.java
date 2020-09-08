@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import vip.mate.core.common.factory.YamlPropertySourceFactory;
 import vip.mate.core.database.handler.MateMetaObjectHandler;
+import vip.mate.core.database.props.TenantProperties;
 
 /**
  * mybatis plus配置中心
@@ -20,10 +23,15 @@ import vip.mate.core.database.handler.MateMetaObjectHandler;
  */
 @Slf4j
 @Configuration
+@AllArgsConstructor
 @EnableTransactionManagement
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-db.yml")
 @MapperScan("vip.mate.**.mapper.**")
 public class MybatisPlusConfiguration {
+
+    private final TenantProperties tenantProperties;
+
+    private final TenantLineInnerInterceptor tenantLineInnerInterceptor;
 
     /**
      * 单页分页条数限制(默认无限制,参见 插件#handlerLimit 方法)
@@ -37,7 +45,11 @@ public class MybatisPlusConfiguration {
      */
     @Bean
     public MybatisPlusInterceptor paginationInterceptor() {
+        boolean enableTenant = tenantProperties.getEnable();
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        if (enableTenant) {
+            interceptor.addInnerInterceptor(tenantLineInnerInterceptor);
+        }
         //分页插件: PaginationInnerInterceptor
         PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
         paginationInnerInterceptor.setMaxLimit(MAX_LIMIT);

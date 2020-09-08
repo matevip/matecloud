@@ -160,6 +160,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                     additionMessage.put("avatar", user.getAvatar());
                     additionMessage.put("roleId", String.valueOf(user.getRoleId()));
                     additionMessage.put("type", user.getType());
+                    additionMessage.put("tenantId",user.getTenantId());
                 }
                 ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(additionMessage);
                 return oAuth2AccessToken;

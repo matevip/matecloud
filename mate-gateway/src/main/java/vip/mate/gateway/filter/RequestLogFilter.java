@@ -29,7 +29,7 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String requestUrl = exchange.getRequest().getURI().getRawPath();
-        String traceId = exchange.getRequest().getHeaders().getFirst(MateConstant.X_REQUEST_ID);
+        String traceId = exchange.getRequest().getHeaders().getFirst(MateConstant.MATE_TRACE_ID);
         StringBuilder reqBuilder = new StringBuilder(300);
         List<Object> reqArgs = new ArrayList<>();
         reqBuilder.append("Request ===> Method:{} Host:{} Path:{} Query:{} TraceId:{}");

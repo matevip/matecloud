@@ -18,6 +18,10 @@ import vip.mate.system.service.ISysUserService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 远程调用获取用户信息
+ * @author xuzhanfu
+ */
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -71,6 +75,7 @@ public class SysUserProvider implements ISysUserProvider {
         List<Long> longs = new ArrayList<>();
         longs.add(sysUser.getRoleId());
         userInfo.setRoleIds(longs);
+        userInfo.setTenantId(sysUser.getTenantId());
         log.info("feign调用：userInfo:{}", userInfo);
         return userInfo;
     }

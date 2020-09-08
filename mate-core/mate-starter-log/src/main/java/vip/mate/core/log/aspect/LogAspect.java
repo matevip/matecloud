@@ -122,7 +122,7 @@ public class LogAspect {
         .setUrl(url)
         .setOperation(String.valueOf(result))
         .setLocation(StringUtils.isEmpty(region) ? "本地" : region)
-        .setTraceId(request.getHeader(MateConstant.X_REQUEST_ID))
+        .setTraceId(request.getHeader(MateConstant.MATE_TRACE_ID))
         .setExecuteTime(tookTime)
         .setTitle(logAnn.value())
         .setParams(JSON.toJSONString(requestParam));
@@ -166,7 +166,7 @@ public class LogAspect {
         .setLocation(region)
         .setMethod(method)
         .setUrl(url)
-        .setTraceId(request.getHeader(MateConstant.X_REQUEST_ID))
+        .setTraceId(request.getHeader(MateConstant.MATE_TRACE_ID))
         .setType("2")
         .setTitle(logAnn.value())
         .setException(ThrowableUtil.getStackTrace(e));

@@ -42,7 +42,12 @@ public class MateConstant {
     /**
      * 微服务之间传递的唯一标识
      */
-    public static final String X_REQUEST_ID = "X-Request-Id";
+    public static final String MATE_TRACE_ID = "mate-trace-id";
+
+    /**
+     * 日志链路追踪id日志标志
+     */
+    public static final String LOG_TRACE_ID = "traceId";
 
     /**
      * Java默认临时目录

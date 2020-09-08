@@ -5,6 +5,10 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
+/**
+ * 链路追踪配置
+ * @author xuzhanfu
+ */
 @Getter
 @Setter
 @RefreshScope

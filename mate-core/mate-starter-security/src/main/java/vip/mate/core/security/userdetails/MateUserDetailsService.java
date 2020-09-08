@@ -4,6 +4,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/**
+ * 用户详细扩展
+ * @author pangu
+ */
 public interface MateUserDetailsService extends UserDetailsService {
 
     /**

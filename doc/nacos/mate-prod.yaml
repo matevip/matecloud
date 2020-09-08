@@ -27,6 +27,8 @@ mate:
     username: root
     password: root
   isPreview: false
+  tenant:
+    enable: false
 
 jetcache:
   remote:

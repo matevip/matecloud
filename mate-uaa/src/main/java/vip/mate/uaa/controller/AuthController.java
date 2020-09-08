@@ -71,6 +71,7 @@ public class AuthController {
         data.put("avatar", userInfo.getSysUser().getAvatar());
         data.put("roleId", userInfo.getSysUser().getRoleId());
         data.put("departId", userInfo.getSysUser().getDepartId());
+        data.put("tenantId", userInfo.getSysUser().getTenantId());
         List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(userInfo.getSysUser().getRoleId()));
         data.put("permissions", stringList);
         return Result.data(data);

@@ -35,7 +35,7 @@ public class PreRequestFilter implements GlobalFilter, Ordered {
             // 链路追踪id
             String traceId = UUID.randomUUID().toString().replace("-","");
             ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
-                    .headers(h -> h.add(MateConstant.X_REQUEST_ID, traceId))
+                    .headers(h -> h.add(MateConstant.MATE_TRACE_ID, traceId))
                     .build();
             ServerWebExchange build = exchange.mutate().request(serverHttpRequest).build();
             return chain.filter(build);

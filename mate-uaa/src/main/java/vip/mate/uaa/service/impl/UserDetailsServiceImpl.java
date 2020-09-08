@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -18,9 +17,11 @@ import vip.mate.system.feign.ISysUserProvider;
 
 import javax.annotation.Resource;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
+/**
+ * 用户详情实现类
+ * @author pangu
+ */
 @Slf4j
 @Service
 public class UserDetailsServiceImpl implements MateUserDetailsService {
@@ -82,4 +83,5 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
                 true, true, true,
                 authorities);
     }
+
 }
