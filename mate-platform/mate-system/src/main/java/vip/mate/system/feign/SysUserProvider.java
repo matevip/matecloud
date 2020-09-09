@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.core.log.util.TrackUtil;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.entity.SysUser;
@@ -41,8 +42,10 @@ public class SysUserProvider implements ISysUserProvider {
         return Result.data(sysUser);
     }
 
+
     @Override
     @GetMapping("/provider/user-info")
+    @Log(value = "feign获取用户信息", exception = "获取用户信息失败")
     //@Cached(name= SystemConstant.SYS_USER_CACHE, key="#userName", expire = 3600)
     @ApiOperation(value = "根据用户名获取用户信息", notes = "根据用户名获取用户信息")
     public UserInfo loadUserByUserName(String userName) {

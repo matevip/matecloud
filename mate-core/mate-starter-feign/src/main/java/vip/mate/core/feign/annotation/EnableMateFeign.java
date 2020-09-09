@@ -4,14 +4,19 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.cloud.openfeign.MateFeignClientsRegistrar;
 import org.springframework.context.annotation.Import;
+import vip.mate.core.feign.config.FeignInterceptorConfiguration;
 
 import java.lang.annotation.*;
 
+/**
+ * Feign注解
+ * @author pangu
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @EnableFeignClients
-@Import(MateFeignClientsRegistrar.class)
+@Import({FeignInterceptorConfiguration.class, MateFeignClientsRegistrar.class})
 public @interface EnableMateFeign {
 
     /**

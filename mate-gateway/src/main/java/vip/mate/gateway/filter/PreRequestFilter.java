@@ -2,6 +2,7 @@ package vip.mate.gateway.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -34,10 +35,12 @@ public class PreRequestFilter implements GlobalFilter, Ordered {
         if (mateRequestProperties.getIsTraceId()) {
             // 链路追踪id
             String traceId = UUID.randomUUID().toString().replace("-","");
+            MDC.put(MateConstant.LOG_TRACE_ID, traceId);
             ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                     .headers(h -> h.add(MateConstant.MATE_TRACE_ID, traceId))
                     .build();
             ServerWebExchange build = exchange.mutate().request(serverHttpRequest).build();
+//            log.error("gateway-----------------------------,traceId:{}", MDC.get(MateConstant.LOG_TRACE_ID));
             return chain.filter(build);
         }
         return chain.filter(exchange);
