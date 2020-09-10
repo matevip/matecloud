@@ -28,7 +28,7 @@ QQ群：2003638
 
 ### 技术架构
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/MateCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%BD%93%E7%B3%BB.png" />
+    <img src="https://cdn.ckjia.com/matecloud_ar_hd.jpg" />
 </p>
 
 ### 功能特点
@@ -54,6 +54,9 @@ QQ群：2003638
 
 - 业务分离：采用前后端分离的框架设计，前端采用vue-element-admin
   
+- 链路追踪：自定义traceId的方式，实现简单的链路追踪功能
+
+- 多租户功能：集成Mybatis Plus,实现saas多租户功能
 
 ### 文件结构
 ```lua
@@ -87,6 +90,10 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │─mate-support -- 支持中心项目，目前包括代码生成、admin模块
 │  │  ├─mate-code -- 封装代码生成逻辑 [30002]
 │  │  ├─mate-admin -- 封装spring-boot-admin逻辑 [30001]
+│  │─mate-mq -- 消息中心项目，支持kafka、RocketMQ等多种消息中间件
+│  │  ├─mate-log-producer -- 日志消息生产者，集成kafka [40001]
+│  │  ├─mate-message-consumer -- 消息服务消费者 [40002]
+│  │  ├─mate-message-producer -- 消息服务生产者 [40003]
 ```
 
 ## 项目源码
