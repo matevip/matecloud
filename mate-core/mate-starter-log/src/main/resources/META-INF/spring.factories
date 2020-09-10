@@ -1,5 +1,8 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   vip.mate.core.log.config.LogConfiguration
 
+org.springframework.context.ApplicationContextInitializer=\
+  vip.mate.core.log.config.TransmitLocalMDCInitializer
+
 
 

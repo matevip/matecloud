@@ -1,13 +1,19 @@
 package vip.mate.core.feign.config;
 
 import feign.RequestInterceptor;
+import io.micrometer.core.instrument.binder.http.HttpServletRequestTagsProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.constant.TenantConstant;
 import vip.mate.core.common.context.TenantContextHolder;
 import vip.mate.core.common.util.StringUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * feign拦截器
@@ -26,15 +32,32 @@ public class FeignInterceptorConfiguration {
         return requestTemplate -> {
             //传递tenantId
             String tenantId = TenantContextHolder.getTenantId();
-//            log.error("----------------------------FeignInterceptorConfiguration: tenantId: {}", tenantId);
             if (StringUtil.isNotBlank(tenantId)) {
                 requestTemplate.header(TenantConstant.MATE_TENANT_ID, tenantId);
             }
             //传递日志traceId
             String traceId = MDC.get(MateConstant.LOG_TRACE_ID);
-//            log.error("----------------------------FeignInterceptorConfiguration: traceId: {}", traceId);
-            if (StringUtil.isNotBlank(traceId)) {
-                requestTemplate.header(MateConstant.MATE_TRACE_ID, traceId);
+            if (StringUtil.isBlank(traceId)) {
+                ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+                if (attributes != null) {
+                    HttpServletRequest request = attributes.getRequest();
+                    Enumeration<String> headerNames = request.getHeaderNames();
+                    if (headerNames != null) {
+                        String headerName = null;
+                        while (headerNames.hasMoreElements()) {
+                            headerName = headerNames.nextElement();
+                            if (headerName.equalsIgnoreCase(MateConstant.MATE_TRACE_ID)) {
+                                traceId = request.getHeader(headerName);
+                                requestTemplate.header(MateConstant.MATE_TRACE_ID, traceId);
+                                MDC.put(MateConstant.LOG_TRACE_ID, traceId);
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (StringUtil.isNotBlank(traceId)) {
+                    requestTemplate.header(MateConstant.MATE_TRACE_ID, traceId);
+                }
             }
         };
     }
