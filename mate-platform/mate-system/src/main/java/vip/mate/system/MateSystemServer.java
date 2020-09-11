@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import vip.mate.core.feign.annotation.EnableMateFeign;
 
-/*
+/**
  * 管理系统后台启动类
  * @author xzf
  */

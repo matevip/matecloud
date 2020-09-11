@@ -5,11 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import vip.mate.core.database.entity.BaseEntity;
 
 import java.io.Serializable;
 
@@ -24,6 +23,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @TableName("mate_sys_role_permission")
+@ApiModel(value = "SysRolePermission对象", description = "角色权限表")
 public class SysRolePermission implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -39,11 +39,12 @@ public class SysRolePermission implements Serializable {
     /**
      * 菜单id
      */
+    @ApiModelProperty(value = "菜单id")
     private Long menuId;
-
     /**
      * 角色id
      */
+    @ApiModelProperty(value = "角色id")
     private Long roleId;
 
 

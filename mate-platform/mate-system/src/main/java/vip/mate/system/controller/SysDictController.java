@@ -152,7 +152,7 @@ public class SysDictController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Result<?> del(@RequestParam String ids) {
         Collection idsCollection = CollectionUtil.stringToCollection(ids);
         if (sysDictService.removeByIds(idsCollection)) {

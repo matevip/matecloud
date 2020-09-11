@@ -121,7 +121,7 @@ public class SysBlacklistController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Result<?> del(@RequestParam String ids) {
         Collection collection = CollectionUtil.stringToCollection(ids);
         BlackList blackList = new BlackList();

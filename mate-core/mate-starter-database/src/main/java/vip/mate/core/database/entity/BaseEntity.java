@@ -27,11 +27,13 @@ public class BaseEntity implements Serializable {
     /**
      * 创建人
      */
+    @ApiModelProperty(value = "创建人")
     private String createBy;
 
     /**
      * 更新人
      */
+    @ApiModelProperty(value = "更新人")
     private String updateBy;
 
     /**

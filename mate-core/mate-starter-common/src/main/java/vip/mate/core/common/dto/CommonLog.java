@@ -1,5 +1,6 @@
 package vip.mate.core.common.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
+@ApiModel(value = "CommonLog对象", description = "普通日志封装")
 public class CommonLog {
     private static final long serialVersionUID = 1L;
 
