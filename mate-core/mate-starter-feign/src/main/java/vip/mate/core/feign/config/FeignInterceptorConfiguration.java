@@ -1,7 +1,6 @@
 package vip.mate.core.feign.config;
 
 import feign.RequestInterceptor;
-import io.micrometer.core.instrument.binder.http.HttpServletRequestTagsProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;

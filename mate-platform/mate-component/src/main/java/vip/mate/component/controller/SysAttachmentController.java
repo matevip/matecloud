@@ -2,6 +2,7 @@ package vip.mate.component.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -32,15 +33,22 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-attachment")
+@RequestMapping("/attachment")
+@Api(tags = "附件管理")
 public class SysAttachmentController extends BaseController {
 
     private final ISysAttachmentService sysAttachmentService;
 
+    /**
+     * 附件分页
+     * @param page　分页参数
+     * @param search　关键词
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "文件分页列表", exception = "文件分页列表请求异常")
-    @GetMapping("/list")
-    @ApiOperation(value = "文件分页列表", notes = "文件分页列表，根据query查询")
+    @Log(value = "附件分页", exception = "附件分页请求异常")
+    @GetMapping("/page")
+    @ApiOperation(value = "附件分页", notes = "附件分页，根据query查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
             @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -48,27 +56,36 @@ public class SysAttachmentController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> list(Page page, Search search) {
+    public Result<?> page(Page page, Search search) {
         return Result.data(sysAttachmentService.listPage(page, search));
     }
 
-    @Log(value = "上传文件", exception = "上传文件请求异常")
-    @ApiOperation(value = "上传文件", notes = "上传文件")
+    /**
+     * 附件上传
+     * @param file　文件
+     * @return Result
+     */
+    @Log(value = "附件上传", exception = "附件上传请求异常")
+    @ApiOperation(value = "附件上传", notes = "附件上传")
     @PostMapping("/upload")
     public Result<?> upload(@RequestParam("file") MultipartFile file) {
         return sysAttachmentService.upload(file);
     }
 
+    /**
+     * 删除文件
+     * @param ids id多个采用逗号分隔
+     * @return
+     */
     @EnableToken
     @Log(value = "删除文件", exception = "删除文件请求异常")
     @ApiOperation(value = "删除文件", notes = "删除文件")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    @PostMapping("/delete")
-    public Result<?> delete(@RequestParam String ids) {
+    @PostMapping("/del")
+    public Result<?> del(@RequestParam String ids) {
         Collection collection = CollectionUtil.stringToCollection(ids);
-
         for (Iterator<Long> it = collection.iterator(); it.hasNext(); ) {
             long id = it.next();
             sysAttachmentService.delete(id);

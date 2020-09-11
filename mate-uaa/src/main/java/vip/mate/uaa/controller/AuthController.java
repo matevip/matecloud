@@ -30,10 +30,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 认证控制类
+ *
+ * @author pangu
+ */
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Api(tags = "认证资源管理")
+@RequestMapping("/auth")
+@Api(tags = "认证管理")
 public class AuthController {
 
     @Qualifier("consumerTokenServices")
@@ -49,10 +55,10 @@ public class AuthController {
 
     private final SocialConfig socialConfig;
 
-    @Log(value = "获取用户信息给VUE", exception = "获取用户信息给VUE请求异常")
-    @GetMapping("/auth/userInfo")
-    @ApiOperation(value = "获取用户信息给VUE", notes = "获取用户信息给VUE")
-    public Result<?> getUserInfo(HttpServletRequest request) {
+    @Log(value = "用户信息", exception = "用户信息请求异常")
+    @GetMapping("/get/user")
+    @ApiOperation(value = "用户信息", notes = "用户信息")
+    public Result<?> getUser(HttpServletRequest request) {
 
         LoginUser loginUser = SecurityUtil.getUsername(request);
         UserInfo userInfo = null;
@@ -61,9 +67,9 @@ public class AuthController {
          * type 1:用户名和密码登录　2：手机号码登录
          */
         if (loginUser.getType() == 2) {
-            userInfo = sysUserProvider.loadUserByMobile(loginUser.getAccount());
+            userInfo = sysUserProvider.getUserByMobile(loginUser.getAccount()).getData();
         } else {
-            userInfo = sysUserProvider.loadUserByUserName(loginUser.getAccount());
+            userInfo = sysUserProvider.getUserByUserName(loginUser.getAccount()).getData();
         }
 
         Map<String, Object> data = new HashMap<>();
@@ -77,16 +83,16 @@ public class AuthController {
         return Result.data(data);
     }
 
-    @Log(value = "获取验证码", exception = "获取验证码请求异常")
-    @GetMapping("/auth/code")
-    @ApiOperation(value = "获取验证码", notes = "获取验证码")
+    @Log(value = "验证码获取", exception = "验证码获取请求异常")
+    @GetMapping("/code")
+    @ApiOperation(value = "验证码获取", notes = "验证码获取")
     public Result<?> authCode() {
         return validateService.getCode();
     }
 
-    @Log(value = "退出登录并删除TOKEN", exception = "退出登录并删除TOKEN请求异常")
-    @PostMapping("/auth/logout")
-    @ApiOperation(value = "退出登录并删除TOKEN", notes = "退出登录并删除TOKEN")
+    @Log(value = "退出登录", exception = "退出登录请求异常")
+    @PostMapping("/logout")
+    @ApiOperation(value = "退出登录", notes = "退出登录")
     public Result<?> logout(HttpServletRequest request) {
         if (StringUtil.isNotBlank(SecurityUtil.getHeaderToken(request))) {
             consumerTokenServices.revokeToken(SecurityUtil.getToken(request));
@@ -94,9 +100,14 @@ public class AuthController {
         return Result.success("操作成功");
     }
 
-    @Log(value = "获取手机验证码", exception = "获取手机验证码请求异常")
-    @ApiOperation(value = "获取手机验证码", notes = "获取手机验证码")
-    @GetMapping("/auth/sms-code")
+    /**
+     * 验证码下发
+     * @param mobile 手机号码
+     * @return Result
+     */
+    @Log(value = "手机验证码下发", exception = "手机验证码下发请求异常")
+    @ApiOperation(value = "手机验证码下发", notes = "手机验证码下发")
+    @GetMapping("/sms-code")
     public Result<?> smsCode(String mobile) {
         return validateService.getSmsCode(mobile);
     }
@@ -105,7 +116,9 @@ public class AuthController {
     /**
      * 登录类型
      */
-    @GetMapping("/auth/list")
+    @Log(value = "登录类型", exception = "登录类型请求异常")
+    @GetMapping("/list")
+    @ApiOperation(value = "登录类型", notes = "登录类型")
     public Map<String, String> loginType() {
         List<String> oauthList = factory.oauthList();
         return oauthList.stream().collect(Collectors.toMap(oauth -> oauth.toLowerCase() + "登录", oauth -> "http://localhost:10001/mate-uaa/auth/login/" + oauth.toLowerCase()));
@@ -118,8 +131,10 @@ public class AuthController {
      * @param response  response
      * @throws IOException
      */
-    @RequestMapping("/auth/login/{oauthType}")
-    public void renderAuth(@PathVariable String oauthType, HttpServletResponse response) throws IOException {
+    @Log(value = "第三方登录", exception = "第三方登录请求异常")
+    @ApiOperation(value = "第三方登录", notes = "第三方登录")
+    @PostMapping("/login/{oauthType}")
+    public void login(@PathVariable String oauthType, HttpServletResponse response) throws IOException {
         AuthRequest authRequest = factory.get(oauthType);
         response.sendRedirect(authRequest.authorize(oauthType + "::" + AuthStateUtils.createState()));
     }
@@ -131,10 +146,12 @@ public class AuthController {
      * @param callback  携带返回的信息
      * @return 登录成功后的信息
      */
-    @RequestMapping("/auth/callback/{oauthType}")
-    public void login(@PathVariable String oauthType, AuthCallback callback, HttpServletResponse httpServletResponse) throws IOException {
+    @Log(value = "第三方登录回调", exception = "第三方登录回调请求异常")
+    @ApiOperation(value = "第三方登录回调", notes = "第三方登录回调")
+    @GetMapping("/callback/{oauthType}")
+    public void callback(@PathVariable String oauthType, AuthCallback callback, HttpServletResponse httpServletResponse) throws IOException {
         String url = socialConfig.getUrl() + "?code=" + oauthType + "-" + callback.getCode() + "&state=" + callback.getState();
-        log.error("url:{}", url);
+        log.debug("url:{}", url);
         //跳转到指定页面
         httpServletResponse.sendRedirect(url);
     }

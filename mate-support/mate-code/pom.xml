@@ -25,6 +25,14 @@
             <artifactId>mate-starter-database</artifactId>
         </dependency>
         <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-auth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-log</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
         </dependency>

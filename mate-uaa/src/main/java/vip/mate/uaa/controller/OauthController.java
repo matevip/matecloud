@@ -1,5 +1,7 @@
 package vip.mate.uaa.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -21,18 +23,21 @@ import java.util.Map;
 @RestController
 @RequestMapping("/oauth")
 @AllArgsConstructor
+@Api(tags = "Oauth2管理")
 public class OauthController {
 
     private final TokenEndpoint tokenEndpoint;
 
     @Log(value = "用户登录", exception = "用户登录请求异常")
     @GetMapping("/token")
+    @ApiOperation(value = "用户登录Get", notes = "用户登录Get")
     public Result<?> getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         return custom(tokenEndpoint.getAccessToken(principal, parameters).getBody());
     }
 
     @Log(value = "用户登录", exception = "用户登录请求异常")
     @PostMapping("/token")
+    @ApiOperation(value = "用户登录Post", notes = "用户登录Post")
     public Result<?> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
     }

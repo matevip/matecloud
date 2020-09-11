@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserInfo userInfo = sysUserProvider.loadUserByUserName(userName);
+        UserInfo userInfo = sysUserProvider.getUserByUserName(userName).getData();
         if (userInfo == null) {
             throw new UsernameNotFoundException("该用户：" + userName + "不存在");
         }
@@ -43,7 +43,7 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
 
     @Override
     public UserDetails loadUserByMobile(String mobile) throws UsernameNotFoundException {
-        UserInfo userInfo = sysUserProvider.loadUserByMobile(mobile);
+        UserInfo userInfo = sysUserProvider.getUserByMobile(mobile).getData();
         if (userInfo == null) {
             throw new UsernameNotFoundException("该用户：" + mobile + "不存在");
         }
@@ -55,7 +55,7 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
     @Override
     public UserDetails loadUserBySocial(String openId) throws UsernameNotFoundException {
         String userName = "admin";
-        UserInfo userInfo = sysUserProvider.loadUserByUserName(userName);
+        UserInfo userInfo = sysUserProvider.getUserByUserName(userName).getData();
         if (userInfo == null) {
             throw new UsernameNotFoundException("该用户：" + userName + "不存在");
         }

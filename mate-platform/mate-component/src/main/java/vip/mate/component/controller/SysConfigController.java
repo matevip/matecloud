@@ -1,6 +1,7 @@
 package vip.mate.component.controller;
 
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +25,17 @@ import javax.validation.Valid;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-config")
+@RequestMapping("/config")
+@Api(tags = "配置管理")
 public class SysConfigController extends BaseController {
 
     private final ISysConfigService sysConfigService;
 
+    /**
+     * 查询OSS配置
+     * @param code　代码
+     * @return Result
+     */
     @EnableToken
     @Log(value = "查询OSS配置", exception = "查询OSS配置异常")
     @GetMapping("/get-config-by-code")
@@ -37,6 +44,10 @@ public class SysConfigController extends BaseController {
         return Result.data(sysConfigService.getConfigByCode(code));
     }
 
+    /**
+     * 默认配置
+     * @return Result
+     */
     @EnableToken
     @Log(value = "默认配置", exception = "默认配置异常")
     @ApiOperation(value = "默认配置", notes = "默认配置")
@@ -45,25 +56,31 @@ public class SysConfigController extends BaseController {
         return Result.data(sysConfigService.defaultOss());
     }
 
+    /**
+     * 保存默认配置
+     * @param code code
+     * @return Result
+     */
     @EnableToken
     @Log(value = "保存默认配置", exception = "保存默认配置异常")
     @ApiOperation(value = "保存默认配置", notes = "保存默认配置")
     @PostMapping("/save-default-oss")
     public Result<?> saveDefaultOss(@RequestParam String code) {
-        boolean flag = sysConfigService.saveDefaultOss(code);
-        if (flag){
-            return Result.success("操作成功");
-        }
-        return Result.fail("操作失败");
+        return Result.condition(sysConfigService.saveDefaultOss(code));
     }
 
+    /**
+     * 保存OSS配置
+     * @param ossProperties　oss配置
+     * @param code
+     * @return
+     */
     @EnableToken
     @Log(value = "保存OSS配置", exception = "保存OSS配置异常")
     @ApiOperation(value = "保存OSS配置", notes = "保存OSS配置")
     @PostMapping("/save-config-oss")
     public Result<?> saveConfigOss(@Valid @RequestBody OssProperties ossProperties, @RequestParam String code) {
-        sysConfigService.saveConfigOss(ossProperties, code);
-        return Result.success("操作成功");
+        return Result.condition(sysConfigService.saveConfigOss(ossProperties, code));
     }
 
 }

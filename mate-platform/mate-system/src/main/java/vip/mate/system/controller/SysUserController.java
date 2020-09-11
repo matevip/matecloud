@@ -37,18 +37,25 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-user")
-@Api(tags = "系统用户资源管理")
+@RequestMapping("/user")
+@Api(tags = "用户管理")
 public class SysUserController extends BaseController {
 
     private final ISysUserService sysUserService;
 
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * 用户列表
+     *
+     * @param page   分页信息
+     * @param search 　搜索关键词
+     * @return Result
+     */
     @EnableToken
     @Log(value = "用户列表", exception = "用户列表请求异常")
-    @GetMapping("/list")
-    @ApiOperation(value = "获取分页接口列表", notes = "获取分页接口列表")
+    @GetMapping("/page")
+    @ApiOperation(value = "用户列表", notes = "分页查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
             @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -56,75 +63,98 @@ public class SysUserController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> list(Page page, Search search) {
+    public Result<?> page(Page page, Search search) {
         return Result.data(sysUserService.listPage(page, search));
     }
 
+    /**
+     * 设置用户，支持新增或修改
+     *
+     * @param sysUser 用户信息
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "新增或修改用户", exception = "新增或修改用户请求异常")
-    @PostMapping("/saveOrUpdate")
-    @ApiOperation(value = "添加系统用户", notes = "添加系统用户,支持新增或修改")
-    //@CacheUpdate(name=SystemConstant.SYS_USER_CACHE, key="#sysUser.account", value="#sysUser")
-    public Result<?> saveOrUpdate(@Valid @RequestBody SysUser sysUser) {
+    @Log(value = "用户设置", exception = "设置用户请求异常")
+    @PostMapping("/set")
+    @ApiOperation(value = "设置用户", notes = "新增或修改用户")
+    public Result<?> set(@Valid @RequestBody SysUser sysUser) {
         String password = sysUser.getPassword();
         if (StringUtils.isNotBlank(password) && sysUser.getId() == null) {
             password = passwordEncoder.encode(CryptoUtil.encodeMD5(password));
             sysUser.setPassword(password);
         }
-        if (sysUserService.saveOrUpdate(sysUser)) {
-            return Result.success("操作成功");
-        }
-        return Result.fail("操作失败");
+        return Result.condition(sysUserService.saveOrUpdate(sysUser));
     }
 
+    /**
+     * 用户信息
+     *
+     * @param id Id信息
+     * @return Result
+     */
     @EnableToken
-    @GetMapping("/info")
-    @ApiOperation(value = "获取用户信息", notes = "根据ID查询")
+    @Log(value = "用户信息", exception = "用户信息请求异常")
+    @GetMapping("/get")
+    @ApiOperation(value = "用户信息", notes = "根据ID查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "form"),
     })
-    public Result<?> getSysUser(SysUser sysUser) {
-        return Result.data(sysUserService.getById(sysUser.getId()));
+    public Result<?> get(@RequestParam String id) {
+        return Result.data(sysUserService.getById(id));
     }
 
+    /**
+     * 用户删除
+     *
+     * @param ids id字符串，根据,号分隔
+     * @return Result
+     */
     @EnableToken
-    @PostMapping("/delete")
-    //@CacheInvalidate(name=SystemConstant.SYS_USER_CACHE, key="#{*}")
-    @ApiOperation(value = "批量删除用户数据", notes = "批量删除用户数据")
+    @Log(value = "用户删除", exception = "用户删除请求异常")
+    @PostMapping("/del")
+    @ApiOperation(value = "用户删除", notes = "用户删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    public Result<?> delete(@RequestParam String ids) {
-        if (sysUserService.removeByIds(CollectionUtil.stringToCollection(ids))){
-            return Result.success("删除成功");
-        }
-        return Result.fail("删除失败");
+    public Result<?> del(@RequestParam String ids) {
+        return Result.condition(sysUserService.removeByIds(CollectionUtil.stringToCollection(ids)));
     }
 
+    /**
+     * 设置用户状态
+     *
+     * @param ids    id字符串，根据,号分隔
+     * @param status 状态标识，启用或禁用
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "设置用户状态", exception = "设置用户状态请求异常")
-    @PostMapping("/status")
-    @ApiOperation(value = "批量设置用户状态", notes = "状态包括：启用、禁用")
+    @Log(value = "用户状态", exception = "用户状态请求异常")
+    @PostMapping("/set-status")
+    @ApiOperation(value = "用户状态", notes = "状态包括：启用、禁用")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
             @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
     })
-    public Result<?> status(@RequestParam String ids, @RequestParam String status) {
-        if (sysUserService.status(ids, status)) {
-            return Result.success("批量修改成功");
-        }
-        return Result.fail("操作失败");
+    public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
+        return Result.condition(sysUserService.status(ids, status));
     }
 
+    /**
+     * 设置用户密码
+     *
+     * @param id       id
+     * @param password 密码
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "设置用户密码", exception = "设置用户密码请求异常")
-    @PostMapping("/savePwd")
-    @ApiOperation(value = "设置用户密码", notes = "设置用户密码")
+    @Log(value = "用户密码设置", exception = "用户密码设置请求异常")
+    @PostMapping("/set-password")
+    @ApiOperation(value = "用户密码设置", notes = "用户密码设置")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "form"),
             @ApiImplicitParam(name = "password", required = true, value = "密码", paramType = "form")
     })
-    public Result<?> savePwd(@RequestParam String id, @RequestParam String password) {
+    public Result<?> setPassword(@RequestParam String id, @RequestParam String password) {
         String pwd = null;
         if (StringUtils.isNotBlank(password)) {
             pwd = passwordEncoder.encode(CryptoUtil.encodeMD5(password));
@@ -132,21 +162,20 @@ public class SysUserController extends BaseController {
         SysUser sysUser = new SysUser();
         sysUser.setId(CollectionUtil.strToLong(id, 0L));
         sysUser.setPassword(pwd);
-        if (sysUserService.updateById(sysUser)) {
-            return Result.success("操作成功");
-        }
-        return Result.fail("操作失败");
+        return Result.condition(sysUserService.updateById(sysUser));
     }
 
+    /**
+     * 用户信息导出
+     */
     @EnableToken
-    @Log(value = "导出用户", exception = "导出用户请求异常")
-    @PostMapping("/export-user")
-    @ApiOperation(value = "导出用户列表", notes = "导出用户列表")
+    @Log(value = "用户导出", exception = "导出用户请求异常")
+    @PostMapping("/export")
+    @ApiOperation(value = "导出用户", notes = "导出用户")
     public void export(@ApiIgnore HttpServletResponse response) {
         List<SysUserPOI> sysUserPOIS = sysUserService.export();
         //使用工具类导出excel
         ExcelUtil.exportExcel(sysUserPOIS, null, "用户", SysUserPOI.class, "user", response);
     }
-
 }
 

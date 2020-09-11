@@ -33,7 +33,9 @@ import vip.mate.code.entity.SysDataSource;
 import vip.mate.code.service.ISysDataSourceService;
 import vip.mate.code.util.GeneratorUtil;
 import vip.mate.code.util.ZipUtil;
+import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.util.FileUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,16 +44,28 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 代码管理控制类
+ *
+ * @author xuzhanfu
+ */
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-code")
-@Api(tags = "代码生成管理")
+@RequestMapping("/code")
+@Api(tags = "代码管理")
 public class SysCodeController {
 
     private final ISysDataSourceService sysDataSourceService;
 
-    @ApiOperation(value = "获取所有表信息", notes = "获取所有表信息")
+    /**
+     * 数据库表信息
+     * @param dataSourceId 数据源Id
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "数据库表信息", exception = "数据库表信息请求异常")
+    @ApiOperation(value = "数据库表信息", notes = "数据库表信息")
     @PostMapping("/table-list")
     public Result<List<TableInfo>> tableList(@RequestParam String dataSourceId) {
         SysDataSource sysDataSource = sysDataSourceService.getById(dataSourceId);
@@ -72,12 +86,22 @@ public class SysCodeController {
     }
 
 
-    @ApiOperation(value = "代码生成并下载", notes = "代码生成并下载")
+    /**
+     * 代码生成
+     * @param packageName　包名
+     * @param prefix　前缀
+     * @param modelName　模块名
+     * @param datasourceId　数据源名
+     * @param tableName　表名
+     */
+    @EnableToken
+    @Log(value = "代码生成", exception = "代码生成请求异常")
+    @ApiOperation(value = "代码生成", notes = "代码生成")
     @PostMapping("/generator-code")
     public void execute(@RequestParam String packageName, @RequestParam String prefix,
-                                                      @RequestParam String modelName, @RequestParam String datasourceId,
-                                                      @RequestParam String tableName, HttpServletRequest request,
-                                                      HttpServletResponse response)  {
+                        @RequestParam String modelName, @RequestParam String datasourceId,
+                        @RequestParam String tableName, HttpServletRequest request,
+                        HttpServletResponse response) {
         SysDataSource sysDataSource = sysDataSourceService.getById(datasourceId);
         String outputDir = System.getProperty("user.dir") + File.separator + "temp" + File.separator + "generator" + File.separator + UUID.randomUUID().toString();
         CodeConfig config = new CodeConfig();

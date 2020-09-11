@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * 验证码业务类
+ * @author pangu
+ */
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -32,8 +36,8 @@ public class ValidateServiceImpl implements ValidateService {
         //String text = captcha.text();// 获取运算的结果：5
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(120, 40);
         captcha.getArithmeticString();  // 获取运算的公式：3+2=?
-        String text = captcha.text();  // 获取运算的结果：5
-//        stringRedisTemplate.opsForValue().set(Oauth2Constant.CAPTCHA_KEY + uuid, text, Duration.ofMinutes(30));
+        // 获取运算的结果：5
+        String text = captcha.text();
         redisService.set(Oauth2Constant.CAPTCHA_KEY + uuid, text, Duration.ofMinutes(30));
         data.put("key", uuid);
         data.put("codeUrl", captcha.toBase64());

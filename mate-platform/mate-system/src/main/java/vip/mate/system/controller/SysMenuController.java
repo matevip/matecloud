@@ -44,27 +44,38 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-menu")
-@Api(tags = "系统菜单资源管理")
+@RequestMapping("/menu")
+@Api(tags = "菜单管理")
 public class SysMenuController extends BaseController {
 
     private final ISysMenuService sysMenuService;
 
+    /**
+     * 菜单树
+     *
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "根据RoleId查询routes列表", exception = "根据RoleId查询routes列表请求异常")
-    @GetMapping("/routes")
-    @ApiOperation(value = "根据RoleId查询routes列表", notes = "根据RoleId查询routes列表")
+    @Log(value = "菜单树", exception = "菜单树请求异常")
+    @GetMapping("/tree")
+    @ApiOperation(value = "菜单树", notes = "根据roleId查询菜单树")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", required = false, value = "可不填，根据token获取", paramType = "form"),
     })
-    public Result<?> routes(@ApiIgnore @EnableUser LoginUser user) {
+    public Result<?> tree(@ApiIgnore @EnableUser LoginUser user) {
         return Result.data(sysMenuService.routes(user.getRoleId()));
     }
 
+    /**
+     * 菜单列表
+     *
+     * @param search 搜索关键词
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "获取菜单接口列表", exception = "获取菜单接口列表请求异常")
+    @Log(value = "菜单列表", exception = "菜单列表请求异常")
     @GetMapping("/list")
-    @ApiOperation(value = "获取菜单接口列表", notes = "获取菜单接口列表，根据query查询")
+    @ApiOperation(value = "菜单列表", notes = "菜单列表，根据关键词查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
@@ -74,11 +85,16 @@ public class SysMenuController extends BaseController {
         return Result.data(TreeUtil.list2Tree(sysMenuService.searchList(search), MateConstant.TREE_ROOT));
     }
 
+    /**
+     * 菜单分级列表，用于前端下拉框使用
+     *
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "查询所有系统菜单资源列表", exception = "查询所有系统菜单资源列表请求异常")
-    @GetMapping("/asyncList")
-    @ApiOperation(value = "查询所有系统菜单资源列表", notes = "查询所有菜单列表")
-    public Result<?> asyncList(){
+    @Log(value = "菜单分级列表", exception = "菜单分级列表请求异常")
+    @GetMapping("/grade")
+    @ApiOperation(value = "菜单分级列表", notes = "菜单分级列表")
+    public Result<?> grade() {
         LambdaQueryWrapper<SysMenu> lsm = Wrappers.<SysMenu>query().lambda().orderByAsc(SysMenu::getSort);
         List<SysMenu> sysMenus = sysMenuService.list(lsm);
         List<SysMenuDTO> sysMenuDTOS = sysMenus.stream().map(sysMenu -> {
@@ -91,62 +107,82 @@ public class SysMenuController extends BaseController {
         return Result.data(ForestNodeMerger.merge(sysMenuDTOS));
     }
 
+    /**
+     * 菜单设置
+     *
+     * @param sysMenu 菜单
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "新增或修改菜单", exception = "新增或修改菜单请求异常")
-    @PostMapping("/saveOrUpdate")
-    @ApiOperation(value = "添加系统菜单", notes = "添加系统菜单,支持新增或修改")
-    public Result<?> saveOrUpdate(@Valid @RequestBody SysMenu sysMenu) {
-        if (sysMenuService.saveAll(sysMenu)) {
-            return Result.success("操作成功");
-        }
-        return Result.fail("操作失败");
+    @Log(value = "菜单设置", exception = "菜单设置请求异常")
+    @PostMapping("/set")
+    @ApiOperation(value = "菜单设置", notes = "菜单设置,支持新增或修改")
+    public Result<?> set(@Valid @RequestBody SysMenu sysMenu) {
+        return Result.condition(sysMenuService.saveAll(sysMenu));
     }
 
+    /**
+     * 查询菜单信息
+     *
+     * @param id id
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "获取系统菜单信息", exception = "获取系统菜单信息请求异常")
-    @GetMapping("/info")
-    @ApiOperation(value = "获取系统菜单信息", notes = "根据ID查询")
+    @Log(value = "菜单信息", exception = "菜单信息请求异常")
+    @GetMapping("/get")
+    @ApiOperation(value = "菜单信息", notes = "根据ID查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "菜单ID", paramType = "form"),
     })
-    public Result<?> getSysMenu(SysMenu sysMenu){
+    public Result<?> get(@RequestParam String id) {
         LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.in(SysMenu::getId, sysMenu.getId());
+        queryWrapper.in(SysMenu::getId, id);
         return Result.data(sysMenuService.getOne(queryWrapper));
     }
 
+    /**
+     * 批量删除查询
+     *
+     * @param ids 多个Id，用,号分隔
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "批量删除系统菜单数据", exception = "批量删除系统菜单数据请求异常")
-    @PostMapping("/delete")
-    @ApiOperation(value = "批量删除系统菜单数据", notes = "批量删除系统菜单数据")
+    @Log(value = "菜单删除", exception = "菜单删除请求异常")
+    @PostMapping("/del")
+    @ApiOperation(value = "菜单删除", notes = "菜单删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-//    @PreAuthorize("@mp.hasPerm('sys:menu:delete')")
-    public Result<?> delete(@RequestParam String ids) {
-        if(sysMenuService.removeByIds(CollectionUtil.stringToCollection(ids))) {
-            return Result.success("删除成功");
-        }
-        return Result.fail("删除失败");
+    public Result<?> del(@RequestParam String ids) {
+        return Result.condition(sysMenuService.removeByIds(CollectionUtil.stringToCollection(ids)));
     }
 
-    @Log(value = "批量设置菜单状态", exception = "批量设置菜单状态请求异常")
-    @PostMapping("/status")
-    @ApiOperation(value = "批量设置菜单状态", notes = "状态包括：启用、禁用")
+    /**
+     * 菜单状态
+     *
+     * @param ids    多个Id，用,号分隔
+     * @param status 状态：启用、禁用
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "菜单状态", exception = "菜单状态请求异常")
+    @PostMapping("/set-status")
+    @ApiOperation(value = "菜单状态", notes = "状态包括：启用、禁用")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
+            @ApiImplicitParam(name = "ids", required = true, value = "多个id用,号隔开", paramType = "form"),
             @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
     })
-    public Result<?> status(@RequestParam String ids, @RequestParam String status) {
-        if (sysMenuService.status(ids, status)){
-            return Result.success("批量修改成功");
-        }
-        return Result.fail("操作失败");
+    public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
+        return Result.condition(sysMenuService.status(ids, status));
     }
 
-    @Log(value = "导出菜单列表", exception = "导出菜单列表请求异常")
-    @PostMapping("/export-menu")
-    @ApiOperation(value = "导出菜单列表", notes = "导出菜单列表")
+    /**
+     * 菜单导出
+     */
+    @EnableToken
+    @Log(value = "菜单导出", exception = "菜单导出请求异常")
+    @PostMapping("/export")
+    @ApiOperation(value = "菜单导出", notes = "菜单导出")
     public void export(@ApiIgnore HttpServletResponse response) {
         List<SysMenuPOI> sysMenuPOIS = sysMenuService.export();
         //使用工具类导出excel

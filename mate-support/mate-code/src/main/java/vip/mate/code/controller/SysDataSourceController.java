@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import vip.mate.code.entity.SysDataSource;
 import vip.mate.code.service.ISysDataSourceService;
 import vip.mate.code.vo.SysDataSourceVO;
+import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 
@@ -28,14 +30,21 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-data-source")
-@Api(tags = "系统数据源管理")
+@RequestMapping("/data-source")
+@Api(tags = "数据源管理")
 public class SysDataSourceController extends BaseController {
 
     private final ISysDataSourceService sysDataSourceService;
 
-    @GetMapping("/list")
-    @ApiOperation(value = "获取分页接口列表", notes = "获取分页接口列表")
+    /**
+     * 数据源分页
+     * @param query　关键词
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "数据源分页", exception = "数据源分页请求异常")
+    @GetMapping("/page")
+    @ApiOperation(value = "数据源分页", notes = "数据源分页")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
             @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -43,42 +52,63 @@ public class SysDataSourceController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> list(@RequestParam Map<String, String> query) {
+    public Result<?> page(@RequestParam Map<String, String> query) {
         return Result.data(sysDataSourceService.listPage(query));
     }
 
-    @GetMapping("/info")
-    @ApiOperation(value = "获取数据源信息", notes = "根据ID查询")
+    /**
+     * 获取数据源信息
+     * @param id id
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "数据源信息", exception = "数据源信息请求异常")
+    @GetMapping("/get")
+    @ApiOperation(value = "数据源信息", notes = "数据源信息,根据ID查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "form"),
     })
-    public Result<?> getSysUser(SysDataSource sysDataSource) {
-        return Result.data(sysDataSourceService.getById(sysDataSource.getId()));
+    public Result<?> get(@RequestParam String id) {
+        return Result.data(sysDataSourceService.getById(id));
     }
 
-    @PostMapping("/saveOrUpdate")
-    @ApiOperation(value = "添加数据源", notes = "添加数据源,支持新增或修改")
-    public Result<?> saveOrUpdate(@Valid @RequestBody SysDataSource sysDataSource) {
-        if (sysDataSourceService.saveOrUpdate(sysDataSource)) {
-            return Result.success("操作成功");
-        }
-        return Result.fail("操作失败");
+    /**
+     * 数据源设置
+     * @param sysDataSource　SysDataSource对象
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "数据源设置", exception = "数据源设置请求异常")
+    @PostMapping("/set")
+    @ApiOperation(value = "数据源设置", notes = "数据源设置,支持新增或修改")
+    public Result<?> set(@Valid @RequestBody SysDataSource sysDataSource) {
+        return Result.condition(sysDataSourceService.saveOrUpdate(sysDataSource));
     }
 
-    @PostMapping("/delete")
-    @ApiOperation(value = "批量删除数据源", notes = "批量删除数据源")
+    /**
+     * 数据源删除
+     * @param ids　多个id采用逗号分隔
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "数据源删除", exception = "数据源删除请求异常")
+    @PostMapping("/del")
+    @ApiOperation(value = "数据源删除", notes = "数据源删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    public Result<?> delete(@RequestParam String ids) {
-        if (sysDataSourceService.removeByIds(CollectionUtil.stringToCollection(ids))){
-            return Result.success("删除成功");
-        }
-        return Result.fail("删除失败");
+    public Result<?> del(@RequestParam String ids) {
+        return Result.condition(sysDataSourceService.removeByIds(CollectionUtil.stringToCollection(ids)));
     }
 
+    /**
+     * 数据源项列表
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "数据源项列表", exception = "数据源项列表请求异常")
     @GetMapping("/option-list")
-    @ApiOperation(value = "数据源列表", notes = "查询数据源作为下拉列表")
+    @ApiOperation(value = "数据源项列表", notes = "数据源项列表")
     public Result<?> optionList() {
         return Result.data(sysDataSourceService.optionList());
     }

@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.ProviderConstant;
 import vip.mate.core.common.dto.CommonLog;
 import vip.mate.core.feign.constant.FeignConstant;
 
@@ -16,12 +17,11 @@ import vip.mate.core.feign.constant.FeignConstant;
 public interface ISysLogProvider {
 
     /**
-     * 存储日志
-     * @param commonLog
-     * @return
+     * 日志设置
+     * @param commonLog　CommonLog对象
+     * @return Result
      */
-    @PostMapping("/provider/log/save")
-    Result<Boolean> saveLog(@RequestBody CommonLog commonLog);
-//    Result<Boolean> saveLog(@RequestBody SysLog sysLog, @RequestHeader(MateConstant.X_REQUEST_ID) String traceId);
+    @PostMapping(ProviderConstant.PROVIDER_LOG_SET)
+    Result<Boolean> set(@RequestBody CommonLog commonLog);
 
 }

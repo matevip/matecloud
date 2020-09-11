@@ -23,11 +23,11 @@ public class MateConstant {
     /**
      * 默认成功消息
      */
-    public static final String DEFAULT_SUCCESS_MESSAGE = "操作成功";
+    public static final String DEFAULT_SUCCESS_MESSAGE = "处理成功";
     /**
      * 默认失败消息
      */
-    public static final String DEFAULT_FAIL_MESSAGE = "操作失败";
+    public static final String DEFAULT_FAIL_MESSAGE = "处理失败";
     /**
      * 树的根节点值
      */

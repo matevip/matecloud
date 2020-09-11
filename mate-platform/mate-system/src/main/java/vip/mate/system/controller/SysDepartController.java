@@ -35,75 +35,101 @@ import java.util.Map;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-depart")
-@Api(tags = "系统部门资源管理")
+@RequestMapping("/depart")
+@Api(tags = "部门管理")
 public class SysDepartController extends BaseController {
 
     private final ISysDepartService sysDepartService;
 
+    /**
+     * 部门列表
+     *
+     * @param search 　根据关键字搜索
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "获取系统部门资源列表", exception = "获取系统部门资源列表请求异常")
+    @Log(value = "部门列表", exception = "部门列表请求异常")
     @GetMapping("/list")
-    @ApiOperation(value = "获取系统部门资源列表", notes = "获取系统部门资源列表，根据query查询")
+    @ApiOperation(value = "部门列表", notes = "部门列表，根据search查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
     public Result<?> list(@ApiIgnore @RequestParam Map<String, Object> search) {
-       return Result.data(sysDepartService.searchList(search));
+        return Result.data(sysDepartService.searchList(search));
     }
 
+    /**
+     * 部门树
+     *
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "获取部门树列表", exception = "获取部门树列表请求异常")
+    @Log(value = "部门树", exception = "部门树请求异常")
     @GetMapping("/tree")
-    @ApiOperation(value = "获取部门树列表", notes = "获取部门树列表")
+    @ApiOperation(value = "部门树", notes = "部门树")
     public Result<?> tree() {
         return Result.data(ForestNodeMerger.merge(sysDepartService.tree()));
     }
 
+    /**
+     * 部门设置
+     *
+     * @param sysDepart 　SysDepart对象
+     * @return Result
+     */
     @EnableToken
-    @PostMapping("/saveOrUpdate")
-    @Log(value = "新增或修改部门", exception = "新增或修改请求异常")
-    @ApiOperation(value = "添加系统部门资源", notes = "添加系统部门资源,支持新增或修改")
-    public Result<?> saveOrUpdate(@Valid @RequestBody SysDepart sysDepart) {
-        if (sysDepartService.saveOrUpdate(sysDepart)) {
-            return Result.success("操作成功");
-        }
-        return Result.fail("操作失败");
+    @PostMapping("/set")
+    @Log(value = "部门设置", exception = "部门设置异常")
+    @ApiOperation(value = "部门设置", notes = "部门设置,支持新增或修改")
+    public Result<?> set(@Valid @RequestBody SysDepart sysDepart) {
+        return Result.condition(sysDepartService.saveOrUpdate(sysDepart));
     }
 
+    /**
+     * 部门信息
+     *
+     * @param id id
+     * @return Result
+     */
     @EnableToken
-    @GetMapping("/info")
-    @Log(value = "获取系统部门信息", exception = "获取系统部门信息请求异常")
-    @ApiOperation(value = "获取系统部门信息", notes = "根据ID查询")
+    @GetMapping("/get")
+    @Log(value = "部门信息", exception = "部门信息息请求异常")
+    @ApiOperation(value = "部门信息", notes = "部门信息,根据ID查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "菜单ID", paramType = "form"),
     })
-    public Result<?> info(SysDepart sysDepart) {
+    public Result<?> get(@RequestParam String id) {
         LambdaQueryWrapper<SysDepart> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.in(SysDepart::getId, sysDepart.getId());
+        queryWrapper.in(SysDepart::getId, id);
         return Result.data(sysDepartService.getOne(queryWrapper));
     }
 
+    /**
+     * 部门删除
+     *
+     * @param ids 　多个id采用逗号分隔
+     * @return Result
+     */
     @EnableToken
-    @PostMapping("/delete")
-    @Log(value = "批量删除系统部门资源数据", exception = "批量删除系统部门资源数据请求异常")
-    @ApiOperation(value = "批量删除系统部门资源数据", notes = "批量删除系统部门资源数据")
+    @PostMapping("/del")
+    @Log(value = "部门删除", exception = "部门删除请求异常")
+    @ApiOperation(value = "部门删除", notes = "部门删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    public Result<?> delete(@RequestParam String ids) {
-        if(sysDepartService.removeByIds(CollectionUtil.stringToCollection(ids))) {
-            return Result.success("删除成功");
-        }
-        return Result.fail("删除失败");
+    public Result<?> del(@RequestParam String ids) {
+        return Result.condition(sysDepartService.removeByIds(CollectionUtil.stringToCollection(ids)));
     }
 
+    /**
+     * 部门导出
+     */
     @EnableToken
-    @PostMapping("/export-depart")
-    @Log(value = "导出部门列表", exception = "导出部门列表请求异常")
-    @ApiOperation(value = "导出部门列表", notes = "导出部门列表")
+    @PostMapping("/export")
+    @Log(value = "部门导出", exception = "部门导出请求异常")
+    @ApiOperation(value = "部门导出", notes = "部门导出")
     public void export(HttpServletResponse response) {
         List<SysDepartPOI> sysDepartPOIS = sysDepartService.export();
         //使用工具类导出excel

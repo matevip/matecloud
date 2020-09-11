@@ -33,16 +33,23 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-client")
-@Api(tags = "系统客户端资源管理")
+@RequestMapping("/client")
+@Api(tags = "客户端管理")
 public class SysClientController extends BaseController {
 
     private final ISysClientService sysClientService;
 
+    /**
+     * 客户端分页
+     *
+     * @param page   分页参数
+     * @param search 　关键词
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "客户端分页列表", exception = "客户端分页列表请求异常")
-    @GetMapping("/list")
-    @ApiOperation(value = "获取分页接口列表", notes = "获取分页接口列表")
+    @Log(value = "客户端分页", exception = "客户端分页请求异常")
+    @GetMapping("/page")
+    @ApiOperation(value = "客户端分页", notes = "客户端分页")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
             @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -50,66 +57,87 @@ public class SysClientController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> list(Page page, Search search) {
+    public Result<?> page(Page page, Search search) {
         return Result.data(sysClientService.listPage(page, search));
     }
 
-
+    /**
+     * 客户端设置
+     *
+     * @param sysClient SysClient对象
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "新增或修改客户端", exception = "新增或修改客户端请求异常")
-    @PostMapping("/save-or-update")
-    @ApiOperation(value = "添加系统客户端", notes = "添加系统客户端,支持新增或修改")
-    public Result<?> saveOrUpdate(@Valid @RequestBody SysClient sysClient) {
-        if (sysClientService.saveOrUpdate(sysClient)) {
-            return Result.success("操作成功");
-        }
-        return Result.fail("操作失败");
+    @Log(value = "客户端设置", exception = "客户端设置请求异常")
+    @PostMapping("/set")
+    @ApiOperation(value = "客户端设置", notes = "客户端设置,支持新增或修改")
+    public Result<?> set(@Valid @RequestBody SysClient sysClient) {
+        return Result.condition(sysClientService.saveOrUpdate(sysClient));
     }
 
+    /**
+     * 客户端信息
+     *
+     * @param id id
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "获取系统客户端信息", exception = "获取系统客户端信息请求异常")
-    @GetMapping("/info")
-    @ApiOperation(value = "获取系统客户端信息", notes = "根据ID查询")
+    @Log(value = "客户端信息", exception = "客户端信息请求异常")
+    @GetMapping("/get")
+    @ApiOperation(value = "客户端信息", notes = "客户端信息,根据ID查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "主键ID", paramType = "form"),
     })
-    public Result<?> getSysUser(SysClient sysClient) {
-        return Result.data(sysClientService.getById(sysClient.getId()));
+    public Result<?> get(@RequestParam String id) {
+        return Result.data(sysClientService.getById(id));
     }
 
+    /**
+     * 客户端删除
+     *
+     * @param ids 多个id采用逗号分隔
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "批量删除系统客户端", exception = "批量删除系统客户端请求异常")
-    @PostMapping("/delete")
-    @ApiOperation(value = "批量删除系统客户端", notes = "批量删除系统客户端")
+    @Log(value = "客户端删除", exception = "客户端删除请求异常")
+    @PostMapping("/del")
+    @ApiOperation(value = "客户端删除", notes = "客户端删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
-    public Result<?> delete(@RequestParam String ids) {
-        if (sysClientService.removeByIds(CollectionUtil.stringToCollection(ids))){
+    public Result<?> del(@RequestParam String ids) {
+        if (sysClientService.removeByIds(CollectionUtil.stringToCollection(ids))) {
             return Result.success("删除成功");
         }
         return Result.fail("删除失败");
     }
 
+    /**
+     * 客户端状态
+     *
+     * @param ids    　多个id采用逗号分隔
+     * @param status 　状态包括启用和禁用
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "批量设置系统客户端状态", exception = "批量设置系统客户端状态请求异常")
-    @PostMapping("/status")
-    @ApiOperation(value = "批量设置系统客户端状态", notes = "状态包括：启用、禁用")
+    @Log(value = "客户端状态", exception = "客户端状态请求异常")
+    @PostMapping("/set-status")
+    @ApiOperation(value = "客户端状态", notes = "客户端状态：启用、禁用")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
             @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
     })
-    public Result<?> status(@RequestParam String ids, @RequestParam String status) {
-        if (sysClientService.status(ids, status)) {
-            return Result.success("批量修改成功");
-        }
-        return Result.fail("操作失败");
+    public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
+        return Result.condition(sysClientService.status(ids, status));
     }
 
+    /**
+     * 客户端导出
+     */
     @EnableToken
-    @Log(value = "导出客户端列表", exception = "导出客户端列表请求异常")
-    @PostMapping("/export-client")
-    @ApiOperation(value = "导出客户端列表", notes = "导出客户端列表")
+    @Log(value = "客户端导出", exception = "客户端导出请求异常")
+    @PostMapping("/export")
+    @ApiOperation(value = "客户端导出", notes = "客户端导出")
     public void export(HttpServletResponse response) {
         List<SysClientPOI> sysClientPOIS = sysClientService.export();
         //使用工具类导出excel

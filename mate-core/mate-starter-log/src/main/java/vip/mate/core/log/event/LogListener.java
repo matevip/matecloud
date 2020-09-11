@@ -44,7 +44,7 @@ public class LogListener {
         if (logProperties.getLogType().equals(LogType.KAFKA)) {
             commonLogProvider.sendCommonLog(commonLog);
         } else {
-            sysLogProvider.saveLog(commonLog);
+            sysLogProvider.set(commonLog);
         }
     }
 

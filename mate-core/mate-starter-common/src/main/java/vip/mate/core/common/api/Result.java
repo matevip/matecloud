@@ -108,7 +108,7 @@ public class Result<T> implements Serializable {
         return new Result<>(resultCode, msg);
     }
 
-    public static <T> Result<T> status(boolean flag) {
+    public static <T> Result<T> condition(boolean flag) {
         return flag ? success(MateConstant.DEFAULT_SUCCESS_MESSAGE) : fail(MateConstant.DEFAULT_FAIL_MESSAGE);
     }
 }

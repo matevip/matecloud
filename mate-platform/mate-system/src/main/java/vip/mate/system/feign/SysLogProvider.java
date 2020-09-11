@@ -8,27 +8,28 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.ProviderConstant;
 import vip.mate.core.common.dto.CommonLog;
 import vip.mate.core.log.feign.ISysLogProvider;
 import vip.mate.system.entity.SysLog;
 import vip.mate.system.service.ISysLogService;
 
 /**
- * 日志feign或者Dubbo调用
+ * 日志远程调用
  * @author pangu
  */
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Api(tags = "Feign或者Dubbo调用日志操作")
+@Api(tags = "日志远程调用")
 public class SysLogProvider implements ISysLogProvider {
 
     private final ISysLogService sysLogService;
 
     @Override
-    @PostMapping("/provider/log/save")
-    @ApiOperation(value = "保存日志", notes = "保存日志")
-    public Result<Boolean> saveLog(CommonLog commonLog) {
+    @PostMapping(ProviderConstant.PROVIDER_LOG_SET)
+    @ApiOperation(value = "日志设置", notes = "日志设置")
+    public Result<Boolean> set(CommonLog commonLog) {
         SysLog sysLog = new SysLog();
         BeanUtils.copyProperties(commonLog, sysLog);
         return Result.data(sysLogService.save(sysLog));

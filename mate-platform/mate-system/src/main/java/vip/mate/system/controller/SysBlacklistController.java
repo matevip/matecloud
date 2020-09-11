@@ -35,18 +35,24 @@ import java.util.Collection;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-blacklist")
-@Api(tags = "系统黑名单管理")
+@RequestMapping("/blacklist")
+@Api(tags = "黑名单管理")
 public class SysBlacklistController extends BaseController {
 
     private final ISysBlacklistService sysBlacklistService;
 
     private final IRuleCacheService ruleCacheService;
 
+    /**
+     * 黑名单分页
+     * @param page　分页参数
+     * @param search　关键词
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "黑名单分页列表", exception = "黑名单分页列表请求异常")
-    @GetMapping("/list")
-    @ApiOperation(value = "获取黑名单列表", notes = "获取黑名单列表")
+    @Log(value = "黑名单分页", exception = "黑名单分页请求异常")
+    @GetMapping("/page")
+    @ApiOperation(value = "黑名单分页", notes = "黑名单分页")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
             @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -54,15 +60,20 @@ public class SysBlacklistController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> list(Page page, Search search) {
+    public Result<?> page(Page page, Search search) {
         return Result.data(sysBlacklistService.listPage(page, search));
     }
 
+    /**
+     * 黑名单设置
+     * @param sysBlacklist SysBlacklist对象
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "新增或修改黑名单", exception = "新增或修改黑名单请求异常")
-    @PostMapping("/save-or-update")
-    @ApiOperation(value = "添加系统黑名单", notes = "添加系统黑名单,支持新增或修改")
-    public Result<?> saveOrUpdate(@Valid @RequestBody SysBlacklist sysBlacklist) {
+    @Log(value = "黑名单设置", exception = "黑名单设置请求异常")
+    @PostMapping("/set")
+    @ApiOperation(value = "黑名单设置", notes = "黑名单设置,支持新增或修改")
+    public Result<?> set(@Valid @RequestBody SysBlacklist sysBlacklist) {
         BlackList blackList = new BlackList();
         //删除缓存
         if (sysBlacklist.getId() != null) {
@@ -82,26 +93,36 @@ public class SysBlacklistController extends BaseController {
         return Result.fail("操作失败");
     }
 
+    /**
+     * 黑名单信息
+     * @param id　id
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "获取黑名单", exception = "获取黑名单请求异常")
-    @GetMapping("/info")
-    @ApiOperation(value = "获取黑名单", notes = "根据ID查询")
+    @Log(value = "黑名单信息", exception = "黑名单信息请求异常")
+    @GetMapping("/get")
+    @ApiOperation(value = "黑名单信息", notes = "黑名单信息,根据ID查询")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "主键ID", paramType = "form"),
     })
-    public Result<?> info(SysBlacklist sysBlacklist) {
-        return Result.data(sysBlacklistService.getById(sysBlacklist.getId()));
+    public Result<?> info(@RequestParam String id) {
+        return Result.data(sysBlacklistService.getById(id));
     }
 
+    /**
+     * 黑名单删除
+     * @param ids　多个id采用逗号分隔
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "批量删除黑名单", exception = "批量删除黑名单请求异常")
-    @PostMapping("/delete")
-    @ApiOperation(value = "批量删除黑名单", notes = "批量删除黑名单")
+    @Log(value = "黑名单删除", exception = "黑名单删除请求异常")
+    @PostMapping("/del")
+    @ApiOperation(value = "黑名单删除", notes = "黑名单删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     @Transactional
-    public Result<?> delete(@RequestParam String ids) {
+    public Result<?> del(@RequestParam String ids) {
         Collection collection = CollectionUtil.stringToCollection(ids);
         BlackList blackList = new BlackList();
         //处理缓存----start
@@ -117,15 +138,21 @@ public class SysBlacklistController extends BaseController {
         return Result.fail("删除失败");
     }
 
+    /**
+     * 黑名单状态
+     * @param ids　多个id采用逗号分隔
+     * @param status　状态：启用、禁用
+     * @return Result
+     */
     @EnableToken
-    @Log(value = "设置黑名单状态", exception = "设置黑名单状态请求异常")
-    @PostMapping("/status")
-    @ApiOperation(value = "设置黑名单状态", notes = "状态包括：启用、禁用")
+    @Log(value = "黑名单状态", exception = "黑名单状态请求异常")
+    @PostMapping("/set-status")
+    @ApiOperation(value = "黑名单状态", notes = "黑名单状态,状态包括：启用、禁用")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
             @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
     })
-    public Result<?> status(@RequestParam String ids, @RequestParam String status) {
+    public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
         if (sysBlacklistService.status(ids, status)) {
             return Result.success("批量修改成功");
         }
