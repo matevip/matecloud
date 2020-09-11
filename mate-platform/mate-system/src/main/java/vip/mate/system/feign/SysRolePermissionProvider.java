@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.constant.ProviderConstant;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.system.service.ISysRolePermissionService;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class SysRolePermissionProvider implements ISysRolePermissionProvider {
 
     @Override
     @GetMapping(ProviderConstant.PROVIDER_ROLE_PERMISSION)
+    @Log(value = "获取菜单列表", exception = "获取菜单列表请求失败")
     @ApiOperation(value = "获取菜单列表", notes = "根据角色ID获取菜单列表")
     public List<String> getMenuIdByRoleId(String roleId) {
        return sysRolePermissionService.getMenuIdByRoleId(roleId);

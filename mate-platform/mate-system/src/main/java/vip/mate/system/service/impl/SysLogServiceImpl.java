@@ -31,7 +31,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         if (StringUtil.isNotBlank(search.getKeyword())) {
             queryWrapper.like(SysLog::getTitle, search.getKeyword());
             queryWrapper.or();
-            queryWrapper.like(SysLog::getId, search.getKeyword());
+            queryWrapper.like(SysLog::getTraceId, search.getKeyword());
         }
         queryWrapper.orderByDesc(SysLog::getCreateTime);
         return this.baseMapper.selectPage(page, queryWrapper);

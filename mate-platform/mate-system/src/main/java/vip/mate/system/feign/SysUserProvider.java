@@ -35,6 +35,7 @@ public class SysUserProvider implements ISysUserProvider {
 
     @Override
     @GetMapping(ProviderConstant.PROVIDER_USER_ID)
+    @Log(value = "用户ID查询", exception = "用户ID查询请求失败")
     @ApiOperation(value = "用户ID查询", notes = "用户ID查询")
     public Result<SysUser> getUserById(Long id) {
         SysUser sysUser = sysUserService.getById(id);
@@ -46,7 +47,7 @@ public class SysUserProvider implements ISysUserProvider {
 
     @Override
     @GetMapping(ProviderConstant.PROVIDER_USER_USERNAME)
-    @Log(value = "用户名查询用户", exception = "用户名查询用户失败")
+    @Log(value = "用户名查询用户", exception = "用户名查询用户请求失败")
     @ApiOperation(value = "用户用户名查询", notes = "用户用户名查询")
     public Result<UserInfo> getUserByUserName(String userName) {
         SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>()
@@ -56,6 +57,7 @@ public class SysUserProvider implements ISysUserProvider {
 
     @Override
     @GetMapping(ProviderConstant.PROVIDER_USER_MOBILE)
+    @Log(value = "用户手机号查询", exception = "用户手机号查询请求失败")
     @ApiOperation(value = "用户手机号查询", notes = "用户手机号查询")
     public Result<UserInfo> getUserByMobile(String mobile) {
         SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>()

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.ProviderConstant;
+import vip.mate.core.log.annotation.Log;
 import vip.mate.system.entity.SysDict;
 import vip.mate.system.service.ISysDictService;
 
@@ -28,6 +29,7 @@ public class SysDictProvider implements ISysDictProvider {
 
     @Override
     @ApiOperation(value = "字典值", notes = "根据code和dictKey获取值")
+    @Log(value = "字典值", exception = "字典值请求失败")
     @GetMapping(ProviderConstant.PROVIDER_DICT_VALUE)
     public Result<String> getValue(String code, String dictKey) {
         return sysDictService.getValue(code, dictKey);
@@ -35,6 +37,7 @@ public class SysDictProvider implements ISysDictProvider {
 
     @Override
     @ApiOperation(value = "字典列表", notes = "根据code获取字典列表")
+    @Log(value = "字典列表", exception = "字典列表请求失败")
     @GetMapping(ProviderConstant.PROVIDER_DICT_LIST)
     public Result<List<SysDict>> getList(String code) {
         return sysDictService.getList(code);
