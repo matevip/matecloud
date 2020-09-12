@@ -4,45 +4,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import springfox.documentation.swagger.web.*;
 
 import java.util.Optional;
 
+/**
+ * swagger控制器类
+ *
+ * @author pangu
+ */
 @RestController
-//@Profile({"dev","test","local"})
-public class SwaggerHandler {
+@RequestMapping("/swagger-resources")
+public class SwaggerController {
 
     @Autowired(required = false)
-    @SuppressWarnings("all")
     private SecurityConfiguration securityConfiguration;
 
     @Autowired(required = false)
-    @SuppressWarnings("all")
     private UiConfiguration uiConfiguration;
 
     private final SwaggerResourcesProvider swaggerResources;
 
     @Autowired
-    public SwaggerHandler(SwaggerResourcesProvider swaggerResources) {
+    public SwaggerController(SwaggerResourcesProvider swaggerResources) {
         this.swaggerResources = swaggerResources;
     }
 
 
-    @GetMapping("/swagger-resources/configuration/security")
+    @GetMapping("/configuration/security")
     public Mono<ResponseEntity<SecurityConfiguration>> securityConfiguration() {
         return Mono.just(new ResponseEntity<>(
                 Optional.ofNullable(securityConfiguration).orElse(SecurityConfigurationBuilder.builder().build()), HttpStatus.OK));
     }
 
-    @GetMapping("/swagger-resources/configuration/ui")
+    @GetMapping("/configuration/ui")
     public Mono<ResponseEntity<UiConfiguration>> uiConfiguration() {
         return Mono.just(new ResponseEntity<>(
                 Optional.ofNullable(uiConfiguration).orElse(UiConfigurationBuilder.builder().build()), HttpStatus.OK));
     }
 
-    @GetMapping("/swagger-resources")
+    @GetMapping("")
     public Mono<ResponseEntity> swaggerResources() {
         return Mono.just((new ResponseEntity<>(swaggerResources.get(), HttpStatus.OK)));
     }

@@ -16,6 +16,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * swagger配置
+ *
+ * @author pangu
+ */
 @Slf4j
 @Component
 @Primary
@@ -43,14 +48,18 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
         this.routeLocator = routeLocator;
     }
 
+    private final static String EXCLUDE_MODULE = "mate-admin";
+
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
         List<String> routeHosts = new ArrayList<>();
         // 由于我的网关采用的是负载均衡的方式，因此我需要拿到所有应用的serviceId
         // 获取所有可用的host：serviceId
+        // 当前排除掉mate-admin模块的doc
         routeLocator.getRoutes().filter(route -> route.getUri().getHost() != null)
                 .filter(route -> !self.equals(route.getUri().getHost()))
+                .filter(route -> !route.getUri().getHost().equalsIgnoreCase(EXCLUDE_MODULE))
                 .subscribe(route -> routeHosts.add(route.getUri().getHost()));
 
         // 记录已经添加过的server，存在同一个应用注册了多个服务在nacos上

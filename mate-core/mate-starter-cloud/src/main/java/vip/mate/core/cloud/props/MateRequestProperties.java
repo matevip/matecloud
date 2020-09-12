@@ -18,12 +18,12 @@ public class MateRequestProperties {
     /**
      * 是否开启日志链路追踪
      */
-    private Boolean isTraceId = false;
+    private Boolean trace = false;
 
     /**
      * 是否启用获取IP地址
      */
-    private Boolean isGetIp = false;
+    private Boolean ip = false;
 
     /**
      * 是否启用增强模式

@@ -17,6 +17,7 @@ import java.util.UUID;
 
 /**
  * 给请求增加IP地址和TraceId
+ *
  * @author pangu
  * @since 2020-7-13
  */
@@ -29,18 +30,15 @@ public class PreRequestFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        /**
-         * 是否开启traceId跟踪
-         */
-        if (mateRequestProperties.getIsTraceId()) {
-            // 链路追踪id
-            String traceId = UUID.randomUUID().toString().replace("-","");
+        // 是否开启traceId追踪
+        if (mateRequestProperties.getTrace()) {
+            // ID生成
+            String traceId = UUID.randomUUID().toString().replace("-", "");
             MDC.put(MateConstant.LOG_TRACE_ID, traceId);
             ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                     .headers(h -> h.add(MateConstant.MATE_TRACE_ID, traceId))
                     .build();
             ServerWebExchange build = exchange.mutate().request(serverHttpRequest).build();
-//            log.error("gateway-----------------------------,traceId:{}", MDC.get(MateConstant.LOG_TRACE_ID));
             return chain.filter(build);
         }
         return chain.filter(exchange);

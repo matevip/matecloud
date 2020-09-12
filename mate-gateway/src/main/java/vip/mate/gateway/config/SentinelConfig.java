@@ -28,6 +28,7 @@ import java.util.Set;
 
 /**
  * SGW Sentinel配置
+ * @author pangu
  */
 @Configuration
 public class SentinelConfig {

@@ -28,7 +28,7 @@ public class TraceFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return !mateRequestProperties.getIsTraceId();
+        return !mateRequestProperties.getTrace();
     }
 
     @Override

@@ -25,6 +25,11 @@ import vip.mate.gateway.handler.JsonErrorExceptionHandler;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 自定义异常配置
+ *
+ * @author pangu
+ */
 @Configuration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @ConditionalOnClass(WebFluxConfigurer.class)
@@ -43,10 +48,10 @@ public class CustomErrorConfig {
     private final ServerCodecConfigurer serverCodecConfigurer;
 
     public CustomErrorConfig(ServerProperties serverProperties,
-                                               ResourceProperties resourceProperties,
-                                               ObjectProvider<ViewResolver> viewResolversProvider,
-                                               ServerCodecConfigurer serverCodecConfigurer,
-                                               ApplicationContext applicationContext) {
+                             ResourceProperties resourceProperties,
+                             ObjectProvider<ViewResolver> viewResolversProvider,
+                             ServerCodecConfigurer serverCodecConfigurer,
+                             ApplicationContext applicationContext) {
         this.serverProperties = serverProperties;
         this.applicationContext = applicationContext;
         this.resourceProperties = resourceProperties;
