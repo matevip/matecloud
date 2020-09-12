@@ -1,6 +1,7 @@
 package vip.mate.admin.config;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.cloud.nacos.discovery.NacosWatch;
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -44,7 +45,8 @@ public class SecurityPermitAllConfiguration extends WebSecurityConfigurerAdapter
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnProperty(value = "spring.cloud.nacos.discovery.watch.enabled", matchIfMissing = true)
-    public NacosWatch nacosWatch(NacosDiscoveryProperties nacosDiscoveryProperties) {
-        return new NacosWatch(nacosDiscoveryProperties);
+    public NacosWatch nacosWatch(NacosServiceManager nacosServiceManager,
+                                 NacosDiscoveryProperties properties) {
+        return new NacosWatch(nacosServiceManager, properties);
     }
 }

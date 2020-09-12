@@ -14,6 +14,11 @@ import vip.mate.core.common.api.Result;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Sentinel配置
+ *
+ * @author pangu
+ */
 @Configuration
 public class SentinelConfiguration {
 
