@@ -12,8 +12,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import vip.mate.core.cloud.props.MateRequestProperties;
 import vip.mate.core.common.constant.MateConstant;
-
-import java.util.UUID;
+import vip.mate.core.common.util.UUIDUtil;
 
 /**
  * 给请求增加IP地址和TraceId
@@ -33,7 +32,7 @@ public class PreRequestFilter implements GlobalFilter, Ordered {
         // 是否开启traceId追踪
         if (mateRequestProperties.getTrace()) {
             // ID生成
-            String traceId = UUID.randomUUID().toString().replace("-", "");
+            String traceId = UUIDUtil.shortUuid();
             MDC.put(MateConstant.LOG_TRACE_ID, traceId);
             ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                     .headers(h -> h.add(MateConstant.MATE_TRACE_ID, traceId))

@@ -10,6 +10,7 @@ import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.constant.TenantConstant;
 import vip.mate.core.common.context.TenantContextHolder;
 import vip.mate.core.common.util.StringUtil;
+import vip.mate.core.common.util.TraceUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -48,7 +49,7 @@ public class FeignInterceptorConfiguration {
                             if (headerName.equalsIgnoreCase(MateConstant.MATE_TRACE_ID)) {
                                 traceId = request.getHeader(headerName);
                                 requestTemplate.header(MateConstant.MATE_TRACE_ID, traceId);
-                                MDC.put(MateConstant.LOG_TRACE_ID, traceId);
+                                TraceUtil.mdcTraceId(traceId);
                             }
                         }
                     }

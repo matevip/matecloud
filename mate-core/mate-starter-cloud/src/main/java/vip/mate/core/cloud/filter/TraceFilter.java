@@ -1,12 +1,11 @@
 package vip.mate.core.cloud.filter;
 
-import com.alibaba.csp.sentinel.util.StringUtil;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.web.filter.OncePerRequestFilter;
 import vip.mate.core.cloud.props.MateRequestProperties;
-import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.util.TraceUtil;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -35,10 +34,8 @@ public class TraceFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         try{
-            String traceId = request.getParameter(MateConstant.MATE_TRACE_ID);
-            if (StringUtil.isNotEmpty(traceId)) {
-                MDC.put(MateConstant.LOG_TRACE_ID, traceId);
-            }
+            String traceId = TraceUtil.getTraceId(request);
+            TraceUtil.mdcTraceId(traceId);
             filterChain.doFilter(request, response);
         } finally {
             MDC.clear();

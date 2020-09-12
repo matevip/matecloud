@@ -15,6 +15,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import vip.mate.core.feign.endpoint.FeignClientEndpoint;
 
+/**
+ * Feign配置类
+ *
+ * @author xuzhanfu
+ */
 @Configuration
 @ConditionalOnClass(Feign.class)
 @Import(MateFeignClientsRegistrar.class)

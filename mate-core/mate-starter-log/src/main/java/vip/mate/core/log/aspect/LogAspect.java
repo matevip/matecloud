@@ -126,9 +126,10 @@ public class LogAspect {
         .setExecuteTime(tookTime)
         .setTitle(logAnn.value())
         .setParams(JSON.toJSONString(requestParam));
+        log.info("Http Request: {}", JSONObject.toJSONString(commonLog));
         // 发布事件
         applicationContext.publishEvent(new LogEvent(commonLog));
-        log.info("Request Result: {}", commonLog);
+
         return result;
     }
 
@@ -166,10 +167,12 @@ public class LogAspect {
         .setLocation(region)
         .setMethod(method)
         .setUrl(url)
-        .setTraceId(request.getHeader(MateConstant.MATE_TRACE_ID))
+        .setTraceId(TraceUtil.getTraceId(request))
         .setType("2")
         .setTitle(logAnn.value())
         .setException(ThrowableUtil.getStackTrace(e));
+        //设置MDC
+        TraceUtil.mdcTraceId(TraceUtil.getTraceId(request));
         // 发布事件
         applicationContext.publishEvent(new LogEvent(commonLog));
         log.info("Error Result: {}", commonLog);

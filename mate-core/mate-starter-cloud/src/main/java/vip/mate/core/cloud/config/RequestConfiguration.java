@@ -24,4 +24,5 @@ public class RequestConfiguration {
     public TraceFilter traceFilter() {
         return new TraceFilter();
     }
+
 }
