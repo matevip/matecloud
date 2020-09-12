@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class PreviewAspect {
 
-    @Value("${mate.isPreview}")
+    @Value("${mate.preview.enable}")
     private boolean isPreview = false;
 
     @Around(
