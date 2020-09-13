@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "CommonLog对象", description = "普通日志封装")
-public class CommonLog {
+public class CommonLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

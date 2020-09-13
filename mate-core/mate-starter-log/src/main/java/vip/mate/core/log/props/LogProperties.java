@@ -21,7 +21,7 @@ public class LogProperties {
     /**
      * 是否启用
      */
-    private Boolean enable = true;
+    private Boolean enable = false;
 
     /**
      * 记录日志类型

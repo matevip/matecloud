@@ -3,30 +3,37 @@ package org.apache.dubbo.config.spring.beans.factory.annotation;
 import feign.Feign;
 import feign.Target;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
-import org.apache.dubbo.config.spring.context.annotation.DubboComponentScan;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.ReflectionUtils;
+
+import java.util.Objects;
 
 import static com.alibaba.spring.util.AnnotationUtils.getAttributes;
 import static org.springframework.core.annotation.AnnotationAttributes.fromMap;
 
+/**
+ * Dubbo、Feign整合类
+ *
+ * @author pangu
+ */
 @Slf4j
 public class DubboFeignBuilder extends Feign.Builder {
+
     @Autowired
+    @SuppressWarnings("all")
     private ApplicationContext applicationContext;
 
-    public Reference defaultReference;
+    public DubboReference defaultReference;
 
-    final class DefaultReferenceClass{
-        @Reference(check = false)
+    static final class DefaultReferenceClass {
+        @DubboReference(check = false)
         String field;
     }
 
     public DubboFeignBuilder() {
-        this.defaultReference = ReflectionUtils.findField(DefaultReferenceClass.class,"field").getAnnotation(Reference.class);
+        this.defaultReference = Objects.requireNonNull(ReflectionUtils.findField(DefaultReferenceClass.class, "field")).getAnnotation(DubboReference.class);
     }
 
 

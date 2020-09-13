@@ -128,7 +128,7 @@ public class LogAspect {
         .setParams(JSON.toJSONString(requestParam));
         log.info("Http Request: {}", JSONObject.toJSONString(commonLog));
         // 发布事件
-        applicationContext.publishEvent(new LogEvent(commonLog));
+//        applicationContext.publishEvent(new LogEvent(commonLog));
 
         return result;
     }
@@ -174,7 +174,7 @@ public class LogAspect {
         //设置MDC
         TraceUtil.mdcTraceId(TraceUtil.getTraceId(request));
         // 发布事件
-        applicationContext.publishEvent(new LogEvent(commonLog));
+//        applicationContext.publishEvent(new LogEvent(commonLog));
         log.info("Error Result: {}", commonLog);
     }
 
