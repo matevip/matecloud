@@ -47,7 +47,6 @@ import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @SuppressWarnings("all")
     private IgnoreUrlPropsConfig ignoreUrlPropsConfig;
 
     @Bean
@@ -56,11 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    @SuppressWarnings("all")
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Autowired
-    @SuppressWarnings("all")
     private SocialAuthenticationSecurityConfig socialAuthenticationSecurityConfig;
 
     /**
