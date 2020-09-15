@@ -18,6 +18,10 @@
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
             <artifactId>mate-starter-sentinel</artifactId>
         </dependency>
         <!-- Nacos -->

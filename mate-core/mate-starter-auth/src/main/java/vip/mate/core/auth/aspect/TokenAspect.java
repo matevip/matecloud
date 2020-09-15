@@ -10,6 +10,10 @@ import vip.mate.core.common.util.SecurityUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * token验证切面
+ * @author xuzhanfu
+ */
 @Slf4j
 @Aspect
 @Component

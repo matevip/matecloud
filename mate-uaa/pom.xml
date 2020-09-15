@@ -34,10 +34,6 @@
             <artifactId>mate-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-database</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
         </dependency>

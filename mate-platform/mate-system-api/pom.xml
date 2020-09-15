@@ -19,6 +19,11 @@
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-feign</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
             <artifactId>mate-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
