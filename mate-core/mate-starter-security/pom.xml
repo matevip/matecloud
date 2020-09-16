@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-cloud</artifactId>
+            <artifactId>mate-starter-common</artifactId>
         </dependency>
         <!--安全模块 -->
 <!--        <dependency>-->
