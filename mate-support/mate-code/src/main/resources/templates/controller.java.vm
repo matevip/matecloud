@@ -17,7 +17,15 @@
 package ${package.Controller};
 
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import org.springframework.web.bind.annotation.*;
+import lombok.AllArgsConstructor;
+
+import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.common.api.Result;
+import vip.mate.core.database.entity.Search;
+import vip.mate.core.log.annotation.Log;
 
 #if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +35,7 @@ import org.springframework.stereotype.Controller;
 #if(${superControllerClassPackage})
 import ${superControllerClassPackage};
 #end
+import $!{package.Service}.$!{table.serviceName};
 
 /**
  * <p>
@@ -41,17 +50,89 @@ import ${superControllerClassPackage};
 #else
 @Controller
 #end
+@AllArgsConstructor
 @RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
 @Api(value = "$!{table.comment}", tags = "$!{table.comment}接口")
 #if(${kotlin})
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 #else
-    #if(${superControllerClass})
-    public class ${table.controllerName} extends ${superControllerClass} {
-    #else
-    public class ${table.controllerName} {
-    #end
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
 
-        }
+    private final $!{table.serviceName} $!{table.entityPath}Service;
+
+    /**
+     * 分页列表
+     *
+     * @param page   分页信息
+     * @param search 　搜索关键词
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "$!{table.comment}列表", exception = "$!{table.comment}列表请求异常")
+    @GetMapping("/page")
+    @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
+        @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
+        @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
+        @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
+        @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    })
+    public Result<?> page(Page page, Search search) {
+		return Result.data($!{table.entityPath}Service.listPage(page, search));
+    }
+
+    /**
+     * $!{table.comment}信息
+     *
+     * @param id Id
+     * @return Result
+     */
+    @EnableToken
+    @Log(value = "$!{table.comment}信息", exception = "$!{table.comment}信息请求异常")
+    @GetMapping("/get")
+    @ApiOperation(value = "$!{table.comment}信息", notes = "根据ID查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
+    })
+    public Result<?> get(@RequestParam String id) {
+		return Result.data($!{table.entityPath}Service.getById(id));
+	}
+
+    /**
+    * $!{table.comment}设置
+    *
+    * @param $!{table.entityPath} $!{entity} 对象
+    * @return Result
+    */
+    @EnableToken
+    @Log(value = "$!{table.comment}设置", exception = "$!{table.comment}设置请求异常")
+    @PostMapping("/set")
+    @ApiOperation(value = "$!{table.comment}设置", notes = "$!{table.comment}设置,支持新增或修改")
+    public Result<?> set(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
+		return Result.condition($!{table.comment}Service.saveAll($!{table.entityPath}));
+	}
+
+    /**
+    * $!{table.comment}删除
+    *
+    * @param ids id字符串，根据,号分隔
+    * @return Result
+    */
+    @EnableToken
+    @Log(value = "$!{table.comment}删除", exception = "$!{table.comment}删除请求异常")
+    @PostMapping("/del")
+    @ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    })
+    public Result<?> del(@RequestParam String ids) {
+		return Result.condition($!{table.comment}Service.removeByIds(CollectionUtil.stringToCollection(ids)));
+	}
+}
 
 #end

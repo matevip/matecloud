@@ -21,6 +21,12 @@ import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import vip.mate.core.common.util.StringUtil;
 
 /**
  * <p>
@@ -34,9 +40,21 @@ import org.springframework.stereotype.Service;
 #if(${kotlin})
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
 
-        }
+}
 #else
-        public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
-        }
+		@Override
+		public IPage<${entity}> listPage(Page page, Search search) {
+			LambdaQueryWrapper<${entity}> queryWrapper = new LambdaQueryWrapper<>();
+			if (StringUtil.isNotBlank(search.getStartDate())) {
+				queryWrapper.between(${entity}::getCreateTime, search.getStartDate(), search.getEndDate());
+			}
+			if (StringUtil.isNotBlank(search.getKeyword())) {
+				queryWrapper.like(${entity}::getId, search.getKeyword());
+			}
+			queryWrapper.orderByDesc(${entity}::getCreateTime);
+			return this.baseMapper.selectPage(page, queryWrapper);
+		}
+}
 #end

@@ -22,6 +22,12 @@ public interface ISysUserService extends IService<SysUser> {
 
     boolean status(String ids, String status);
 
+    /**
+     * 分页业务方法
+     * @param page　分页参数
+     * @param search　搜索参数
+     * @return IPage
+     */
     IPage<SysUser> listPage(Page page, Search search);
 
     List<SysUserPOI> export();
