@@ -30,7 +30,7 @@ QQ群：2003638
 
 ### 技术架构
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/matecloud-framework.png" />
+    <img src="https://cdn.ckjia.com/matecloud-framework.jpg" />
 </p>
 
 ### 功能特点

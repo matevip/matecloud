@@ -19,13 +19,16 @@ package ${package.Controller};
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
 
 import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.web.util.CollectionUtil;
 
 #if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +39,8 @@ import org.springframework.stereotype.Controller;
 import ${superControllerClassPackage};
 #end
 import $!{package.Service}.$!{table.serviceName};
+import ${package.Entity}.${entity};
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -114,7 +119,7 @@ public class ${table.controllerName} {
     @PostMapping("/set")
     @ApiOperation(value = "$!{table.comment}设置", notes = "$!{table.comment}设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-		return Result.condition($!{table.comment}Service.saveAll($!{table.entityPath}));
+		return Result.condition($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath}));
 	}
 
     /**
@@ -131,7 +136,7 @@ public class ${table.controllerName} {
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     public Result<?> del(@RequestParam String ids) {
-		return Result.condition($!{table.comment}Service.removeByIds(CollectionUtil.stringToCollection(ids)));
+		return Result.condition($!{table.entityPath}Service.removeByIds(CollectionUtil.stringToCollection(ids)));
 	}
 }
 
