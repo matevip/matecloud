@@ -22,4 +22,10 @@ public class Search implements Serializable {
 
     @ApiModelProperty(value = "结束日期")
     private String endDate;
+
+    @ApiModelProperty(value = "排序属性")
+    private String prop;
+
+    @ApiModelProperty(value = "排序方式：asc,desc")
+    private String order;
 }

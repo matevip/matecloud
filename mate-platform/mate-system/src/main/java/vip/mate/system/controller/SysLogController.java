@@ -48,6 +48,8 @@ public class SysLogController extends BaseController {
             @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+            @ApiImplicitParam(name = "prop", required = true, value = "排序属性", paramType = "form"),
+            @ApiImplicitParam(name = "order", required = true, value = "排序方式", paramType = "form"),
     })
     public Result<?> page(Page page, Search search) {
         return Result.data(sysLogService.listPage(page, search));

@@ -33,6 +33,13 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
             queryWrapper.or();
             queryWrapper.like(SysLog::getTraceId, search.getKeyword());
         }
+        if (StringUtil.isNotBlank(search.getProp())) {
+            if ("asc".equalsIgnoreCase(search.getOrder())) {
+                queryWrapper.orderByAsc(SysLog::getCreateTime);
+            } else {
+                queryWrapper.orderByDesc(SysLog::getCreateTime);
+            }
+        }
         queryWrapper.orderByDesc(SysLog::getCreateTime);
         return this.baseMapper.selectPage(page, queryWrapper);
     }

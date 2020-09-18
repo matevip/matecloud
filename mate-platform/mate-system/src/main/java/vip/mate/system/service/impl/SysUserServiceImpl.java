@@ -63,6 +63,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             queryWrapper.or();
             queryWrapper.like(SysUser::getId, search.getKeyword());
         }
+        // 根据排序字段进行排序
+        if (StringUtil.isNotBlank(search.getProp())) {
+            if ("asc".equalsIgnoreCase(search.getOrder())) {
+                queryWrapper.orderByAsc(SysUser::getId);
+            } else {
+                queryWrapper.orderByDesc(SysUser::getId);
+            }
+        }
         IPage<SysUser> sysUserIPage = this.baseMapper.selectPage(page, queryWrapper);
         List<SysUser> sysUserList = sysUserIPage.getRecords().stream().map(sysUser -> {
             sysUser.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
