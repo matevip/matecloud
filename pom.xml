@@ -29,8 +29,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
-
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -92,18 +90,17 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.boot.version}</version>
                     <configuration>
                         <fork>true</fork>
                         <finalName>${project.build.finalName}</finalName>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>repackage</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
                 </plugin>
                 <plugin>
                     <groupId>com.spotify</groupId>

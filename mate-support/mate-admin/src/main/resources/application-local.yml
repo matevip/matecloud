@@ -14,8 +14,8 @@ spring:
               environment: local
   security:
     user:
-      name: "admin"
-      password: "admin"
+      name: admin
+      password: matecloud
 
 management:
   endpoints:

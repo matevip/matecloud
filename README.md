@@ -4,9 +4,9 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.3.RELEASE-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.4.RELEASE-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR8-blue" alt="SpringCloud"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.2.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
 ## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
@@ -34,7 +34,7 @@ QQ群：2003638
 </p>
 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.3.RELEASE, Spring Cloud Alibaba 2.2.2.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.4.RELEASE, Spring Cloud Alibaba 2.2.3.RELEASE版本进行系统设计；
 
 - 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.3.RELEASE</version>
+        <version>2.3.4.RELEASE</version>
         <relativePath />
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -20,9 +20,9 @@
         <matecloud.core.version>1.0.1</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
+        <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
-        <alibaba.cloud.version>2.2.2.RELEASE</alibaba.cloud.version>
+        <alibaba.cloud.version>2.2.3.RELEASE</alibaba.cloud.version>
 
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -444,13 +444,6 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.alibaba.spring</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>1.0.10</version>
-            </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
