@@ -2,7 +2,7 @@ server:
   port: 20002
 spring:
   application:
-    name: @artifactId@
+    name: ${artifactId}
 #数据源配置
   datasource:
     url: ${mate.datasource.url}
