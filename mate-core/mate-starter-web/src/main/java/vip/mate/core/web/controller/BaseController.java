@@ -1,8 +1,11 @@
 package vip.mate.core.web.controller;
 
-import io.undertow.util.DateUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.util.DateUtil;
+
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
 
@@ -25,7 +28,7 @@ public class BaseController {
             @Override
             public void setAsText(String text)
             {
-                setValue(DateUtils.parseDate(text));
+                setValue(DateUtil.parseLocalDateTime(text, DateUtil.DATETIME_FORMATTER));
             }
         });
     }

@@ -5,13 +5,18 @@
     <parent>
         <artifactId>mate-core</artifactId>
         <groupId>vip.mate</groupId>
-        <version>1.1.8</version>
+        <version>1.2.8.SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mate-starter-rocketmq</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-common</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
