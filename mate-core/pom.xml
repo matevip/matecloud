@@ -33,6 +33,7 @@
         <module>mate-starter-dozer</module>
         <module>mate-starter-rule</module>
         <module>mate-starter-sentinel</module>
+        <module>mate-starter-seata</module>
     </modules>
 
     <properties>

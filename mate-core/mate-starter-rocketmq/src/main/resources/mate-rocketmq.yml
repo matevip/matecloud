@@ -32,4 +32,6 @@ spring:
           email-input:
             consumer:
               orderly: true
+          binder:
+            name-server: 127.0.0.1:9876
 
