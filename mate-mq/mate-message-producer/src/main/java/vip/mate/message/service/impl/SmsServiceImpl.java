@@ -1,7 +1,7 @@
 package vip.mate.message.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.springframework.cloud.stream.annotation.Output;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import vip.mate.core.rocketmq.channel.MateSource;
@@ -17,6 +17,8 @@ import vip.mate.message.service.ISmsService;
 public class SmsServiceImpl implements ISmsService {
 
 	private final MateSource source;
+
+	private final RocketMQTemplate rocketMQTemplate;
 
 	@Override
 	public void sendSms(String message) {

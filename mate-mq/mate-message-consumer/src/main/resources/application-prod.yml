@@ -1,0 +1,10 @@
+server:
+  port: 40003
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
