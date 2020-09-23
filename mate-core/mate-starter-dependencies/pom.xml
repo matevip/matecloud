@@ -73,6 +73,7 @@
         <transmittable.version>2.11.5</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.7.1</rocketmq.version>
+        <prometheus.version>1.5.5</prometheus.version>
     </properties>
 
     <dependencyManagement>
@@ -176,6 +177,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-sentinel</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-prometheus</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
@@ -454,6 +460,11 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-acl</artifactId>
                 <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>${prometheus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
