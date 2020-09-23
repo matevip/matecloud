@@ -1,0 +1,24 @@
+[
+  {
+    "targets": [
+      "127.0.0.1:10001"
+    ],
+    "labels": {
+      "job":"spring-boot-service",
+      "env":"local",
+      "application":"mate-gateway",
+      "instance":"127.0.0.1:10001"
+    }
+  },
+  {
+    "targets": [
+      "127.0.0.1:20001"
+    ],
+    "labels": {
+      "job":"spring-boot-service",
+      "env":"local",
+      "application":"uaa-server",
+      "instance":"127.0.0.1:20001"
+    }
+  }
+]

@@ -34,6 +34,7 @@
         <module>mate-starter-rule</module>
         <module>mate-starter-sentinel</module>
         <module>mate-starter-seata</module>
+        <module>mate-starter-prometheus</module>
     </modules>
 
     <properties>
