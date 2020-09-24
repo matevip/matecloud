@@ -12,6 +12,7 @@ import org.apache.dubbo.config.spring.context.annotation.DubboClassPathBeanDefin
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.BeanClassLoaderAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.*;
 import org.springframework.beans.factory.support.*;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -67,6 +68,7 @@ public class DubboFeignProviderBeanPostProcessor implements BeanDefinitionRegist
 
     private ClassLoader classLoader;
 
+    @Autowired
     private final DubboService defaultService;
 
     public DubboFeignProviderBeanPostProcessor(String... packagesToScan) {
