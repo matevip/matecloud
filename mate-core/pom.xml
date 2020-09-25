@@ -35,6 +35,7 @@
         <module>mate-starter-sentinel</module>
         <module>mate-starter-seata</module>
         <module>mate-starter-prometheus</module>
+        <module>mate-starter-job</module>
     </modules>
 
     <properties>
