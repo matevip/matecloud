@@ -13,7 +13,7 @@ logging:
 mate:
   job:
     admin:
-      addresses: http://localhost:30011/xxl-job-admin
+      addresses: http://localhost:30008/
     accessToken: ''
     executor:
       appname: ${spring.application.name}

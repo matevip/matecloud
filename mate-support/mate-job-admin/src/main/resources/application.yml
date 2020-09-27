@@ -1,8 +1,8 @@
 #web
 server:
-  port: 30007
+  port: 30008
   servlet:
-    context-path: /xxl-job-admin
+    context-path: /
 spring:
   application:
     name: @artifactId@
