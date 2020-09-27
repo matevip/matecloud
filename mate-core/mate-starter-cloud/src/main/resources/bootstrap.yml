@@ -21,6 +21,8 @@ spring:
       discovery:
         namespace: @config.namespace@
         server-addr: @config.server-addr@
+        watch:
+          enabled: false
     sentinel:
       # 是否开启sentinel
       enabled: true
