@@ -31,6 +31,11 @@ public class MessageConstant {
 	public static final String EMAIL_MESSAGE = "email";
 
 	/**
+	 * 订单消息
+	 */
+	public static final String ORDER_MESSAGE = "order";
+
+	/**
 	 * 生产者标识
 	 */
 	public static final String OUTPUT = "output";
@@ -51,6 +56,11 @@ public class MessageConstant {
 	public static final String EMAIL_MESSAGE_OUTPUT = EMAIL_MESSAGE + StringPool.DASH + OUTPUT;
 
 	/**
+	 * 订单生产者
+	 */
+	public static final String ORDER_MESSAGE_OUTPUT = ORDER_MESSAGE + StringPool.DASH + OUTPUT;
+
+	/**
 	 * 短信消费者
 	 */
 	public static final String SMS_MESSAGE_INPUT = SMS_MESSAGE + StringPool.DASH + INPUT;
@@ -59,6 +69,16 @@ public class MessageConstant {
 	 * 邮件消费者
 	 */
 	public static final String EMAIL_MESSAGE_INPUT = EMAIL_MESSAGE + StringPool.DASH + INPUT;
+
+	/**
+	 * 订单消费者
+	 */
+	public static final String ORDER_MESSAGE_INPUT = ORDER_MESSAGE + StringPool.DASH + INPUT;
+
+	/**
+	 * 订单组
+	 */
+	public static final String ORDER_BINDER_GROUP = ORDER_MESSAGE + StringPool.DASH + "binder-group";
 
 
 }

@@ -11,12 +11,18 @@ import vip.mate.core.rocketmq.constant.MessageConstant;
  */
 public interface MateSink {
 
+	String SMS_MESSAGE_INPUT = MessageConstant.SMS_MESSAGE_INPUT;
+
+	String EMAIL_MESSAGE_INPUT = MessageConstant.EMAIL_MESSAGE_INPUT;
+
+	String ORDER_MESSAGE_INPUT = MessageConstant.ORDER_MESSAGE_INPUT;
+
 	/**
 	 * 短消息消费者
 	 *
 	 * @return SubscribableChannel
 	 */
-	@Input(MessageConstant.SMS_MESSAGE_INPUT)
+	@Input(SMS_MESSAGE_INPUT)
 	SubscribableChannel smsInput();
 
 	/**
@@ -24,6 +30,14 @@ public interface MateSink {
 	 *
 	 * @return SubscribableChannel
 	 */
-	@Input(MessageConstant.EMAIL_MESSAGE_INPUT)
+	@Input(EMAIL_MESSAGE_INPUT)
 	SubscribableChannel emailInput();
+
+	/**
+	 * 订单消费者
+	 *
+	 * @return SubscribableChannel
+	 */
+	@Input(ORDER_MESSAGE_INPUT)
+	SubscribableChannel orderInput();
 }
