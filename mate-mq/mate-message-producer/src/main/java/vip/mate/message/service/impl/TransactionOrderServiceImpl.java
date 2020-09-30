@@ -7,6 +7,7 @@ import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.rocketmq.channel.MateSource;
 import vip.mate.core.rocketmq.constant.MessageConstant;
 import vip.mate.core.rocketmq.entity.Order;
 import vip.mate.message.service.ITransactionOrderService;
@@ -24,6 +25,8 @@ import java.util.UUID;
 public class TransactionOrderServiceImpl implements ITransactionOrderService {
 
 	private final RocketMQTemplate rocketMQTemplate;
+
+	private final MateSource mateSource;
 
 	/**
 	 * 这里消息发送只是half发送，
@@ -51,5 +54,26 @@ public class TransactionOrderServiceImpl implements ITransactionOrderService {
 
 		log.info("half消息发送成功");
 
+	}
+
+	@Override
+	public void testStreamTransaction() {
+
+		Order order = Order.builder()
+				.id(1L)
+				.goodsId(100L)
+				.goodsPrice(BigDecimal.valueOf(100.00))
+				.tradeId(100L)
+				.number(2)
+				.createTime(LocalDateTime.now())
+				.build();
+		// 事务id
+		String transactionId = UUID.randomUUID().toString();
+		mateSource.orderOutput().send(
+				MessageBuilder.withPayload(order)
+						.setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId)
+						.setHeader("share_id", 3).build()
+		);
+		log.info("half消息发送成功");
 	}
 }

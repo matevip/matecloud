@@ -28,7 +28,7 @@ public class SmsController {
 
 	@GetMapping("/send/order")
 	public Result<?> sendOrder() {
-		transactionOrderService.testTransaction();
+		transactionOrderService.testStreamTransaction();
 		return Result.success("操作成功");
 	}
 

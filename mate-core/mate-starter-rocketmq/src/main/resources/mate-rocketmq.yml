@@ -22,7 +22,7 @@ spring:
         order-input:
           destination: order-topic
           content-type: text/plain
-          group: order-group
+          group: order-binder-group
       rocketmq:
         bindings:
           sms-output:
