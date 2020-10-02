@@ -13,74 +13,74 @@ import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.redis.core.RedisService;
-import vip.mate.core.security.sms.SmsCodeAuthenticationToken;
+import vip.mate.uaa.sms.SmsCodeAuthenticationToken;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * 手机号验证码登录TokenGranter
+ *
  * @author pangu
  * @since 2020-7-21
  */
 public class SmsCodeTokenGranter extends AbstractTokenGranter {
 
-    private static final String GRANT_TYPE = "sms";
+	private static final String GRANT_TYPE = "sms";
 
-    private final AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 
-    private RedisService redisService;
+	private RedisService redisService;
 
-    public SmsCodeTokenGranter(AuthenticationManager authenticationManager,
-                                  AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
-                                  OAuth2RequestFactory requestFactory, RedisService redisService) {
-        this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
-        this.redisService = redisService;
-    }
+	public SmsCodeTokenGranter(AuthenticationManager authenticationManager,
+	                           AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
+	                           OAuth2RequestFactory requestFactory, RedisService redisService) {
+		this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
+		this.redisService = redisService;
+	}
 
-    protected SmsCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
-                                  ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
-        super(tokenServices, clientDetailsService, requestFactory, grantType);
-        this.authenticationManager = authenticationManager;
-    }
+	protected SmsCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
+	                              ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
+		super(tokenServices, clientDetailsService, requestFactory, grantType);
+		this.authenticationManager = authenticationManager;
+	}
 
-    @Override
-    protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
-        Map<String, String> parameters = new LinkedHashMap<>(tokenRequest.getRequestParameters());
-        String mobile = parameters.get("mobile");
-        String code = parameters.get("code");
+	@Override
+	protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
+		Map<String, String> parameters = new LinkedHashMap<>(tokenRequest.getRequestParameters());
+		String mobile = parameters.get("mobile");
+		String code = parameters.get("code");
 
-        String codeFromRedis = redisService.get(Oauth2Constant.SMS_CODE_KEY + mobile).toString();
+		String codeFromRedis = redisService.get(Oauth2Constant.SMS_CODE_KEY + mobile).toString();
 
-        if (StringUtils.isBlank(code)) {
-            throw new UserDeniedAuthorizationException("请输入验证码");
-        }
-        if (codeFromRedis == null) {
-            throw new UserDeniedAuthorizationException("验证码已过期");
-        }
-        if (!StringUtils.equalsIgnoreCase(code, codeFromRedis)) {
-            throw new UserDeniedAuthorizationException("验证码不正确");
-        }
+		if (StringUtils.isBlank(code)) {
+			throw new UserDeniedAuthorizationException("请输入验证码");
+		}
+		if (codeFromRedis == null) {
+			throw new UserDeniedAuthorizationException("验证码已过期");
+		}
+		if (!StringUtils.equalsIgnoreCase(code, codeFromRedis)) {
+			throw new UserDeniedAuthorizationException("验证码不正确");
+		}
 
-        redisService.del(Oauth2Constant.SMS_CODE_KEY + mobile);
+		redisService.del(Oauth2Constant.SMS_CODE_KEY + mobile);
 
 
-        Authentication userAuth = new SmsCodeAuthenticationToken(mobile);
-        ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
-        try {
-            userAuth = authenticationManager.authenticate(userAuth);
-        }
-        catch (AccountStatusException | BadCredentialsException ase) {
-            //covers expired, locked, disabled cases (mentioned in section 5.2, draft 31)
-            throw new InvalidGrantException(ase.getMessage());
-        }
-        // If the username/password are wrong the spec says we should send 400/invalid grant
+		Authentication userAuth = new SmsCodeAuthenticationToken(mobile);
+		((AbstractAuthenticationToken) userAuth).setDetails(parameters);
+		try {
+			userAuth = authenticationManager.authenticate(userAuth);
+		} catch (AccountStatusException | BadCredentialsException ase) {
+			//covers expired, locked, disabled cases (mentioned in section 5.2, draft 31)
+			throw new InvalidGrantException(ase.getMessage());
+		}
+		// If the username/password are wrong the spec says we should send 400/invalid grant
 
-        if (userAuth == null || !userAuth.isAuthenticated()) {
-            throw new InvalidGrantException("Could not authenticate user: " + mobile);
-        }
+		if (userAuth == null || !userAuth.isAuthenticated()) {
+			throw new InvalidGrantException("Could not authenticate user: " + mobile);
+		}
 
-        OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
-        return new OAuth2Authentication(storedOAuth2Request, userAuth);
-    }
+		OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
+		return new OAuth2Authentication(storedOAuth2Request, userAuth);
+	}
 }

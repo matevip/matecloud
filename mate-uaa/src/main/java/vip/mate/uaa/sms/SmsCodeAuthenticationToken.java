@@ -1,4 +1,4 @@
-package vip.mate.core.security.sms;
+package vip.mate.uaa.sms;
 
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

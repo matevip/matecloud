@@ -33,9 +33,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import vip.mate.core.security.config.IgnoreUrlPropsConfig;
 import vip.mate.core.security.handle.MateAuthenticationFailureHandler;
 import vip.mate.core.security.handle.MateAuthenticationSuccessHandler;
-import vip.mate.core.security.sms.SmsCodeAuthenticationSecurityConfig;
-import vip.mate.core.security.social.SocialAuthenticationSecurityConfig;
 import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
+import vip.mate.uaa.sms.SmsCodeAuthenticationSecurityConfig;
+import vip.mate.uaa.social.SocialAuthenticationSecurityConfig;
 
 /**
  * 安全配置中心
