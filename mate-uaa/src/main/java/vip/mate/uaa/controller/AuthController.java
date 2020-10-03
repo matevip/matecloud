@@ -72,7 +72,7 @@ public class AuthController {
             userInfo = sysUserProvider.getUserByUserName(loginUser.getAccount()).getData();
         }
 
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(7);
         data.put("userName", loginUser.getAccount());
         data.put("avatar", userInfo.getSysUser().getAvatar());
         data.put("roleId", userInfo.getSysUser().getRoleId());

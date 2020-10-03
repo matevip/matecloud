@@ -22,6 +22,10 @@
             <artifactId>mate-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-system-api</artifactId>
+        </dependency>
     </dependencies>
 
 

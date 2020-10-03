@@ -14,7 +14,15 @@ import java.lang.annotation.*;
 @Documented
 public @interface PreAuth {
 
+	/**
+	 * 是否启用
+	 * @return boolean
+	 */
 	boolean enabled() default true;
 
-	String value() default "permit()";
+	/**
+	 * 验证用户是否授权
+	 * @return String
+	 */
+	public String hasPerm() default "";
 }
