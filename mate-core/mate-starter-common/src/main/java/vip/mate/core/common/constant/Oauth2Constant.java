@@ -127,7 +127,14 @@ public class Oauth2Constant {
 
     public static final String SELECT_CLIENT_DETAIL_SQL = CLIENT_BASE + " where client_id = ?";
 
+    /**
+     * 标志
+     */
+    public static final String FROM = "from";
 
-
+    /**
+     * 内部
+     */
+    public static final String FROM_IN = "Y";
 
 }
