@@ -36,6 +36,7 @@
         <module>mate-starter-seata</module>
         <module>mate-starter-prometheus</module>
         <module>mate-starter-job</module>
+        <module>mate-starter-mail</module>
     </modules>
 
     <properties>
