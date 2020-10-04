@@ -12,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.PatternMatchUtils;
 import org.springframework.util.StringUtils;
 import vip.mate.core.auth.annotation.PreAuth;
+import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.common.exception.TokenException;
 import vip.mate.core.common.util.SecurityUtil;
@@ -72,6 +73,11 @@ public class PreAuthAspect {
 
 		if (StringUtils.isEmpty(userInfo)) {
 			return false;
+		}
+
+		// 如果用户是超级管理员，则直接跳过权限验证
+		if (userInfo.getAccount().equalsIgnoreCase(Oauth2Constant.SUPER_ADMIN)) {
+			return true;
 		}
 		List<String> permissionList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(userInfo.getRoleId()));
 		return hasPermissions(permissionList, permission);

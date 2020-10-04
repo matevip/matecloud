@@ -116,6 +116,8 @@ public class Oauth2Constant {
 
     public static final String CAPTCHA_ERROR = "验证码不正确！";
 
+    public static final String SUPER_ADMIN = "admin";
+
     /**
      * 基础查询语句
      */
