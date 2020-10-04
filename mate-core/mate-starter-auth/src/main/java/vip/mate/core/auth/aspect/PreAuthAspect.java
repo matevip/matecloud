@@ -76,9 +76,9 @@ public class PreAuthAspect {
 		}
 
 		// 如果用户是超级管理员，则直接跳过权限验证
-		if (userInfo.getAccount().equalsIgnoreCase(Oauth2Constant.SUPER_ADMIN)) {
-			return true;
-		}
+//		if (userInfo.getAccount().equalsIgnoreCase(Oauth2Constant.SUPER_ADMIN)) {
+//			return true;
+//		}
 		List<String> permissionList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(userInfo.getRoleId()));
 		return hasPermissions(permissionList, permission);
 	}

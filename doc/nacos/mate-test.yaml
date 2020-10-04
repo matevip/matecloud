@@ -26,10 +26,3 @@ mate:
     enable: false
   tenant:
     enable: false
-
-jetcache:
-  remote:
-    default:
-      type: redis.lettuce
-      keyConvertor: fastjson
-      uri: redis://127.0.0.1:6379/
