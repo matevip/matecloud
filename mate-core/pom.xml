@@ -37,6 +37,7 @@
         <module>mate-starter-prometheus</module>
         <module>mate-starter-job</module>
         <module>mate-starter-mail</module>
+        <module>mate-starter-strategy</module>
     </modules>
 
     <properties>
