@@ -16,11 +16,14 @@ import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.common.exception.TokenException;
 import vip.mate.core.common.util.SecurityUtil;
-import vip.mate.system.feign.ISysRolePermissionProvider;
+import vip.mate.core.common.util.StringPool;
+import vip.mate.core.redis.core.RedisService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 自定义权限验证
@@ -40,7 +43,7 @@ public class PreAuthAspect {
 
 	private final HttpServletRequest request;
 
-	private final ISysRolePermissionProvider sysRolePermissionProvider;
+	private final RedisService redisService;
 
 	@Around("@annotation(vip.mate.core.auth.annotation.PreAuth)")
 	public Object around(ProceedingJoinPoint point) throws Throwable {
@@ -79,8 +82,10 @@ public class PreAuthAspect {
 //		if (userInfo.getAccount().equalsIgnoreCase(Oauth2Constant.SUPER_ADMIN)) {
 //			return true;
 //		}
-		List<String> permissionList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(userInfo.getRoleId()));
-		return hasPermissions(permissionList, permission);
+		Map<String, Object> data = (Map<String, Object>) redisService.get(Oauth2Constant.MATE_PERMISSION_PREFIX
+				+ userInfo.getAccount() + StringPool.DOT + userInfo.getRoleId());
+		List<String> authorities = (List<String>) data.get("permissions");
+		return hasPermissions(authorities, permission);
 	}
 
 	/**
@@ -90,8 +95,12 @@ public class PreAuthAspect {
 	 * @param permission  权限字符串
 	 * @return 用户是否具备某权限
 	 */
-	private boolean hasPermissions(List<String> authorities, String permission) {
+	private boolean hasPermissions(Collection<String> authorities, String permission) {
 		return authorities.stream().filter(StringUtils::hasText)
 				.anyMatch(x -> ALL_PERMISSION.contains(x) || PatternMatchUtils.simpleMatch(permission, x));
+//		return PatternMatchUtils.simpleMatch(permission, authorities);
 	}
+
+
+
 }

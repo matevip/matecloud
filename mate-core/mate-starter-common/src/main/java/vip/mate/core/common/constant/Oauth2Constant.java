@@ -139,4 +139,6 @@ public class Oauth2Constant {
      */
     public static final String FROM_IN = "Y";
 
+    public static final String MATE_PERMISSION_PREFIX = "mate.permission.";
+
 }
