@@ -1,4 +1,4 @@
-package vip.mate.core.security.social;
+package vip.mate.uaa.social;
 
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

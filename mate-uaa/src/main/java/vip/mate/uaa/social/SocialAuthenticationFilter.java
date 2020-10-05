@@ -1,4 +1,4 @@
-package vip.mate.core.security.social;
+package vip.mate.uaa.social;
 
 import com.alibaba.fastjson.JSON;
 import com.xkcoding.justauth.AuthRequestFactory;

@@ -1,4 +1,4 @@
-package vip.mate.core.security.social;
+package vip.mate.uaa.social;
 
 import com.xkcoding.justauth.AuthRequestFactory;
 import lombok.extern.slf4j.Slf4j;

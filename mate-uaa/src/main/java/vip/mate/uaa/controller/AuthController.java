@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.entity.LoginUser;
 import vip.mate.core.common.util.SecurityUtil;
+import vip.mate.core.common.util.StringPool;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.redis.core.RedisService;
 import vip.mate.system.dto.UserInfo;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
@@ -55,6 +58,8 @@ public class AuthController {
 
     private final SocialConfig socialConfig;
 
+    private final RedisService redisService;
+
     @Log(value = "用户信息", exception = "用户信息请求异常")
     @GetMapping("/get/user")
     @ApiOperation(value = "用户信息", notes = "用户信息")
@@ -72,7 +77,7 @@ public class AuthController {
             userInfo = sysUserProvider.getUserByUserName(loginUser.getAccount()).getData();
         }
 
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(7);
         data.put("userName", loginUser.getAccount());
         data.put("avatar", userInfo.getSysUser().getAvatar());
         data.put("roleId", userInfo.getSysUser().getRoleId());
@@ -80,6 +85,9 @@ public class AuthController {
         data.put("tenantId", userInfo.getSysUser().getTenantId());
         List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(userInfo.getSysUser().getRoleId()));
         data.put("permissions", stringList);
+        // 存入redis,以用于mate-starter-auth的PreAuthAspect查询权限使用
+        redisService.set(Oauth2Constant.MATE_PERMISSION_PREFIX + loginUser.getAccount()
+                + StringPool.DOT + userInfo.getSysUser().getRoleId(), data);
         return Result.data(data);
     }
 

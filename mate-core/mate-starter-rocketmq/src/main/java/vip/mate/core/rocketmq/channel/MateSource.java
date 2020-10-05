@@ -26,4 +26,12 @@ public interface MateSource {
 	 */
 	@Output(MessageConstant.EMAIL_MESSAGE_OUTPUT)
 	MessageChannel emailOutput();
+
+	/**
+	 * 订单通道
+	 *
+	 * @return MessageChannel
+	 */
+	@Output(MessageConstant.ORDER_MESSAGE_OUTPUT)
+	MessageChannel orderOutput();
 }

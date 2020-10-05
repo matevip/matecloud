@@ -1,5 +1,7 @@
 package vip.mate.core.common.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -9,6 +11,7 @@ import java.net.URL;
  * @author pangu
  * @link https://bbs.huaweicloud.com/blogs/104013
  */
+@Slf4j
 public class HttpUtil {
 
     /**
@@ -22,7 +25,6 @@ public class HttpUtil {
         try {
             URL url = new URL(requestUrl);
             HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
-            System.out.println(urlCon.getResponseCode());
             if (200 == urlCon.getResponseCode()) {
                 InputStream is = urlCon.getInputStream();
                 InputStreamReader isr = new InputStreamReader(is, charSetName);
@@ -40,7 +42,7 @@ public class HttpUtil {
                 throw new Exception("连接失败");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           log.error(e.getMessage());
         }
         return null;
     }
@@ -85,7 +87,7 @@ public class HttpUtil {
 
             return bos.toString("utf-8");
         } catch (Exception e) {
-            e.printStackTrace();
+           log.error(e.getMessage());
         }
         return null;
     }

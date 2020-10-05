@@ -12,12 +12,12 @@
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>1.2.8.SNAPSHOT</version>
+    <version>1.2.8-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>MateCloud统一版本依赖</description>
 
     <properties>
-        <matecloud.core.version>1.2.8.SNAPSHOT</matecloud.core.version>
+        <matecloud.core.version>1.2.8-SNAPSHOT</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
@@ -74,6 +74,8 @@
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.7.1</rocketmq.version>
         <prometheus.version>1.5.5</prometheus.version>
+
+        <jasypt.version>3.0.3</jasypt.version>
     </properties>
 
     <dependencyManagement>
@@ -187,6 +189,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-job</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-mail</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>
@@ -470,6 +477,11 @@
                 <groupId>io.micrometer</groupId>
                 <artifactId>micrometer-registry-prometheus</artifactId>
                 <version>${prometheus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

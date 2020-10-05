@@ -44,6 +44,7 @@ import vip.mate.uaa.granter.CaptchaTokenGranter;
 import vip.mate.uaa.granter.SmsCodeTokenGranter;
 import vip.mate.uaa.granter.SocialTokenGranter;
 import vip.mate.uaa.service.impl.ClientDetailsServiceImpl;
+import vip.mate.uaa.translator.MateWebRespExceptionTranslator;
 
 import java.util.*;
 
@@ -92,7 +93,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .tokenGranter(tokenGranter(endpoints))
                 .tokenStore(redisTokenStore())
-                .reuseRefreshTokens(false);
+                .reuseRefreshTokens(false)
+                .exceptionTranslator(new MateWebRespExceptionTranslator());
     }
 
     @Override

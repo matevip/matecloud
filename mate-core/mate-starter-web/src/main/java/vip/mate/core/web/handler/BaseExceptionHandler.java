@@ -42,7 +42,7 @@ public class BaseExceptionHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Result<?> handleException(TokenException ex) {
-        log.error("程序异常==>errorCode:{}, exception:{}", HttpStatus.UNAUTHORIZED.value(), ex);
+        log.error("程序异常==>errorCode:{}, exception:{}", HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
         return Result.fail(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
     }
 
@@ -53,7 +53,7 @@ public class BaseExceptionHandler {
      */
     @ExceptionHandler({FileNotFoundException.class, NoHandlerFoundException.class})
     public Result<?> noFoundException(Exception exception) {
-        log.error("程序异常==>errorCode:{}, exception:{}", HttpStatus.NOT_FOUND.value(), exception);
+        log.error("程序异常==>errorCode:{}, exception:{}", HttpStatus.NOT_FOUND.value(), exception.getMessage());
         return Result.fail(HttpStatus.NOT_FOUND.value(), exception.getMessage());
     }
 

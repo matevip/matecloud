@@ -22,8 +22,6 @@ public class SmsServiceImpl implements ISmsService {
 
 	@Override
 	public void sendSms(String message) {
-
 		source.smsOutput().send(MessageBuilder.withPayload(message).build());
-
 	}
 }

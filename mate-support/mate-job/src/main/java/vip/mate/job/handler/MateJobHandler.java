@@ -7,15 +7,17 @@ import org.springframework.stereotype.Component;
 
 /**
  * 定时任务执行类
+ *
+ * @author pangu
  */
 @Slf4j
 @Component
 public class MateJobHandler {
 
-    @XxlJob(value = "demoJobHandler")
-    public ReturnT<?> demoJobHandler (){
-        log.error("测试定时任务");
-        return ReturnT.SUCCESS;
-    }
+	@XxlJob(value = "demoJobHandler")
+	public ReturnT<?> demoJobHandler() {
+		log.error("测试定时任务");
+		return ReturnT.SUCCESS;
+	}
 
 }

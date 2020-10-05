@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
@@ -38,7 +39,6 @@ public class SysLogController extends BaseController {
      * @param search　搜索关键词
      * @return Result
      */
-    @EnableToken
     @Log(value = "日志列表", exception = "日志列表请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "日志列表", notes = "日志列表")
@@ -60,7 +60,7 @@ public class SysLogController extends BaseController {
      * @param ids　多个id采用逗号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth(hasPerm = "sys:log:delete")
     @Log(value = "日志删除", exception = "日志删除")
     @PostMapping("/del")
     @ApiOperation(value = "日志删除", notes = "日志删除")

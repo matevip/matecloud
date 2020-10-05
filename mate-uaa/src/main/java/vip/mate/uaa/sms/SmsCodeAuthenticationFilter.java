@@ -1,4 +1,4 @@
-package vip.mate.core.security.sms;
+package vip.mate.uaa.sms;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;

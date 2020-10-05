@@ -16,6 +16,13 @@ spring:
           destination: email-topic
           content-type: text/plain
           group: email-group
+        order-output:
+          destination: order-topic
+          content-type: application/json
+        order-input:
+          destination: order-topic
+          content-type: text/plain
+          group: order-binder-group
       rocketmq:
         bindings:
           sms-output:
@@ -30,5 +37,12 @@ spring:
               group: email-binder-group
               sync: true
           email-input:
+            consumer:
+              orderly: true
+          order-output:
+            producer:
+              group: order-binder-group
+              transactional: true
+          order-input:
             consumer:
               orderly: true

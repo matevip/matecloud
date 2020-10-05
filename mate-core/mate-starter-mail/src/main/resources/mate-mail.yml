@@ -1,0 +1,15 @@
+#邮件配置样例
+spring:
+  mail:
+    host: smtp.aliyun.com
+    username: xxxxx@aliyun.com
+    password: xxxxxxxxx
+    port: 465
+    properties:
+      smtp:
+        auth: true
+        timeout: 2500
+      mail:
+        smtp:
+          ssl:
+            enable: true

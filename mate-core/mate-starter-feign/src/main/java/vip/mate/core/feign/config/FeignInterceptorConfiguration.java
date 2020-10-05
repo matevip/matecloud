@@ -51,6 +51,8 @@ public class FeignInterceptorConfiguration {
                                 requestTemplate.header(MateConstant.MATE_TRACE_ID, traceId);
                                 TraceUtil.mdcTraceId(traceId);
                             }
+                            String values = request.getHeader(headerName);
+                            requestTemplate.header(headerName, values);
                         }
                     }
                 }
