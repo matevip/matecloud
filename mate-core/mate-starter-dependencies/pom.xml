@@ -76,6 +76,8 @@
         <prometheus.version>1.5.5</prometheus.version>
 
         <jasypt.version>3.0.3</jasypt.version>
+
+        <retrofit.version>2.1.8</retrofit.version>
     </properties>
 
     <dependencyManagement>
@@ -482,6 +484,11 @@
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.lianjiatech</groupId>
+                <artifactId>retrofit-spring-boot-starter</artifactId>
+                <version>${retrofit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -98,9 +98,5 @@ public class PreAuthAspect {
 	private boolean hasPermissions(Collection<String> authorities, String permission) {
 		return authorities.stream().filter(StringUtils::hasText)
 				.anyMatch(x -> ALL_PERMISSION.contains(x) || PatternMatchUtils.simpleMatch(permission, x));
-//		return PatternMatchUtils.simpleMatch(permission, authorities);
 	}
-
-
-
 }
