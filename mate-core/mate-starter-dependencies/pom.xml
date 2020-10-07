@@ -12,12 +12,12 @@
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>1.2.8-SNAPSHOT</version>
+    <version>1.2.8</version>
     <packaging>pom</packaging>
     <description>MateCloud统一版本依赖</description>
 
     <properties>
-        <matecloud.core.version>1.2.8-SNAPSHOT</matecloud.core.version>
+        <matecloud.core.version>1.2.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
