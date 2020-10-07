@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
 
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
@@ -76,7 +76,7 @@ public class ${table.controllerName} {
      * @param search 　搜索关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "$!{table.comment}列表", exception = "$!{table.comment}列表请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
@@ -97,7 +97,7 @@ public class ${table.controllerName} {
      * @param id Id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "$!{table.comment}信息", exception = "$!{table.comment}信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "$!{table.comment}信息", notes = "根据ID查询")
@@ -114,7 +114,7 @@ public class ${table.controllerName} {
     * @param $!{table.entityPath} $!{entity} 对象
     * @return Result
     */
-    @EnableToken
+    @PreAuth
     @Log(value = "$!{table.comment}设置", exception = "$!{table.comment}设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "$!{table.comment}设置", notes = "$!{table.comment}设置,支持新增或修改")
@@ -128,7 +128,7 @@ public class ${table.controllerName} {
     * @param ids id字符串，根据,号分隔
     * @return Result
     */
-    @EnableToken
+    @PreAuth
     @Log(value = "$!{table.comment}删除", exception = "$!{table.comment}删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")

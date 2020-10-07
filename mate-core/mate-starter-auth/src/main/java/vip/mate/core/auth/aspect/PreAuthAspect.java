@@ -55,13 +55,11 @@ public class PreAuthAspect {
 			return point.proceed();
 		}
 
-		if (!StringUtils.isEmpty(preAuth.hasPerm())) {
-			if (hasPerm(preAuth.hasPerm())) {
-				return point.proceed();
-			}
+		if (hasPerm(preAuth.hasPerm())) {
+			return point.proceed();
+		} else {
 			throw new TokenException("权限验证不通过");
 		}
-		return point.proceed();
 	}
 
 
@@ -78,10 +76,14 @@ public class PreAuthAspect {
 			return false;
 		}
 
+		if (!StringUtils.isEmpty(userInfo) && StringUtils.isEmpty(permission)) {
+			return true;
+		}
+
 		// 如果用户是超级管理员，则直接跳过权限验证
-//		if (userInfo.getAccount().equalsIgnoreCase(Oauth2Constant.SUPER_ADMIN)) {
-//			return true;
-//		}
+		if (userInfo.getAccount().equalsIgnoreCase(Oauth2Constant.SUPER_ADMIN)) {
+			return true;
+		}
 		Map<String, Object> data = (Map<String, Object>) redisService.get(Oauth2Constant.MATE_PERMISSION_PREFIX
 				+ userInfo.getAccount() + StringPool.DOT + userInfo.getRoleId());
 		List<String> authorities = (List<String>) data.get("permissions");

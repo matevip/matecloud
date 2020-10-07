@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author xuzhanfu
  */
+@Deprecated
 @Slf4j
 @Aspect
 @Component

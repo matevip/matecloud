@@ -9,15 +9,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.code.entity.SysDataSource;
 import vip.mate.code.service.ISysDataSourceService;
-import vip.mate.code.vo.SysDataSourceVO;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,7 +39,7 @@ public class SysDataSourceController extends BaseController {
      * @param query　关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "数据源分页", exception = "数据源分页请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "数据源分页", notes = "数据源分页")
@@ -61,7 +59,7 @@ public class SysDataSourceController extends BaseController {
      * @param id id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "数据源信息", exception = "数据源信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "数据源信息", notes = "数据源信息,根据ID查询")
@@ -77,7 +75,7 @@ public class SysDataSourceController extends BaseController {
      * @param sysDataSource　SysDataSource对象
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "数据源设置", exception = "数据源设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "数据源设置", notes = "数据源设置,支持新增或修改")
@@ -90,7 +88,7 @@ public class SysDataSourceController extends BaseController {
      * @param ids　多个id采用逗号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "数据源删除", exception = "数据源删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "数据源删除", notes = "数据源删除")
@@ -105,7 +103,7 @@ public class SysDataSourceController extends BaseController {
      * 数据源项列表
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "数据源项列表", exception = "数据源项列表请求异常")
     @GetMapping("/option-list")
     @ApiOperation(value = "数据源项列表", notes = "数据源项列表")

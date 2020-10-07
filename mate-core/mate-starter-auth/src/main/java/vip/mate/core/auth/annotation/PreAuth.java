@@ -24,5 +24,5 @@ public @interface PreAuth {
 	 * 验证用户是否授权
 	 * @return String
 	 */
-	public String hasPerm() default "";
+	String hasPerm() default "";
 }

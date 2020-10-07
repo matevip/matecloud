@@ -1,13 +1,11 @@
 package vip.mate.component.controller;
 
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import vip.mate.component.service.ISysConfigService;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.oss.props.OssProperties;
@@ -36,7 +34,7 @@ public class SysConfigController extends BaseController {
      * @param code　代码
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "查询OSS配置", exception = "查询OSS配置异常")
     @GetMapping("/get-config-by-code")
     @ApiOperation(value = "查询OSS配置", notes = "查询OSS配置")
@@ -48,7 +46,7 @@ public class SysConfigController extends BaseController {
      * 默认配置
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "默认配置", exception = "默认配置异常")
     @ApiOperation(value = "默认配置", notes = "默认配置")
     @GetMapping("/default-oss")
@@ -61,7 +59,7 @@ public class SysConfigController extends BaseController {
      * @param code code
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "保存默认配置", exception = "保存默认配置异常")
     @ApiOperation(value = "保存默认配置", notes = "保存默认配置")
     @PostMapping("/save-default-oss")
@@ -75,7 +73,7 @@ public class SysConfigController extends BaseController {
      * @param code
      * @return
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "保存OSS配置", exception = "保存OSS配置异常")
     @ApiOperation(value = "保存OSS配置", notes = "保存OSS配置")
     @PostMapping("/save-config-oss")
