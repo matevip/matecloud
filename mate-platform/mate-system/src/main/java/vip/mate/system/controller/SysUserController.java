@@ -10,14 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.cloud.util.CryptoUtil;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
+import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.poi.SysUserPOI;
 import vip.mate.system.service.ISysUserService;
@@ -52,7 +52,7 @@ public class SysUserController extends BaseController {
      * @param search 　搜索关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "用户列表", exception = "用户列表请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "用户列表", notes = "分页查询")
@@ -75,7 +75,7 @@ public class SysUserController extends BaseController {
      * @param sysUser 用户信息
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "用户设置", exception = "设置用户请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "设置用户", notes = "新增或修改用户")
@@ -94,7 +94,7 @@ public class SysUserController extends BaseController {
      * @param id Id信息
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "用户信息", exception = "用户信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "用户信息", notes = "根据ID查询")
@@ -111,7 +111,7 @@ public class SysUserController extends BaseController {
      * @param ids id字符串，根据,号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "用户删除", exception = "用户删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "用户删除", notes = "用户删除")
@@ -129,7 +129,7 @@ public class SysUserController extends BaseController {
      * @param status 状态标识，启用或禁用
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "用户状态", exception = "用户状态请求异常")
     @PostMapping("/set-status")
     @ApiOperation(value = "用户状态", notes = "状态包括：启用、禁用")
@@ -148,7 +148,7 @@ public class SysUserController extends BaseController {
      * @param password 密码
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "用户密码设置", exception = "用户密码设置请求异常")
     @PostMapping("/set-password")
     @ApiOperation(value = "用户密码设置", notes = "用户密码设置")
@@ -170,7 +170,7 @@ public class SysUserController extends BaseController {
     /**
      * 用户信息导出
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "用户导出", exception = "导出用户请求异常")
     @PostMapping("/export")
     @ApiOperation(value = "导出用户", notes = "导出用户")

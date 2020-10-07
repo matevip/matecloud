@@ -18,41 +18,43 @@ import vip.mate.core.redis.core.RedisService;
 
 /**
  * Redis基础配置类
+ *
+ * @author pangu
  */
 @Configuration
 @EnableConfigurationProperties(MateRedisProperties.class)
 @ConditionalOnProperty(value = MateRedisProperties.PREFIX + ".enabled", havingValue = "true", matchIfMissing = true)
 public class RedisConfiguration {
 
-    @SuppressWarnings("all")
-    @Bean(name = "redisTemplate")
-    @ConditionalOnClass(RedisOperations.class)
-    public org.springframework.data.redis.core.RedisTemplate redisTemplate(RedisConnectionFactory factory) {
-        org.springframework.data.redis.core.RedisTemplate template = new org.springframework.data.redis.core.RedisTemplate();
-        template.setConnectionFactory(factory);
+	@SuppressWarnings("all")
+	@Bean(name = "redisTemplate")
+	@ConditionalOnClass(RedisOperations.class)
+	public org.springframework.data.redis.core.RedisTemplate redisTemplate(RedisConnectionFactory factory) {
+		org.springframework.data.redis.core.RedisTemplate template = new org.springframework.data.redis.core.RedisTemplate();
+		template.setConnectionFactory(factory);
 
-        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.activateDefaultTyping(om.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
+		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
+		ObjectMapper om = new ObjectMapper();
+		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		om.activateDefaultTyping(om.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
+		jackson2JsonRedisSerializer.setObjectMapper(om);
 
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        // key采用String的序列化方式
-        template.setKeySerializer(stringRedisSerializer);
-        // hash的key也采用String的序列化方式
-        template.setHashKeySerializer(stringRedisSerializer);
-        // value序列化方式采用jackson
-        template.setValueSerializer(jackson2JsonRedisSerializer);
-        // hash的value序列化方式采用jackson
-        template.setHashValueSerializer(jackson2JsonRedisSerializer);
-        template.afterPropertiesSet();
-        return template;
-    }
+		StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+		// key采用String的序列化方式
+		template.setKeySerializer(stringRedisSerializer);
+		// hash的key也采用String的序列化方式
+		template.setHashKeySerializer(stringRedisSerializer);
+		// value序列化方式采用jackson
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+		// hash的value序列化方式采用jackson
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+		template.afterPropertiesSet();
+		return template;
+	}
 
-    @Bean
-    @ConditionalOnBean(name = "redisTemplate")
-    public RedisService redisService() {
-        return new RedisService();
-    }
+	@Bean
+	@ConditionalOnBean(name = "redisTemplate")
+	public RedisService redisService() {
+		return new RedisService();
+	}
 }

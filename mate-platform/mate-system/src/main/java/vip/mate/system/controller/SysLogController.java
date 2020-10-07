@@ -39,6 +39,7 @@ public class SysLogController extends BaseController {
      * @param search　搜索关键词
      * @return Result
      */
+    @PreAuth
     @Log(value = "日志列表", exception = "日志列表请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "日志列表", notes = "日志列表")

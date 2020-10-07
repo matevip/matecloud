@@ -12,12 +12,12 @@
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>1.2.8-SNAPSHOT</version>
+    <version>1.2.8</version>
     <packaging>pom</packaging>
     <description>MateCloud统一版本依赖</description>
 
     <properties>
-        <matecloud.core.version>1.2.8-SNAPSHOT</matecloud.core.version>
+        <matecloud.core.version>1.2.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
@@ -35,7 +35,7 @@
         <mysql.connector.version>8.0.17</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
-        <druid.version>1.1.24</druid.version>
+        <druid.version>1.2.1</druid.version>
         <mybatis.plus.version>3.4.0</mybatis.plus.version>
         <velocity.version>1.7</velocity.version>
 
@@ -76,6 +76,8 @@
         <prometheus.version>1.5.5</prometheus.version>
 
         <jasypt.version>3.0.3</jasypt.version>
+
+        <retrofit.version>2.1.8</retrofit.version>
     </properties>
 
     <dependencyManagement>
@@ -482,6 +484,11 @@
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.lianjiatech</groupId>
+                <artifactId>retrofit-spring-boot-starter</artifactId>
+                <version>${retrofit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

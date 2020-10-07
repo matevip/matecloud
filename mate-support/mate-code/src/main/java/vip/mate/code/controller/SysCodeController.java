@@ -33,7 +33,7 @@ import vip.mate.code.entity.SysDataSource;
 import vip.mate.code.service.ISysDataSourceService;
 import vip.mate.code.util.GeneratorUtil;
 import vip.mate.code.util.ZipUtil;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.util.FileUtil;
@@ -63,7 +63,7 @@ public class SysCodeController {
      * @param dataSourceId 数据源Id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "数据库表信息", exception = "数据库表信息请求异常")
     @ApiOperation(value = "数据库表信息", notes = "数据库表信息")
     @PostMapping("/table-list")
@@ -94,7 +94,7 @@ public class SysCodeController {
      * @param datasourceId　数据源名
      * @param tableName　表名
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "代码生成", exception = "代码生成请求异常")
     @ApiOperation(value = "代码生成", notes = "代码生成")
     @PostMapping("/generator-code")

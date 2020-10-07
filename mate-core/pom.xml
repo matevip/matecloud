@@ -6,7 +6,7 @@
 
     <artifactId>mate-core</artifactId>
     <groupId>vip.mate</groupId>
-    <version>1.2.8-SNAPSHOT</version>
+    <version>1.2.8</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -38,10 +38,11 @@
         <module>mate-starter-job</module>
         <module>mate-starter-mail</module>
         <module>mate-starter-strategy</module>
+        <module>mate-starter-retrofit</module>
     </modules>
 
     <properties>
-        <matecloud.core.version>1.2.8-SNAPSHOT</matecloud.core.version>
+        <matecloud.core.version>1.2.8</matecloud.core.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.models.version>1.5.21</swagger.models.version>
         <swagger.bootstrapui.version>1.9.4</swagger.bootstrapui.version>

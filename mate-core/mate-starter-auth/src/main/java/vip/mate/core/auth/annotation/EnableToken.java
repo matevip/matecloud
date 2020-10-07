@@ -7,6 +7,7 @@ import java.lang.annotation.*;
  *
  * @author pangu
  */
+@Deprecated
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

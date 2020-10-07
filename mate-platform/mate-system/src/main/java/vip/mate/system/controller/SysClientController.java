@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.file.util.ExcelUtil;
@@ -46,7 +46,7 @@ public class SysClientController extends BaseController {
      * @param search 　关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "客户端分页", exception = "客户端分页请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "客户端分页", notes = "客户端分页")
@@ -67,7 +67,7 @@ public class SysClientController extends BaseController {
      * @param sysClient SysClient对象
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "客户端设置", exception = "客户端设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "客户端设置", notes = "客户端设置,支持新增或修改")
@@ -81,7 +81,7 @@ public class SysClientController extends BaseController {
      * @param id id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "客户端信息", exception = "客户端信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "客户端信息", notes = "客户端信息,根据ID查询")
@@ -98,7 +98,7 @@ public class SysClientController extends BaseController {
      * @param ids 多个id采用逗号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "客户端删除", exception = "客户端删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "客户端删除", notes = "客户端删除")
@@ -119,7 +119,7 @@ public class SysClientController extends BaseController {
      * @param status 　状态包括启用和禁用
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "客户端状态", exception = "客户端状态请求异常")
     @PostMapping("/set-status")
     @ApiOperation(value = "客户端状态", notes = "客户端状态：启用、禁用")
@@ -134,7 +134,7 @@ public class SysClientController extends BaseController {
     /**
      * 客户端导出
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "客户端导出", exception = "客户端导出请求异常")
     @PostMapping("/export")
     @ApiOperation(value = "客户端导出", notes = "客户端导出")

@@ -10,13 +10,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.system.entity.SysClient;
 import vip.mate.system.entity.SysDict;
 import vip.mate.system.service.ISysDictService;
 
@@ -45,7 +44,7 @@ public class SysDictController extends BaseController {
      * @param code 　code
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "字典列表code查询", exception = "字典列表请求异常")
     @GetMapping("/list-code")
     @ApiOperation(value = "字典列表code查询", notes = "字典列表code查询")
@@ -60,7 +59,7 @@ public class SysDictController extends BaseController {
      * @param dictKey key
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "字典列表key查询", exception = "字典列表key查询请求异常")
     @GetMapping("/get-dict-value")
     @ApiOperation(value = "字典列表key查询", notes = "字典列表key查询")
@@ -76,7 +75,7 @@ public class SysDictController extends BaseController {
      * @param search 　搜索关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "字典分页", exception = "字典分页请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "字典分页", notes = "字典分页")
@@ -97,7 +96,7 @@ public class SysDictController extends BaseController {
      * @param code 字典码
      * @return Result<List < SysDict>>
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "字典项列表", exception = "字典项列表异常")
     @GetMapping("list-value")
     @ApiOperation(value = "字典项列表", notes = "字典项列表")
@@ -114,7 +113,7 @@ public class SysDictController extends BaseController {
      * @param sysDict SysDict对象
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "字典设置", exception = "字典设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "字典设置", notes = "字典设置,支持新增或修改")
@@ -128,7 +127,7 @@ public class SysDictController extends BaseController {
      * @param id id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "字典信息", exception = "字典信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "字典信息", notes = "根据ID查询")
@@ -145,7 +144,7 @@ public class SysDictController extends BaseController {
      * @param ids 多个id采用逗号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "字典删除", exception = "字典删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "字典删除", notes = "字典删除")
