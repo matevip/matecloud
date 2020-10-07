@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mate-core</artifactId>
         <groupId>vip.mate</groupId>
-        <version>1.1.8</version>
+        <version>1.2.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -53,6 +53,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
         </dependency>
     </dependencies>
 

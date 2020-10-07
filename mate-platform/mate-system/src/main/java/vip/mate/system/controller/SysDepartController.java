@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.core.log.annotation.Log;
@@ -47,7 +47,7 @@ public class SysDepartController extends BaseController {
      * @param search 　根据关键字搜索
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "部门列表", exception = "部门列表请求异常")
     @GetMapping("/list")
     @ApiOperation(value = "部门列表", notes = "部门列表，根据search查询")
@@ -65,7 +65,7 @@ public class SysDepartController extends BaseController {
      *
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "部门树", exception = "部门树请求异常")
     @GetMapping("/tree")
     @ApiOperation(value = "部门树", notes = "部门树")
@@ -79,7 +79,7 @@ public class SysDepartController extends BaseController {
      * @param sysDepart 　SysDepart对象
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @PostMapping("/set")
     @Log(value = "部门设置", exception = "部门设置异常")
     @ApiOperation(value = "部门设置", notes = "部门设置,支持新增或修改")
@@ -93,7 +93,7 @@ public class SysDepartController extends BaseController {
      * @param id id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @GetMapping("/get")
     @Log(value = "部门信息", exception = "部门信息息请求异常")
     @ApiOperation(value = "部门信息", notes = "部门信息,根据ID查询")
@@ -112,7 +112,7 @@ public class SysDepartController extends BaseController {
      * @param ids 　多个id采用逗号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @PostMapping("/del")
     @Log(value = "部门删除", exception = "部门删除请求异常")
     @ApiOperation(value = "部门删除", notes = "部门删除")
@@ -126,7 +126,7 @@ public class SysDepartController extends BaseController {
     /**
      * 部门导出
      */
-    @EnableToken
+    @PreAuth
     @PostMapping("/export")
     @Log(value = "部门导出", exception = "部门导出请求异常")
     @ApiOperation(value = "部门导出", notes = "部门导出")

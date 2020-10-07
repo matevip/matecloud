@@ -11,16 +11,16 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.entity.LoginUser;
+import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.annotation.EnableUser;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.system.dto.SysMenuDTO;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.poi.SysMenuPOI;
@@ -55,7 +55,7 @@ public class SysMenuController extends BaseController {
      *
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单树", exception = "菜单树请求异常")
     @GetMapping("/tree")
     @ApiOperation(value = "菜单树", notes = "根据roleId查询菜单树")
@@ -72,7 +72,7 @@ public class SysMenuController extends BaseController {
      * @param search 搜索关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单列表", exception = "菜单列表请求异常")
     @GetMapping("/list")
     @ApiOperation(value = "菜单列表", notes = "菜单列表，根据关键词查询")
@@ -90,7 +90,7 @@ public class SysMenuController extends BaseController {
      *
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单分级列表", exception = "菜单分级列表请求异常")
     @GetMapping("/grade")
     @ApiOperation(value = "菜单分级列表", notes = "菜单分级列表")
@@ -113,7 +113,7 @@ public class SysMenuController extends BaseController {
      * @param sysMenu 菜单
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单设置", exception = "菜单设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "菜单设置", notes = "菜单设置,支持新增或修改")
@@ -127,7 +127,7 @@ public class SysMenuController extends BaseController {
      * @param id id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单信息", exception = "菜单信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "菜单信息", notes = "根据ID查询")
@@ -146,7 +146,7 @@ public class SysMenuController extends BaseController {
      * @param ids 多个Id，用,号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单删除", exception = "菜单删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "菜单删除", notes = "菜单删除")
@@ -164,7 +164,7 @@ public class SysMenuController extends BaseController {
      * @param status 状态：启用、禁用
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单状态", exception = "菜单状态请求异常")
     @PostMapping("/set-status")
     @ApiOperation(value = "菜单状态", notes = "状态包括：启用、禁用")
@@ -179,7 +179,7 @@ public class SysMenuController extends BaseController {
     /**
      * 菜单导出
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "菜单导出", exception = "菜单导出请求异常")
     @PostMapping("/export")
     @ApiOperation(value = "菜单导出", notes = "菜单导出")

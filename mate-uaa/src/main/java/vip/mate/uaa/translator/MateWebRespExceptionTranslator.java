@@ -4,20 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
-import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
-import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
-import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
+import org.springframework.security.oauth2.common.exceptions.*;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 
+/**
+ * @author pangu
+ */
 @Slf4j
-//@Component
 public class MateWebRespExceptionTranslator implements WebResponseExceptionTranslator {
 
     @Override
-    public ResponseEntity translate(Exception e) throws Exception {
+    public ResponseEntity<Result<?>> translate(Exception e) throws Exception {
         ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.UNAUTHORIZED);
         String message = "认证失败";
 
@@ -55,7 +54,7 @@ public class MateWebRespExceptionTranslator implements WebResponseExceptionTrans
         return status.body(apiResult(message));
     }
 
-    private Result apiResult (String message){
+    private Result<?> apiResult (String message){
         return Result.data(ResultCode.ERROR, message);
     }
 

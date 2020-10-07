@@ -10,8 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
@@ -49,7 +48,7 @@ public class SysBlacklistController extends BaseController {
      * @param search　关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "黑名单分页", exception = "黑名单分页请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "黑名单分页", notes = "黑名单分页")
@@ -69,7 +68,7 @@ public class SysBlacklistController extends BaseController {
      * @param sysBlacklist SysBlacklist对象
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "黑名单设置", exception = "黑名单设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "黑名单设置", notes = "黑名单设置,支持新增或修改")
@@ -98,7 +97,7 @@ public class SysBlacklistController extends BaseController {
      * @param id　id
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "黑名单信息", exception = "黑名单信息请求异常")
     @GetMapping("/get")
     @ApiOperation(value = "黑名单信息", notes = "黑名单信息,根据ID查询")
@@ -114,7 +113,7 @@ public class SysBlacklistController extends BaseController {
      * @param ids　多个id采用逗号分隔
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "黑名单删除", exception = "黑名单删除请求异常")
     @PostMapping("/del")
     @ApiOperation(value = "黑名单删除", notes = "黑名单删除")
@@ -144,7 +143,7 @@ public class SysBlacklistController extends BaseController {
      * @param status　状态：启用、禁用
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "黑名单状态", exception = "黑名单状态请求异常")
     @PostMapping("/set-status")
     @ApiOperation(value = "黑名单状态", notes = "黑名单状态,状态包括：启用、禁用")

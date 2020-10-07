@@ -1,0 +1,48 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        sms-output:
+          destination: sms-topic
+          content-type: application/json
+        sms-input:
+          destination: sms-topic
+          content-type: text/plain
+          group: sms-group
+        email-output:
+          destination: email-topic
+          content-type: application/json
+        email-input:
+          destination: email-topic
+          content-type: text/plain
+          group: email-group
+        order-output:
+          destination: order-topic
+          content-type: application/json
+        order-input:
+          destination: order-topic
+          content-type: text/plain
+          group: order-binder-group
+      rocketmq:
+        bindings:
+          sms-output:
+            producer:
+              group: sms-binder-group
+              sync: true
+          sms-input:
+            consumer:
+              orderly: true
+          email-output:
+            producer:
+              group: email-binder-group
+              sync: true
+          email-input:
+            consumer:
+              orderly: true
+          order-output:
+            producer:
+              group: order-binder-group
+              transactional: true
+          order-input:
+            consumer:
+              orderly: true

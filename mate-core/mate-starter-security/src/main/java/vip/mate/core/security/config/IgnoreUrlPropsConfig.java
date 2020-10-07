@@ -8,13 +8,18 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 忽略URL属性配置
+ *
+ * @author pangu
+ */
 @Data
 @RefreshScope
 @ConfigurationProperties(prefix = "ignore")
 @Component
 public class IgnoreUrlPropsConfig {
 
-    private List<String> urls = new ArrayList<>();
+	private List<String> urls = new ArrayList<>();
 
-    private List<String> client = new ArrayList<>();
+	private List<String> client = new ArrayList<>();
 }

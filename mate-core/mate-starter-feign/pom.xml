@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mate-core</artifactId>
         <groupId>vip.mate</groupId>
-        <version>1.1.8</version>
+        <version>1.2.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,6 +36,10 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
         </dependency>
     </dependencies>
 

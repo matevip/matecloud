@@ -11,7 +11,7 @@ import vip.mate.core.feign.fallback.MateFallbackFactory;
 /**
  * 添加 mate 默认的 fallbackFactory L.cm 2019.01.19
  *
- * @author xuzf
+ * @author L.cm
  * @author Spencer Gibb
  * @author Erik Kringen
  */
@@ -37,7 +37,7 @@ public class MateHystrixTargeter implements Targeter {
             return targetWithFallbackFactory(factory.getName(), context, target, builder, fallbackFactory);
         }
         // mate 默认的 fallbackFactory
-        MateFallbackFactory mateFallbackFactory = new MateFallbackFactory(target);
+        MateFallbackFactory<T> mateFallbackFactory = new MateFallbackFactory<>(target);
         return (T) builder.target(target, mateFallbackFactory);
     }
 

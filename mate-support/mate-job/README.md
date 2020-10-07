@@ -18,6 +18,6 @@ mate:
       address: 127.0.0.1:30007
       ip: 127.0.0.1
       port: 30007
-      logPath: /data/applogs/mate-job/jobhandler
+      logPath: logs/mate-job/jobhandler
       logRetentionDays: 30
 ````

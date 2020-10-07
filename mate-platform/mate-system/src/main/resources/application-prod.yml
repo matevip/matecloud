@@ -2,7 +2,7 @@ server:
   port: 20002
 spring:
   application:
-    name: @artifactId@
+    name: ${artifactId}
   #数据源配置
   datasource:
     url: ${mate.datasource.url}
@@ -24,9 +24,16 @@ dubbo:
 #    address: spring-cloud://localhost
 #   The traditional Dubbo's registry
 #    address: nacos://127.0.0.1:8848
+
+#jetcach配置
 jetcache:
   remote:
     default:
       type: redis.lettuce
       keyConvertor: fastjson
-      uri: redis://127.0.0.1:6379/
+      uri: redis://${spring.redis.host}:${spring.redis.port}/
+      #uri:
+      #  - redis://127.0.0.1:7000
+      #  - redis://127.0.0.1:7001
+      #  - redis://127.0.0.1:7002
+      #readFrom: slavePreferred

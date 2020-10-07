@@ -17,6 +17,7 @@ import java.util.Map;
 
 /**
  * 自定义Oauth2自定义返回格式
+ *
  * @author pangu
  * @link https://segmentfault.com/a/1190000020317220?utm_source=tag-newest
  */
@@ -26,30 +27,35 @@ import java.util.Map;
 @Api(tags = "Oauth2管理")
 public class OauthController {
 
-    private final TokenEndpoint tokenEndpoint;
+	private final TokenEndpoint tokenEndpoint;
 
-    @Log(value = "用户登录", exception = "用户登录请求异常")
-    @GetMapping("/token")
-    @ApiOperation(value = "用户登录Get", notes = "用户登录Get")
-    public Result<?> getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        return custom(tokenEndpoint.getAccessToken(principal, parameters).getBody());
-    }
+	@Log(value = "用户登录", exception = "用户登录请求异常")
+	@GetMapping("/token")
+	@ApiOperation(value = "用户登录Get", notes = "用户登录Get")
+	public Result<?> getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+		return custom(tokenEndpoint.getAccessToken(principal, parameters).getBody());
+	}
 
-    @Log(value = "用户登录", exception = "用户登录请求异常")
-    @PostMapping("/token")
-    @ApiOperation(value = "用户登录Post", notes = "用户登录Post")
-    public Result<?> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
-    }
+	@Log(value = "用户登录", exception = "用户登录请求异常")
+	@PostMapping("/token")
+	@ApiOperation(value = "用户登录Post", notes = "用户登录Post")
+	public Result<?> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+		return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
+	}
 
-    //自定义返回格式
-    private Result<?> custom(OAuth2AccessToken accessToken) {
-        DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
-        Map<String, Object> data = new LinkedHashMap<>(token.getAdditionalInformation());
-        data.put("accessToken", token.getValue());
-        if (token.getRefreshToken() != null) {
-            data.put("refreshToken", token.getRefreshToken().getValue());
-        }
-        return Result.data(data);
-    }
+	/**
+	 * 自定义返回格式
+	 *
+	 * @param accessToken 　Token
+	 * @return Result
+	 */
+	private Result<?> custom(OAuth2AccessToken accessToken) {
+		DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
+		Map<String, Object> data = new LinkedHashMap<>(token.getAdditionalInformation());
+		data.put("accessToken", token.getValue());
+		if (token.getRefreshToken() != null) {
+			data.put("refreshToken", token.getRefreshToken().getValue());
+		}
+		return Result.data(data);
+	}
 }

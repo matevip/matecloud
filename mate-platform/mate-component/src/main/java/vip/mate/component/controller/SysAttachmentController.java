@@ -8,10 +8,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.multipart.MultipartFile;
 import vip.mate.component.service.ISysAttachmentService;
-import vip.mate.core.auth.annotation.EnableToken;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
@@ -20,8 +19,6 @@ import vip.mate.core.web.util.CollectionUtil;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -45,7 +42,7 @@ public class SysAttachmentController extends BaseController {
      * @param search　关键词
      * @return Result
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "附件分页", exception = "附件分页请求异常")
     @GetMapping("/page")
     @ApiOperation(value = "附件分页", notes = "附件分页，根据query查询")
@@ -77,7 +74,7 @@ public class SysAttachmentController extends BaseController {
      * @param ids id多个采用逗号分隔
      * @return
      */
-    @EnableToken
+    @PreAuth
     @Log(value = "删除文件", exception = "删除文件请求异常")
     @ApiOperation(value = "删除文件", notes = "删除文件")
     @ApiImplicitParams({

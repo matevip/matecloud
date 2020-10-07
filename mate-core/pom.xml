@@ -6,7 +6,7 @@
 
     <artifactId>mate-core</artifactId>
     <groupId>vip.mate</groupId>
-    <version>1.1.8</version>
+    <version>1.2.8</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -33,10 +33,16 @@
         <module>mate-starter-dozer</module>
         <module>mate-starter-rule</module>
         <module>mate-starter-sentinel</module>
+        <module>mate-starter-seata</module>
+        <module>mate-starter-prometheus</module>
+        <module>mate-starter-job</module>
+        <module>mate-starter-mail</module>
+        <module>mate-starter-strategy</module>
+        <module>mate-starter-retrofit</module>
     </modules>
 
     <properties>
-        <matecloud.core.version>1.1.8</matecloud.core.version>
+        <matecloud.core.version>1.2.8</matecloud.core.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.models.version>1.5.21</swagger.models.version>
         <swagger.bootstrapui.version>1.9.4</swagger.bootstrapui.version>
