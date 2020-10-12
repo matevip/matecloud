@@ -78,6 +78,7 @@
         <jasypt.version>3.0.3</jasypt.version>
 
         <retrofit.version>2.1.8</retrofit.version>
+        <j2cache.version>2.8.2-release</j2cache.version>
     </properties>
 
     <dependencyManagement>
@@ -489,6 +490,11 @@
                 <groupId>com.github.lianjiatech</groupId>
                 <artifactId>retrofit-spring-boot-starter</artifactId>
                 <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.oschina.j2cache</groupId>
+                <artifactId>j2cache-core</artifactId>
+                <version>${j2cache.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -39,6 +39,7 @@
         <module>mate-starter-mail</module>
         <module>mate-starter-strategy</module>
         <module>mate-starter-retrofit</module>
+        <module>mate-starter-j2cache</module>
     </modules>
 
     <properties>
