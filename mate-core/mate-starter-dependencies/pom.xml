@@ -49,7 +49,7 @@
 
         <!-- Apache Dubbo -->
         <dubbo.version>2.7.8</dubbo.version>
-        <fastjson.version>1.2.73</fastjson.version>
+        <fastjson.version>1.2.74</fastjson.version>
 
         <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>

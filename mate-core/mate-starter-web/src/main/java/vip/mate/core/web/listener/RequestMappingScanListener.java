@@ -24,7 +24,6 @@ import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.redis.core.RedisService;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 请求资源扫描监听器
