@@ -20,6 +20,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-auth</artifactId>
+        </dependency>
         <!--web 模块-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

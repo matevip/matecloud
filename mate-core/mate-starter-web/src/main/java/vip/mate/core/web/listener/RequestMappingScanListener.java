@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.condition.RequestMethodsRequestCondit
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import springfox.documentation.annotations.ApiIgnore;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.redis.core.RedisService;
@@ -103,11 +104,17 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 				String fullName = className + "." + methodName;
 				String name = "";
 				String desc = "";
+				String auth = "0";
 
 				ApiOperation apiOperation = method.getMethodAnnotation(ApiOperation.class);
 				if (apiOperation != null) {
 					name = apiOperation.value();
 					desc = apiOperation.notes();
+				}
+				// 判断是否需要权限校验
+				PreAuth preAuth = method.getMethodAnnotation(PreAuth.class);
+				if (preAuth != null) {
+					auth = "1";
 				}
 				name = StringUtil.isBlank(name) ? methodName : name;
 				api.put("apiName", name);
@@ -118,6 +125,7 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 				api.put("requestMethod", methods);
 				api.put("serviceId", microService);
 				api.put("contentType", mediaTypes);
+				api.put("auth", auth);
 				list.add(api);
 				log.info("api scan: {}", api);
 			}
