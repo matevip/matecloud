@@ -103,13 +103,13 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 				String methodName = method.getMethod().getName();
 				String fullName = className + "." + methodName;
 				String name = "";
-				String desc = "";
+				String notes = "";
 				String auth = "0";
 
 				ApiOperation apiOperation = method.getMethodAnnotation(ApiOperation.class);
 				if (apiOperation != null) {
 					name = apiOperation.value();
-					desc = apiOperation.notes();
+					notes = apiOperation.notes();
 				}
 				// 判断是否需要权限校验
 				PreAuth preAuth = method.getMethodAnnotation(PreAuth.class);
@@ -117,8 +117,8 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 					auth = "1";
 				}
 				name = StringUtil.isBlank(name) ? methodName : name;
-				api.put("apiName", name);
-				api.put("apiDesc", desc);
+				api.put("name", name);
+				api.put("notes", notes);
 				api.put("path", urls);
 				api.put("className", className);
 				api.put("methodName", methodName);
@@ -127,14 +127,15 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 				api.put("contentType", mediaTypes);
 				api.put("auth", auth);
 				list.add(api);
-				log.info("api scan: {}", api);
+				// log.info("api scan: {}", api);
 			}
 			// 放入redis缓存
 			Map<String,Object> res = Maps.newHashMap();
 			res.put("serviceId",microService);
 			res.put("size",list.size());
 			res.put("list",list);
-			redisService.hset(MateConstant.API_RESOURCE, microService, res);
+			redisService.hset(MateConstant.API_RESOURCE, microService, res, 18000L);
+			log.info("资源扫描结果:serviceId=[{}] size=[{}] redis缓存key=[{}]", microService,  list.size(), MateConstant.API_RESOURCE);
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage());
 		}
@@ -143,14 +144,14 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 	}
 
 	private String getUrls(Set<String> urls) {
-		StringBuilder sbf = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder();
 		for (String url : urls) {
-			sbf.append(url).append(",");
+			stringBuilder.append(url).append(",");
 		}
 		if (urls.size() > 0) {
-			sbf.deleteCharAt(sbf.length() - 1);
+			stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 		}
-		return sbf.toString();
+		return stringBuilder.toString();
 	}
 
 	/**
@@ -160,9 +161,7 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 	 * @return boolean
 	 */
 	private boolean isIgnore(String requestPath) {
-		Iterator<String> it = ignoreApi.iterator();
-		while (it.hasNext()) {
-			String path = it.next();
+		for (String path : ignoreApi) {
 			if (pathMatch.match(path, requestPath)) {
 				return true;
 			}
@@ -177,14 +176,14 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 	 * @return String
 	 */
 	private String getMediaTypes(Set<MediaType> mediaTypes) {
-		StringBuilder sbf = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder();
 		for (MediaType mediaType : mediaTypes) {
-			sbf.append(mediaType.toString()).append(",");
+			stringBuilder.append(mediaType.toString()).append(",");
 		}
 		if (mediaTypes.size() > 0) {
-			sbf.deleteCharAt(sbf.length() - 1);
+			stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 		}
-		return sbf.toString();
+		return stringBuilder.toString();
 	}
 
 	/**
@@ -194,13 +193,13 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 	 * @return String
 	 */
 	private String getMethods(Set<RequestMethod> requestMethods) {
-		StringBuilder sbf = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder();
 		for (RequestMethod requestMethod : requestMethods) {
-			sbf.append(requestMethod.toString()).append(",");
+			stringBuilder.append(requestMethod.toString()).append(",");
 		}
 		if (requestMethods.size() > 0) {
-			sbf.deleteCharAt(sbf.length() - 1);
+			stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 		}
-		return sbf.toString();
+		return stringBuilder.toString();
 	}
 }
