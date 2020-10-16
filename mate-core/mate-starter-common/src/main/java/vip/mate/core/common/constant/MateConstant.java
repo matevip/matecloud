@@ -65,9 +65,14 @@ public class MateConstant {
 	public static final String DEFAULT_VERSION = "v1";
 
 	/**
+	 * 服务资源
+	 */
+	public static final String MATE_SERVICE_RESOURCE = "mate-service-resource";
+
+	/**
 	 * API资源
 	 */
-	public static final String API_RESOURCE = "mate-api-resource";
+	public static final String MATE_API_RESOURCE = "mate-api-resource";
 
 
 }

@@ -16,23 +16,30 @@
  */
 package vip.mate.system.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.redis.core.RedisService;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysApi;
 import vip.mate.system.service.ISysApiService;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -48,76 +55,121 @@ import javax.validation.Valid;
 @Api(value = "API管理", tags = "API管理接口")
 public class SysApiController extends BaseController {
 
-    private final ISysApiService sysApiService;
+	private final ISysApiService sysApiService;
 
-    /**
-     * 分页列表
-     *
-     * @param page   分页信息
-     * @param search 　搜索关键词
-     * @return Result
-     */
-    @PreAuth
-    @Log(value = "API列表", exception = "API管理列表请求异常")
-    @GetMapping("/page")
-    @ApiOperation(value = "API列表", notes = "分页查询")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-        @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-        @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-        @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-        @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
-    })
-    public Result<?> page(Page page, Search search) {
+	private final RedisService redisService;
+
+	/**
+	 * 分页列表
+	 *
+	 * @param page   分页信息
+	 * @param search 　搜索关键词
+	 * @return Result
+	 */
+	@PreAuth
+	@Log(value = "API列表", exception = "API列表请求异常")
+	@GetMapping("/page")
+	@ApiOperation(value = "API列表", notes = "分页查询")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
+			@ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
+			@ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
+			@ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
+			@ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+	})
+	public Result<?> page(Page page, Search search) {
 		return Result.data(sysApiService.listPage(page, search));
-    }
+	}
 
-    /**
-     * API管理信息
-     *
-     * @param id Id
-     * @return Result
-     */
-    @PreAuth
-    @Log(value = "API信息", exception = "API管理信息请求异常")
-    @GetMapping("/get")
-    @ApiOperation(value = "API信息", notes = "根据ID查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
-    })
-    public Result<?> get(@RequestParam String id) {
+	/**
+	 * API管理信息
+	 *
+	 * @param id Id
+	 * @return Result
+	 */
+	@PreAuth
+	@Log(value = "API信息", exception = "API信息请求异常")
+	@GetMapping("/get")
+	@ApiOperation(value = "API信息", notes = "根据ID查询")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
+	})
+	public Result<?> get(@RequestParam String id) {
 		return Result.data(sysApiService.getById(id));
 	}
 
-    /**
-    * API管理设置
-    *
-    * @param sysApi SysApi 对象
-    * @return Result
-    */
-    @PreAuth
-    @Log(value = "API设置", exception = "API管理设置请求异常")
-    @PostMapping("/set")
-    @ApiOperation(value = "API设置", notes = "API设置,支持新增或修改")
-    public Result<?> set(@Valid @RequestBody SysApi sysApi) {
+	/**
+	 * API管理设置
+	 *
+	 * @param sysApi SysApi 对象
+	 * @return Result
+	 */
+	@PreAuth
+	@Log(value = "API设置", exception = "API设置请求异常")
+	@PostMapping("/set")
+	@ApiOperation(value = "API设置", notes = "API设置,支持新增或修改")
+	public Result<?> set(@Valid @RequestBody SysApi sysApi) {
 		return Result.condition(sysApiService.saveOrUpdate(sysApi));
 	}
 
-    /**
-    * API管理删除
-    *
-    * @param ids id字符串，根据,号分隔
-    * @return Result
-    */
-    @PreAuth
-    @Log(value = "API删除", exception = "API管理删除请求异常")
-    @PostMapping("/del")
-    @ApiOperation(value = "API删除", notes = "API删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
-    })
-    public Result<?> del(@RequestParam String ids) {
+	/**
+	 * API管理删除
+	 *
+	 * @param ids id字符串，根据,号分隔
+	 * @return Result
+	 */
+	@PreAuth
+	@Log(value = "API删除", exception = "API删除请求异常")
+	@PostMapping("/del")
+	@ApiOperation(value = "API删除", notes = "API删除")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+	})
+	public Result<?> del(@RequestParam String ids) {
 		return Result.condition(sysApiService.removeByIds(CollectionUtil.stringToCollection(ids)));
+	}
+
+	/**
+	 * 从redis同步api至数据库
+	 *
+	 * @return Boolean
+	 */
+	@PreAuth
+	@PostMapping("/sync")
+	@ApiOperation(value = "API同步", notes = "API同步")
+	@Log(value = "API同步", exception = "API同步请求异常")
+	public Result<?> sync() {
+		Set<Object> serviceIds = redisService.sGet(MateConstant.MATE_SERVICE_RESOURCE);
+		for (Object service : serviceIds) {
+			if (redisService.hHasKey(MateConstant.MATE_API_RESOURCE, service.toString())) {
+				Map<String, Object> apiMap = (Map<String, Object>) redisService.hget(MateConstant.MATE_API_RESOURCE, service.toString());
+				List<Map<String, String>> list = (List<Map<String, String>>) apiMap.get("list");
+				list.forEach(item -> {
+					SysApi sysApi = new SysApi();
+					sysApi.setAuth(item.get("auth"));
+					sysApi.setClassName(item.get("className"));
+					sysApi.setCode(item.get("code"));
+					sysApi.setContentType(item.get("contentType"));
+					sysApi.setMethod(item.get("method"));
+					sysApi.setMethodName(item.get("methodName"));
+					sysApi.setName(item.get("name"));
+					sysApi.setNotes(item.get("notes"));
+					sysApi.setPath(item.get("path"));
+					sysApi.setServiceId(item.get("serviceId"));
+					SysApi exist = sysApiService.getByCode(sysApi.getCode());
+					if (ObjectUtils.isEmpty(exist)) {
+						sysApiService.save(sysApi);
+					} else {
+						LambdaQueryWrapper<SysApi> queryWrapper = new LambdaQueryWrapper<>();
+						queryWrapper.eq(SysApi::getCode, sysApi.getCode());
+						sysApiService.update(sysApi, queryWrapper);
+					}
+				});
+			}
+			redisService.hdel(MateConstant.MATE_API_RESOURCE, service.toString());
+		}
+		redisService.del(MateConstant.MATE_SERVICE_RESOURCE);
+		return Result.condition(true);
 	}
 }
 

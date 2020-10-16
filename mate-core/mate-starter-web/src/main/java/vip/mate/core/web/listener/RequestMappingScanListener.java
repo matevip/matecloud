@@ -11,6 +11,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;
@@ -102,6 +103,8 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 				// 方法名
 				String methodName = method.getMethod().getName();
 				String fullName = className + "." + methodName;
+				// md5码
+				String md5 = DigestUtils.md5DigestAsHex((microService + urls).getBytes());
 				String name = "";
 				String notes = "";
 				String auth = "0";
@@ -120,9 +123,10 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 				api.put("name", name);
 				api.put("notes", notes);
 				api.put("path", urls);
+				api.put("code", md5);
 				api.put("className", className);
 				api.put("methodName", methodName);
-				api.put("requestMethod", methods);
+				api.put("method", methods);
 				api.put("serviceId", microService);
 				api.put("contentType", mediaTypes);
 				api.put("auth", auth);
@@ -134,8 +138,9 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 			res.put("serviceId",microService);
 			res.put("size",list.size());
 			res.put("list",list);
-			redisService.hset(MateConstant.API_RESOURCE, microService, res, 18000L);
-			log.info("资源扫描结果:serviceId=[{}] size=[{}] redis缓存key=[{}]", microService,  list.size(), MateConstant.API_RESOURCE);
+			redisService.hset(MateConstant.MATE_API_RESOURCE, microService, res, 18000L);
+			redisService.sSetAndTime(MateConstant.MATE_SERVICE_RESOURCE, 18000L, microService);
+			log.info("资源扫描结果:serviceId=[{}] size=[{}] redis缓存key=[{}]", microService,  list.size(), MateConstant.MATE_API_RESOURCE);
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage());
 		}

@@ -33,11 +33,20 @@ import vip.mate.system.entity.SysApi;
 public interface ISysApiService extends IService<SysApi> {
 
 	/**
-     * 分页业务方法
-     * @param page　分页参数
-     * @param search　搜索参数
-     * @return IPage
-     */
+	 * 分页业务方法
+	 *
+	 * @param page   　分页参数
+	 * @param search 　搜索参数
+	 * @return IPage
+	 */
 	IPage<SysApi> listPage(Page page, Search search);
+
+	/**
+	 * 根据code查询对象
+	 *
+	 * @param code 编码
+	 * @return SysApi
+	 */
+	SysApi getByCode(String code);
 
 }

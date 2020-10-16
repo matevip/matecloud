@@ -38,16 +38,23 @@ import vip.mate.system.service.ISysApiService;
 @Service
 public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApi> implements ISysApiService {
 
-		@Override
-		public IPage<SysApi> listPage(Page page, Search search) {
-			LambdaQueryWrapper<SysApi> queryWrapper = new LambdaQueryWrapper<>();
-			if (StringUtil.isNotBlank(search.getStartDate())) {
-				queryWrapper.between(SysApi::getCreateTime, search.getStartDate(), search.getEndDate());
-			}
-			if (StringUtil.isNotBlank(search.getKeyword())) {
-				queryWrapper.like(SysApi::getId, search.getKeyword());
-			}
-			queryWrapper.orderByDesc(SysApi::getCreateTime);
-			return this.baseMapper.selectPage(page, queryWrapper);
+	@Override
+	public IPage<SysApi> listPage(Page page, Search search) {
+		LambdaQueryWrapper<SysApi> queryWrapper = new LambdaQueryWrapper<>();
+		if (StringUtil.isNotBlank(search.getStartDate())) {
+			queryWrapper.between(SysApi::getCreateTime, search.getStartDate(), search.getEndDate());
 		}
+		if (StringUtil.isNotBlank(search.getKeyword())) {
+			queryWrapper.like(SysApi::getId, search.getKeyword());
+		}
+		queryWrapper.orderByDesc(SysApi::getCreateTime);
+		return this.baseMapper.selectPage(page, queryWrapper);
+	}
+
+	@Override
+	public SysApi getByCode(String code) {
+		LambdaQueryWrapper<SysApi> queryWrapper = new LambdaQueryWrapper<>();
+		queryWrapper.eq(SysApi::getCode, code);
+		return this.baseMapper.selectOne(queryWrapper);
+	}
 }
