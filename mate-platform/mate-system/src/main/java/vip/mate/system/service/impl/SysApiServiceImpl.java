@@ -23,9 +23,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
+import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysApi;
 import vip.mate.system.mapper.SysApiMapper;
 import vip.mate.system.service.ISysApiService;
+
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * <p>
@@ -45,9 +49,11 @@ public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApi> impleme
 			queryWrapper.between(SysApi::getCreateTime, search.getStartDate(), search.getEndDate());
 		}
 		if (StringUtil.isNotBlank(search.getKeyword())) {
-			queryWrapper.like(SysApi::getId, search.getKeyword());
+			queryWrapper.like(SysApi::getCode, search.getKeyword())
+					.or()
+					.like(SysApi::getPath, search.getKeyword());
 		}
-		queryWrapper.orderByDesc(SysApi::getCreateTime);
+		queryWrapper.orderByDesc(SysApi::getId);
 		return this.baseMapper.selectPage(page, queryWrapper);
 	}
 
@@ -56,5 +62,17 @@ public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApi> impleme
 		LambdaQueryWrapper<SysApi> queryWrapper = new LambdaQueryWrapper<>();
 		queryWrapper.eq(SysApi::getCode, code);
 		return this.baseMapper.selectOne(queryWrapper);
+	}
+
+	@Override
+	public boolean status(String ids, String status) {
+		Collection<? extends Serializable> collection = CollectionUtil.stringToCollection(ids);
+
+		for (Object id : collection) {
+			SysApi sysApi = this.baseMapper.selectById(CollectionUtil.objectToLong(id, 0L));
+			sysApi.setStatus(status);
+			this.baseMapper.updateById(sysApi);
+		}
+		return true;
 	}
 }

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.redis.core.RedisService;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysRole;
@@ -44,6 +47,7 @@ public class SysRoleController extends BaseController {
 
     private final ISysRoleService sysRoleService;
     private final ISysRolePermissionService sysRolePermissionService;
+    private final RedisService redisService;
 
     /**
      * 角色列表
@@ -156,6 +160,7 @@ public class SysRoleController extends BaseController {
             sysRolePermission.setRoleId(roleIdc);
             sysRolePermissionService.saveOrUpdate(sysRolePermission);
         }
+        redisService.del("getPermission-" + roleId);
         return Result.success("操作成功");
     }
 

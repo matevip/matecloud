@@ -49,4 +49,13 @@ public interface ISysApiService extends IService<SysApi> {
 	 */
 	SysApi getByCode(String code);
 
+
+	/**
+	 * 设置API状态
+	 *
+	 * @param ids    id串
+	 * @param status 　状态标识
+	 * @return Boolean
+	 */
+	boolean status(String ids, String status);
 }

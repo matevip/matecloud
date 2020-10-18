@@ -130,6 +130,25 @@ public class SysApiController extends BaseController {
 	}
 
 	/**
+	 * API状态
+	 *
+	 * @param ids    多个Id，用,号分隔
+	 * @param status 状态：启用、禁用
+	 * @return Result
+	 */
+	@PreAuth
+	@Log(value = "API状态", exception = "API状态请求异常")
+	@PostMapping("/set-status")
+	@ApiOperation(value = "API状态", notes = "状态包括：启用、禁用")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "ids", required = true, value = "多个id用,号隔开", paramType = "form"),
+			@ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
+	})
+	public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
+		return Result.condition(sysApiService.status(ids, status));
+	}
+
+	/**
 	 * 从redis同步api至数据库
 	 *
 	 * @return Boolean

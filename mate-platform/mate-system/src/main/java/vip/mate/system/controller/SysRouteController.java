@@ -16,24 +16,22 @@
  */
 package vip.mate.system.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
-
+import org.springframework.web.bind.annotation.*;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
-import vip.mate.core.web.util.CollectionUtil;
-
-import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.web.controller.BaseController;
-import vip.mate.system.service.ISysRouteService;
+import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysRoute;
+import vip.mate.system.service.ISysRouteService;
+
 import javax.validation.Valid;
 
 /**
@@ -46,7 +44,7 @@ import javax.validation.Valid;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/sys-route")
+@RequestMapping("/route")
 @Api(value = "系统路由表", tags = "系统路由表接口")
 public class SysRouteController extends BaseController {
 
