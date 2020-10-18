@@ -38,16 +38,18 @@ import vip.mate.system.service.ISysRouteService;
 @Service
 public class SysRouteServiceImpl extends ServiceImpl<SysRouteMapper, SysRoute> implements ISysRouteService {
 
-		@Override
-		public IPage<SysRoute> listPage(Page page, Search search) {
-			LambdaQueryWrapper<SysRoute> queryWrapper = new LambdaQueryWrapper<>();
-			if (StringUtil.isNotBlank(search.getStartDate())) {
-				queryWrapper.between(SysRoute::getCreateTime, search.getStartDate(), search.getEndDate());
-			}
-			if (StringUtil.isNotBlank(search.getKeyword())) {
-				queryWrapper.like(SysRoute::getId, search.getKeyword());
-			}
-			queryWrapper.orderByDesc(SysRoute::getCreateTime);
-			return this.baseMapper.selectPage(page, queryWrapper);
+	@Override
+	public IPage<SysRoute> listPage(Page page, Search search) {
+		LambdaQueryWrapper<SysRoute> queryWrapper = new LambdaQueryWrapper<>();
+		if (StringUtil.isNotBlank(search.getStartDate())) {
+			queryWrapper.between(SysRoute::getCreateTime, search.getStartDate(), search.getEndDate());
 		}
+		if (StringUtil.isNotBlank(search.getKeyword())) {
+			queryWrapper.like(SysRoute::getServiceId, search.getKeyword())
+					.or()
+					.like(SysRoute::getName, search.getKeyword());
+		}
+		queryWrapper.orderByDesc(SysRoute::getCreateTime);
+		return this.baseMapper.selectPage(page, queryWrapper);
+	}
 }

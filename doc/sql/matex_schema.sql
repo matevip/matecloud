@@ -582,10 +582,10 @@ CREATE TABLE `mate_sys_api` (
 DROP TABLE IF EXISTS `mate_sys_route`;
 CREATE TABLE `mate_sys_route` (
                                   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-                                  `name` varchar(100) DEFAULT NULL COMMENT '接口名称',
-                                  `path` varchar(255) DEFAULT NULL COMMENT '路径前缀',
+                                  `name` varchar(100) DEFAULT NULL COMMENT '服务名称',
+                                  `path` varchar(255) DEFAULT NULL COMMENT '服务前缀',
                                   `url` varchar(255) DEFAULT NULL COMMENT '地址',
-                                  `service_id` varchar(100) DEFAULT NULL COMMENT '服务ID',
+                                  `service_id` varchar(100) DEFAULT NULL COMMENT '服务编码',
                                   `status` char(1) CHARACTER SET utf8mb4 DEFAULT '1' COMMENT 'API状态:0:禁用 1:启用',
                                   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
                                   `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
