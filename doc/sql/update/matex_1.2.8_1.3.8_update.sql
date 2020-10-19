@@ -47,4 +47,14 @@ CREATE TABLE `mate_sys_route` (
       PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='系统路由表';
 
+LOCK TABLES `mate_sys_route` WRITE;
+ALTER TABLE `mate_sys_route` DISABLE KEYS;
+INSERT INTO `mate_sys_route` (`id`, `name`, `path`, `url`, `service_id`, `status`, `create_by`, `update_by`, `create_time`, `update_time`, `is_deleted`, `tenant_id`) VALUES
+(1,'系统服务','/mate-system/**',NULL,'mate-system','1',NULL,NULL,'2020-10-18 22:59:02','2020-10-18 23:03:42','0',NULL),
+(2,'认证服务','/mate-uaa/**',NULL,'mate-uaa','1',NULL,NULL,'2020-10-18 15:14:13','2020-10-18 23:14:24','0',NULL),
+(3,'代码服务','/mate-code/**',NULL,'mate-code','1',NULL,NULL,'2020-10-19 09:21:25',NULL,'0',NULL),
+(4,'组件服务','/mate-component/**',NULL,'mate-component','1',NULL,NULL,'2020-10-19 09:22:42',NULL,'0',NULL);
+ALTER TABLE `mate_sys_route` ENABLE KEYS;
+UNLOCK TABLES;
+
 SET FOREIGN_KEY_CHECKS = 1;
