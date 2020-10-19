@@ -43,7 +43,7 @@ import java.util.Collection;
 public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApi> implements ISysApiService {
 
 	@Override
-	public IPage<SysApi> listPage(Page page, Search search) {
+	public IPage<SysApi> listPage(Page page, Search search, String serviceId) {
 		LambdaQueryWrapper<SysApi> queryWrapper = new LambdaQueryWrapper<>();
 		if (StringUtil.isNotBlank(search.getStartDate())) {
 			queryWrapper.between(SysApi::getCreateTime, search.getStartDate(), search.getEndDate());
@@ -52,6 +52,9 @@ public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApi> impleme
 			queryWrapper.like(SysApi::getCode, search.getKeyword())
 					.or()
 					.like(SysApi::getPath, search.getKeyword());
+		}
+		if (!serviceId.equals("-1")) {
+			queryWrapper.eq(SysApi::getServiceId, serviceId);
 		}
 		queryWrapper.orderByDesc(SysApi::getId);
 		return this.baseMapper.selectPage(page, queryWrapper);

@@ -26,6 +26,9 @@ import vip.mate.core.database.entity.Search;
 import vip.mate.system.entity.SysRoute;
 import vip.mate.system.mapper.SysRouteMapper;
 import vip.mate.system.service.ISysRouteService;
+import vip.mate.system.vo.SysRouteVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -51,5 +54,10 @@ public class SysRouteServiceImpl extends ServiceImpl<SysRouteMapper, SysRoute> i
 		}
 		queryWrapper.orderByDesc(SysRoute::getCreateTime);
 		return this.baseMapper.selectPage(page, queryWrapper);
+	}
+
+	@Override
+	public List<SysRouteVO> listItem() {
+		return this.baseMapper.listItem();
 	}
 }

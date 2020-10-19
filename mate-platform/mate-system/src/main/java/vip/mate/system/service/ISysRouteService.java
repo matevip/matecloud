@@ -21,6 +21,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.core.database.entity.Search;
 import vip.mate.system.entity.SysRoute;
+import vip.mate.system.vo.SysRouteVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -33,11 +36,19 @@ import vip.mate.system.entity.SysRoute;
 public interface ISysRouteService extends IService<SysRoute> {
 
 	/**
-     * 分页业务方法
-     * @param page　分页参数
-     * @param search　搜索参数
-     * @return IPage
-     */
+	 * 分页业务方法
+	 *
+	 * @param page   　分页参数
+	 * @param search 　搜索参数
+	 * @return IPage
+	 */
 	IPage<SysRoute> listPage(Page page, Search search);
+
+	/**
+	 * 查询微服务列表
+	 *
+	 * @return List<SysRouteVO>
+	 */
+	List<SysRouteVO> listItem();
 
 }

@@ -6,16 +6,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 权限视图对象
+ * 微服务视图对象
  *
- * @author xuzhanfu
+ * @author pangu
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SysRoleVO implements Serializable {
-
-	private static final long serialVersionUID = -9037938910709841835L;
-
+public class SysRouteVO implements Serializable {
 	private Long id;
 	private String name;
 }

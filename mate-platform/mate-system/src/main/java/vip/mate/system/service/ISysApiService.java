@@ -39,7 +39,7 @@ public interface ISysApiService extends IService<SysApi> {
 	 * @param search 　搜索参数
 	 * @return IPage
 	 */
-	IPage<SysApi> listPage(Page page, Search search);
+	IPage<SysApi> listPage(Page page, Search search, String serviceId);
 
 	/**
 	 * 根据code查询对象

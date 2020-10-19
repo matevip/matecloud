@@ -18,6 +18,9 @@ package vip.mate.system.mapper;
 
 import vip.mate.system.entity.SysRoute;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import vip.mate.system.vo.SysRouteVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -28,5 +31,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-10-17
  */
 public interface SysRouteMapper extends BaseMapper<SysRoute> {
+
+	/**
+	 * 微服务视图列表
+	 *
+	 * @return List<SysRouteVO>
+	 */
+	List<SysRouteVO> listItem();
 
 }
