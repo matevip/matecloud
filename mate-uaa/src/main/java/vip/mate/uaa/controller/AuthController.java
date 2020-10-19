@@ -137,7 +137,7 @@ public class AuthController {
      *
      * @param oauthType 第三方登录类型
      * @param response  response
-     * @throws IOException
+     * @throws IOException IO异常
      */
     @Log(value = "第三方登录", exception = "第三方登录请求异常")
     @ApiOperation(value = "第三方登录", notes = "第三方登录")
@@ -152,7 +152,6 @@ public class AuthController {
      *
      * @param oauthType 第三方登录类型
      * @param callback  携带返回的信息
-     * @return 登录成功后的信息
      */
     @Log(value = "第三方登录回调", exception = "第三方登录回调请求异常")
     @ApiOperation(value = "第三方登录回调", notes = "第三方登录回调")

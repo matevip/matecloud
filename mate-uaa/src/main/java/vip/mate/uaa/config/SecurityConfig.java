@@ -37,6 +37,8 @@ import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
 import vip.mate.uaa.sms.SmsCodeAuthenticationSecurityConfig;
 import vip.mate.uaa.social.SocialAuthenticationSecurityConfig;
 
+import javax.annotation.Resource;
+
 /**
  * 安全配置中心
  *
@@ -46,76 +48,77 @@ import vip.mate.uaa.social.SocialAuthenticationSecurityConfig;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private IgnoreUrlPropsConfig ignoreUrlPropsConfig;
+	@Autowired
+	private IgnoreUrlPropsConfig ignoreUrlPropsConfig;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
 
-    @Autowired
-    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+	@Resource
+	private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
-    @Autowired
-    private SocialAuthenticationSecurityConfig socialAuthenticationSecurityConfig;
+	@Resource
+	private SocialAuthenticationSecurityConfig socialAuthenticationSecurityConfig;
 
-    /**
-     * 必须要定义，否则不支持grant_type=password模式
-     * @return
-     */
-    @Bean
-    @Override
-    @SneakyThrows
-    public AuthenticationManager authenticationManagerBean() {
-        return super.authenticationManagerBean();
-    }
+	/**
+	 * 必须要定义，否则不支持grant_type=password模式
+	 *
+	 * @return AuthenticationManager
+	 */
+	@Bean
+	@Override
+	@SneakyThrows
+	public AuthenticationManager authenticationManagerBean() {
+		return super.authenticationManagerBean();
+	}
 
-    @Bean
-    public AuthenticationSuccessHandler mateAuthenticationSuccessHandler() {
-        return new MateAuthenticationSuccessHandler();
-    }
+	@Bean
+	public AuthenticationSuccessHandler mateAuthenticationSuccessHandler() {
+		return new MateAuthenticationSuccessHandler();
+	}
 
-    @Bean
-    public AuthenticationFailureHandler mateAuthenticationFailureHandler() {
-        return new MateAuthenticationFailureHandler();
-    }
+	@Bean
+	public AuthenticationFailureHandler mateAuthenticationFailureHandler() {
+		return new MateAuthenticationFailureHandler();
+	}
 
 
-    @Override
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
-    }
+	@Override
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new UserDetailsServiceImpl();
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config
-                = http.requestMatchers().anyRequest()
-                .and()
-                .apply(smsCodeAuthenticationSecurityConfig)
-                .and()
-                .apply(socialAuthenticationSecurityConfig)
-                .and()
-                .authorizeRequests();
-        ignoreUrlPropsConfig.getUrls().forEach(e -> {
-            config.antMatchers(e).permitAll();
-        });
-        config
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/oauth/**").permitAll()
-                .antMatchers("/actuator/**").permitAll()
-                .antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/v2/api-docs-ext").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config
+				= http.requestMatchers().anyRequest()
+				.and()
+				.apply(smsCodeAuthenticationSecurityConfig)
+				.and()
+				.apply(socialAuthenticationSecurityConfig)
+				.and()
+				.authorizeRequests();
+		ignoreUrlPropsConfig.getUrls().forEach(e -> {
+			config.antMatchers(e).permitAll();
+		});
+		config
+				.antMatchers("/auth/**").permitAll()
+				.antMatchers("/oauth/**").permitAll()
+				.antMatchers("/actuator/**").permitAll()
+				.antMatchers("/v2/api-docs").permitAll()
+				.antMatchers("/v2/api-docs-ext").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.csrf().disable();
+	}
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.
-                userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder());
-    }
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.
+				userDetailsService(userDetailsService())
+				.passwordEncoder(passwordEncoder());
+	}
 }
