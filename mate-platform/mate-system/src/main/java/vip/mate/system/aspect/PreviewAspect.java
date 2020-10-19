@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import vip.mate.core.common.exception.PreviewException;
 import vip.mate.core.common.util.RequestHolder;
 import vip.mate.core.common.util.TraceUtil;
@@ -24,7 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 public class PreviewAspect {
 
     @Value("${mate.preview.enable}")
-    private boolean isPreview = false;
+    private final boolean isPreview = false;
+
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Around(
             "execution(static vip.mate.core.common.api.Result *(..)) || " +
@@ -35,7 +38,7 @@ public class PreviewAspect {
         //　获取request
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
         if (StringUtils.equalsIgnoreCase(request.getMethod(), HttpMethod.POST.name()) && isPreview
-        && !(StringUtils.equalsIgnoreCase(request.getRequestURI(), "/provider/log/save"))) {
+        && !(antPathMatcher.match(request.getRequestURI(), "/provider/log/set"))) {
             log.error("演示环境不能操作！");
             throw new PreviewException("演示环境不能操作！");
         }
