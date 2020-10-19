@@ -11,34 +11,39 @@ import vip.mate.core.security.userdetails.MateUserDetailsService;
 
 import java.util.Objects;
 
+/**
+ * 短信验证码验证提供者
+ *
+ * @author pangu
+ */
 @AllArgsConstructor
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
-    private final MateUserDetailsService userDetailsService;
+	private final MateUserDetailsService userDetailsService;
 
-    @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
 
-        /**
-         * 调用 {@link UserDetailsService}
-         */
-        UserDetails user = userDetailsService.loadUserByMobile((String)authenticationToken.getPrincipal());
+		/**
+		 * 调用 {@link UserDetailsService}
+		 */
+		UserDetails user = userDetailsService.loadUserByMobile((String) authenticationToken.getPrincipal());
 
-        if (Objects.isNull(user)) {
-            throw new InternalAuthenticationServiceException("手机号或验证码错误");
-        }
+		if (Objects.isNull(user)) {
+			throw new InternalAuthenticationServiceException("手机号或验证码错误");
+		}
 
-        SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken(user, user.getAuthorities());
+		SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken(user, user.getAuthorities());
 
-        authenticationResult.setDetails(authenticationToken.getDetails());
+		authenticationResult.setDetails(authenticationToken.getDetails());
 
-        return authenticationResult;
+		return authenticationResult;
 
-    }
+	}
 
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return SmsCodeAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+	@Override
+	public boolean supports(Class<?> authentication) {
+		return SmsCodeAuthenticationToken.class.isAssignableFrom(authentication);
+	}
 }

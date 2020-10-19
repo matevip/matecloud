@@ -21,16 +21,7 @@ public class SmsCodeAuthenticationSecurityConfig
 		extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
 	@Autowired
-	@SuppressWarnings("all")
 	private MateUserDetailsService userDetailsService;
-
-	@Autowired
-	@SuppressWarnings("all")
-	public AuthenticationSuccessHandler mateAuthenticationSuccessHandler;
-
-	@Autowired
-	@SuppressWarnings("all")
-	public AuthenticationFailureHandler mateAuthenticationFailureHandler;
 
 	@Override
 	public void configure(HttpSecurity http) {
@@ -38,9 +29,6 @@ public class SmsCodeAuthenticationSecurityConfig
 		// 过滤器
 		SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
 		smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-		smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(mateAuthenticationSuccessHandler);
-		smsCodeAuthenticationFilter.setAuthenticationFailureHandler(mateAuthenticationFailureHandler);
-
 
 		// 获取验证码提供者
 		SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider(userDetailsService);

@@ -10,53 +10,55 @@ import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 
 /**
+ * WEB响应异常处理类
+ *
  * @author pangu
  */
 @Slf4j
 public class MateWebRespExceptionTranslator implements WebResponseExceptionTranslator {
 
-    @Override
-    public ResponseEntity<Result<?>> translate(Exception e) throws Exception {
-        ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.UNAUTHORIZED);
-        String message = "认证失败";
+	@Override
+	public ResponseEntity<Result<?>> translate(Exception e) throws Exception {
+		ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.UNAUTHORIZED);
+		String message = "认证失败";
 
-        log.error(message, e);
-        if (e instanceof UnsupportedGrantTypeException) {
-            message = "不支持该认证类型";
-            return status.body(apiResult(message));
-        }
-        if (e instanceof InvalidTokenException
-                && StringUtils.containsIgnoreCase(e.getMessage(), "Invalid refresh token (expired)")) {
-            message = "刷新令牌已过期，请重新登录";
-            return status.body(apiResult(message));
-        }
-        if (e instanceof InvalidScopeException) {
-            message = "不是有效的scope值";
-            return status.body(apiResult(message));
-        }
-        if (e instanceof InvalidGrantException) {
-            if (StringUtils.containsIgnoreCase(e.getMessage(), "Invalid refresh token")) {
-                message = "refresh token无效";
-                return status.body(apiResult(message));
-            }
-            if (StringUtils.containsIgnoreCase(e.getMessage(), "Invalid authorization code")) {
-                message = "authorization code无效";
-                return status.body(apiResult(message));
-            }
-            if (StringUtils.containsIgnoreCase(e.getMessage(), "locked")) {
-                message = "用户已被锁定，请联系管理员";
-                return status.body(apiResult(message));
-            }
-            message = "用户名或密码错误";
-            return status.body(apiResult(message));
-        }
+		log.error(message, e);
+		if (e instanceof UnsupportedGrantTypeException) {
+			message = "不支持该认证类型";
+			return status.body(apiResult(message));
+		}
+		if (e instanceof InvalidTokenException
+				&& StringUtils.containsIgnoreCase(e.getMessage(), "Invalid refresh token (expired)")) {
+			message = "刷新令牌已过期，请重新登录";
+			return status.body(apiResult(message));
+		}
+		if (e instanceof InvalidScopeException) {
+			message = "不是有效的scope值";
+			return status.body(apiResult(message));
+		}
+		if (e instanceof InvalidGrantException) {
+			if (StringUtils.containsIgnoreCase(e.getMessage(), "Invalid refresh token")) {
+				message = "refresh token无效";
+				return status.body(apiResult(message));
+			}
+			if (StringUtils.containsIgnoreCase(e.getMessage(), "Invalid authorization code")) {
+				message = "authorization code无效";
+				return status.body(apiResult(message));
+			}
+			if (StringUtils.containsIgnoreCase(e.getMessage(), "locked")) {
+				message = "用户已被锁定，请联系管理员";
+				return status.body(apiResult(message));
+			}
+			message = "用户名或密码错误";
+			return status.body(apiResult(message));
+		}
 
-        return status.body(apiResult(message));
-    }
+		return status.body(apiResult(message));
+	}
 
-    private Result<?> apiResult (String message){
-        return Result.data(ResultCode.ERROR, message);
-    }
+	private Result<?> apiResult(String message) {
+		return Result.data(ResultCode.ERROR, message);
+	}
 
 
 }
