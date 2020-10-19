@@ -19,7 +19,6 @@ import java.util.Set;
 public class RuleCacheServiceImpl implements IRuleCacheService {
 
     @Autowired
-    @SuppressWarnings("all")
     private RedisService redisService;
 
     @Override
@@ -39,6 +38,7 @@ public class RuleCacheServiceImpl implements IRuleCacheService {
         redisService.sSet(key, JSONObject.toJSONString(blackList));
     }
 
+    @Override
     public void deleteBlackList(BlackList blackList) {
         String key = StringUtils.isNotBlank(blackList.getIp()) ? RuleConstant.getBlackListCacheKey(blackList.getIp())
                 : RuleConstant.getBlackListCacheKey();

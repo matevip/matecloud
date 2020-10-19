@@ -1,0 +1,27 @@
+version: '1.3'
+services:
+  nacos:
+    image: nacos/nacos-server:latest
+    container_name: nacos-standalone-mysql
+    env_file:
+      - ./env/nacos-standlone-mysql.env
+    volumes:
+      - ./standalone-logs/:/home/nacos/logs
+      - ./init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+      - "9555:9555"
+    depends_on:
+      - mysql
+    restart: on-failure
+  mysql:
+    container_name: mysql:5.7
+    image: mysql:5.7
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - $PWD/conf:/etc/mysql/conf.d
+      - $PWD/logs:/logs
+      - $PWD/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
