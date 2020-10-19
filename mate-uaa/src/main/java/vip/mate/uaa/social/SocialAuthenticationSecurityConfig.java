@@ -12,37 +12,35 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Component;
 import vip.mate.core.security.userdetails.MateUserDetailsService;
 
+/**
+ * 社交登录配置
+ *
+ * @author pangu
+ */
 @Slf4j
 @Component
 public class SocialAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    @Autowired
-    @SuppressWarnings("all")
-    private MateUserDetailsService userDetailsService;
+	@Autowired
+	private MateUserDetailsService userDetailsService;
 
-    @Autowired
-    @SuppressWarnings("all")
-    public AuthenticationSuccessHandler smsCodeSuccessHandler;
+	@Autowired
+	private AuthRequestFactory authRequestFactory;
 
-    @Autowired
-    @SuppressWarnings("all")
-    private AuthRequestFactory authRequestFactory;
+	@Override
+	public void configure(HttpSecurity http) {
 
-    @Override
-    public void configure(HttpSecurity http) {
-
-        // 过滤器
-        SocialAuthenticationFilter socialAuthenticationFilter = new SocialAuthenticationFilter();
-        socialAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        socialAuthenticationFilter.setAuthenticationSuccessHandler(smsCodeSuccessHandler);
-        socialAuthenticationFilter.setAuthRequestFactory(authRequestFactory);
+		// 过滤器
+		SocialAuthenticationFilter socialAuthenticationFilter = new SocialAuthenticationFilter();
+		socialAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+		socialAuthenticationFilter.setAuthRequestFactory(authRequestFactory);
 
 
-        // 获取社交登录提供者
-        SocialAuthenticationProvider socialAuthenticationProvider = new SocialAuthenticationProvider(userDetailsService);
+		// 获取社交登录提供者
+		SocialAuthenticationProvider socialAuthenticationProvider = new SocialAuthenticationProvider(userDetailsService);
 
-        // 将社交登录校验器注册到 HttpSecurity， 并将社交登录过滤器添加在 UsernamePasswordAuthenticationFilter 之前
-        http.authenticationProvider(socialAuthenticationProvider)
-                .addFilterBefore(socialAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+		// 将社交登录校验器注册到 HttpSecurity， 并将社交登录过滤器添加在 UsernamePasswordAuthenticationFilter 之前
+		http.authenticationProvider(socialAuthenticationProvider)
+				.addFilterBefore(socialAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+	}
 }
