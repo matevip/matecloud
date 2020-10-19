@@ -460,4 +460,151 @@ INSERT INTO `mate_sys_user` VALUES (10, '1', 'admin10', '{bcrypt}$2a$10$4wy6z4aC
 INSERT INTO `mate_sys_user` VALUES (22, '1', 'pp1', '{bcrypt}$2a$10$Q9nsJV1gClvLe1QAAaLpY.4/FEI0J26EX0Q9VD3l0gyGuwHaCJFH6', 'pp1', NULL, 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2084118128,2518711034&fm=26&gp=0.jpg', NULL, '1899', '2020-06-26 08:00:00', 0, 2, 1, '0', NULL, NULL, '2020-06-30 01:57:13', '2020-09-11 01:53:18', '0');
 COMMIT;
 
+-- ----------------------------
+-- Table structure for mate_sys_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `mate_sys_menu`;
+CREATE TABLE `mate_sys_menu` (
+                                 `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+                                 `name` varchar(32) DEFAULT NULL COMMENT '菜单标题',
+                                 `permission` varchar(32) DEFAULT NULL COMMENT '菜单权限',
+                                 `path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路径',
+                                 `parent_id` bigint(20) DEFAULT '0' COMMENT '父菜单ID',
+                                 `icon` varchar(32) DEFAULT NULL COMMENT '菜单图标',
+                                 `sort` int(11) DEFAULT '1' COMMENT '排序值',
+                                 `keep_alive` char(1) DEFAULT '0' COMMENT '是否缓存该页面: 1:是  0:不是',
+                                 `type` char(1) DEFAULT '0' COMMENT '菜单类型',
+                                 `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
+                                 `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+                                 `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '状态',
+                                 `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0' COMMENT '删除标识',
+                                 `tenant_id` bigint(20) unsigned DEFAULT '0' COMMENT '租户ID',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2053 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
+
+-- ----------------------------
+-- Records of mate_sys_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO `mate_sys_menu` VALUES (1000, '系统管理', NULL, '/system', -1, 'imac', 1, '0', '0', NULL, NULL, '2020-06-17 14:21:45', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1100, '用户管理', NULL, '/system/user', 1000, 'user', 1, '0', '1', NULL, NULL, '2020-06-18 14:28:36', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1101, '用户新增', 'sys:user:add', '', 1100, NULL, 1, '0', '2', NULL, NULL, '2020-06-17 14:32:51', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1102, '用户修改', 'sys:user:edit', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:27:40', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1103, '用户删除', 'sys:user:delete', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:27:56', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1104, '用户启用', 'sys:user:enable', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 08:49:47', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1105, '用户禁用', 'sys:user:disable', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 08:50:16', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1106, '用户导出', 'sys:user:export', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 08:50:58', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1200, '角色管理', NULL, '/system/role', 1000, 'repair', 1, '0', '1', NULL, NULL, '2020-06-19 16:36:01', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1201, '角色新增', 'sys:role:add', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:37:12', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1202, '角色修改', 'sys:role:edit', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:38:23', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1203, '角色删除', 'sys:role:delete', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:38:53', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1204, '角色导出', 'sys:role:export', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:02:37', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1205, '角色权限', 'sys:role:perm', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:03:32', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1300, '菜单管理', NULL, '/system/menu', 1000, 'tree', 1, '0', '1', NULL, NULL, '2020-06-19 16:39:07', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1301, '菜单新增', 'sys:menu:add', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:39:48', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1302, '菜单修改', 'sys:menu:edit', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:40:21', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1303, '菜单删除', 'sys:menu:delete', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:40:42', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1304, '菜单启用', 'sys:menu:enable', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:12:59', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1305, '菜单禁用', 'sys:menu:disable', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:13:34', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1306, '菜单导出', 'sys:menu:export', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:14:32', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1400, '部门管理', NULL, '/system/depart', 1000, 'table2', 1, '0', '1', NULL, NULL, '2020-06-26 22:52:41', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1401, '部门新增', 'sys:depart:add', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-06-27 14:53:37', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1402, '部门修改', 'sys:depart:edit', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-06-27 14:54:47', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1403, '部门删除', 'sys:depart:delete', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-06-27 14:55:15', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (1404, '部门导出', 'sys:depart:export', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:27:26', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2015, '开发运维', NULL, '/devops', -1, 'settings', 2, '0', '0', NULL, NULL, '2020-07-05 03:20:31', '2020-09-08 04:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2016, '数据源管理', '', '/devops/datasource', 2015, 'table', 1, '0', '1', NULL, NULL, '2020-07-06 19:21:58', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2017, '数据源新增', 'sys:datasource:add', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:08:11', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2018, '数据源修改', 'sys:datasource:edit', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:08:40', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2019, '数据源删除', 'sys:datasource:delete', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:09:05', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2020, '数据源导出', 'sys:datasource:export', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:09:25', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2021, '代码生成', NULL, '/devops/generator', 2015, 'download', 1, '0', '1', NULL, NULL, '2020-07-09 07:08:50', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2022, '代码生成', 'devops:gen', NULL, 2021, NULL, 1, '0', '2', NULL, NULL, '2020-07-08 23:09:45', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2023, '监控配置中心', NULL, '/devops/monitor', 2015, 'validCode', 1, '0', '1', NULL, NULL, '2020-07-10 04:23:07', '2020-09-07 20:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2026, '客户端管理', NULL, '/system/client', 1000, 'iPhone', 1, '0', '1', NULL, NULL, '2020-07-13 22:47:20', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2027, '新增客户端', 'sys:client:add', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 22:47:44', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2028, '修改客户端', 'sys:client:edit', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:47:37', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2029, '删除客户端', 'sys:client:delete', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:48:11', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2030, '导出客户端', 'sys:client:export', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:48:28', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2031, '启禁客户端', 'sys:client:status', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:49:22', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2032, '操作日志', NULL, '/system/log', 1000, 'comment', 2, '0', '1', NULL, NULL, '2020-07-15 05:11:09', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2033, '详细日志', 'sys:log:detail', NULL, 2032, NULL, 1, '0', '2', NULL, NULL, '2020-07-16 04:05:48', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2034, '日志删除', 'sys:log:delete', NULL, 2032, NULL, 1, '0', '2', NULL, NULL, '2020-07-16 04:06:16', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2035, '字典管理', NULL, '/system/dict', 1000, 'add', 1, '0', '1', NULL, NULL, '2020-07-17 09:29:31', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2036, '新增字典', 'sys:dict:add', NULL, 2035, NULL, 1, '0', '2', NULL, NULL, '2020-07-20 02:48:01', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2037, '修改字典', 'sys:dict:edit', NULL, 2035, NULL, 1, '0', '2', NULL, NULL, '2020-07-20 02:48:20', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2038, '删除字典', 'sys:dict:delete', NULL, 2035, NULL, 1, '0', '2', NULL, NULL, '2020-07-20 02:48:39', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2039, '组件管理', NULL, '/system/component', 1000, 'nested', 1, '0', '1', NULL, NULL, '2020-08-08 05:35:05', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2040, '内容管理', NULL, '/content', -1, 'content', 4, '0', '0', NULL, NULL, '2020-08-09 00:21:42', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2041, '文件管理', NULL, '/content/attachment', 2040, 'folder', 1, '0', '1', NULL, NULL, '2020-08-08 16:27:06', '2020-09-08 04:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2042, '修改组件', 'sys:comp:edit', NULL, 2039, NULL, 1, '0', '2', NULL, NULL, '2020-08-10 00:42:28', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2043, '上传文件', 'sys:attach:add', NULL, 2041, NULL, 1, '0', '2', NULL, NULL, '2020-08-09 16:43:52', '2020-09-07 20:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2044, '删除文件', 'sys:attach:delete', NULL, 2041, NULL, 1, '0', '2', NULL, NULL, '2020-08-09 16:44:29', '2020-09-07 20:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2045, '网关中心', NULL, '/gateway', -1, 'gateway', 3, '0', '0', NULL, NULL, '2020-08-28 19:12:00', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2047, '黑名单管理', NULL, '/gateway/blacklist', 2045, 'blacklist', 1, '0', '1', NULL, NULL, '2020-08-29 03:15:34', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2048, '新增黑名单', 'gw:bl:add', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:38:52', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2049, '修改黑名单', 'gw:bl:edit', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:39:27', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2050, '删除黑名单', 'gw:bl:del', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:39:51', '2020-09-08 12:07:28', '0', '0', 1);
+INSERT INTO `mate_sys_menu` VALUES (2051, '黑名单状态', 'gw:bl:status', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:44:20', '2020-09-08 12:07:28', '0', '0', 1);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for mate_sys_api
+-- ----------------------------
+DROP TABLE IF EXISTS `mate_sys_api`;
+CREATE TABLE `mate_sys_api` (
+                                `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                                `code` varchar(255) NOT NULL COMMENT '接口编码',
+                                `name` varchar(100) DEFAULT NULL COMMENT '接口名称',
+                                `notes` varchar(200) DEFAULT NULL COMMENT '接口描述',
+                                `method` varchar(20) DEFAULT NULL COMMENT '请求方法',
+                                `class_name` varchar(255) DEFAULT NULL COMMENT '类名',
+                                `method_name` varchar(100) DEFAULT NULL COMMENT '方法名',
+                                `path` varchar(255) DEFAULT NULL COMMENT '请求路径',
+                                `content_type` varchar(100) DEFAULT NULL COMMENT '响应类型',
+                                `service_id` varchar(100) DEFAULT NULL COMMENT '服务ID',
+                                `status` char(1) CHARACTER SET utf8mb4 DEFAULT '1' COMMENT 'API状态:0:禁用 1:启用',
+                                `auth` char(1) CHARACTER SET utf8mb4 DEFAULT '0' COMMENT '是否认证:0:不认证 1:认证',
+                                `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
+                                `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `is_deleted` char(1) CHARACTER SET utf8mb4 DEFAULT '0' COMMENT '删除标识',
+                                `tenant_id` int(11) DEFAULT NULL COMMENT '租户ID',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='系统接口表';
+
+-- ----------------------------
+-- Table structure for mate_sys_route
+-- ----------------------------
+DROP TABLE IF EXISTS `mate_sys_route`;
+CREATE TABLE `mate_sys_route` (
+                                  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                                  `name` varchar(100) DEFAULT NULL COMMENT '服务名称',
+                                  `path` varchar(255) DEFAULT NULL COMMENT '服务前缀',
+                                  `url` varchar(255) DEFAULT NULL COMMENT '地址',
+                                  `service_id` varchar(100) DEFAULT NULL COMMENT '服务编码',
+                                  `status` char(1) CHARACTER SET utf8mb4 DEFAULT '1' COMMENT 'API状态:0:禁用 1:启用',
+                                  `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
+                                  `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                  `is_deleted` char(1) CHARACTER SET utf8mb4 DEFAULT '0' COMMENT '删除标识',
+                                  `tenant_id` int(11) DEFAULT NULL COMMENT '租户ID',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='系统路由表';
+
+LOCK TABLES `mate_sys_route` WRITE;
+ALTER TABLE `mate_sys_route` DISABLE KEYS;
+INSERT INTO `mate_sys_route` (`id`, `name`, `path`, `url`, `service_id`, `status`, `create_by`, `update_by`, `create_time`, `update_time`, `is_deleted`, `tenant_id`) VALUES
+(1,'系统服务','/mate-system/**',NULL,'mate-system','1',NULL,NULL,'2020-10-18 22:59:02','2020-10-18 23:03:42','0',NULL),
+(2,'认证服务','/mate-uaa/**',NULL,'mate-uaa','1',NULL,NULL,'2020-10-18 15:14:13','2020-10-18 23:14:24','0',NULL),
+(3,'代码服务','/mate-code/**',NULL,'mate-code','1',NULL,NULL,'2020-10-19 09:21:25',NULL,'0',NULL),
+(4,'组件服务','/mate-component/**',NULL,'mate-component','1',NULL,NULL,'2020-10-19 09:22:42',NULL,'0',NULL);
+ALTER TABLE `mate_sys_route` ENABLE KEYS;
+UNLOCK TABLES;
+
 SET FOREIGN_KEY_CHECKS = 1;
+

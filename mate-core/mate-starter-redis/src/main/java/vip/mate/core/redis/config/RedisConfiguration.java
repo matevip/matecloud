@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import vip.mate.core.redis.props.MateRedisProperties;
 import vip.mate.core.redis.core.RedisService;
@@ -25,6 +26,16 @@ import vip.mate.core.redis.core.RedisService;
 @EnableConfigurationProperties(MateRedisProperties.class)
 @ConditionalOnProperty(value = MateRedisProperties.PREFIX + ".enabled", havingValue = "true", matchIfMissing = true)
 public class RedisConfiguration {
+
+	@Bean
+	public RedisSerializer<String> redisKeySerializer() {
+		return RedisSerializer.string();
+	}
+
+	@Bean
+	public RedisSerializer<Object> redisValueSerializer() {
+		return RedisSerializer.json();
+	}
 
 	@SuppressWarnings("all")
 	@Bean(name = "redisTemplate")

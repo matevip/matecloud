@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mate-platform</artifactId>
         <groupId>vip.mate</groupId>
-        <version>1.2.8</version>
+        <version>1.3.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -35,10 +35,6 @@
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-auth</artifactId>
         </dependency>
     </dependencies>
 

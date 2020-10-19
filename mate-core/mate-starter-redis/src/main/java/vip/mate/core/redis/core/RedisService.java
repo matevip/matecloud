@@ -17,8 +17,13 @@
 package vip.mate.core.redis.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.TimeoutUtils;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.SerializationUtils;
 import org.springframework.util.Assert;
 
 import java.time.Duration;
@@ -57,6 +62,45 @@ public class RedisService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 添加到带有 过期时间的  缓存
+     *
+     * @param key   redis主键
+     * @param value 值
+     * @param time  过期时间
+     * @param timeUnit  过期时间单位
+     */
+    public void setExpire(final String key, final Object value, final long time, final TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key, value, time, timeUnit);
+    }
+
+    public void setExpire(final String key, final Object value, final long time, final TimeUnit timeUnit, RedisSerializer<Object> valueSerializer) {
+        byte[] rawKey = rawKey(key);
+        byte[] rawValue = rawValue(value, valueSerializer);
+
+        redisTemplate.execute(new RedisCallback<Object>() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                potentiallyUsePsetEx(connection);
+                return null;
+            }
+            public void potentiallyUsePsetEx(RedisConnection connection) {
+                if (!TimeUnit.MILLISECONDS.equals(timeUnit) || !failsafeInvokePsetEx(connection)) {
+                    connection.setEx(rawKey, TimeoutUtils.toSeconds(time, timeUnit), rawValue);
+                }
+            }
+            private boolean failsafeInvokePsetEx(RedisConnection connection) {
+                boolean failed = false;
+                try {
+                    connection.pSetEx(rawKey, time, rawValue);
+                } catch (UnsupportedOperationException e) {
+                    failed = true;
+                }
+                return !failed;
+            }
+        }, true);
     }
 
     /**
@@ -107,6 +151,18 @@ public class RedisService {
      */
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 根据key获取对象
+     *
+     * @param key the key
+     * @param valueSerializer 序列化
+     * @return the string
+     */
+    public Object get(final String key, RedisSerializer<Object> valueSerializer) {
+        byte[] rawKey = rawKey(key);
+        return redisTemplate.execute(connection -> deserializeValue(connection.get(rawKey), valueSerializer), true);
     }
 
     /**
@@ -401,8 +457,9 @@ public class RedisService {
     public Long sSetAndTime(String key, Long time, Object... values) {
         try {
             Long count = redisTemplate.opsForSet().add(key, values);
-            if (time > 0)
+            if (time > 0) {
                 expire(key, time);
+            }
             return count;
         } catch (Exception e) {
             e.printStackTrace();
@@ -518,8 +575,9 @@ public class RedisService {
     public Boolean lSet(String key, Object value, Long time) {
         try {
             redisTemplate.opsForList().rightPush(key, value);
-            if (time > 0)
+            if (time > 0) {
                 expire(key, time);
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -555,8 +613,9 @@ public class RedisService {
     public Boolean lSet(String key, List<Object> value, Long time) {
         try {
             redisTemplate.opsForList().rightPushAll(key, value);
-            if (time > 0)
+            if (time > 0) {
                 expire(key, time);
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -597,5 +656,51 @@ public class RedisService {
             e.printStackTrace();
             return 0L;
         }
+    }
+
+    /**
+     * redis List数据结构 : 返回列表 key 中指定区间内的元素，区间以偏移量 start 和 end 指定。
+     *
+     * @param key   the key
+     * @param start the start
+     * @param end   the end
+     * @param valueSerializer 序列化
+     * @return the list
+     */
+    public List<Object> getList(String key, int start, int end, RedisSerializer<Object> valueSerializer) {
+        byte[] rawKey = rawKey(key);
+        return redisTemplate.execute(connection -> deserializeValues(connection.lRange(rawKey, start, end), valueSerializer), true);
+    }
+
+    private byte[] rawKey(Object key) {
+        Assert.notNull(key, "non null key required");
+
+        if (key instanceof byte[]) {
+            return (byte[]) key;
+        }
+        RedisSerializer<Object> redisSerializer = (RedisSerializer<Object>)redisTemplate.getKeySerializer();
+        return redisSerializer.serialize(key);
+    }
+
+    private byte[] rawValue(Object value, RedisSerializer valueSerializer) {
+        if (value instanceof byte[]) {
+            return (byte[]) value;
+        }
+
+        return valueSerializer.serialize(value);
+    }
+
+    private List deserializeValues(List<byte[]> rawValues, RedisSerializer<Object> valueSerializer) {
+        if (valueSerializer == null) {
+            return rawValues;
+        }
+        return SerializationUtils.deserialize(rawValues, valueSerializer);
+    }
+
+    private Object deserializeValue(byte[] value, RedisSerializer<Object> valueSerializer) {
+        if (valueSerializer == null) {
+            return value;
+        }
+        return valueSerializer.deserialize(value);
     }
 }
