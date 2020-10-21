@@ -50,6 +50,11 @@
 <!--            <groupId>com.fasterxml.jackson.module</groupId>-->
 <!--            <artifactId>jackson-module-kotlin</artifactId>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>com.taobao</groupId>
+            <artifactId>taobao-sdk</artifactId>
+            <version>20200415</version>
+        </dependency>
     </dependencies>
 
     <build>

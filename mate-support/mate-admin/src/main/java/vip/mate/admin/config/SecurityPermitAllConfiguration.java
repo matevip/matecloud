@@ -4,6 +4,7 @@ import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.cloud.nacos.discovery.NacosWatch;
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
+import de.codecentric.boot.admin.server.domain.entities.InstanceRepository;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -13,6 +14,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import vip.mate.admin.message.DingDingNotifier;
 
 /**
  * Spring Security 自定义拦截器
@@ -58,4 +60,12 @@ public class SecurityPermitAllConfiguration extends WebSecurityConfigurerAdapter
 	                             ObjectProvider<TaskScheduler> taskScheduler) {
 		return new NacosWatch(nacosServiceManager, properties, taskScheduler);
 	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnProperty(value = "spring.boot.admin.notify.dingding.enabled", havingValue = "true")
+	public DingDingNotifier dingDingNotifier(InstanceRepository repository) {
+		return new DingDingNotifier(repository);
+	}
+
 }

@@ -7,7 +7,24 @@ spring:
     admin:
       ui:
         title: @artifactId@-server
+      client:
+        instance:
+          metadata:
+            tags:
+              environment: local
+      notify:
+        dingding:
+          token: AA***************BB
   security:
     user:
-      name: "admin"
-      password: "admin"
+      name: admin
+      password: matecloud
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

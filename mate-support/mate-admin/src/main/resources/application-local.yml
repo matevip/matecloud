@@ -12,6 +12,10 @@ spring:
           metadata:
             tags:
               environment: local
+      notify:
+        dingding:
+          enabled: false
+          token: AA***************BB
   security:
     user:
       name: admin
