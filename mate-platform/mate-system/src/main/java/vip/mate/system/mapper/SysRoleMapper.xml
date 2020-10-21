@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vip.mate.system.mapper.SysRoleMapper">
 
-    <resultMap id="sysRoleVOResultMap" type="vip.mate.system.vo.SysRoleVO">
+    <resultMap id="sysRoleVOResultMap" type="vip.mate.system.vip.mate.core.mongodb.vo.SysRoleVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
     </resultMap>

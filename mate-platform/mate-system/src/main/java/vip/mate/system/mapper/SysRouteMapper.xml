@@ -18,7 +18,7 @@
         <result column="tenant_id" property="tenantId"/>
     </resultMap>
 
-    <resultMap id="routeVOResultMap" type="vip.mate.system.vo.SysRouteVO">
+    <resultMap id="routeVOResultMap" type="vip.mate.system.vip.mate.core.mongodb.vo.SysRouteVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
     </resultMap>

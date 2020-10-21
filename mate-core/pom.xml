@@ -40,6 +40,7 @@
         <module>mate-starter-strategy</module>
         <module>mate-starter-retrofit</module>
         <module>mate-starter-j2cache</module>
+        <module>mate-starter-mongodb</module>
     </modules>
 
     <properties>

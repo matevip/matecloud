@@ -1,7 +1,7 @@
 package com.xxl.job.core.util;//package com.xxl.job.core.util;
 //
 ///**
-// * sharding vo
+// * sharding vip.mate.core.mongodb.vo
 // * @author xuxueli 2017-07-25 21:26:38
 // */
 //public class ShardingUtil {

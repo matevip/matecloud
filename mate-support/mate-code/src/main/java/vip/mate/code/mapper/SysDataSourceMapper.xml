@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vip.mate.code.mapper.SysDataSourceMapper">
 
-    <resultMap id="mapperNodeResultMap" type="vip.mate.code.vo.SysDataSourceVO">
+    <resultMap id="mapperNodeResultMap" type="vip.mate.code.vip.mate.core.mongodb.vo.SysDataSourceVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
     </resultMap>
