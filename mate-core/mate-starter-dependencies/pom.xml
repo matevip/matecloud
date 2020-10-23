@@ -67,7 +67,7 @@
         <commons-collections.version>3.2.2</commons-collections.version>
 
         <dozer.version>6.5.0</dozer.version>
-        <redisson.version>3.13.3</redisson.version>
+        <redisson.version>3.13.6</redisson.version>
         <lettuce.version>5.3.3.RELEASE</lettuce.version>
         <sentinel.version>1.8.0</sentinel.version>
         <transmittable.version>2.11.5</transmittable.version>
