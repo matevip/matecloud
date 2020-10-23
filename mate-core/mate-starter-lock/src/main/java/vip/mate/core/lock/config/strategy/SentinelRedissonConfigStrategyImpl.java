@@ -24,14 +24,14 @@ public class SentinelRedissonConfigStrategyImpl implements RedissonConfigStrateg
 			int database = redissonProperties.getDatabase();
 			String[] addrTokens = address.split(",");
 			String sentinelAliasName = addrTokens[0];
-			/**设置redis配置文件sentinel.conf配置的sentinel别名*/
+			// 设置redis配置文件sentinel.conf配置的sentinel别名
 			config.useSentinelServers()
 					.setMasterName(sentinelAliasName);
 			config.useSentinelServers().setDatabase(database);
 			if (StringUtils.isNotBlank(password)) {
 				config.useSentinelServers().setPassword(password);
 			}
-			/**设置sentinel节点的服务IP和端口*/
+			// 设置sentinel节点的服务IP和端口
 			for (int i = 1; i < addrTokens.length; i++) {
 				config.useSentinelServers().addSentinelAddress(GlobalConstant.REDIS_CONNECTION_PREFIX.getConstant_value() + addrTokens[i]);
 			}

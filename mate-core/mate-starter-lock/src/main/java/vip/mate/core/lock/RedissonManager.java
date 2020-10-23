@@ -21,7 +21,8 @@ public class RedissonManager {
 
 	private Redisson redisson = null;
 
-	public RedissonManager() {}
+	public RedissonManager() {
+	}
 
 	public RedissonManager(RedissonProperties redissonProperties) {
 		try {
@@ -30,7 +31,8 @@ public class RedissonManager {
 		} catch (Exception e) {
 			log.error("Redisson init error", e);
 			throw new IllegalArgumentException("please input correct configurations," +
-					"connectionType must in standalone/sentinel/cluster/masterslave");        }
+					"connectionType must in standalone/sentinel/cluster/masterslave");
+		}
 	}
 
 	public Redisson getRedisson() {
@@ -43,7 +45,8 @@ public class RedissonManager {
 	 */
 	static class RedissonConfigFactory {
 
-		private RedissonConfigFactory() {}
+		private RedissonConfigFactory() {
+		}
 
 		private static volatile RedissonConfigFactory factory = null;
 
@@ -62,7 +65,8 @@ public class RedissonManager {
 
 		/**
 		 * 根据连接类型获取对应连接方式的配置,基于策略模式
-		 * @param redissonProperties
+		 *
+		 * @param redissonProperties redisson配置
 		 * @return Config
 		 */
 		Config createConfig(RedissonProperties redissonProperties) {
@@ -71,7 +75,7 @@ public class RedissonManager {
 			Preconditions.checkNotNull(redissonProperties.getType(), "redisson.lock.server.password cannot be NULL");
 			Preconditions.checkNotNull(redissonProperties.getDatabase(), "redisson.lock.server.database cannot be NULL");
 			String connectionType = redissonProperties.getType();
-			/**声明配置上下文*/
+			// 声明配置上下文
 			RedissonConfigContext redissonConfigContext = null;
 			if (connectionType.equals(RedisConnectionType.STANDALONE.getConnection_type())) {
 				redissonConfigContext = new RedissonConfigContext(new StandaloneRedissonConfigStrategyImpl());

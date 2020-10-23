@@ -25,12 +25,14 @@ public class DistributedLockHandler {
 	@Autowired
 	RedissonLock redissonLock;
 
-	@Pointcut("@annotation(vip.mate.core.lock.annotation.DistributedLock)")
-	public void distributedLock() {
-	}
-
+	/**
+	 * 切面环绕通知
+	 * @param joinPoint ProceedingJoinPoint
+	 * @param distributedLock DistributedLock
+	 * @return Object
+	 */
 	@Around("@annotation(distributedLock)")
-	public void around(ProceedingJoinPoint joinPoint, DistributedLock distributedLock) {
+	public Object around(ProceedingJoinPoint joinPoint, DistributedLock distributedLock) {
 		log.info("[开始]执行RedisLock环绕通知,获取Redis分布式锁开始");
 		//获取锁名称
 		String lockName = distributedLock.value();
@@ -40,7 +42,7 @@ public class DistributedLockHandler {
 		if (redissonLock.lock(lockName, expireSeconds)) {
 			try {
 				log.info("获取Redis分布式锁[成功]，加锁完成，开始执行业务逻辑...");
-				joinPoint.proceed();
+				return joinPoint.proceed();
 			} catch (Throwable throwable) {
 				log.error("获取Redis分布式锁[异常]，加锁失败", throwable);
 				throwable.printStackTrace();
@@ -52,6 +54,6 @@ public class DistributedLockHandler {
 			log.error("获取Redis分布式锁[失败]");
 		}
 		log.info("[结束]执行RedisLock环绕通知");
-
+		return null;
 	}
 }
