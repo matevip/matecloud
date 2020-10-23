@@ -41,6 +41,7 @@
         <module>mate-starter-retrofit</module>
         <module>mate-starter-j2cache</module>
         <module>mate-starter-mongodb</module>
+        <module>mate-starter-lock</module>
     </modules>
 
     <properties>
