@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  vip.mate.core.lock.config.RedissonConfig
+  vip.mate.core.lock.config.RedissonConfiguration
 
 

@@ -17,7 +17,7 @@ import java.util.List;
 @RefreshScope
 @ConfigurationProperties(prefix = "ignore")
 @Component
-public class IgnoreUrlPropsConfig {
+public class IgnoreUrlPropsConfiguration {
 
 	private List<String> urls = new ArrayList<>();
 

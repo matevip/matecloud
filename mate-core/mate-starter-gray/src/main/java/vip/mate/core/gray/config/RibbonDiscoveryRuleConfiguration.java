@@ -19,7 +19,7 @@ import vip.mate.core.gray.rule.MetadataAwareRule;
 @Configuration
 @AutoConfigureBefore(RibbonClientConfiguration.class)
 @ConditionalOnProperty(value = "ribbon.filter.metadata.enabled", matchIfMissing = true)
-public class RibbonDiscoveryRuleConfig {
+public class RibbonDiscoveryRuleConfiguration {
 
     @Bean
     @ConditionalOnMissingBean

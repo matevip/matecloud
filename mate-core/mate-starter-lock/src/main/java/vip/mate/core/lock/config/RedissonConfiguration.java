@@ -22,7 +22,7 @@ import vip.mate.core.lock.props.RedissonProperties;
 @Configuration
 @ConditionalOnClass(Redisson.class)
 @EnableConfigurationProperties(RedissonProperties.class)
-public class RedissonConfig {
+public class RedissonConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean

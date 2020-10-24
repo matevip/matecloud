@@ -1,7 +1,7 @@
 package vip.mate.core.lock.annotation;
 
 import org.springframework.context.annotation.Import;
-import vip.mate.core.lock.config.RedissonConfig;
+import vip.mate.core.lock.config.RedissonConfiguration;
 
 import java.lang.annotation.*;
 
@@ -15,6 +15,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Documented
 @Inherited
-@Import(RedissonConfig.class)
+@Import(RedissonConfiguration.class)
 public @interface EnableRedissonLock {
 }
