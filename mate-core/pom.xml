@@ -42,6 +42,7 @@
         <module>mate-starter-j2cache</module>
         <module>mate-starter-mongodb</module>
         <module>mate-starter-lock</module>
+        <module>mate-starter-encrypt</module>
     </modules>
 
     <properties>
