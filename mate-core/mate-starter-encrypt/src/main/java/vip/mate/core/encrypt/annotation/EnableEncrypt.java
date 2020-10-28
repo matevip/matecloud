@@ -1,5 +1,9 @@
 package vip.mate.core.encrypt.annotation;
 
+import org.springframework.context.annotation.Import;
+import vip.mate.core.encrypt.config.EncryptConfiguration;
+import vip.mate.core.encrypt.config.WebConfiguration;
+
 import java.lang.annotation.*;
 
 /**
@@ -13,5 +17,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
+@Import({EncryptConfiguration.class, WebConfiguration.class})
 public @interface EnableEncrypt {
 }
