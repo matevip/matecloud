@@ -26,3 +26,9 @@ mate:
     enable: false
   tenant:
     enable: false
+  uaa:
+    enable: false
+    ignore-url:
+      - /auth/login/**
+      - /auth/callback/**
+      - /auth/sms-code

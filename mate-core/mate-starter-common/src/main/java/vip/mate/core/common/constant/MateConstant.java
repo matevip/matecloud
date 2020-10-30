@@ -74,5 +74,10 @@ public class MateConstant {
 	 */
 	public static final String MATE_API_RESOURCE = "mate-api-resource";
 
+	/**
+	 * 权限认证的排序
+	 */
+	public static final int MATE_UAA_FILTER_ORDER = -200;
+
 
 }
