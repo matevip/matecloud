@@ -27,7 +27,7 @@ import static org.apache.dubbo.spring.boot.util.DubboUtils.*;
 @Configuration
 @ConditionalOnProperty(prefix = DUBBO_PREFIX, name = "enabled", matchIfMissing = true, havingValue = "true")
 @ConditionalOnClass(AbstractConfig.class)
-public class DubboFeignAutoConfiguration {
+public class DubboFeignConfiguration {
 
     @ConditionalOnProperty(prefix = DUBBO_SCAN_PREFIX, name = BASE_PACKAGES_PROPERTY_NAME)
     @ConditionalOnClass(ConfigurationPropertySources.class)

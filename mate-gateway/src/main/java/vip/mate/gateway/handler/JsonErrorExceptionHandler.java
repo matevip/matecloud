@@ -1,22 +1,17 @@
 package vip.mate.gateway.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.*;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
-import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -48,6 +43,8 @@ public class JsonErrorExceptionHandler extends DefaultErrorWebExceptionHandler {
 //        } else if (error instanceof ResponseStatusException
 //                && StringUtils.contains(error.getMessage(), HttpStatus.NOT_FOUND.toString())) {
 //            code = HttpStatus.NOT_FOUND.value();
+//        } else if (error instanceof TokenException) {
+//            code = HttpStatus.UNAUTHORIZED.value();
 //        }
 //        Map<String, Object> errorAttributes = new HashMap<>(8);
 //        errorAttributes.put("message", error.getMessage());

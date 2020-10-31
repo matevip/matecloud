@@ -8,13 +8,18 @@ import vip.mate.core.sms.core.AliSmsTemplate;
 import vip.mate.core.sms.core.SmsTemplate;
 import vip.mate.core.sms.props.SmsProperties;
 
+/**
+ * 阿里短信配置
+ *
+ * @author pangu
+ */
 @Configuration
 @EnableConfigurationProperties(value = SmsProperties.class)
 @ConditionalOnProperty(prefix = SmsProperties.PREFIX, name = "enable", havingValue = "true")
 public class AliSmsConfiguration {
 
-    @Bean
-    public SmsTemplate aliSmsTemplate(SmsProperties smsProperties) {
-        return new AliSmsTemplate(smsProperties);
-    }
+	@Bean
+	public SmsTemplate aliSmsTemplate(SmsProperties smsProperties) {
+		return new AliSmsTemplate(smsProperties);
+	}
 }

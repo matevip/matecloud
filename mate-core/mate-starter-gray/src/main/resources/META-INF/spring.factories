@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  vip.mate.core.gray.config.RibbonDiscoveryRuleConfig
+  vip.mate.core.gray.config.RibbonDiscoveryRuleConfiguration
 
 
