@@ -8,7 +8,7 @@ public class MateConstant {
 	/**
 	 * 应用版本号
 	 */
-	public static final String MATE_APP_VERSION = "1.3.8";
+	public static final String MATE_APP_VERSION = "1.5.8";
 
 	/**
 	 * Spring 应用名 prop key
@@ -73,6 +73,11 @@ public class MateConstant {
 	 * API资源
 	 */
 	public static final String MATE_API_RESOURCE = "mate-api-resource";
+
+	/**
+	 * 权限认证的排序
+	 */
+	public static final int MATE_UAA_FILTER_ORDER = -200;
 
 
 }

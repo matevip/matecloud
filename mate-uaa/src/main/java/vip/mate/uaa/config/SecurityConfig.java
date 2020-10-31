@@ -30,7 +30,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import vip.mate.core.security.config.IgnoreUrlPropsConfig;
+import vip.mate.core.security.config.IgnoreUrlPropsConfiguration;
 import vip.mate.core.security.handle.MateAuthenticationFailureHandler;
 import vip.mate.core.security.handle.MateAuthenticationSuccessHandler;
 import vip.mate.uaa.service.impl.UserDetailsServiceImpl;
@@ -49,7 +49,7 @@ import javax.annotation.Resource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private IgnoreUrlPropsConfig ignoreUrlPropsConfig;
+	private IgnoreUrlPropsConfiguration ignoreUrlPropsConfig;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {

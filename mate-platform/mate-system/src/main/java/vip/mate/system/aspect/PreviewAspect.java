@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class PreviewAspect {
 
     @Value("${mate.preview.enable}")
-    private final boolean isPreview = false;
+    private boolean isPreview = false;
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
