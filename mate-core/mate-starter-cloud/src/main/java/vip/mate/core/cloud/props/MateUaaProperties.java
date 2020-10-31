@@ -1,6 +1,5 @@
 package vip.mate.core.cloud.props;
 
-import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -36,13 +35,16 @@ public class MateUaaProperties {
 	private static final String[] ENDPOINTS = {
 			"/oauth/**",
 			"/actuator/**",
-			"/*/v2/api-docs",
+			"/v2/api-docs/**",
+			"/v2/api-docs-ext/**",
 			"/swagger/api-docs",
 			"/swagger-ui.html",
 			"/doc.html",
 			"/swagger-resources/**",
 			"/webjars/**",
 			"/druid/**",
+			"/error/**",
+			"/assets/**",
 			"/auth/logout",
 			"/auth/code"
 	};
@@ -52,7 +54,9 @@ public class MateUaaProperties {
 	 * @return List
 	 */
 	public List<String> getIgnoreUrl() {
-		Collections.addAll(ignoreUrl, ENDPOINTS);
+		if (!ignoreUrl.contains("/doc.html")) {
+			Collections.addAll(ignoreUrl, ENDPOINTS);
+		}
 		return ignoreUrl;
 	}
 
