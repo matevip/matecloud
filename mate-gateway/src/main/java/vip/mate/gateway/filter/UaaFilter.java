@@ -16,6 +16,8 @@ import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.util.ResponseUtil;
 import vip.mate.core.common.util.SecurityUtil;
+import vip.mate.core.common.util.StringPool;
+import vip.mate.core.common.util.TokenUtil;
 
 /**
  * 网关统一的token验证
@@ -28,6 +30,18 @@ import vip.mate.core.common.util.SecurityUtil;
 public class UaaFilter implements GlobalFilter, Ordered {
 
 	private final MateUaaProperties mateUaaProperties;
+
+	/**
+	 * 路径前缀以/mate开头，如mate-system
+	 */
+	public static final String PATH_PREFIX = "/mate";
+
+	/**
+	 * 索引自1开头检索，跳过第一个字符就是检索的字符的问题
+	 */
+	public static final int FROM_INDEX = 1;
+
+
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -50,7 +64,7 @@ public class UaaFilter implements GlobalFilter, Ordered {
 		if (headerToken == null) {
 			return unauthorized(resp, "没有携带Token信息！");
 		}
-		Claims claims = SecurityUtil.getClaims(headerToken.replace("bearer ",""));
+		Claims claims = SecurityUtil.getClaims(TokenUtil.getToken(headerToken));
 		if (claims == null) {
 			return unauthorized(resp, "token已过期或验证不正确！");
 		}
@@ -74,15 +88,14 @@ public class UaaFilter implements GlobalFilter, Ordered {
 	 * @return String
 	 */
 	private String replacePrefix(String path) {
-		if (path.startsWith("/mate")) {
-			return path.substring(path.indexOf("/",1));
+		if (path.startsWith(PATH_PREFIX)) {
+			return path.substring(path.indexOf(StringPool.SLASH, FROM_INDEX));
 		}
 		return path;
 	}
 
 	private Mono<Void> unauthorized(ServerHttpResponse resp, String msg) {
-		return ResponseUtil.webFluxResponseWriter(resp, "application/json;charset=UTF-8", HttpStatus.UNAUTHORIZED, msg);
-	}
+		return ResponseUtil.webFluxResponseWriter(resp, MateConstant.JSON_UTF8, HttpStatus.UNAUTHORIZED, msg); }
 
 	@Override
 	public int getOrder() {

@@ -30,6 +30,11 @@ public class MateUaaProperties {
 	private Boolean enable = false;
 
 	/**
+	 * 检查是否已加载ENDPOINTS
+	 */
+	public static final String CONTAIN_ENDPOINTS = "/doc.html";
+
+	/**
 	 * 监控中心和swagger需要访问的url
 	 */
 	private static final String[] ENDPOINTS = {
@@ -46,15 +51,17 @@ public class MateUaaProperties {
 			"/error/**",
 			"/assets/**",
 			"/auth/logout",
-			"/auth/code"
+			"/auth/code",
+			"/auth/sms-code"
 	};
 
 	/**
 	 * 自定义getter方法，并将ENDPOINTS加入至忽略URL列表
+	 *
 	 * @return List
 	 */
 	public List<String> getIgnoreUrl() {
-		if (!ignoreUrl.contains("/doc.html")) {
+		if (!ignoreUrl.contains(CONTAIN_ENDPOINTS)) {
 			Collections.addAll(ignoreUrl, ENDPOINTS);
 		}
 		return ignoreUrl;
