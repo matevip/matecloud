@@ -8,7 +8,7 @@ public class MateConstant {
 	/**
 	 * 应用版本号
 	 */
-	public static final String MATE_APP_VERSION = "1.5.8";
+	public static final String MATE_APP_VERSION = "1.6.8-SNAPSHOT";
 
 	/**
 	 * Spring 应用名 prop key

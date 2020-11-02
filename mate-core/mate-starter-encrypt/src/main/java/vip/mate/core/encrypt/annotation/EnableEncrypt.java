@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * 支持res和rsa的加密方式
  *
  * @author pangu
- * @since 1.5.8
+ * @since 1.6.8-SNAPSHOT
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
