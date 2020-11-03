@@ -64,15 +64,15 @@ public class SafeRuleServiceImpl implements SafeRuleService {
                  */
                 checkBlackLists(forbid, blackLists, originUri, requestMethod);
 
-                log.info("黑名单检查完成 - {}", stopwatch.stop());
+                log.debug("黑名单检查完成 - {}", stopwatch.stop());
 
                 if (forbid.get()) {
-                    log.warn("属于黑名单地址 - {}", originUri.getPath());
+                    log.info("属于黑名单地址 - {}", originUri.getPath());
                     return ResponseUtil.webFluxResponseWriter(response, MediaType.APPLICATION_JSON_VALUE,
                             HttpStatus.NOT_ACCEPTABLE, Result.data(HttpStatus.NOT_ACCEPTABLE.value(), "", "已列入黑名单，访问受限"));
                 }
             } else {
-                log.info("黑名单检查跳过 - {}", stopwatch.stop());
+                log.debug("黑名单检查跳过 - {}", stopwatch.stop());
             }
         } catch (Exception e) {
             log.error("黑名单检查异常: {} - {}", e.getMessage(), stopwatch.stop());

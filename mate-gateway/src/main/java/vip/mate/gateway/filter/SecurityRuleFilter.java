@@ -40,7 +40,7 @@ public class SecurityRuleFilter implements WebFilter {
          * 从redis里查询黑名单是否存在
          */
         if (mateRequestProperties.getEnhance()) {
-            log.info("进入黑名单模式");
+            log.debug("进入黑名单模式");
             // 检查黑名单
             Mono<Void> result = safeRuleService.filterBlackList(exchange);
             if (result != null) {
