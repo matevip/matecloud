@@ -43,6 +43,7 @@
         <module>mate-starter-mongodb</module>
         <module>mate-starter-lock</module>
         <module>mate-starter-encrypt</module>
+        <module>mate-starter-rabbit</module>
     </modules>
 
     <properties>
