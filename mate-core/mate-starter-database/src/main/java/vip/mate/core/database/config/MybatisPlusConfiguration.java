@@ -1,14 +1,19 @@
 package vip.mate.core.database.config;
 
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.type.EnumTypeHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -16,6 +21,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import vip.mate.core.common.factory.YamlPropertySourceFactory;
 import vip.mate.core.database.handler.MateMetaObjectHandler;
 import vip.mate.core.database.props.TenantProperties;
+import vip.mate.core.mybatis.injector.MateSqlInjector;
+import vip.mate.core.mybatis.logger.SqlLogFilter;
+import vip.mate.core.mybatis.props.MateMybatisProperties;
 
 /**
  * mybatis plus配置中心
@@ -25,6 +33,7 @@ import vip.mate.core.database.props.TenantProperties;
 @Configuration
 @AllArgsConstructor
 @EnableTransactionManagement
+@EnableConfigurationProperties(MateMybatisProperties.class)
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-db.yml")
 @MapperScan("vip.mate.**.mapper.**")
 public class MybatisPlusConfiguration {
@@ -60,11 +69,6 @@ public class MybatisPlusConfiguration {
         return interceptor;
     }
 
-    @Bean
-    public ConfigurationCustomizer configurationCustomizer() {
-        return configuration -> configuration.setUseDeprecatedExecutor(Boolean.FALSE);
-    }
-
     /**
      * 自动填充数据
      */
@@ -74,5 +78,48 @@ public class MybatisPlusConfiguration {
         MateMetaObjectHandler metaObjectHandler = new MateMetaObjectHandler();
         log.info("MateMetaObjectHandler [{}]", metaObjectHandler);
         return metaObjectHandler;
+    }
+
+    /**
+     * sql 注入
+     */
+    @Bean
+    public ISqlInjector sqlInjector() {
+        return new MateSqlInjector();
+    }
+
+    /**
+     * sql 日志
+     */
+    @Bean
+    public SqlLogFilter sqlLogFilter(MateMybatisProperties properties) {
+        return new SqlLogFilter(properties);
+    }
+
+    /**
+     * IEnum 枚举配置
+     */
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() {
+        return new MybatisPlusCustomizers();
+    }
+
+    /**
+     * 自定义配置
+     */
+    public static class MybatisPlusCustomizers implements ConfigurationCustomizer {
+
+        @Override
+        public void customize(MybatisConfiguration configuration) {
+            configuration.setDefaultEnumTypeHandler(EnumTypeHandler.class);
+        }
+    }
+
+    /**
+     * mybatis-plus 乐观锁拦截器
+     */
+    @Bean
+    public OptimisticLockerInnerInterceptor optimisticLockerInterceptor() {
+        return new OptimisticLockerInnerInterceptor();
     }
 }

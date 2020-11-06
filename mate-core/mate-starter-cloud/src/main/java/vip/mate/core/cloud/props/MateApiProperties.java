@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @RefreshScope
 @ConfigurationProperties(prefix = "mate.uaa")
-public class MateUaaProperties {
+public class MateApiProperties {
 
 	/**
 	 * 忽略URL，List列表形式

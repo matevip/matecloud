@@ -80,6 +80,11 @@ public class MateConstant {
 	public static final int MATE_UAA_FILTER_ORDER = -200;
 
 	/**
+	 * 签名排序
+	 */
+	public static final int MATE_SIGN_FILTER_ORDER = -300;
+
+	/**
 	 * json类型报文，UTF-8字符集
 	 */
 	public static final String JSON_UTF8 = "application/json;charset=UTF-8";

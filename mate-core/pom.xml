@@ -44,6 +44,7 @@
         <module>mate-starter-lock</module>
         <module>mate-starter-encrypt</module>
         <module>mate-starter-rabbit</module>
+        <module>mate-starter-mybatis</module>
     </modules>
 
     <properties>

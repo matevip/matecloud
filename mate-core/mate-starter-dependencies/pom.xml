@@ -201,6 +201,11 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-mybatis</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-system-api</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>

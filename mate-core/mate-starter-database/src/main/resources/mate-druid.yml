@@ -42,7 +42,7 @@ spring:
         enabled: true
         url-pattern: /druid/*
         reset-enable: true
-        login-username: matecloud
+        login-username: admin
         login-password: matecloud
 #server:
 #  servlet:
