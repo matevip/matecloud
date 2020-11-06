@@ -104,3 +104,9 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 |  MateCloud后端源码   |  https://github.com/matevip/matecloud   |  https://gitee.com/matevip/matecloud   |
 |  Artemis前端源码   |  https://github.com/matevip/artemis   |  https://gitee.com/matevip/artemis   |
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
+
+## 特别鸣谢
+特别感谢卢神对MateCloud项目提供的技术支持！
+
+卢春梦 (596392912@qq.com & www.dreamlu.net)
+- mica: https://gitee.com/596392912/mica
