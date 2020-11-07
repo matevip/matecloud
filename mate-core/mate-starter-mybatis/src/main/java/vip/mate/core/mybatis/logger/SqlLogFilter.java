@@ -120,8 +120,7 @@ public class SqlLogFilter extends FilterEventAdapter {
 			"\nExecute SQL ：{}" +
 			"\nExecute Time：{}" +
 			"\n==============  Sql  End   ==============\n";
-//		log.info(sqlLogger, sql.trim(), statement.getLastExecuteTimeNano());
-		System.out.println(sqlLogger);
+		log.info(sqlLogger, sql.trim(), statement.getLastExecuteTimeNano());
 	}
 
 }

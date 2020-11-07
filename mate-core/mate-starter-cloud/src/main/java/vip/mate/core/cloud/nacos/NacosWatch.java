@@ -31,6 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * @author xiaojing
  * @author yuhuangbin
+ * @author L.cm
  */
 public class NacosWatch implements ApplicationEventPublisherAware, SmartLifecycle, DisposableBean {
 

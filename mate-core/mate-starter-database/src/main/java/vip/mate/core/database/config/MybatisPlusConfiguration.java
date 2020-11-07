@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.EnumTypeHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,104 +23,114 @@ import vip.mate.core.common.factory.YamlPropertySourceFactory;
 import vip.mate.core.database.handler.MateMetaObjectHandler;
 import vip.mate.core.database.props.TenantProperties;
 import vip.mate.core.mybatis.injector.MateSqlInjector;
+import vip.mate.core.mybatis.interceptor.SqlLogInterceptor;
 import vip.mate.core.mybatis.logger.SqlLogFilter;
 import vip.mate.core.mybatis.props.MateMybatisProperties;
 
 /**
  * mybatis plus配置中心
+ *
  * @author xuzhanfu
+ * @author L.cm
  */
-@Slf4j
 @Configuration
 @AllArgsConstructor
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @EnableConfigurationProperties(MateMybatisProperties.class)
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-db.yml")
 @MapperScan("vip.mate.**.mapper.**")
 public class MybatisPlusConfiguration {
 
-    private final TenantProperties tenantProperties;
+	private final TenantProperties tenantProperties;
 
-    private final TenantLineInnerInterceptor tenantLineInnerInterceptor;
+	private final TenantLineInnerInterceptor tenantLineInnerInterceptor;
 
-    /**
-     * 单页分页条数限制(默认无限制,参见 插件#handlerLimit 方法)
-     */
-    private static final Long MAX_LIMIT = 1000L;
+	/**
+	 * 单页分页条数限制(默认无限制,参见 插件#handlerLimit 方法)
+	 */
+	private static final Long MAX_LIMIT = 1000L;
 
-    /**
-     * 新的分页插件,一缓和二缓遵循mybatis的规则,
-     * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
-     * 避免缓存出现问题(该属性会在旧插件移除后一同移除)
-     */
-    @Bean
-    public MybatisPlusInterceptor paginationInterceptor() {
-        boolean enableTenant = tenantProperties.getEnable();
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        if (enableTenant) {
-            interceptor.addInnerInterceptor(tenantLineInnerInterceptor);
-        }
-        //分页插件: PaginationInnerInterceptor
-        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
-        paginationInnerInterceptor.setMaxLimit(MAX_LIMIT);
-        //防止全表更新与删除插件: BlockAttackInnerInterceptor
-        BlockAttackInnerInterceptor blockAttackInnerInterceptor = new BlockAttackInnerInterceptor();
-        interceptor.addInnerInterceptor(paginationInnerInterceptor);
-        interceptor.addInnerInterceptor(blockAttackInnerInterceptor);
-        return interceptor;
-    }
+	/**
+	 * sql 注入
+	 */
+	@Bean
+	public ISqlInjector sqlInjector() {
+		return new MateSqlInjector();
+	}
 
-    /**
-     * 自动填充数据
-     */
-    @Bean
-    @ConditionalOnMissingBean(MateMetaObjectHandler.class)
-    public MateMetaObjectHandler mateMetaObjectHandler(){
-        MateMetaObjectHandler metaObjectHandler = new MateMetaObjectHandler();
-        log.info("MateMetaObjectHandler [{}]", metaObjectHandler);
-        return metaObjectHandler;
-    }
+	/**
+	 * sql 日志
+	 */
+//	@Bean
+//	public SqlLogFilter sqlLogFilter(MateMybatisProperties properties) {
+//		return new SqlLogFilter(properties);
+//	}
 
-    /**
-     * sql 注入
-     */
-    @Bean
-    public ISqlInjector sqlInjector() {
-        return new MateSqlInjector();
-    }
+	/**
+	 * sql 日志
+	 */
+	@Bean
+	@ConditionalOnProperty(value = "mybatis-plus.sql-log.enable", matchIfMissing = true)
+	public SqlLogInterceptor sqlLogInterceptor() {
+		return new SqlLogInterceptor();
+	}
 
-    /**
-     * sql 日志
-     */
-    @Bean
-    public SqlLogFilter sqlLogFilter(MateMybatisProperties properties) {
-        return new SqlLogFilter(properties);
-    }
+	/**
+	 * 新的分页插件,一缓和二缓遵循mybatis的规则,
+	 * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
+	 * 避免缓存出现问题(该属性会在旧插件移除后一同移除)
+	 */
+	@Bean
+	public MybatisPlusInterceptor paginationInterceptor() {
+		boolean enableTenant = tenantProperties.getEnable();
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		if (enableTenant) {
+			interceptor.addInnerInterceptor(tenantLineInnerInterceptor);
+		}
+		//分页插件: PaginationInnerInterceptor
+		PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+		paginationInnerInterceptor.setMaxLimit(MAX_LIMIT);
+		//防止全表更新与删除插件: BlockAttackInnerInterceptor
+		BlockAttackInnerInterceptor blockAttackInnerInterceptor = new BlockAttackInnerInterceptor();
+		interceptor.addInnerInterceptor(paginationInnerInterceptor);
+		interceptor.addInnerInterceptor(blockAttackInnerInterceptor);
+		return interceptor;
+	}
 
-    /**
-     * IEnum 枚举配置
-     */
-    @Bean
-    public ConfigurationCustomizer configurationCustomizer() {
-        return new MybatisPlusCustomizers();
-    }
+	/**
+	 * 自动填充数据
+	 */
+	@Bean
+	@ConditionalOnMissingBean(MateMetaObjectHandler.class)
+	public MateMetaObjectHandler mateMetaObjectHandler() {
+		return new MateMetaObjectHandler();
+	}
 
-    /**
-     * 自定义配置
-     */
-    public static class MybatisPlusCustomizers implements ConfigurationCustomizer {
 
-        @Override
-        public void customize(MybatisConfiguration configuration) {
-            configuration.setDefaultEnumTypeHandler(EnumTypeHandler.class);
-        }
-    }
+	/**
+	 * IEnum 枚举配置
+	 */
+	@Bean
+	public ConfigurationCustomizer configurationCustomizer() {
+		return new MybatisPlusCustomizers();
+	}
 
-    /**
-     * mybatis-plus 乐观锁拦截器
-     */
-    @Bean
-    public OptimisticLockerInnerInterceptor optimisticLockerInterceptor() {
-        return new OptimisticLockerInnerInterceptor();
-    }
+	/**
+	 * 自定义配置
+	 */
+	public static class MybatisPlusCustomizers implements ConfigurationCustomizer {
+
+		@Override
+		public void customize(MybatisConfiguration configuration) {
+			configuration.setDefaultEnumTypeHandler(EnumTypeHandler.class);
+		}
+	}
+
+	/**
+	 * mybatis-plus 乐观锁拦截器
+	 */
+	@Bean
+	public OptimisticLockerInnerInterceptor optimisticLockerInterceptor() {
+		return new OptimisticLockerInnerInterceptor();
+	}
 }
