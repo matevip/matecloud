@@ -1,7 +1,5 @@
-package vip.mate.core.encrypt.config;
+package vip.mate.core.encrypt.wrapper;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import vip.mate.core.encrypt.handler.EncryptHandler;
 
 import javax.servlet.ReadListener;
@@ -11,27 +9,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
 
 /**
- * 加密请求包装器
+ * 主体请求加密包装器
  *
  * @author gaoyang
  */
-@Slf4j
-public class EncryptRequestWrapper extends HttpServletRequestWrapper {
+public class EncryptBodyRequestWrapper extends HttpServletRequestWrapper {
 
 	private byte[] body;
-	private EncryptHandler encryptHandler;
+	private EncryptHandler encryptService;
 
-	public EncryptRequestWrapper(HttpServletRequest request, EncryptHandler encryptHandler) throws IOException, ServletException {
+	public EncryptBodyRequestWrapper(HttpServletRequest request, EncryptHandler encryptService) throws IOException, ServletException {
 		super(request);
-		this.encryptHandler = encryptHandler;
-		if (!request.getContentType().toLowerCase().equals(MediaType.APPLICATION_JSON_VALUE) && !request.getContentType().toLowerCase().equals(MediaType.APPLICATION_JSON_UTF8_VALUE.toLowerCase())) {
-			throw new ServletException("contentType error");
-		}
+		this.encryptService = encryptService;
 		ServletInputStream inputStream = request.getInputStream();
-		int contentLength = Integer.parseInt(request.getHeader("Content-Length"));
+		String header = request.getHeader("Content-Length");
+		if (header == null) {
+			return;
+		}
+		int contentLength = Integer.valueOf(header);
 		byte[] bytes = new byte[contentLength];
 		int readCount = 0;
 		while (readCount < contentLength) {
@@ -42,11 +39,8 @@ public class EncryptRequestWrapper extends HttpServletRequestWrapper {
 
 	@Override
 	public ServletInputStream getInputStream() throws IOException {
-		log.info("接收到的请求密文：" + new String(body));
-		byte[] decode = encryptHandler.decode(body);
-		String urlDecodeStr = URLDecoder.decode(new String(decode), "UTF-8");
-		log.info("解密后的报文：" + urlDecodeStr);
-		final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(urlDecodeStr.getBytes());
+		byte[] decode = encryptService.decode(body);
+		final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(decode);
 		return new ServletInputStream() {
 			@Override
 			public boolean isFinished() {

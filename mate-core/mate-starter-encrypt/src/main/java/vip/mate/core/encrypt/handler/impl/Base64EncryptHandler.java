@@ -6,7 +6,7 @@ import vip.mate.core.encrypt.handler.EncryptHandler;
 /**
  * Base64加密处理器
  *
- * @author pangu
+ * @author gaoyang
  */
 public class Base64EncryptHandler implements EncryptHandler {
 

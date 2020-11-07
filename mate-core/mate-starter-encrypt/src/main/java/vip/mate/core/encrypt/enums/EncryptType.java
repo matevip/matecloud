@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * 加密类型枚举类
  *
- * @author pangu
+ * @author gaoyang
  */
 @Getter
 @AllArgsConstructor
