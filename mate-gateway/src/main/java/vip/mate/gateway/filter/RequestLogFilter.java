@@ -38,17 +38,13 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
 		StringBuilder beforeReqLog = new StringBuilder(300);
 		// 日志参数
 		List<Object> beforeReqArgs = new ArrayList<>();
-		beforeReqLog.append("\n\n================ Gateway Request Start  ================\n");
+		beforeReqLog.append("\n\n================ Mate Gateway Request Start  ================\n");
 		// 打印路由
 		beforeReqLog.append("===> {}: {}\n");
 		// 参数
 		String requestMethod = exchange.getRequest().getMethodValue();
 		beforeReqArgs.add(requestMethod);
 		beforeReqArgs.add(requestUrl);
-
-		beforeReqLog.append("===> {}: {}\n");
-		beforeReqArgs.add(exchange.getRequest().getURI().getHost());
-		beforeReqArgs.add(traceId);
 
 		// 打印请求头
 		HttpHeaders headers = exchange.getRequest().getHeaders();
@@ -57,7 +53,7 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
 			beforeReqArgs.add(headerName);
 			beforeReqArgs.add(StringUtils.collectionToCommaDelimitedString(headerValue));
 		});
-		beforeReqLog.append("================  Gateway Request End  =================\n");
+		beforeReqLog.append("================ Mate Gateway Request End =================\n");
 		// 打印执行时间
 		log.info(beforeReqLog.toString(), beforeReqArgs.toArray());
 
@@ -74,13 +70,14 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
 			StringBuilder responseLog = new StringBuilder(300);
 			// 日志参数
 			List<Object> responseArgs = new ArrayList<>();
-			responseLog.append("\n\n================ Gateway Response Start  ================\n");
+			responseLog.append("\n\n================ Mate Gateway Response Start  ================\n");
 			// 打印路由 200 get: /mate*/xxx/xxx
-			responseLog.append("<=== {} {}: {}\n");
+			responseLog.append("<=== {} {}: {}: {}\n");
 			// 参数
 			responseArgs.add(response.getStatusCode().value());
 			responseArgs.add(requestMethod);
 			responseArgs.add(requestUrl);
+			responseArgs.add(executeTime + "ms");
 
 			// 打印请求头
 			HttpHeaders httpHeaders = response.getHeaders();
@@ -90,11 +87,7 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
 				responseArgs.add(StringUtils.collectionToCommaDelimitedString(headerValue));
 			});
 
-			responseLog.append("===执行时间=== {}\n");
-			// 参数
-			responseArgs.add(executeTime + "ms");
-
-			responseLog.append("================  Gateway Response End  =================\n");
+			responseLog.append("================  Mate Gateway Response End  =================\n");
 			// 打印执行时间
 			log.info(responseLog.toString(), responseArgs.toArray());
 		}));
