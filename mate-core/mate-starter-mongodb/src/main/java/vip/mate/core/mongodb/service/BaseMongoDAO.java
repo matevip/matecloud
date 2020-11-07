@@ -11,7 +11,7 @@ import java.util.List;
  * MongoDB通用Dao
  *
  * @param <T>
- * @author pangu
+ * @author LaoWang
  * @date 2020-10-20
  */
 public interface BaseMongoDAO<T> {

@@ -17,7 +17,7 @@ import java.util.List;
  * MongoDB通用Dao抽象实现
  *
  * @param <T>
- * @author pangu
+ * @author LaoWang
  * @date 2020-10-20
  */
 public abstract class MongoDaoSupport<T> implements BaseMongoDAO<T> {

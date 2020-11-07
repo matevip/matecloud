@@ -7,7 +7,7 @@ import java.util.List;
  * 分页参数实体
  *
  * @param <T>
- * @author pangu
+ * @author LaoWang
  * @date 2020-10-20
  */
 public class Page<T> implements Serializable {

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * attribute表示要查询的属性，默认为空串，如果为空则为字段名称
  * @link https://gitee.com/qwer.com/open-mongodb
  *
- * @author pangu
+ * @author LaoWang
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
