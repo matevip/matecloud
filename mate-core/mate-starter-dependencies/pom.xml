@@ -35,7 +35,7 @@
         <mysql.connector.version>8.0.21</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
-        <druid.version>1.2.1</druid.version>
+        <druid.version>1.2.2</druid.version>
         <mybatis.plus.version>3.4.0</mybatis.plus.version>
         <velocity.version>1.7</velocity.version>
 
