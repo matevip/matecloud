@@ -8,10 +8,10 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
 		headers.forEach((headerName, headerValue) -> {
 			beforeReqLog.append("===Headers===  {}: {}\n");
 			beforeReqArgs.add(headerName);
-			beforeReqArgs.add(StringUtils.collectionToCommaDelimitedString(headerValue));
+			beforeReqArgs.add(StringUtil.join(headerValue));
 		});
 		beforeReqLog.append("================ Mate Gateway Request End =================\n");
 		// 打印执行时间
@@ -84,7 +84,7 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
 			httpHeaders.forEach((headerName, headerValue) -> {
 				responseLog.append("===Headers===  {}: {}\n");
 				responseArgs.add(headerName);
-				responseArgs.add(StringUtils.collectionToCommaDelimitedString(headerValue));
+				responseArgs.add(StringUtil.join(headerValue));
 			});
 
 			responseLog.append("================  Mate Gateway Response End  =================\n");

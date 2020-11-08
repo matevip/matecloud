@@ -11,7 +11,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-import vip.mate.core.cloud.props.MateUaaProperties;
+import vip.mate.core.cloud.props.MateApiProperties;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.util.ResponseUtil;
@@ -27,9 +27,9 @@ import vip.mate.core.common.util.TokenUtil;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class UaaFilter implements GlobalFilter, Ordered {
+public class PreUaaFilter implements GlobalFilter, Ordered {
 
-	private final MateUaaProperties mateUaaProperties;
+	private final MateApiProperties mateApiProperties;
 
 	/**
 	 * 路径前缀以/mate开头，如mate-system
@@ -41,15 +41,12 @@ public class UaaFilter implements GlobalFilter, Ordered {
 	 */
 	public static final int FROM_INDEX = 1;
 
-
-
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		// 如果未启用网关验证，则跳过
-		if (!mateUaaProperties.getEnable()) {
+		if (!mateApiProperties.getEnable()) {
 			return chain.filter(exchange);
 		}
-		log.error("getIgnoreUrl:{}", mateUaaProperties.getIgnoreUrl());
 
 		//　如果在忽略的url里，则跳过
 		String path = replacePrefix(exchange.getRequest().getURI().getPath());
@@ -77,7 +74,7 @@ public class UaaFilter implements GlobalFilter, Ordered {
 	 * @return boolean
 	 */
 	private boolean ignore(String path) {
-		return mateUaaProperties.getIgnoreUrl().stream()
+		return mateApiProperties.getIgnoreUrl().stream()
 				.map(url -> url.replace("/**", ""))
 				.anyMatch(path::startsWith);
 	}
