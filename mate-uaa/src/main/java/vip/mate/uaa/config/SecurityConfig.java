@@ -109,6 +109,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/oauth/**").permitAll()
 				.antMatchers("/actuator/**").permitAll()
 				.antMatchers("/v3/api-docs").permitAll()
+				.antMatchers("/doc.html").permitAll()
+				.antMatchers("/webjars/**").permitAll()
+				.antMatchers("/favicon.ico").permitAll()
+				.antMatchers("/swagger-resources/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.csrf().disable();
