@@ -18,11 +18,13 @@ import vip.mate.core.common.util.ResponseUtil;
 import vip.mate.core.common.util.SecurityUtil;
 import vip.mate.core.common.util.StringPool;
 import vip.mate.core.common.util.TokenUtil;
+import vip.mate.core.redis.core.RedisService;
 
 /**
  * 网关统一的token验证
  *
  * @author pangu
+ * @since 1.5.8
  */
 @Slf4j
 @Component
@@ -30,6 +32,8 @@ import vip.mate.core.common.util.TokenUtil;
 public class PreUaaFilter implements GlobalFilter, Ordered {
 
 	private final MateApiProperties mateApiProperties;
+
+	private final RedisService redisService;
 
 	/**
 	 * 路径前缀以/mate开头，如mate-system
@@ -61,9 +65,18 @@ public class PreUaaFilter implements GlobalFilter, Ordered {
 		if (headerToken == null) {
 			return unauthorized(resp, "没有携带Token信息！");
 		}
-		Claims claims = SecurityUtil.getClaims(TokenUtil.getToken(headerToken));
+		String token = TokenUtil.getToken(headerToken);
+		Claims claims = SecurityUtil.getClaims(token);
 		if (claims == null) {
 			return unauthorized(resp, "token已过期或验证不正确！");
+		}
+
+		// 判断token是否存在于redis,对于只允许一台设备场景适用。
+		// 如只允许一台设备登录，需要在登录成功后，查询key是否存在，如存在，则删除此key，提供思路。
+		boolean hasKey = redisService.hasKey("auth:" + token);
+		log.debug("查询token是否存在: " + hasKey);
+		if (!hasKey) {
+			return unauthorized(resp, "登录超时，请重新登录");
 		}
 		return chain.filter(exchange);
 	}
