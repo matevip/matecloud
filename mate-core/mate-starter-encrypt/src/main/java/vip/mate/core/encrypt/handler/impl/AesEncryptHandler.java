@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * AES加密处理器
  *
- * @author pangu
+ * @author gaoyang
  */
 @Data
 @Slf4j

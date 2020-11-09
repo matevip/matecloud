@@ -51,16 +51,24 @@ public class SmsCodeTokenGranter extends AbstractTokenGranter {
 		String mobile = parameters.get("mobile");
 		String code = parameters.get("code");
 
-		String codeFromRedis = redisService.get(Oauth2Constant.SMS_CODE_KEY + mobile).toString();
-
 		if (StringUtils.isBlank(code)) {
-			throw new UserDeniedAuthorizationException("请输入验证码");
+			throw new UserDeniedAuthorizationException("请输入验证码！");
 		}
+
+		String codeFromRedis = null;
+		// 从Redis里读取存储的验证码信息
+		try {
+			codeFromRedis = redisService.get(Oauth2Constant.SMS_CODE_KEY + mobile).toString();
+		} catch (Exception e) {
+			throw new UserDeniedAuthorizationException("验证码不存在！");
+		}
+
 		if (codeFromRedis == null) {
-			throw new UserDeniedAuthorizationException("验证码已过期");
+			throw new UserDeniedAuthorizationException("验证码已过期！");
 		}
+		// 比较输入的验证码是否正确
 		if (!StringUtils.equalsIgnoreCase(code, codeFromRedis)) {
-			throw new UserDeniedAuthorizationException("验证码不正确");
+			throw new UserDeniedAuthorizationException("验证码不正确！");
 		}
 
 		redisService.del(Oauth2Constant.SMS_CODE_KEY + mobile);

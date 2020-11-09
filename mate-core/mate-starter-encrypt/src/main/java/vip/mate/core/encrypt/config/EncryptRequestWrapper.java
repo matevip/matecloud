@@ -16,7 +16,7 @@ import java.net.URLDecoder;
 /**
  * 加密请求包装器
  *
- * @author pangu
+ * @author gaoyang
  */
 @Slf4j
 public class EncryptRequestWrapper extends HttpServletRequestWrapper {

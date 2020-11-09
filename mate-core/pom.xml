@@ -6,7 +6,7 @@
 
     <artifactId>mate-core</artifactId>
     <groupId>vip.mate</groupId>
-    <version>1.5.8</version>
+    <version>1.6.8</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -43,10 +43,12 @@
         <module>mate-starter-mongodb</module>
         <module>mate-starter-lock</module>
         <module>mate-starter-encrypt</module>
+        <module>mate-starter-rabbit</module>
+        <module>mate-starter-mybatis</module>
     </modules>
 
     <properties>
-        <matecloud.core.version>1.5.8</matecloud.core.version>
+        <matecloud.core.version>1.6.8</matecloud.core.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.models.version>1.5.21</swagger.models.version>
         <swagger.bootstrapui.version>1.9.4</swagger.bootstrapui.version>

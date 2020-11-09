@@ -11,7 +11,7 @@ import vip.mate.core.encrypt.handler.EncryptHandler;
 /**
  * web配置
  *
- * @author pangu
+ * @author gaoyang
  */
 @Configuration
 @AllArgsConstructor

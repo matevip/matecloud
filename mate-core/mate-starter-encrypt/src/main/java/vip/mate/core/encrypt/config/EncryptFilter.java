@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * 加密过滤器
  *
- * @author pangu
+ * @author gaoyang
  */
 @Slf4j
 public class EncryptFilter implements Filter {

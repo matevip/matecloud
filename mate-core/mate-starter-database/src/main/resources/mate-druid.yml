@@ -30,7 +30,7 @@ spring:
             noneBaseStatementAllow: true
       # 从这里结束(druid)
 
-      # 以下的2段配置，同时适用于所有模式, 请勿删除
+      # StatViewServlet配置
       web-stat-filter:
         enabled: true
         url-pattern: /*
@@ -38,12 +38,21 @@ spring:
         session-stat-max-count: 1000
         profile-enable: true
         session-stat-enable: false
+      # 配置DruidStatViewServlet
       stat-view-servlet:
+        # 新版需要配置这个属性才能访问监控页面
         enabled: true
         url-pattern: /druid/*
+        #  禁用HTML页面上的“Reset All”功能
         reset-enable: true
-        login-username: matecloud
+        # 登录名
+        login-username: admin
+        # 登录密码
         login-password: matecloud
+        # IP白名单(没有配置或者为空，则允许所有访问)
+        allow: 127.0.0.1
+        # IP黑名单 (存在共同时，deny优先于allow)
+        deny: 192.168.0.1
 #server:
 #  servlet:
 #    context-path: /mate

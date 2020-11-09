@@ -22,6 +22,9 @@ admin | matecloud| mate-system模块不能执行增删改请求
 
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
 
+### 官方文档
+#### 文档地址：https://mate.vip/#/docs
+
 ### 技术交流
 <p align="center"> 
     <img src="https://cdn.ckjia.com/matecloud_social2.jpg" />
@@ -104,3 +107,9 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 |  MateCloud后端源码   |  https://github.com/matevip/matecloud   |  https://gitee.com/matevip/matecloud   |
 |  Artemis前端源码   |  https://github.com/matevip/artemis   |  https://gitee.com/matevip/artemis   |
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
+
+## 特别鸣谢
+特别感谢卢神对MateCloud项目提供的技术支持！
+
+卢春梦 (596392912@qq.com & www.dreamlu.net)
+- mica: https://gitee.com/596392912/mica

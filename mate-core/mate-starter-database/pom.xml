@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mate-core</artifactId>
         <groupId>vip.mate</groupId>
-        <version>1.5.8</version>
+        <version>1.6.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -42,6 +42,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-mybatis</artifactId>
         </dependency>
     </dependencies>
 

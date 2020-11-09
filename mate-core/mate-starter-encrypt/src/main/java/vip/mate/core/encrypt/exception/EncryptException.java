@@ -3,7 +3,7 @@ package vip.mate.core.encrypt.exception;
 /**
  * 加密自定义异常
  *
- * @author pangu
+ * @author gaoyang
  */
 public class EncryptException extends RuntimeException {
 

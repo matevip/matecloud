@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * 加密响应包装器
  *
- * @author pangu
+ * @author gaoyang
  */
 public class EncryptResponseWrapper extends HttpServletResponseWrapper {
 

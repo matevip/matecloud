@@ -1,6 +1,8 @@
 package vip.mate.uaa.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -39,6 +41,12 @@ public class OauthController {
 	@Log(value = "用户登录", exception = "用户登录请求异常")
 	@PostMapping("/token")
 	@ApiOperation(value = "用户登录Post", notes = "用户登录Post")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "grant_type", required = true, value = "授权类型", paramType = "form"),
+			@ApiImplicitParam(name = "username", required = false, value = "用户名", paramType = "form"),
+			@ApiImplicitParam(name = "password", required = false, value = "密码", paramType = "form"),
+			@ApiImplicitParam(name = "scope", required = true, value = "使用范围", paramType = "form"),
+	})
 	public Result<?> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
 		return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
 	}

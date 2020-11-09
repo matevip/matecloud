@@ -14,7 +14,7 @@ import java.util.List;
  * 2. like:mongodb的like查询
  * 3. in:用于列表的in类型查询
  *
- * @author pangu
+ * @author LaoWang
  * @date 2020-10-20
  */
 public enum QueryType {

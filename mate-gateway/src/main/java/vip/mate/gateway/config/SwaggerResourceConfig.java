@@ -30,12 +30,13 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
     /**
      * swagger2默认的url后缀
      */
-    private static final String SWAGGER2URL = "/v2/api-docs";
+    private static final String SWAGGER3URL = "/v3/api-docs";
 
     /**
      * 网关路由
      */
     private final RouteLocator routeLocator;
+
 
     /**
      * 网关应用名称
@@ -66,12 +67,13 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
         Set<String> dealed = new HashSet<>();
         routeHosts.forEach(instance -> {
             // 拼接url，样式为/serviceId/v2/api-info，当网关调用这个接口时，会自动通过负载均衡寻找对应的主机
-            String url = "/" + instance + SWAGGER2URL;
+            String url = "/" + instance + SWAGGER3URL;
             if (!dealed.contains(url)) {
                 dealed.add(url);
                 SwaggerResource swaggerResource = new SwaggerResource();
                 swaggerResource.setUrl(url);
                 swaggerResource.setName(instance);
+                swaggerResource.setSwaggerVersion("3.x");
                 resources.add(swaggerResource);
             }
         });
