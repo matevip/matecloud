@@ -22,7 +22,7 @@ import vip.mate.core.encrypt.handler.impl.RsaEncryptHandler;
 /**
  * 加密配置
  *
- * @author pangu
+ * @author gaoyang
  */
 @Data
 @Configuration

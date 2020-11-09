@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+import vip.mate.core.common.constant.MateConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,7 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
-			HttpServletResponse response, Object handler, Exception ex) {
+	                                     HttpServletResponse response, Object handler, Exception ex) {
 
 		if (!(ex instanceof XxlJobException)) {
 			logger.error("WebExceptionResolver:{}", ex);
@@ -35,7 +36,7 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
 		// if json
 		boolean isJson = false;
 		if (handler instanceof HandlerMethod) {
-			HandlerMethod method = (HandlerMethod)handler;
+			HandlerMethod method = (HandlerMethod) handler;
 			ResponseBody responseBody = method.getMethodAnnotation(ResponseBody.class);
 			if (responseBody != null) {
 				isJson = true;
@@ -49,7 +50,7 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
 		ModelAndView mv = new ModelAndView();
 		if (isJson) {
 			try {
-				response.setContentType("application/json;charset=utf-8");
+				response.setContentType(MateConstant.JSON_UTF8);
 				response.getWriter().print(JacksonUtil.writeValueAsString(errorResult));
 			} catch (IOException e) {
 				logger.error(e.getMessage(), e);
@@ -62,5 +63,5 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
 			return mv;
 		}
 	}
-	
+
 }

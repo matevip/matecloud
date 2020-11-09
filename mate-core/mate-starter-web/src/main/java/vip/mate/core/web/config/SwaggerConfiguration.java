@@ -1,26 +1,22 @@
 package vip.mate.core.web.config;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.annotation.Order;
+import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.factory.YamlPropertySourceFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,22 +25,15 @@ import java.util.List;
  * 2020-7-5
  */
 @Configuration
-@EnableSwagger2
-@EnableKnife4j
+@EnableOpenApi
 @Profile({"!prod"})
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration implements WebMvcConfigurer {
 
-    /**
-     * 排除排springboot的错误和监控端点的路径
-     */
-    private static final List<String> DEFAULT_EXCLUDE_PATH = Arrays.asList("/error", "/actuator/**");
-    private static final String BASE_PATH = "/**";
 
     @Bean(value = "userApi")
-    @Order(value = 1)
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(groupApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("vip.mate"))
@@ -68,17 +57,17 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
                 .description("MateCloud文档管理")
                 .license("Powered by MateCloud")
                 .termsOfServiceUrl("http://mate.vip/")
-                .contact(new Contact("pangu", "http://doc.mate.vip", "7333791@qq.com"))
+                .contact(new Contact("pangu", "https://mate.vip/#/docs", "7333791@qq.com"))
                 .version(MateConstant.MATE_APP_VERSION)
                 .build();
     }
 
 
-    private List<ApiKey> securitySchemes() {
-        List<ApiKey> apiKeyList= new ArrayList();
+    private List<SecurityScheme> securitySchemes() {
+        List<ApiKey> apiKeyList= new ArrayList<>();
         apiKeyList.add(new ApiKey("Authorization", "Authorization", "header"));
         apiKeyList.add(new ApiKey("Mate-Auth", "Mate-Auth", "header"));
-        return apiKeyList;
+        return Collections.unmodifiableList(apiKeyList);
     }
 
     /**

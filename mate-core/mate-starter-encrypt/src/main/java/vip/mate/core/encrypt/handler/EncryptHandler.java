@@ -3,7 +3,7 @@ package vip.mate.core.encrypt.handler;
 /**
  * 加密业务接口
  *
- * @author pangu
+ * @author gaoyang
  */
 public interface EncryptHandler {
 

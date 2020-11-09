@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * String工具类
  *
- * @author pangu
+ * @author LaoWang
  * @date 2020-10-20
  */
 public class StringUtil {

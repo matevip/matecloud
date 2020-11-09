@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * 初始化处理器
  *
- * @author pangu
+ * @author gaoyang
  */
 @Slf4j
 public class InitHandler {

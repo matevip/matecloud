@@ -23,6 +23,7 @@ import vip.mate.system.dto.UserInfo;
 import vip.mate.system.feign.ISysRolePermissionProvider;
 import vip.mate.system.feign.ISysUserProvider;
 import vip.mate.uaa.config.SocialConfig;
+import vip.mate.uaa.enums.LoginType;
 import vip.mate.uaa.service.ValidateService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +72,7 @@ public class AuthController {
          * 根据type来判断调用哪个接口登录，待扩展社交登录模式
          * type 1:用户名和密码登录　2：手机号码登录
          */
-        if (loginUser.getType() == 2) {
+        if (loginUser.getType() == LoginType.MOBILE.getType()) {
             userInfo = sysUserProvider.getUserByMobile(loginUser.getAccount()).getData();
         } else {
             userInfo = sysUserProvider.getUserByUserName(loginUser.getAccount()).getData();

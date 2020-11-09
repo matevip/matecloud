@@ -39,3 +39,8 @@ management:
   endpoint:
     health:
       show-details: always
+#knife4j 2.0.6+配置参数
+knife4j:
+  enable: true
+  setting:
+    enableReloadCacheParameter: true
