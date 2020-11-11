@@ -7,6 +7,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
 import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.common.enums.MethodType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +33,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-		if (postOnly && !request.getMethod().equals("POST")) {
+		if (postOnly && !MethodType.POST.name().equals(request.getMethod())) {
 			throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
 		}
 
