@@ -510,17 +510,16 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- 发布项目到 Nexus -->
+    <!-- 发布项目到 sonatype -->
     <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Release Repository</name>
-            <url>http://nexus.mate.vip/repository/maven-releases/</url>
-        </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>http://nexus.mate.vip/repository/maven-snapshots/</url>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
 </project>
