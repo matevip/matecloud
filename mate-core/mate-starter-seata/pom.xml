@@ -17,5 +17,14 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-common</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-common</artifactId>
+        </dependency>
     </dependencies>
 </project>

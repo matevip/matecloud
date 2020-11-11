@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
 /**
  * 多租户Holder
  * @author pangu
- * @date 2020-9-8
+ * @since 2020-9-8
  */
 @UtilityClass
 public class TenantContextHolder {
