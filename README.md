@@ -100,6 +100,22 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-message-consumer -- 消息服务消费者 [40002]
 │  │  ├─mate-message-producer -- 消息服务生产者 [40003] 
 ```
+### 核心模块提交至中央仓库
+如何引入依赖
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-dependencies</artifactId>
+            <version>1.6.8</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+然后在 dependencies 中添加自己所需使用的依赖即可使用。
 
 ## 项目源码
 |  项目   |   GITHUB  |   码云   |
