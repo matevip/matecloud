@@ -8,7 +8,7 @@ import vip.mate.core.common.factory.YamlPropertySourceFactory;
  * Seata配置
  *
  * @author pangu
- * @since 1.6.8
+ * @since 2.0.8-SNAPSHOT
  */
 @Configuration
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-seata.yml")
