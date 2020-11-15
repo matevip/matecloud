@@ -109,6 +109,7 @@ public class BaseExceptionHandler {
         } else if (StringUtils.contains(ex.toString(), "InternalAuthenticationServiceException")) {
             message = "您输入的用户名不存在";
         }
+        ex.printStackTrace();
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
     }
 }

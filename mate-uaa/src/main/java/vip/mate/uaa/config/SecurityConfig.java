@@ -96,6 +96,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config
 				= http.requestMatchers().anyRequest()
 				.and()
+				.formLogin()
+				.permitAll()
+				.and()
 				.apply(smsCodeAuthenticationSecurityConfig)
 				.and()
 				.apply(socialAuthenticationSecurityConfig)
@@ -106,16 +109,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		});
 		config
 				.antMatchers("/auth/**").permitAll()
-				.antMatchers("/oauth/**").permitAll()
+				.antMatchers("/oauth/token").permitAll()
 				.antMatchers("/actuator/**").permitAll()
 				.antMatchers("/v3/api-docs").permitAll()
 				.antMatchers("/doc.html").permitAll()
 				.antMatchers("/webjars/**").permitAll()
-				.antMatchers("/favicon.ico").permitAll()
+				.antMatchers("**/favicon.ico").permitAll()
 				.antMatchers("/swagger-resources/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.csrf().disable();
+				.csrf().disable()
+				.httpBasic().disable();
 	}
 
 	@Override
