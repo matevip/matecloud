@@ -96,11 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config
 				= http.requestMatchers().anyRequest()
 				.and()
-				.httpBasic()
+				.formLogin()
 				.and()
-//				.formLogin()
-//				.successHandler(mateAuthenticationSuccessHandler())
-//				.and()
 				.apply(smsCodeAuthenticationSecurityConfig)
 				.and()
 				.apply(socialAuthenticationSecurityConfig)
