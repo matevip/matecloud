@@ -47,7 +47,7 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 		this.redisService = redisService;
 		this.ignoreApi.add("/error");
 		this.ignoreApi.add("/swagger-resources/**");
-		this.ignoreApi.add("/v2/api-docs-ext/**");
+		this.ignoreApi.add("/v3/api-docs-ext/**");
 	}
 
 	/**
