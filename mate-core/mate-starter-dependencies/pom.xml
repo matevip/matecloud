@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.5.RELEASE</version>
+        <version>2.3.6.RELEASE</version>
         <relativePath />
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -42,7 +42,7 @@
         <matecloud.core.version>2.0.8-SNAPSHOT</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.3.5.RELEASE</spring.boot.version>
+        <spring.boot.version>2.3.6.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
         <alibaba.cloud.version>2.2.3.RELEASE</alibaba.cloud.version>
 
@@ -57,7 +57,7 @@
         <mysql.connector.version>8.0.21</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
-        <druid.version>1.2.2</druid.version>
+        <druid.version>1.2.3</druid.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
         <velocity.version>1.7</velocity.version>
 
@@ -90,7 +90,7 @@
 
         <dozer.version>6.5.0</dozer.version>
         <redisson.version>3.13.6</redisson.version>
-        <lettuce.version>5.3.3.RELEASE</lettuce.version>
+        <lettuce.version>5.3.5.RELEASE</lettuce.version>
         <sentinel.version>1.8.0</sentinel.version>
         <transmittable.version>2.11.5</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
