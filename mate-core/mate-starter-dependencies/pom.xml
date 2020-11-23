@@ -54,7 +54,7 @@
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-dockerfile-plugin.version>1.4.10</maven-dockerfile-plugin.version>
 
-        <mysql.connector.version>8.0.21</mysql.connector.version>
+        <mysql.connector.version>8.0.22</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
         <druid.version>1.2.3</druid.version>
@@ -63,7 +63,7 @@
 
         <swagger.version>3.0.0</swagger.version>
         <swagger.models.version>2.1.5</swagger.models.version>
-        <knife4j.version>3.0.1</knife4j.version>
+        <knife4j.version>3.0.2</knife4j.version>
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
