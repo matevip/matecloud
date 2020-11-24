@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.6.RELEASE</version>
-        <relativePath />
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -95,6 +95,7 @@
         <transmittable.version>2.11.5</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.7.1</rocketmq.version>
+        <seata.version>1.4.0</seata.version>
         <prometheus.version>1.5.5</prometheus.version>
 
         <jasypt.version>3.0.3</jasypt.version>
@@ -313,11 +314,11 @@
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.swagger</groupId>-->
-<!--                <artifactId>swagger-models</artifactId>-->
-<!--                <version>${swagger.models.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.swagger</groupId>-->
+            <!--                <artifactId>swagger-models</artifactId>-->
+            <!--                <version>${swagger.models.version}</version>-->
+            <!--            </dependency>-->
             <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-models -->
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
@@ -528,6 +529,16 @@
                 <groupId>net.oschina.j2cache</groupId>
                 <artifactId>j2cache-core</artifactId>
                 <version>${j2cache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
