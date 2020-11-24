@@ -1,0 +1,18 @@
+#Swagger属性配置
+mate:
+  swagger:
+    enable: false
+    title: MateCLoud文档管理中心
+    description: MateCloud文档管理
+    license: Powered by MateCloud
+    service-url: https://mate.vip
+    contact-name: pangu
+    contact-url: https://mate.vip/#/docs
+    contact-email: 7333791@qq.com
+# knife4j配置
+knife4j:
+  enable: ${mate.swagger.enable}
+  basic:
+    enable: true
+    username: admin
+    password: matecloud
