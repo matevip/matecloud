@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import vip.mate.core.common.constant.Oauth2Constant;
-import vip.mate.core.common.exception.BaseException;
+import vip.mate.core.common.exception.TokenException;
 import vip.mate.core.security.userdetails.MateUser;
 import vip.mate.core.security.userdetails.MateUserDetailsService;
 import vip.mate.system.dto.UserInfo;
@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         UserInfo userInfo = sysUserProvider.getUserByUserName(userName).getData();
         if (userInfo == null) {
-            throw new UsernameNotFoundException("该用户：" + userName + "不存在");
+            throw new TokenException("该用户：" + userName + "不存在");
         }
         userInfo.setType(Oauth2Constant.LOGIN_USERNAME_TYPE);
         userInfo.setUserName(userName);
@@ -45,7 +45,7 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
     public UserDetails loadUserByMobile(String mobile) throws UsernameNotFoundException {
         UserInfo userInfo = sysUserProvider.getUserByMobile(mobile).getData();
         if (userInfo == null) {
-            throw new UsernameNotFoundException("该用户：" + mobile + "不存在");
+            throw new TokenException("该用户：" + mobile + "不存在");
         }
         userInfo.setType(Oauth2Constant.LOGIN_MOBILE_TYPE);
         userInfo.setUserName(mobile);
@@ -57,7 +57,7 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
         String userName = "admin";
         UserInfo userInfo = sysUserProvider.getUserByUserName(userName).getData();
         if (userInfo == null) {
-            throw new UsernameNotFoundException("该用户：" + userName + "不存在");
+            throw new TokenException("该用户：" + userName + "不存在");
         }
         userInfo.setType(Oauth2Constant.LOGIN_USERNAME_TYPE);
         userInfo.setUserName(userName);
@@ -68,10 +68,10 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
     private UserDetails getUserDetails(UserInfo userInfo) {
         if (ObjectUtils.isEmpty(userInfo)) {
             log.info("该用户：{} 不存在！", userInfo.getUserName());
-            throw new UsernameNotFoundException("该用户：" + userInfo.getUserName() + "不存在");
+            throw new TokenException("该用户：" + userInfo.getUserName() + "不存在");
         } else if (userInfo.getSysUser().getStatus().equals("1")) {
             log.info("该用户：{} 已被停用!", userInfo.getUserName());
-            throw new BaseException("对不起，您的账号：" + userInfo.getUserName() + " 已停用");
+            throw new TokenException("对不起，您的账号：" + userInfo.getUserName() + " 已停用");
         }
         SysUser user = userInfo.getSysUser();
         log.info("用户名：{}", userInfo.getSysUser().getAccount());
