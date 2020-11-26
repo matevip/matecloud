@@ -16,7 +16,8 @@ import vip.mate.core.common.factory.YamlPropertySourceFactory;
  */
 @Configuration
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-druid.yml")
-@PropertySource(value = "classpath:mate-decrypt.properties")
+// 打开和关闭druid模式加密
+//@PropertySource(value = "classpath:mate-decrypt.properties")
 public class DruidConfiguration {
 	/**
 	 * 注册一个StatViewServlet
