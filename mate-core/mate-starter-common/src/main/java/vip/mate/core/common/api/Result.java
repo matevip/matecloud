@@ -8,8 +8,6 @@ import lombok.Getter;
 import vip.mate.core.common.constant.MateConstant;
 
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.ZonedDateTime;
 
 @Data
 @Getter
