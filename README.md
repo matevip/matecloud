@@ -126,6 +126,6 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 
 ## 特别鸣谢
 特别感谢卢神对MateCloud项目提供的技术支持！
+- 卢春梦: mica  https://gitee.com/596392912/mica
+- chuzhixin: vue-admin-beautiful https://github.com/chuzhixin/vue-admin-beautiful
 
-卢春梦 (596392912@qq.com & www.dreamlu.net)
-- mica: https://gitee.com/596392912/mica
