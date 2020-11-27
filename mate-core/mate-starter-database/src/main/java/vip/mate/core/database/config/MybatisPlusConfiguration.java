@@ -35,7 +35,7 @@ import vip.mate.core.mybatis.props.MateMybatisProperties;
  */
 @Configuration
 @AllArgsConstructor
-//@EnableTransactionManagement
+@EnableTransactionManagement
 @EnableConfigurationProperties(MateMybatisProperties.class)
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-db.yml")
 @MapperScan("vip.mate.**.mapper.**")
@@ -57,14 +57,6 @@ public class MybatisPlusConfiguration {
 	public ISqlInjector sqlInjector() {
 		return new MateSqlInjector();
 	}
-
-	/**
-	 * sql 日志
-	 */
-//	@Bean
-//	public SqlLogFilter sqlLogFilter(MateMybatisProperties properties) {
-//		return new SqlLogFilter(properties);
-//	}
 
 	/**
 	 * sql 日志

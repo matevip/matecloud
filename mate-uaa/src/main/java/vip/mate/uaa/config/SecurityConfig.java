@@ -84,7 +84,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new MateAuthenticationFailureHandler();
 	}
 
-
 	@Override
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -96,24 +95,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config
 				= http.requestMatchers().anyRequest()
 				.and()
+				.formLogin()
+				.and()
 				.apply(smsCodeAuthenticationSecurityConfig)
 				.and()
 				.apply(socialAuthenticationSecurityConfig)
 				.and()
 				.authorizeRequests();
-		ignoreUrlPropsConfig.getUrls().forEach(e -> {
-			config.antMatchers(e).permitAll();
+		ignoreUrlPropsConfig.getUrls().forEach(url -> {
+			config.antMatchers(url).permitAll();
+		});
+		ignoreUrlPropsConfig.getIgnoreSecurity().forEach(url -> {
+			config.antMatchers(url).permitAll();
 		});
 		config
-				.antMatchers("/auth/**").permitAll()
-				.antMatchers("/oauth/**").permitAll()
-				.antMatchers("/actuator/**").permitAll()
-				.antMatchers("/v3/api-docs").permitAll()
-				.antMatchers("/doc.html").permitAll()
-				.antMatchers("/webjars/**").permitAll()
-				.antMatchers("/favicon.ico").permitAll()
-				.antMatchers("/swagger-resources/**").permitAll()
-				.anyRequest().authenticated()
+				//任何请求
+				.anyRequest()
+				//都需要身份认证
+				.authenticated()
+				//csrf跨站请求
 				.and()
 				.csrf().disable();
 	}

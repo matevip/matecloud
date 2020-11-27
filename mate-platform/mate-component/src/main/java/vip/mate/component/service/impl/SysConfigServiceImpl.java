@@ -14,6 +14,7 @@ import vip.mate.component.service.ISysConfigService;
 import vip.mate.core.common.constant.ComponentConstant;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.oss.props.OssProperties;
+import vip.mate.core.redis.core.RedisService;
 
 import java.util.List;
 
@@ -29,13 +30,9 @@ import java.util.List;
 @AllArgsConstructor
 public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig> implements ISysConfigService {
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisService redisService;
 
-    /**
-     * 获取默认主题
-     *
-     * @return OssProperties
-     */
+
     @Override
     public OssProperties getOssProperties() {
         OssProperties oss = new OssProperties();
@@ -45,16 +42,11 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         LambdaQueryWrapper<SysConfig> sysConfigLambdaQueryWrapper = Wrappers.<SysConfig>query().lambda().eq(SysConfig::getCode, code);
         List<SysConfig> sysConfigList = this.baseMapper.selectList(sysConfigLambdaQueryWrapper);
         oss = listToProps(sysConfigList, oss);
-        redisTemplate.opsForValue().set(ComponentConstant.OSS_DEFAULT, oss);
+        redisService.set(ComponentConstant.OSS_DEFAULT, oss);
         return oss;
     }
 
-    /**
-     * 根据code获取主题信息
-     *
-     * @param code code编码
-     * @return OssProperties
-     */
+
     @Override
     public OssProperties getConfigByCode(String code) {
         OssProperties oss = new OssProperties();
@@ -66,13 +58,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return oss;
     }
 
-    /**
-     * 保存配置信息
-     *
-     * @param ossProperties OssProperties
-     * @param code          关键词
-     * @return boolean
-     */
+
     @Override
     public boolean saveConfigOss(OssProperties ossProperties, String code) {
 
@@ -112,12 +98,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return this.update(lsc);
     }
 
-    /**
-     * 修改默认oss
-     *
-     * @param code 关键词
-     * @return boolean
-     */
+
     @Override
     public boolean saveDefaultOss(String code) {
         LambdaUpdateWrapper<SysConfig> lsc = Wrappers.<SysConfig>update().lambda()
@@ -132,14 +113,15 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         return flag;
     }
 
-    /**
-     * 获取默认oss的code
-     *
-     * @return code
-     */
+
     @Override
     public String defaultOss() {
         return getDefaultSysConfig().getValue();
+    }
+
+    @Override
+    public void clearOss() {
+        redisService.del(ComponentConstant.OSS_DEFAULT);
     }
 
     /**
