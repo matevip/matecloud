@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.exceptions.*;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.stereotype.Component;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 
@@ -15,10 +16,11 @@ import vip.mate.core.common.api.ResultCode;
  * @author pangu
  */
 @Slf4j
+@Component("mateWebRespExceptionTranslator")
 public class MateWebRespExceptionTranslator implements WebResponseExceptionTranslator {
 
 	@Override
-	public ResponseEntity<Result<?>> translate(Exception e) throws Exception {
+	public ResponseEntity<Result<?>> translate(Exception e) {
 		ResponseEntity.BodyBuilder status = ResponseEntity.status(HttpStatus.UNAUTHORIZED);
 		String message = "认证失败";
 

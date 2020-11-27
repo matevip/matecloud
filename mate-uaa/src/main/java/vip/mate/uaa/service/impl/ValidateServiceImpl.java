@@ -29,8 +29,7 @@ public class ValidateServiceImpl implements ValidateService {
 
     @Override
     public Result<?> getCode() {
-
-        Map<String, String> data = new HashMap<>();
+        Map<String, String> data = new HashMap<>(2);
         String uuid = UUID.randomUUID().toString().replace("-","");
         //SpecCaptcha captcha = new SpecCaptcha(120, 40);
         //String text = captcha.text();// 获取运算的结果：5

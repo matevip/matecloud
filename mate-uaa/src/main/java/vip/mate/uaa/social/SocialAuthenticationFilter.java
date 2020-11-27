@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
 import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.common.enums.MethodType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +48,7 @@ public class SocialAuthenticationFilter extends AbstractAuthenticationProcessing
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-		if (postOnly && !request.getMethod().equals("POST")) {
+		if (postOnly && !MethodType.POST.name().equals(request.getMethod())) {
 			throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
 		}
 		SocialAuthenticationToken token;
@@ -95,8 +96,7 @@ public class SocialAuthenticationFilter extends AbstractAuthenticationProcessing
 		log.info("【justauth 第三方登录 response】= {}", JSON.toJSON(response));
 		// 第三方登录成功
 		if (response.getCode() == AuthResponseStatus.SUCCESS.getCode()) {
-			AuthUser authUser = (AuthUser) response.getData();
-			return authUser;
+			return (AuthUser) response.getData();
 		}
 		return null;
 	}
@@ -129,7 +129,7 @@ public class SocialAuthenticationFilter extends AbstractAuthenticationProcessing
 		int common = SOCIAL_LOGIN_URL.length() - 2;
 		int start = uri.indexOf(SOCIAL_LOGIN_URL.substring(0, common));
 		if (start == -1) {
-			log.warn("【justauth 第三方登录 response】回调类型为空，uri={}", uri);
+			log.warn("【JustAuth 第三方登录 response】回调类型为空，uri={}", uri);
 			return null;
 		}
 		// gitee

@@ -1,8 +1,23 @@
 package vip.mate.core.common.api;
 
+/**
+ * 返回码接口
+ *
+ * @author pangu
+ */
 public interface IResultCode {
 
-    int getCode();
+	/**
+	 * 返回码
+	 *
+	 * @return int
+	 */
+	int getCode();
 
-    String getMsg();
+	/**
+	 * 返回消息
+	 *
+	 * @return String
+	 */
+	String getMsg();
 }

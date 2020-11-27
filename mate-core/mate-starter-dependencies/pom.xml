@@ -5,23 +5,45 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.5.RELEASE</version>
-        <relativePath />
+        <version>2.3.6.RELEASE</version>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>1.6.8</version>
+    <version>2.0.8-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>MateCloud统一版本依赖</description>
+    <name>mate-starter-dependencies</name>
+    <description>based on Spring Cloud Alibaba dependencies</description>
+    <url>https://github.com/matevip/matecloud</url>
+
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>http://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>pangu</name>
+            <email>7333791@qq.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:matevip/matecloud.git</connection>
+        <developerConnection>scm:git:git@github.com:matevip/matecloud.git</developerConnection>
+        <url>https://github.com/matevip/matecloud</url>
+    </scm>
 
     <properties>
-        <matecloud.core.version>1.6.8</matecloud.core.version>
+        <matecloud.core.version>2.0.8-SNAPSHOT</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.3.5.RELEASE</spring.boot.version>
-        <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
+        <spring.boot.version>2.3.6.RELEASE</spring.boot.version>
+        <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
         <alibaba.cloud.version>2.2.3.RELEASE</alibaba.cloud.version>
 
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
@@ -32,16 +54,16 @@
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-dockerfile-plugin.version>1.4.10</maven-dockerfile-plugin.version>
 
-        <mysql.connector.version>8.0.21</mysql.connector.version>
+        <mysql.connector.version>8.0.22</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
-        <druid.version>1.2.2</druid.version>
-        <mybatis.plus.version>3.4.0</mybatis.plus.version>
+        <druid.version>1.2.3</druid.version>
+        <mybatis.plus.version>3.4.1</mybatis.plus.version>
         <velocity.version>1.7</velocity.version>
 
         <swagger.version>3.0.0</swagger.version>
         <swagger.models.version>2.1.5</swagger.models.version>
-        <knife4j.version>3.0.1</knife4j.version>
+        <knife4j.version>3.0.2</knife4j.version>
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
@@ -49,9 +71,9 @@
 
         <!-- Apache Dubbo -->
         <dubbo.version>2.7.8</dubbo.version>
-        <fastjson.version>1.2.74</fastjson.version>
+        <fastjson.version>1.2.75</fastjson.version>
 
-        <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
+        <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
         <nacos.client.version>1.4.0</nacos.client.version>
         <easypoi.version>4.2.0</easypoi.version>
@@ -68,16 +90,17 @@
 
         <dozer.version>6.5.0</dozer.version>
         <redisson.version>3.13.6</redisson.version>
-        <lettuce.version>5.3.3.RELEASE</lettuce.version>
+        <lettuce.version>5.3.5.RELEASE</lettuce.version>
         <sentinel.version>1.8.0</sentinel.version>
         <transmittable.version>2.11.5</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.7.1</rocketmq.version>
+        <seata.version>1.4.0</seata.version>
         <prometheus.version>1.5.5</prometheus.version>
 
         <jasypt.version>3.0.3</jasypt.version>
 
-        <retrofit.version>2.1.8</retrofit.version>
+        <retrofit.version>2.2.0</retrofit.version>
         <j2cache.version>2.8.2-release</j2cache.version>
     </properties>
 
@@ -291,11 +314,11 @@
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.swagger</groupId>-->
-<!--                <artifactId>swagger-models</artifactId>-->
-<!--                <version>${swagger.models.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.swagger</groupId>-->
+            <!--                <artifactId>swagger-models</artifactId>-->
+            <!--                <version>${swagger.models.version}</version>-->
+            <!--            </dependency>-->
             <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-models -->
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
@@ -507,20 +530,131 @@
                 <artifactId>j2cache-core</artifactId>
                 <version>${j2cache.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <!-- 发布项目到 Nexus -->
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+            <!-- Source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- GPG -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--自动发布-->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- 发布项目到 sonatype -->
     <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Release Repository</name>
-            <url>http://nexus.mate.vip/repository/maven-releases/</url>
-        </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>http://nexus.mate.vip/repository/maven-snapshots/</url>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
 
 </project>

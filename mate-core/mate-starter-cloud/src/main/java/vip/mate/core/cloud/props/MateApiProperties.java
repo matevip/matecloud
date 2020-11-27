@@ -1,9 +1,10 @@
 package vip.mate.core.cloud.props;
 
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,25 +15,10 @@ import java.util.List;
  * @author pangu
  * @date 2020-10-28
  */
-@Setter
+@Data
 @RefreshScope
 @ConfigurationProperties(prefix = "mate.uaa")
 public class MateApiProperties {
-
-	/**
-	 * 忽略URL，List列表形式
-	 */
-	private List<String> ignoreUrl = new ArrayList<>();
-
-	/**
-	 * 是否启用网关鉴权模式
-	 */
-	private Boolean enable = false;
-
-	/**
-	 * 检查是否已加载ENDPOINTS
-	 */
-	public static final String CONTAIN_ENDPOINTS = "/doc.html";
 
 	/**
 	 * 监控中心和swagger需要访问的url
@@ -55,18 +41,20 @@ public class MateApiProperties {
 	};
 
 	/**
-	 * 自定义getter方法，并将ENDPOINTS加入至忽略URL列表
-	 *
-	 * @return List
+	 * 忽略URL，List列表形式
 	 */
-	public List<String> getIgnoreUrl() {
-		if (!ignoreUrl.contains(CONTAIN_ENDPOINTS)) {
-			Collections.addAll(ignoreUrl, ENDPOINTS);
-		}
-		return ignoreUrl;
-	}
+	private List<String> ignoreUrl = new ArrayList<>();
 
-	public Boolean getEnable() {
-		return enable;
+	/**
+	 * 是否启用网关鉴权模式
+	 */
+	private Boolean enable = false;
+
+	/**
+	 * 首次加载合并ENDPOINTS
+	 */
+	@PostConstruct
+	public void initIgnoreUrl() {
+		Collections.addAll(ignoreUrl, ENDPOINTS);
 	}
 }
