@@ -368,6 +368,11 @@
                 <version>${jetcache.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-starter-redis-springdata</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${spring-boot-admin.version}</version>
