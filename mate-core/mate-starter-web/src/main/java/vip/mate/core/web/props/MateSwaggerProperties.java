@@ -10,7 +10,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  * Swagger配置属性
  *
  * @author pangu
- * @since 2.1.8-SNAPSHOT
+ * @since 1.6.8
  */
 @Getter
 @Setter
