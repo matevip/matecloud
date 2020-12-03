@@ -66,6 +66,16 @@ public class SysMenu extends BaseEntity {
     @ApiModelProperty(value = "菜单类型")
     private String type;
     /**
+     * 是否隐藏
+     */
+    @ApiModelProperty(value = "是否隐藏")
+    private String hidden;
+    /**
+     * 是否外链
+     */
+    @ApiModelProperty(value = "是否外链")
+    private String target;
+    /**
      * 状态
      */
     @ApiModelProperty(value = "状态")
