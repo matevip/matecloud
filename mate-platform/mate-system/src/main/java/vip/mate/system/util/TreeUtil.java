@@ -66,11 +66,11 @@ public class TreeUtil {
 				tree.setAlwaysShow(true);
 			}
 			tree.setMeta(meta);
-			if ("0".equals(sysMenu.getType())) {
+			if (MenuTypeEnum.DIR.getCode().equals(sysMenu.getType())) {
 				tree.setTypeName(MenuTypeEnum.DIR.getMessage());
-			} else if ("1".equals(sysMenu.getType())) {
+			} else if (MenuTypeEnum.MENU.getCode().equals(sysMenu.getType())) {
 				tree.setTypeName(MenuTypeEnum.MENU.getMessage());
-			} else if ("2".equals(sysMenu.getType())) {
+			} else if (MenuTypeEnum.BUTTON.getCode().equals(sysMenu.getType())) {
 				tree.setTypeName(MenuTypeEnum.BUTTON.getMessage());
 			}
 			trees.add(tree);
