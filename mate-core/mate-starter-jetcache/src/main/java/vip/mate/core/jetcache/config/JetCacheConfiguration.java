@@ -27,7 +27,7 @@ import java.util.Map;
  * @author pangu
  */
 @Configuration
-@EnableMethodCache(basePackages = "vip.mate.system")
+@EnableMethodCache(basePackages = "vip.mate")
 @EnableCreateCacheAnnotation
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-jetcache.yml")
 public class JetCacheConfiguration {
