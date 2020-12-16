@@ -26,7 +26,7 @@ public class MateApiProperties {
 	private static final String[] ENDPOINTS = {
 			"/oauth/**",
 			"/actuator/**",
-			"/v3/api-docs/**",
+			"/v2/api-docs/**",
 			"/swagger/api-docs",
 			"/swagger-ui.html",
 			"/doc.html",

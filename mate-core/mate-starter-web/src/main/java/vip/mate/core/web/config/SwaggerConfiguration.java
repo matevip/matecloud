@@ -12,13 +12,13 @@ import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.paths.DefaultPathProvider;
 import springfox.documentation.spring.web.plugins.ApiSelectorBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.factory.YamlPropertySourceFactory;
 import vip.mate.core.web.props.MateSwaggerProperties;
@@ -39,7 +39,7 @@ import java.util.List;
  * 2020-7-5
  */
 @Configuration
-@EnableOpenApi
+@EnableSwagger2WebMvc
 @AllArgsConstructor
 @Profile({"!prod"})
 @Import(BeanValidatorPluginsConfiguration.class)
@@ -73,7 +73,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
 	@Bean(value = "userApi")
 	public Docket createRestApi() {
-		ApiSelectorBuilder apiSelectorBuilder = new Docket(DocumentationType.OAS_30)
+		ApiSelectorBuilder apiSelectorBuilder = new Docket(DocumentationType.SWAGGER_2)
 				// 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
 				.apiInfo(groupApiInfo())
 				// 设置哪些接口暴露给Swagger展示
@@ -100,6 +100,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
 		registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+		registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/static/");
 	}
 
 	private ApiInfo groupApiInfo() {
@@ -116,11 +117,11 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 	}
 
 
-	private List<SecurityScheme> securitySchemes() {
+	private List<ApiKey> securitySchemes() {
 		List<ApiKey> apiKeyList = new ArrayList<>();
 		apiKeyList.add(new ApiKey("Authorization", "Authorization", "header"));
 		apiKeyList.add(new ApiKey("Mate-Auth", "Mate-Auth", "header"));
-		return Collections.unmodifiableList(apiKeyList);
+		return apiKeyList;
 	}
 
 	/**

@@ -52,99 +52,104 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mate_sys_menu`;
 CREATE TABLE `mate_sys_menu` (
-     `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-     `name` varchar(32) DEFAULT NULL COMMENT '菜单标题',
-     `permission` varchar(32) DEFAULT NULL COMMENT '菜单权限',
-     `path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路径',
-     `parent_id` bigint(20) DEFAULT '0' COMMENT '父菜单ID',
-     `icon` varchar(32) DEFAULT NULL COMMENT '菜单图标',
-     `sort` int(11) DEFAULT '1' COMMENT '排序值',
-     `keep_alive` char(1) DEFAULT '0' COMMENT '是否缓存该页面: 1:是  0:不是',
-     `type` char(1) DEFAULT '0' COMMENT '菜单类型',
-     `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
-     `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
-     `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-     `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-     `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '状态',
-     `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0' COMMENT '删除标识',
-     `tenant_id` bigint(20) unsigned DEFAULT '0' COMMENT '租户ID',
-     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2053 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `name` varchar(32) DEFAULT NULL COMMENT '菜单标题',
+  `permission` varchar(32) DEFAULT NULL COMMENT '菜单权限',
+  `path` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路径',
+  `parent_id` bigint(20) DEFAULT '0' COMMENT '父菜单ID',
+  `icon` varchar(32) DEFAULT NULL COMMENT '菜单图标',
+  `sort` int(11) DEFAULT '1' COMMENT '排序值',
+  `keep_alive` char(1) DEFAULT '0' COMMENT '是否缓存该页面: 1:是  0:不是',
+  `type` char(1) DEFAULT '0' COMMENT '菜单类型',
+  `hidden` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `target` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0',
+  `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
+  `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '状态',
+  `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '0' COMMENT '删除标识',
+  `tenant_id` bigint(20) unsigned DEFAULT '0' COMMENT '租户ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2054 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of mate_sys_menu
 -- ----------------------------
-BEGIN;
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1000, '系统管理', NULL, '/system', -1, 'imac', 1, '0', '0', NULL, NULL, '2020-06-17 14:21:45', '2020-08-11 03:41:11', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1100, '用户管理', NULL, '/system/user', 1000, 'user', 1, '0', '1', NULL, NULL, '2020-06-18 14:28:36', '2020-06-25 11:19:20', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1101, '用户新增', 'sys:user:add', '', 1100, NULL, 1, '0', '2', NULL, NULL, '2020-06-17 14:32:51', '2020-07-03 08:51:48', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1102, '用户修改', 'sys:user:edit', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:27:40', '2020-07-03 08:51:50', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1103, '用户删除', 'sys:user:delete', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:27:56', '2020-07-03 08:51:52', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1104, '用户启用', 'sys:user:enable', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 08:49:47', '2020-07-03 08:55:39', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1105, '用户禁用', 'sys:user:disable', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 08:50:16', '2020-07-03 08:55:40', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1106, '用户导出', 'sys:user:export', NULL, 1100, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 08:50:58', '2020-07-03 08:55:42', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1200, '角色管理', NULL, '/system/role', 1000, 'repair', 1, '0', '1', NULL, NULL, '2020-06-19 16:36:01', '2020-06-25 03:19:23', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1201, '角色新增', 'sys:role:add', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:37:12', '2020-07-03 14:00:56', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1202, '角色修改', 'sys:role:edit', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:38:23', '2020-07-03 14:01:06', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1203, '角色删除', 'sys:role:delete', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:38:53', '2020-07-03 14:01:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1204, '角色导出', 'sys:role:export', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:02:37', '2020-07-03 14:02:50', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1205, '角色权限', 'sys:role:perm', NULL, 1200, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:03:32', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1300, '菜单管理', NULL, '/system/menu', 1000, 'tree', 1, '0', '1', NULL, NULL, '2020-06-19 16:39:07', '2020-06-25 03:19:45', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1301, '菜单新增', 'sys:menu:add', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:39:48', '2020-07-03 14:11:59', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1302, '菜单修改', 'sys:menu:edit', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:40:21', '2020-07-03 14:12:15', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1303, '菜单删除', 'sys:menu:delete', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-06-20 00:40:42', '2020-07-03 14:12:23', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1304, '菜单启用', 'sys:menu:enable', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:12:59', '2020-07-03 14:13:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1305, '菜单禁用', 'sys:menu:disable', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:13:34', '2020-07-03 14:13:57', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1306, '菜单导出', 'sys:menu:export', NULL, 1300, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:14:32', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1400, '部门管理', NULL, '/system/depart', 1000, 'table2', 1, '0', '1', NULL, NULL, '2020-06-26 22:52:41', '2020-07-03 14:25:56', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1401, '部门新增', 'sys:depart:add', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-06-27 14:53:37', '2020-07-03 14:26:12', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1402, '部门修改', 'sys:depart:edit', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-06-27 14:54:47', '2020-07-03 14:26:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1403, '部门删除', 'sys:depart:delete', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-06-27 14:55:15', '2020-07-03 14:26:17', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (1404, '部门导出', 'sys:depart:export', NULL, 1400, NULL, 1, '0', '2', NULL, NULL, '2020-07-03 14:27:26', '2020-07-03 14:27:45', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2015, '开发运维', NULL, '/devops', -1, 'settings', 3, '0', '0', NULL, NULL, '2020-07-05 03:20:31', '2020-10-19 05:24:24', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2016, '数据源管理', '', '/devops/datasource', 2015, 'table', 1, '0', '1', NULL, NULL, '2020-07-06 19:21:58', '2020-07-09 06:50:01', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2017, '数据源新增', 'sys:datasource:add', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:08:11', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2018, '数据源修改', 'sys:datasource:edit', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:08:40', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2019, '数据源删除', 'sys:datasource:delete', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:09:05', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2020, '数据源导出', 'sys:datasource:export', NULL, 2016, NULL, 1, '0', '2', NULL, NULL, '2020-07-07 04:09:25', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2021, '代码生成', NULL, '/devops/generator', 2015, 'download', 1, '0', '1', NULL, NULL, '2020-07-09 07:08:50', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2022, '代码生成', 'devops:gen', NULL, 2021, NULL, 1, '0', '2', NULL, NULL, '2020-07-08 23:09:45', '2020-07-13 14:35:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2023, '监控配置中心', NULL, '/devops/monitor', 2015, 'validCode', 1, '0', '1', NULL, NULL, '2020-07-10 20:23:07', '2020-07-11 04:39:40', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2026, '客户端管理', NULL, '/system/client', 1000, 'iPhone', 1, '0', '1', NULL, NULL, '2020-07-13 22:47:20', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2027, '新增客户端', 'sys:client:add', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 22:47:44', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2028, '修改客户端', 'sys:client:edit', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:47:37', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2029, '删除客户端', 'sys:client:delete', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:48:11', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2030, '导出客户端', 'sys:client:export', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:48:28', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2031, '启禁客户端', 'sys:client:status', NULL, 2026, NULL, 1, '0', '2', NULL, NULL, '2020-07-13 23:49:22', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2032, '操作日志', NULL, '/system/log', 1000, 'comment', 2, '0', '1', NULL, NULL, '2020-07-15 05:11:09', '2020-08-11 03:41:43', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2033, '详细日志', 'sys:log:detail', NULL, 2032, NULL, 1, '0', '2', NULL, NULL, '2020-07-16 04:05:48', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2034, '日志删除', 'sys:log:delete', NULL, 2032, NULL, 1, '0', '2', NULL, NULL, '2020-07-16 04:06:16', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2035, '字典管理', NULL, '/system/dict', 1000, 'add', 1, '0', '1', NULL, NULL, '2020-07-17 09:29:31', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2036, '新增字典', 'sys:dict:add', NULL, 2035, NULL, 1, '0', '2', NULL, NULL, '2020-07-20 02:48:01', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2037, '修改字典', 'sys:dict:edit', NULL, 2035, NULL, 1, '0', '2', NULL, NULL, '2020-07-20 02:48:20', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2038, '删除字典', 'sys:dict:delete', NULL, 2035, NULL, 1, '0', '2', NULL, NULL, '2020-07-20 02:48:39', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2039, '组件管理', NULL, '/system/component', 1000, 'nested', 1, '0', '1', NULL, NULL, '2020-08-08 05:35:05', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2040, '内容管理', NULL, '/content', -1, 'content', 4, '0', '0', NULL, NULL, '2020-08-09 00:21:42', '2020-08-29 03:12:22', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2041, '文件管理', NULL, '/content/attachment', 2040, 'folder', 1, '0', '1', NULL, NULL, '2020-08-09 00:27:06', '2020-08-10 03:31:49', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2042, '修改组件', 'sys:comp:edit', NULL, 2039, NULL, 1, '0', '2', NULL, NULL, '2020-08-10 00:42:28', '2020-08-10 08:42:57', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2043, '上传文件', 'sys:attach:add', NULL, 2041, NULL, 1, '0', '2', NULL, NULL, '2020-08-10 08:43:52', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2044, '删除文件', 'sys:attach:delete', NULL, 2041, NULL, 1, '0', '2', NULL, NULL, '2020-08-10 08:44:29', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2045, '网关中心', NULL, '/gateway', -1, 'gateway', 2, '0', '0', NULL, NULL, '2020-08-28 11:12:00', '2020-10-19 05:24:19', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2047, '黑名单管理', NULL, '/gateway/blacklist', 2045, 'blacklist', 3, '0', '1', NULL, NULL, '2020-08-29 03:15:34', '2020-10-17 12:53:43', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2048, '新增黑名单', 'gw:bl:add', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:38:52', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2049, '修改黑名单', 'gw:bl:edit', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:39:27', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2050, '删除黑名单', 'gw:bl:del', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:39:51', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2051, '黑名单状态', 'gw:bl:status', NULL, 2047, NULL, 1, '0', '2', NULL, NULL, '2020-08-29 09:44:20', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2053, '文档管理', NULL, '/content/doc', 2040, 'comment', 1, '0', '1', NULL, NULL, '2020-09-07 12:16:38', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2055, 'API管理', NULL, '/gateway/api', 2045, 'discovery', 2, '0', '1', NULL, NULL, '2020-10-14 14:00:06', '2020-10-17 12:53:38', '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2056, '微服务管理', NULL, '/gateway/route', 2045, 'share3', 1, '0', '1', NULL, NULL, '2020-10-17 12:53:27', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2057, '同步API', 'gw:api:sync', NULL, 2055, NULL, 1, '0', '2', NULL, NULL, '2020-10-17 14:16:06', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2058, '删除API', 'gw:api:del', NULL, 2055, NULL, 1, '0', '2', NULL, NULL, '2020-10-17 14:17:25', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2059, '修改API', 'gw:api:edit', NULL, 2055, NULL, 1, '0', '2', NULL, NULL, '2020-10-17 14:17:58', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2060, '新增微服务', 'gw:route:add', NULL, 2056, NULL, 1, '0', '2', NULL, NULL, '2020-10-19 05:19:45', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2061, '修改微服务', 'gw:route:edit', NULL, 2056, NULL, 1, '0', '2', NULL, NULL, '2020-10-19 05:20:49', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu`(`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`) VALUES (2062, '删除微服务', 'gw:route:del', NULL, 2056, NULL, 1, '0', '2', NULL, NULL, '2020-10-19 05:21:03', NULL, '0', '0', 0);
-COMMIT;
+LOCK TABLES `mate_sys_menu` WRITE;
+ALTER TABLE `mate_sys_menu` DISABLE KEYS;
+INSERT INTO `mate_sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_by`, `update_by`, `create_time`, `update_time`, `status`, `is_deleted`, `tenant_id`, `hidden`, `target`) VALUES 
+     (1000,'系统管理',NULL,'/system',-1,'imac',1,'0','0',NULL,NULL,'2020-06-17 14:21:45','2020-08-11 03:41:11','0','0',0,'0','0'),
+     (1100,'用户管理',NULL,'/system/user',1000,'user',1,'0','1',NULL,NULL,'2020-06-18 14:28:36','2020-06-25 11:19:20','0','0',0,'0','0'),
+     (1101,'用户新增','sys:user:add','',1100,NULL,1,'0','2',NULL,NULL,'2020-06-17 14:32:51','2020-07-03 08:51:48','0','0',0,'0','0'),
+     (1102,'用户修改','sys:user:edit',NULL,1100,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:27:40','2020-07-03 08:51:50','0','0',0,'0','0'),
+     (1103,'用户删除','sys:user:delete',NULL,1100,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:27:56','2020-07-03 08:51:52','0','0',0,'0','0'),
+     (1104,'用户启用','sys:user:enable',NULL,1100,NULL,1,'0','2',NULL,NULL,'2020-07-03 08:49:47','2020-07-03 08:55:39','0','0',0,'0','0'),
+     (1105,'用户禁用','sys:user:disable',NULL,1100,NULL,1,'0','2',NULL,NULL,'2020-07-03 08:50:16','2020-07-03 08:55:40','0','0',0,'0','0'),
+     (1106,'用户导出','sys:user:export',NULL,1100,NULL,1,'0','2',NULL,NULL,'2020-07-03 08:50:58','2020-07-03 08:55:42','0','0',0,'0','0'),
+     (1200,'角色管理',NULL,'/system/role',1000,'repair',1,'0','1',NULL,NULL,'2020-06-19 16:36:01','2020-06-25 03:19:23','0','0',0,'0','0'),
+     (1201,'角色新增','sys:role:add',NULL,1200,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:37:12','2020-07-03 14:00:56','0','0',0,'0','0'),
+     (1202,'角色修改','sys:role:edit',NULL,1200,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:38:23','2020-07-03 14:01:06','0','0',0,'0','0'),
+     (1203,'角色删除','sys:role:delete',NULL,1200,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:38:53','2020-07-03 14:01:14','0','0',0,'0','0'),
+     (1204,'角色导出','sys:role:export',NULL,1200,NULL,1,'0','2',NULL,NULL,'2020-07-03 14:02:37','2020-07-03 14:02:50','0','0',0,'0','0'),
+     (1205,'角色权限','sys:role:perm',NULL,1200,NULL,1,'0','2',NULL,NULL,'2020-07-03 14:03:32',NULL,'0','0',0,'0','0'),
+     (1300,'菜单管理',NULL,'/system/menu',1000,'tree',1,'0','1',NULL,NULL,'2020-06-19 16:39:07','2020-06-25 03:19:45','0','0',0,'0','0'),
+     (1301,'菜单新增','sys:menu:add',NULL,1300,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:39:48','2020-07-03 14:11:59','0','0',0,'0','0'),
+     (1302,'菜单修改','sys:menu:edit',NULL,1300,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:40:21','2020-07-03 14:12:15','0','0',0,'0','0'),
+     (1303,'菜单删除','sys:menu:delete',NULL,1300,NULL,1,'0','2',NULL,NULL,'2020-06-20 00:40:42','2020-07-03 14:12:23','0','0',0,'0','0'),
+     (1304,'菜单启用','sys:menu:enable',NULL,1300,NULL,1,'0','2',NULL,NULL,'2020-07-03 14:12:59','2020-07-03 14:13:14','0','0',0,'0','0'),
+     (1305,'菜单禁用','sys:menu:disable',NULL,1300,NULL,1,'0','2',NULL,NULL,'2020-07-03 14:13:34','2020-07-03 14:13:57','0','0',0,'0','0'),
+     (1306,'菜单导出','sys:menu:export',NULL,1300,NULL,1,'0','2',NULL,NULL,'2020-07-03 14:14:32',NULL,'0','0',0,'0','0'),
+     (1400,'部门管理',NULL,'/system/depart',1000,'table2',1,'0','1',NULL,NULL,'2020-06-26 22:52:41','2020-07-03 14:25:56','0','0',0,'0','0'),
+     (1401,'部门新增','sys:depart:add',NULL,1400,NULL,1,'0','2',NULL,NULL,'2020-06-27 14:53:37','2020-07-03 14:26:12','0','0',0,'0','0'),
+     (1402,'部门修改','sys:depart:edit',NULL,1400,NULL,1,'0','2',NULL,NULL,'2020-06-27 14:54:47','2020-07-03 14:26:14','0','0',0,'0','0'),
+     (1403,'部门删除','sys:depart:delete',NULL,1400,NULL,1,'0','2',NULL,NULL,'2020-06-27 14:55:15','2020-07-03 14:26:17','0','0',0,'0','0'),
+     (1404,'部门导出','sys:depart:export',NULL,1400,NULL,1,'0','2',NULL,NULL,'2020-07-03 14:27:26','2020-07-03 14:27:45','0','0',0,'0','0'),
+     (2015,'开发运维',NULL,'/devops',-1,'settings',3,'0','0',NULL,NULL,'2020-07-05 03:20:31','2020-10-19 05:24:24','0','0',0,'0','0'),
+     (2016,'数据源管理','','/devops/datasource',2015,'table',1,'0','1',NULL,NULL,'2020-07-06 19:21:58','2020-07-09 06:50:01','0','0',0,'0','0'),
+     (2017,'数据源新增','sys:datasource:add',NULL,2016,NULL,1,'0','2',NULL,NULL,'2020-07-07 04:08:11',NULL,'0','0',0,'0','0'),
+     (2018,'数据源修改','sys:datasource:edit',NULL,2016,NULL,1,'0','2',NULL,NULL,'2020-07-07 04:08:40',NULL,'0','0',0,'0','0'),
+     (2019,'数据源删除','sys:datasource:delete',NULL,2016,NULL,1,'0','2',NULL,NULL,'2020-07-07 04:09:05',NULL,'0','0',0,'0','0'),
+     (2020,'数据源导出','sys:datasource:export',NULL,2016,NULL,1,'0','2',NULL,NULL,'2020-07-07 04:09:25',NULL,'0','0',0,'0','0'),
+     (2021,'代码生成',NULL,'/devops/generator',2015,'download',1,'0','1',NULL,NULL,'2020-07-09 07:08:50',NULL,'0','0',0,'0','0'),
+     (2022,'代码生成','devops:gen',NULL,2021,NULL,1,'0','2',NULL,NULL,'2020-07-08 23:09:45','2020-07-13 14:35:14','0','0',0,'0','0'),
+     (2023,'监控配置中心',NULL,'/devops/monitor',2015,'validCode',1,'0','1',NULL,NULL,'2020-07-10 20:23:07','2020-07-11 04:39:40','0','0',0,'0','0'),
+     (2026,'客户端管理',NULL,'/system/client',1000,'iPhone',1,'0','1',NULL,NULL,'2020-07-13 22:47:20',NULL,'0','0',0,'0','0'),
+     (2027,'新增客户端','sys:client:add',NULL,2026,NULL,1,'0','2',NULL,NULL,'2020-07-13 22:47:44',NULL,'0','0',0,'0','0'),
+     (2028,'修改客户端','sys:client:edit',NULL,2026,NULL,1,'0','2',NULL,NULL,'2020-07-13 23:47:37',NULL,'0','0',0,'0','0'),
+     (2029,'删除客户端','sys:client:delete',NULL,2026,NULL,1,'0','2',NULL,NULL,'2020-07-13 23:48:11',NULL,'0','0',0,'0','0'),
+     (2030,'导出客户端','sys:client:export',NULL,2026,NULL,1,'0','2',NULL,NULL,'2020-07-13 23:48:28',NULL,'0','0',0,'0','0'),
+     (2031,'启禁客户端','sys:client:status',NULL,2026,NULL,1,'0','2',NULL,NULL,'2020-07-13 23:49:22',NULL,'0','0',0,'0','0'),
+     (2032,'操作日志',NULL,'/system/log',1000,'comment',2,'0','1',NULL,NULL,'2020-07-15 05:11:09','2020-08-11 03:41:43','0','0',0,'0','0'),
+     (2033,'详细日志','sys:log:detail',NULL,2032,NULL,1,'0','2',NULL,NULL,'2020-07-16 04:05:48',NULL,'0','0',0,'0','0'),
+     (2034,'日志删除','sys:log:delete',NULL,2032,NULL,1,'0','2',NULL,NULL,'2020-07-16 04:06:16',NULL,'0','0',0,'0','0'),
+     (2035,'字典管理',NULL,'/system/dict',1000,'add',1,'0','1',NULL,NULL,'2020-07-17 09:29:31',NULL,'0','0',0,'0','0'),
+     (2036,'新增字典','sys:dict:add',NULL,2035,NULL,1,'0','2',NULL,NULL,'2020-07-20 02:48:01',NULL,'0','0',0,'0','0'),
+     (2037,'修改字典','sys:dict:edit',NULL,2035,NULL,1,'0','2',NULL,NULL,'2020-07-20 02:48:20',NULL,'0','0',0,'0','0'),
+     (2038,'删除字典','sys:dict:delete',NULL,2035,NULL,1,'0','2',NULL,NULL,'2020-07-20 02:48:39',NULL,'0','0',0,'0','0'),
+     (2039,'组件管理',NULL,'/system/component',1000,'nested',9,'0','1',NULL,NULL,'2020-08-08 05:35:05','2020-12-16 01:58:23','0','0',0,'0','0'),
+     (2040,'内容管理',NULL,'/content',-1,'content',4,'0','0',NULL,NULL,'2020-08-09 00:21:42','2020-08-29 03:12:22','0','0',0,'0','0'),
+     (2041,'文件管理',NULL,'/content/attachment',2040,'folder',1,'0','1',NULL,NULL,'2020-08-09 00:27:06','2020-08-10 03:31:49','0','0',0,'0','0'),
+     (2042,'修改组件','sys:comp:edit',NULL,2039,NULL,1,'0','2',NULL,NULL,'2020-08-10 00:42:28','2020-08-10 08:42:57','0','0',0,'0','0'),
+     (2043,'上传文件','sys:attach:add',NULL,2041,NULL,1,'0','2',NULL,NULL,'2020-08-10 08:43:52',NULL,'0','0',0,'0','0'),
+     (2044,'删除文件','sys:attach:delete',NULL,2041,NULL,1,'0','2',NULL,NULL,'2020-08-10 08:44:29',NULL,'0','0',0,'0','0'),
+     (2045,'网关中心',NULL,'/gateway',-1,'gateway',2,'0','0',NULL,NULL,'2020-08-28 11:12:00','2020-10-19 05:24:19','0','0',0,'0','0'),
+     (2047,'黑名单管理',NULL,'/gateway/blacklist',2045,'blacklist',3,'0','1',NULL,NULL,'2020-08-29 03:15:34','2020-10-17 12:53:43','0','0',0,'0','0'),
+     (2048,'新增黑名单','gw:bl:add',NULL,2047,NULL,1,'0','2',NULL,NULL,'2020-08-29 09:38:52',NULL,'0','0',0,'0','0'),
+     (2049,'修改黑名单','gw:bl:edit',NULL,2047,NULL,1,'0','2',NULL,NULL,'2020-08-29 09:39:27',NULL,'0','0',0,'0','0'),
+     (2050,'删除黑名单','gw:bl:del',NULL,2047,NULL,1,'0','2',NULL,NULL,'2020-08-29 09:39:51',NULL,'0','0',0,'0','0'),
+     (2051,'黑名单状态','gw:bl:status',NULL,2047,NULL,1,'0','2',NULL,NULL,'2020-08-29 09:44:20',NULL,'0','0',0,'0','0'),
+     (2053,'文档管理',NULL,'/content/doc',2040,'comment',1,'0','1',NULL,NULL,'2020-09-07 12:16:38',NULL,'0','0',0,'0','0'),
+     (2055,'API管理',NULL,'/gateway/api',2045,'discovery',2,'0','1',NULL,NULL,'2020-10-14 14:00:06','2020-10-17 12:53:38','0','0',0,'0','0'),
+     (2056,'微服务管理',NULL,'/gateway/route',2045,'share3',1,'0','1',NULL,NULL,'2020-10-17 12:53:27',NULL,'0','0',0,'0','0'),
+     (2057,'同步API','gw:api:sync',NULL,2055,NULL,1,'0','2',NULL,NULL,'2020-10-17 14:16:06',NULL,'0','0',0,'0','0'),
+     (2058,'删除API','gw:api:del',NULL,2055,NULL,1,'0','2',NULL,NULL,'2020-10-17 14:17:25',NULL,'0','0',0,'0','0'),
+     (2059,'修改API','gw:api:edit',NULL,2055,NULL,1,'0','2',NULL,NULL,'2020-10-17 14:17:58',NULL,'0','0',0,'0','0'),
+     (2060,'新增微服务','gw:route:add',NULL,2056,NULL,1,'0','2',NULL,NULL,'2020-10-19 05:19:45',NULL,'0','0',0,'0','0'),
+     (2061,'修改微服务','gw:route:edit',NULL,2056,NULL,1,'0','2',NULL,NULL,'2020-10-19 05:20:49',NULL,'0','0',0,'0','0'),
+     (2062,'删除微服务','gw:route:del',NULL,2056,NULL,1,'0','2',NULL,NULL,'2020-10-19 05:21:03',NULL,'0','0',0,'0','0');
+ALTER TABLE `mate_sys_menu` ENABLE KEYS;
+UNLOCK TABLES;
 
 -- ----------------------------
 -- Table structure for mate_sys_depart

@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://cdn.cankaojia.cn/matecloud.jpg" width="300">
+  <img src="https://cdn.mate.vip/matecloud.jpg" width="300">
 </p>
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.6.RELEASE-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.7.RELEASE-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR8-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
@@ -27,17 +27,17 @@ admin | matecloud| mate-system模块不能执行增删改请求
 
 ### 技术交流
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/matecloud_social2.jpg" />
+    <img src="https://cdn.mate.vip/matecloud_social2.jpg" />
 </p>
 QQ群：2003638
 
 ### 技术架构
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/matecloud-framework.jpg" />
+    <img src="https://cdn.mate.vip/matecloud-framework.jpg" />
 </p>
 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.6.RELEASE, Spring Cloud Alibaba 2.2.3.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.7.RELEASE, Spring Cloud Alibaba 2.2.3.RELEASE版本进行系统设计；
 
 - 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -108,7 +108,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>1.6.8</version>
+            <version>2.0.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

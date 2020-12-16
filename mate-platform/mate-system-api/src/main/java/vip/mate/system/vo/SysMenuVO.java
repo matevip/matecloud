@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import vip.mate.system.entity.MenuMeta;
-import vip.mate.system.entity.SysMenu;
 
 import java.io.Serializable;
 import java.util.List;
@@ -73,15 +72,15 @@ public class SysMenuVO implements Serializable {
 
 	private String component;
 
-	private Boolean hidden = false;
+	private Boolean hidden;
 
 	private String redirect;
 
-	private Boolean alwaysShow = false;
+	private Boolean alwaysShow;
+
+	private Boolean target;
 
 	private String typeName;
-
-//    private String label;
 
 	public void addChildren(SysMenuVO tree) {
 		this.children.add(tree);
