@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cdn.cankaojia.cn/matecloud.jpg" width="300">
+  <img src="https://cdn.mate.vip/matecloud.jpg" width="300">
 </p>
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
@@ -27,13 +27,13 @@ admin | matecloud| mate-system模块不能执行增删改请求
 
 ### 技术交流
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/matecloud_social2.jpg" />
+    <img src="https://cdn.mate.vip/matecloud_social2.jpg" />
 </p>
 QQ群：2003638
 
 ### 技术架构
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/matecloud-framework.jpg" />
+    <img src="https://cdn.mate.vip/matecloud-framework.jpg" />
 </p>
 
 ### 功能特点
