@@ -29,7 +29,7 @@ public class IgnoreUrlPropsConfiguration {
 			"/oauth/token",
 			"/login/*",
 			"/actuator/**",
-			"/v3/api-docs",
+			"/v2/api-docs",
 			"/doc.html",
 			"/webjars/**",
 			"**/favicon.ico",
