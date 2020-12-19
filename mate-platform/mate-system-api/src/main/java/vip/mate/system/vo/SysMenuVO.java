@@ -5,9 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import vip.mate.core.web.tree.INode;
 import vip.mate.system.entity.MenuMeta;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,14 +18,9 @@ import java.util.List;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SysMenuVO implements Serializable {
+public class SysMenuVO implements INode {
 
 	private static final long serialVersionUID = -8036122418979736148L;
-
-	/**
-	 * 子节点
-	 */
-	private List<SysMenuVO> children;
 
 	/**
 	 * 菜单ID
@@ -82,8 +78,24 @@ public class SysMenuVO implements Serializable {
 
 	private String typeName;
 
-	public void addChildren(SysMenuVO tree) {
-		this.children.add(tree);
+	/**
+	 * 子孙节点
+	 */
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private List<INode> children;
+
+	/**
+	 * 是否有子孙节点
+	 */
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private Boolean hasChildren;
+
+	@Override
+	public List<INode> getChildren() {
+		if (this.children == null) {
+			this.children = new ArrayList<>();
+		}
+		return this.children;
 	}
 
 }
