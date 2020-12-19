@@ -96,7 +96,7 @@
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.7.1</rocketmq.version>
         <seata.version>1.4.0</seata.version>
-        <prometheus.version>1.5.5</prometheus.version>
+        <prometheus.version>1.6.2</prometheus.version>
 
         <jasypt.version>3.0.3</jasypt.version>
 
