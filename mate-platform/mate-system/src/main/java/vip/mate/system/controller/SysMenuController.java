@@ -96,10 +96,11 @@ public class SysMenuController extends BaseController {
 	public Result<?> grade() {
 		LambdaQueryWrapper<SysMenu> lsm = Wrappers.<SysMenu>query().lambda().orderByAsc(SysMenu::getSort);
 		List<SysMenu> sysMenus = sysMenuService.list(lsm);
-		List<SysMenuDTO> sysMenuDTOS = sysMenus.stream().map(sysMenu -> {
-			return SysMenuDTO.builder().id(sysMenu.getId()).label(sysMenu.getName()).parentId(sysMenu.getParentId()).build();
-		}).collect(Collectors.toList());
-		return Result.data(ForestNodeMerger.merge(sysMenuDTOS));
+		return Result.data(ForestNodeMerger.merge(
+				sysMenus.stream().map(sysMenu -> SysMenuDTO.builder()
+						.id(sysMenu.getId())
+						.label(sysMenu.getName())
+						.parentId(sysMenu.getParentId()).build()).collect(Collectors.toList())));
 	}
 
 	/**
