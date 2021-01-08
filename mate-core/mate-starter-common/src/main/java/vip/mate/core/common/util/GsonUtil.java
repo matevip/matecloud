@@ -11,6 +11,7 @@ import java.util.Map;
  * Gson工具类
  *
  * @author pangu
+ * @link https://blog.csdn.net/zhengzhi123456789/article/details/50951234
  */
 public class GsonUtil {
 
