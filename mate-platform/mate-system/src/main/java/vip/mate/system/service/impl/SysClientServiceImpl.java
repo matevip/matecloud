@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient> implements ISysClientService {
 
     @Override
-    public IPage<SysClient> listPage(Page page, Search search) {
+    public IPage<SysClient> listPage(Page<SysClient> page, Search search) {
         LambdaQueryWrapper<SysClient> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         if (StringUtil.isNotBlank(search.getStartDate())) {
             lambdaQueryWrapper.between(SysClient::getCreateTime, search.getStartDate(), search.getEndDate());
