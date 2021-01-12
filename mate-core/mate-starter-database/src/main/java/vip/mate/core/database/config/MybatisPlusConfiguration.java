@@ -1,7 +1,6 @@
 package vip.mate.core.database.config;
 
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
@@ -9,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInt
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.EnumTypeHandler;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -24,7 +22,6 @@ import vip.mate.core.database.handler.MateMetaObjectHandler;
 import vip.mate.core.database.props.TenantProperties;
 import vip.mate.core.mybatis.injector.MateSqlInjector;
 import vip.mate.core.mybatis.interceptor.SqlLogInterceptor;
-import vip.mate.core.mybatis.logger.SqlLogFilter;
 import vip.mate.core.mybatis.props.MateMybatisProperties;
 
 /**
@@ -104,18 +101,7 @@ public class MybatisPlusConfiguration {
 	 */
 	@Bean
 	public ConfigurationCustomizer configurationCustomizer() {
-		return new MybatisPlusCustomizers();
-	}
-
-	/**
-	 * 自定义配置
-	 */
-	public static class MybatisPlusCustomizers implements ConfigurationCustomizer {
-
-		@Override
-		public void customize(MybatisConfiguration configuration) {
-			configuration.setDefaultEnumTypeHandler(EnumTypeHandler.class);
-		}
+		return config -> config.setDefaultEnumTypeHandler(EnumTypeHandler.class);
 	}
 
 	/**
