@@ -75,7 +75,7 @@
 
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
-        <nacos.client.version>1.4.0</nacos.client.version>
+        <nacos.client.version>1.4.1</nacos.client.version>
         <easypoi.version>4.2.0</easypoi.version>
         <ip2region.version>1.7.2</ip2region.version>
         <justauth.version>1.15.8</justauth.version>
