@@ -12,7 +12,7 @@ public class SystemConstant {
 
     public static final String SYS_USER_CACHE = "sys-user-cache-";
 
-    public static final String SYS_ROLE_CACHE = "sys-user-cache-";
+    public static final String SYS_ROLE_CACHE = "sys-role-cache-";
 
     public static final String SYS_DEPART_CACHE = "sys-depart-cache-";
 

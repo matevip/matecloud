@@ -5,7 +5,7 @@
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
   <img src="https://img.shields.io/badge/Spring%20Boot-2.3.7.RELEASE-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR8-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR9-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
@@ -108,7 +108,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>2.0.8</version>
+            <version>2.1.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

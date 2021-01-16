@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import vip.mate.core.auth.annotation.EnableToken;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
@@ -52,7 +51,7 @@ public class SysLogController extends BaseController {
             @ApiImplicitParam(name = "prop", required = true, value = "排序属性", paramType = "form"),
             @ApiImplicitParam(name = "order", required = true, value = "排序方式", paramType = "form"),
     })
-    public Result<?> page(Page page, Search search) {
+    public Result<?> page(Page<?> page, Search search) {
         return Result.data(sysLogService.listPage(page, search));
     }
 
