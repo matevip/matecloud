@@ -65,7 +65,7 @@ public class SysUserController extends BaseController {
             @ApiImplicitParam(name = "prop", required = true, value = "排序属性", paramType = "form"),
             @ApiImplicitParam(name = "order", required = true, value = "排序方式", paramType = "form"),
     })
-    public Result<?> page(Page page, Search search) {
+    public Result<?> page(Page<?> page, Search search) {
         return Result.data(sysUserService.listPage(page, search));
     }
 
