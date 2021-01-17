@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
   <img src="https://img.shields.io/badge/Spring%20Boot-2.3.7.RELEASE-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR9-blue" alt="SpringCloud"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.4.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
 ## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
