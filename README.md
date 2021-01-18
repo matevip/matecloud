@@ -108,7 +108,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>2.1.8</version>
+            <version>2.2.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
