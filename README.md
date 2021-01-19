@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://cdn.cankaojia.cn/matecloud.jpg" width="300">
+  <img src="https://cdn.mate.vip/matecloud.jpg" width="300">
 </p>
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.5.RELEASE-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR8-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.7.RELEASE-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR9-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
@@ -27,17 +27,17 @@ admin | matecloud| mate-system模块不能执行增删改请求
 
 ### 技术交流
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/matecloud_social2.jpg" />
+    <img src="https://cdn.mate.vip/matecloud_social2.jpg" />
 </p>
 QQ群：2003638
 
 ### 技术架构
 <p align="center"> 
-    <img src="https://cdn.ckjia.com/matecloud-framework.jpg" />
+    <img src="https://cdn.mate.vip/matecloud-framework.jpg" />
 </p>
-
+git 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.5.RELEASE, Spring Cloud Alibaba 2.2.3.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.7.RELEASE, Spring Cloud Alibaba 2.2.3.RELEASE版本进行系统设计；
 
 - 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -100,6 +100,22 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-message-consumer -- 消息服务消费者 [40002]
 │  │  ├─mate-message-producer -- 消息服务生产者 [40003] 
 ```
+### 核心模块提交至中央仓库
+如何引入依赖
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-dependencies</artifactId>
+            <version>2.1.8</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+然后在 dependencies 中添加自己所需使用的依赖即可使用。
 
 ## 项目源码
 |  项目   |   GITHUB  |   码云   |
@@ -110,6 +126,6 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 
 ## 特别鸣谢
 特别感谢卢神对MateCloud项目提供的技术支持！
+- 卢春梦: mica  https://gitee.com/596392912/mica
+- chuzhixin: vue-admin-beautiful https://github.com/chuzhixin/vue-admin-beautiful
 
-卢春梦 (596392912@qq.com & www.dreamlu.net)
-- mica: https://gitee.com/596392912/mica

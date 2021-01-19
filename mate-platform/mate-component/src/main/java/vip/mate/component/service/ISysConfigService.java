@@ -14,14 +14,48 @@ import vip.mate.core.oss.props.OssProperties;
  */
 public interface ISysConfigService extends IService<SysConfig> {
 
-    OssProperties getOssProperties();
+	/**
+	 * 获取默认主题
+	 *
+	 * @return OssProperties
+	 */
+	OssProperties getOssProperties();
 
-    OssProperties getConfigByCode(String code);
+	/**
+	 * 根据code获取主题信息
+	 *
+	 * @param code code编码
+	 * @return OssProperties
+	 */
+	OssProperties getConfigByCode(String code);
 
-    boolean saveConfigOss(OssProperties ossProperties, String code);
+	/**
+	 * 保存配置信息
+	 *
+	 * @param ossProperties OssProperties
+	 * @param code          关键词
+	 * @return boolean
+	 */
+	boolean saveConfigOss(OssProperties ossProperties, String code);
 
-    boolean saveDefaultOss(String code);
+	/**
+	 * 修改默认oss
+	 *
+	 * @param code 关键词
+	 * @return boolean
+	 */
+	boolean saveDefaultOss(String code);
 
-    String defaultOss();
+	/**
+	 * 获取默认oss的code
+	 *
+	 * @return code
+	 */
+	String defaultOss();
+
+	/**
+	 * 清理Oss缓存
+	 */
+	void clearOss();
 
 }

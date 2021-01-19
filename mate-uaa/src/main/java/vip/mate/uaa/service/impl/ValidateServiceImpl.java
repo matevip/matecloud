@@ -29,8 +29,7 @@ public class ValidateServiceImpl implements ValidateService {
 
     @Override
     public Result<?> getCode() {
-
-        Map<String, String> data = new HashMap<>();
+        Map<String, String> data = new HashMap<>(2);
         String uuid = UUID.randomUUID().toString().replace("-","");
         //SpecCaptcha captcha = new SpecCaptcha(120, 40);
         //String text = captcha.text();// 获取运算的结果：5
@@ -54,7 +53,7 @@ public class ValidateServiceImpl implements ValidateService {
 
     @Override
     public void check(String key, String code) throws CaptchaException {
-        String codeFromRedis = redisService.get(Oauth2Constant.CAPTCHA_KEY + key).toString();
+        Object codeFromRedis = redisService.get(Oauth2Constant.CAPTCHA_KEY + key);
 
         if (StringUtils.isBlank(code)) {
             throw new CaptchaException("请输入验证码");
@@ -62,7 +61,7 @@ public class ValidateServiceImpl implements ValidateService {
         if (codeFromRedis == null) {
             throw new CaptchaException("验证码已过期");
         }
-        if (!StringUtils.equalsIgnoreCase(code, codeFromRedis)) {
+        if (!StringUtils.equalsIgnoreCase(code, codeFromRedis.toString())) {
             throw new CaptchaException("验证码不正确");
         }
 

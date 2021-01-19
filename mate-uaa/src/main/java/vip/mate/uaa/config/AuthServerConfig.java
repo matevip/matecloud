@@ -72,6 +72,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final AuthRequestFactory factory;
 
+    private final MateWebRespExceptionTranslator exceptionTranslator;
+
     /**
      * 配置token存储到redis中
      */
@@ -94,7 +96,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .tokenGranter(tokenGranter(endpoints))
                 .tokenStore(redisTokenStore())
                 .reuseRefreshTokens(false)
-                .exceptionTranslator(new MateWebRespExceptionTranslator());
+                .exceptionTranslator(exceptionTranslator);
     }
 
     @Override

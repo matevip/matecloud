@@ -22,13 +22,20 @@ mate:
     url: jdbc:mysql://127.0.0.1:3306/matex?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: root
+  # public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJLLURUH8XNPkX9MME3mQrog3mpkOVYwnYrUqLbSN+Wi6IcmWg1YywHi/kKGUU1MTLjv3C406f1IYu+XWJ3XmX8CAwEAAQ==
+  # 预览模式开关
   preview:
     enable: false
+  # 租户开关
   tenant:
     enable: false
+  # 网关认证开关
   uaa:
     enable: false
     ignore-url:
       - /auth/login/**
       - /auth/callback/**
       - /auth/sms-code
+  # Swagger文档开关
+  swagger:
+    enable: true

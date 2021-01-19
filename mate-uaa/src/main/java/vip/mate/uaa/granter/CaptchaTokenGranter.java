@@ -1,10 +1,10 @@
 package vip.mate.uaa.granter;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.common.exceptions.UserDeniedAuthorizationException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
@@ -46,11 +46,14 @@ public class CaptchaTokenGranter extends AbstractTokenGranter {
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
+
+        if (null == request) {
+            throw new OAuth2Exception("请求参数不存在！");
+        }
         // 增加验证码判断
         String key = request.getHeader(Oauth2Constant.CAPTCHA_HEADER_KEY);
         String code = request.getHeader(Oauth2Constant.CAPTCHA_HEADER_CODE);
-
-        String codeFromRedis = redisService.get(Oauth2Constant.CAPTCHA_KEY + key).toString();
+        Object codeFromRedis = redisService.get(Oauth2Constant.CAPTCHA_KEY + key);
 
         if (StringUtils.isBlank(code)) {
             throw new UserDeniedAuthorizationException("请输入验证码");
@@ -58,7 +61,7 @@ public class CaptchaTokenGranter extends AbstractTokenGranter {
         if (codeFromRedis == null) {
             throw new UserDeniedAuthorizationException("验证码已过期");
         }
-        if (!StringUtils.equalsIgnoreCase(code, String.valueOf(codeFromRedis))) {
+        if (!StringUtils.equalsIgnoreCase(code, codeFromRedis.toString())) {
             throw new UserDeniedAuthorizationException("验证码不正确");
         }
 

@@ -77,7 +77,7 @@ public class SysApiController extends BaseController {
 			@ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
 			@ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
 	})
-	public Result<?> page(Page page, Search search, @RequestParam String serviceId) {
+	public Result<?> page(Page<?> page, Search search, @RequestParam String serviceId) {
 		return Result.data(sysApiService.listPage(page, search, serviceId));
 	}
 

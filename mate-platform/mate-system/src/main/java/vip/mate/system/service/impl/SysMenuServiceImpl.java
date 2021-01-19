@@ -1,11 +1,13 @@
 package vip.mate.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.util.StringUtil;
+import vip.mate.core.database.entity.Search;
+import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysMenu;
 import vip.mate.system.mapper.SysMenuMapper;
@@ -17,7 +19,6 @@ import vip.mate.system.vo.SysMenuVO;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -36,32 +37,24 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         //1. 获取用户的菜单列表，待扩展
         List<SysMenu> menus = this.baseMapper.routes(roleId);
         //2. 生成菜单树
-        return TreeUtil.list2Tree(menus, MateConstant.TREE_ROOT);
+        return ForestNodeMerger.merge(TreeUtil.buildTree(menus));
     }
 
     @Override
-    public List<SysMenu> searchList(Map<String, Object> search) {
-        String keyword = String.valueOf(search.get("keyword"));
-        String startDate = String.valueOf(search.get("startDate"));
-        String endDate = String.valueOf(search.get("endDate"));
-        LambdaQueryWrapper<SysMenu> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotBlank(startDate) && !startDate.equals("null")) {
-            lambdaQueryWrapper.between(SysMenu::getCreateTime, startDate, endDate);
+    public List<SysMenu> searchList(Search search) {
+        LambdaQueryWrapper<SysMenu> lambda = Wrappers.<SysMenu>query().lambda();
+        if (StringUtil.isNotBlank(search.getStartDate())) {
+            lambda.between(SysMenu::getCreateTime, search.getStartDate(), search.getEndDate());
         }
-        if (StringUtils.isNotBlank(keyword) && !keyword.equals("null")) {
-            lambdaQueryWrapper.like(SysMenu::getName, keyword);
-            lambdaQueryWrapper.or();
-            lambdaQueryWrapper.like(SysMenu::getId, keyword);
+        if (StringUtil.isNotBlank(search.getKeyword())) {
+            lambda.like(SysMenu::getName, search.getKeyword()).or().like(SysMenu::getId, search.getKeyword());
         }
-        lambdaQueryWrapper.orderByAsc(SysMenu::getSort);
-        return this.baseMapper.selectList(lambdaQueryWrapper);
+        lambda.orderByAsc(SysMenu::getSort);
+        return this.baseMapper.selectList(lambda);
     }
 
     @Override
     public boolean saveAll(SysMenu sysMenu) {
-        if (sysMenu.getType().equals("0")) {
-            sysMenu.setParentId(-1L);
-        }
         return saveOrUpdate(sysMenu);
     }
 
