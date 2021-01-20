@@ -14,6 +14,7 @@ import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
+import vip.mate.system.entity.SysLog;
 import vip.mate.system.service.ISysLogService;
 
 /**
@@ -51,7 +52,7 @@ public class SysLogController extends BaseController {
             @ApiImplicitParam(name = "prop", required = true, value = "排序属性", paramType = "form"),
             @ApiImplicitParam(name = "order", required = true, value = "排序方式", paramType = "form"),
     })
-    public Result<?> page(Page<?> page, Search search) {
+    public Result<?> page(Page<SysLog> page, Search search) {
         return Result.data(sysLogService.listPage(page, search));
     }
 

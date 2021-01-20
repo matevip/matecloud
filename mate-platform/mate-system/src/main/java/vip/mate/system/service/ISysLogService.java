@@ -22,5 +22,5 @@ public interface ISysLogService extends IService<SysLog> {
      * @param search
      * @return
      */
-    IPage<SysLog> listPage(Page page, Search search);
+    IPage<SysLog> listPage(Page<SysLog> page, Search search);
 }
