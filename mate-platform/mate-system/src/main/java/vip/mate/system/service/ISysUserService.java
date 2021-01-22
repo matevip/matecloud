@@ -8,7 +8,6 @@ import vip.mate.system.entity.SysUser;
 import vip.mate.system.poi.SysUserPOI;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -28,7 +27,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param search　搜索参数
      * @return IPage
      */
-    IPage<SysUser> listPage(Page page, Search search);
+    IPage<SysUser> listPage(Page<SysUser> page, Search search);
 
     List<SysUserPOI> export();
 
