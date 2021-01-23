@@ -58,7 +58,7 @@
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
         <druid.version>1.2.4</druid.version>
-        <mybatis.plus.version>3.4.1</mybatis.plus.version>
+        <mybatis.plus.version>3.4.2</mybatis.plus.version>
         <velocity.version>1.7</velocity.version>
 
         <swagger.version>2.10.5</swagger.version>
@@ -299,10 +299,11 @@
                 <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
+            <!-- 暂未升级至3.4.2版本，单独修改为上一个版本号 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis.plus.version}</version>
+                <version>3.4.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.velocity</groupId>
