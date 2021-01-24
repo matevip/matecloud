@@ -37,21 +37,21 @@ QQ群：2003638
 </p>
 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.8.RELEASE, Spring Cloud Alibaba 2.2.3.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR9, Spring Boot 2.3.8.RELEASE, Spring Cloud Alibaba 2.2.4.RELEASE版本进行系统设计；
 
-- 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
+- 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
 - 统一认证：统一Oauth2认证协议，采用jwt的方式，实现统一认证，并支持自定义grant_type实现手机号码登录，第三方登录正在开发中；
 
 - 业务监控：利用Spring Boot Admin 来监控各个独立Service的运行状态；利用Hystrix Dashboard来实时查看接口的运行状态和调用频率等。
 
-- 内部调用：集成了feign和dubbo两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
+- 内部调用：集成了Feign和Dubbo两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
 
 - 业务熔断：采用Sentinel实现业务熔断处理，避免服务之间出现雪崩;
 
 - 身份注入：通过注解的方式，实现用户登录信息的快速注入；
 
-- 在线文档：通过接入knife4j，实现在线API文档的查看与调试;
+- 在线文档：通过接入Knife4j，实现在线API文档的查看与调试;
 
 - 代码生成：基于Mybatis-plus-generator自动生成代码，提升开发效率，生成模式不断优化中，暂不支持前端代码生成；
 
