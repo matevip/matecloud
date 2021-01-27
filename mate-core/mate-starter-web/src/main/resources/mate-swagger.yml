@@ -12,7 +12,16 @@ mate:
 # knife4j配置
 knife4j:
   enable: ${mate.swagger.enable}
+  # 开启生产环境屏蔽
+  production: false
   basic:
     enable: true
     username: admin
     password: matecloud
+  setting:
+    # 是否不显示Knife4j默认的footer，默认为true(显示)
+    enableFooter: false
+    # 是否自定义Footer，默认为false(非自定义)
+    enableFooterCustom: true
+    # 自定义Footer内容,支持Markdown语法
+    footerCustomContent: Apache License 2.0 | Copyright  2020-[北京道天地科技有限公司](https://gitee.com/matevip/matecloud)

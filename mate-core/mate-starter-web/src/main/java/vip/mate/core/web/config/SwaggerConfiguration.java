@@ -3,7 +3,10 @@ package vip.mate.core.web.config;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
@@ -29,7 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,7 +43,7 @@ import java.util.List;
 @Configuration
 @EnableSwagger2WebMvc
 @AllArgsConstructor
-@Profile({"!prod"})
+//@Profile({"!prod"})
 @Import(BeanValidatorPluginsConfiguration.class)
 @EnableConfigurationProperties(MateSwaggerProperties.class)
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-swagger.yml")
