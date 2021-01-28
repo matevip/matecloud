@@ -1,7 +1,6 @@
 package vip.mate.system.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,7 +13,6 @@ import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
-import vip.mate.system.entity.SysLog;
 import vip.mate.system.service.ISysLogService;
 
 /**
@@ -35,7 +33,6 @@ public class SysLogController extends BaseController {
 
     /**
      * 日志分页列表
-     * @param page 分页参数
      * @param search　搜索关键词
      * @return Result
      */
@@ -52,8 +49,8 @@ public class SysLogController extends BaseController {
             @ApiImplicitParam(name = "prop", required = true, value = "排序属性", paramType = "form"),
             @ApiImplicitParam(name = "order", required = true, value = "排序方式", paramType = "form"),
     })
-    public Result<?> page(Page<SysLog> page, Search search) {
-        return Result.data(sysLogService.listPage(page, search));
+    public Result<?> page(Search search) {
+        return Result.data(sysLogService.listPage(search));
     }
 
     /**
