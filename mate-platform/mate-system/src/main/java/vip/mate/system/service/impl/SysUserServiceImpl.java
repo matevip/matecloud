@@ -13,6 +13,7 @@ import vip.mate.core.common.exception.BaseException;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.enums.OrderTypeEnum;
+import vip.mate.core.database.util.PageUtil;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysUser;
 import vip.mate.system.mapper.SysUserMapper;
@@ -60,7 +61,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 	}
 
 	@Override
-	public IPage<SysUser> listPage(Page<SysUser> page, Search search) {
+	public IPage<SysUser> listPage(Search search) {
 
 		LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
 		queryWrapper.between(StringUtil.isNotBlank(search.getStartDate()), SysUser::getCreateTime, search.getStartDate(), search.getEndDate());
@@ -77,7 +78,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 			}
 		}
 		// 分页查询
-		IPage<SysUser> sysUserPage = this.baseMapper.selectPage(page, queryWrapper);
+		IPage<SysUser> sysUserPage = this.baseMapper.selectPage(PageUtil.getPage(search), queryWrapper);
 
 		// 拼装转换为中文字段数据
 		List<SysUser> sysUserList = sysUserPage.getRecords().stream().peek(sysUser -> {

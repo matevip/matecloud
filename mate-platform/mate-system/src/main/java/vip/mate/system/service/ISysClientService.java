@@ -1,7 +1,6 @@
 package vip.mate.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.core.database.entity.Search;
 import vip.mate.system.entity.SysClient;
@@ -22,11 +21,10 @@ public interface ISysClientService extends IService<SysClient> {
 	/**
 	 * 查询分页列表
 	 *
-	 * @param page   分页对象
 	 * @param search 查询参数
 	 * @return IPage
 	 */
-	IPage<SysClient> listPage(Page<SysClient> page, Search search);
+	IPage<SysClient> listPage(Search search);
 
 	/**
 	 * 设置状态

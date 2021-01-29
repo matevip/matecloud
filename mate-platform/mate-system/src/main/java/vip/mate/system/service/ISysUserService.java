@@ -1,7 +1,6 @@
 package vip.mate.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import vip.mate.core.database.entity.Search;
 import vip.mate.system.entity.SysUser;
@@ -19,16 +18,21 @@ import java.util.List;
  */
 public interface ISysUserService extends IService<SysUser> {
 
-    boolean status(String ids, String status);
+	boolean status(String ids, String status);
 
-    /**
-     * 分页业务方法
-     * @param page　分页参数
-     * @param search　搜索参数
-     * @return IPage
-     */
-    IPage<SysUser> listPage(Page<SysUser> page, Search search);
+	/**
+	 * 分页业务方法
+	 *
+	 * @param search 　搜索参数
+	 * @return IPage
+	 */
+	IPage<SysUser> listPage(Search search);
 
-    List<SysUserPOI> export();
+	/**
+	 * 导出列表
+	 *
+	 * @return 导出POI数据
+	 */
+	List<SysUserPOI> export();
 
 }
