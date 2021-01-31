@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cdn.mate.vip/matecloud.svg" width="200">
+  <img src="https://cdn.mate.vip/matecloud.svg" width="260">
 </p>
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
