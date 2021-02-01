@@ -19,7 +19,6 @@ package ${package.Service};
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import vip.mate.core.database.entity.Search;
 
 /**
@@ -41,7 +40,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
      * @param search　搜索参数
      * @return IPage
      */
-	IPage<$!{entity}> listPage(Page page, Search search);
+	IPage<$!{entity}> listPage(Search search);
 
 }
 #end
