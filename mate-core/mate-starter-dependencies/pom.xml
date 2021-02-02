@@ -44,7 +44,7 @@
 
         <spring.boot.version>2.3.8.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
-        <alibaba.cloud.version>2.2.4.RELEASE</alibaba.cloud.version>
+        <alibaba.cloud.version>2.2.5.RELEASE</alibaba.cloud.version>
 
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
