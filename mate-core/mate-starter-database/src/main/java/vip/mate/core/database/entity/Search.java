@@ -49,11 +49,11 @@ public class Search implements Serializable {
 	 * 当前页
 	 */
 	@ApiModelProperty(value = "当前页")
-	private Integer current;
+	private Integer current = 1;
 
 	/**
 	 * 每页的数量
 	 */
 	@ApiModelProperty(value = "每页的数量")
-	private Integer size;
+	private Integer size = 10;
 }

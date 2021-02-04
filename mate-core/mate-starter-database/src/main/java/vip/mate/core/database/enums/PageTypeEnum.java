@@ -8,6 +8,7 @@ import lombok.Getter;
  *
  * @author pangu
  */
+@Deprecated
 @Getter
 @AllArgsConstructor
 public enum PageTypeEnum {
