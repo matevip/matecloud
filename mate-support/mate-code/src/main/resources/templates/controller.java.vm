@@ -71,7 +71,6 @@ public class ${table.controllerName} {
     /**
      * 分页列表
      *
-     * @param page   分页信息
      * @param search 　搜索关键词
      * @return Result
      */

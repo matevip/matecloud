@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import vip.mate.core.common.util.StringUtil;
+import vip.mate.core.database.util.PageUtil;
 
 /**
  * <p>
