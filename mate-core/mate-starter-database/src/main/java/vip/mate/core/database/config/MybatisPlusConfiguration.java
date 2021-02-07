@@ -101,7 +101,11 @@ public class MybatisPlusConfiguration {
 	 */
 	@Bean
 	public ConfigurationCustomizer configurationCustomizer() {
-		return config -> config.setDefaultEnumTypeHandler(EnumTypeHandler.class);
+		return configuration -> {
+			configuration.setDefaultEnumTypeHandler(EnumTypeHandler.class);
+			// 关闭 mybatis 默认的日志
+			configuration.setLogPrefix("log.mybatis");
+		};
 	}
 
 	/**

@@ -111,6 +111,7 @@
     <logger name="org.springframework.beans" level="WARN"/>
     <logger name="springfox.bean.validators" level="ERROR"/>
     <logger name="springfox.documentation" level="ERROR" />
+    <logger name="log.mybatis" level="INFO"/>
     <!-- 基础组件 -->
     <logger name="RocketmqClient" level="WARN"/>
     <logger name="com.alibaba.nacos" level="ERROR"/>
