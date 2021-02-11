@@ -22,6 +22,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -33,10 +35,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.TokenGranter;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.redis.core.RedisService;
 import vip.mate.core.security.userdetails.MateUser;
@@ -44,7 +48,7 @@ import vip.mate.uaa.granter.CaptchaTokenGranter;
 import vip.mate.uaa.granter.SmsCodeTokenGranter;
 import vip.mate.uaa.granter.SocialTokenGranter;
 import vip.mate.uaa.service.impl.ClientDetailsServiceImpl;
-import vip.mate.uaa.translator.MateWebRespExceptionTranslator;
+import vip.mate.uaa.service.impl.SingleLoginTokenServices;
 
 import java.util.*;
 
@@ -72,7 +76,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final AuthRequestFactory factory;
 
-    private final MateWebRespExceptionTranslator exceptionTranslator;
 
     /**
      * 配置token存储到redis中
@@ -88,15 +91,27 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         // 把jwt增强，与额外信息增强加入到增强链
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
+        // 配置tokenServices参数
+        DefaultTokenServices tokenServices = new SingleLoginTokenServices(false);
+        tokenServices.setTokenStore(redisTokenStore());
+        //允许支持刷新token
+        tokenServices.setSupportRefreshToken(true);
+        tokenServices.setReuseRefreshToken(false);
+        tokenServices.setClientDetailsService(clientService);
+        tokenServices.setTokenEnhancer(tokenEnhancerChain);
+        addUserDetailsService(tokenServices);
         endpoints
-                .authenticationManager(authenticationManager)
-                .tokenEnhancer(tokenEnhancerChain)
+                .tokenServices(tokenServices)
                 .accessTokenConverter(jwtAccessTokenConverter())
-                .userDetailsService(userDetailsService)
-                .tokenGranter(tokenGranter(endpoints))
-                .tokenStore(redisTokenStore())
-                .reuseRefreshTokens(false)
-                .exceptionTranslator(exceptionTranslator);
+                .tokenGranter(tokenGranter(endpoints));
+    }
+
+    private void addUserDetailsService(DefaultTokenServices tokenServices) {
+        if (userDetailsService != null) {
+            PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
+            provider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceWrapper<>(userDetailsService));
+            tokenServices.setAuthenticationManager(new ProviderManager(Collections.singletonList(provider)));
+        }
     }
 
     @Override
