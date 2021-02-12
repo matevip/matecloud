@@ -64,126 +64,144 @@ import java.util.*;
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private final ClientDetailsServiceImpl clientService;
+	private final ClientDetailsServiceImpl clientService;
 
-    private final RedisConnectionFactory redisConnectionFactory;
+	private final RedisConnectionFactory redisConnectionFactory;
 
-    private final AuthenticationManager authenticationManager;
+	private final AuthenticationManager authenticationManager;
 
-    private final UserDetailsService userDetailsService;
+	private final UserDetailsService userDetailsService;
 
-    private final RedisService redisService;
+	private final RedisService redisService;
 
-    private final AuthRequestFactory factory;
+	private final AuthRequestFactory factory;
 
 
-    /**
-     * 配置token存储到redis中
-     */
-    @Bean
-    public RedisTokenStore redisTokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
-    }
+	/**
+	 * 配置token存储到redis中
+	 */
+	@Bean
+	public RedisTokenStore redisTokenStore() {
+		return new RedisTokenStore(redisConnectionFactory);
+	}
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // token增强链
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        // 把jwt增强，与额外信息增强加入到增强链
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
-        // 配置tokenServices参数
-        DefaultTokenServices tokenServices = new SingleLoginTokenServices(false);
-        tokenServices.setTokenStore(redisTokenStore());
-        //允许支持刷新token
-        tokenServices.setSupportRefreshToken(true);
-        tokenServices.setReuseRefreshToken(false);
-        tokenServices.setClientDetailsService(clientService);
-        tokenServices.setTokenEnhancer(tokenEnhancerChain);
-        addUserDetailsService(tokenServices);
-        endpoints
-                .tokenServices(tokenServices)
-                .accessTokenConverter(jwtAccessTokenConverter())
-                .tokenGranter(tokenGranter(endpoints));
-    }
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		DefaultTokenServices tokenServices = createDefaultTokenServices();
+		// token增强链
+		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+		// 把jwt增强，与额外信息增强加入到增强链
+		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
+		tokenServices.setTokenEnhancer(tokenEnhancerChain);
+		// 配置tokenServices参数
+		addUserDetailsService(tokenServices);
+		endpoints
+				.tokenGranter(tokenGranter(endpoints, tokenServices))
+				.tokenServices(tokenServices)
+				.accessTokenConverter(jwtAccessTokenConverter());
 
-    private void addUserDetailsService(DefaultTokenServices tokenServices) {
-        if (userDetailsService != null) {
-            PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
-            provider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceWrapper<>(userDetailsService));
-            tokenServices.setAuthenticationManager(new ProviderManager(Collections.singletonList(provider)));
-        }
-    }
+	}
 
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
-                // 允许表单认证请求
-                .allowFormAuthenticationForClients()
-                // spel表达式 访问公钥端点（/auth/token_key）需要认证
-                .tokenKeyAccess("isAuthenticated()")
-                // spel表达式 访问令牌解析端点（/auth/check_token）需要认证
-                .checkTokenAccess("isAuthenticated()");
-    }
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clientService.setSelectClientDetailsSql(Oauth2Constant.SELECT_CLIENT_DETAIL_SQL);
-        clientService.setFindClientDetailsSql(Oauth2Constant.FIND_CLIENT_DETAIL_SQL);
-        clients.withClientDetails(clientService);
-    }
+	private void addUserDetailsService(DefaultTokenServices tokenServices) {
+		if (userDetailsService != null) {
+			PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
+			provider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceWrapper<>(userDetailsService));
+			tokenServices.setAuthenticationManager(new ProviderManager(Collections.singletonList(provider)));
+		}
+	}
 
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey(Oauth2Constant.SIGN_KEY);
-        return jwtAccessTokenConverter;
-    }
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		security
+				// 允许表单认证请求
+				.allowFormAuthenticationForClients()
+				// spel表达式 访问公钥端点（/auth/token_key）需要认证
+				.tokenKeyAccess("isAuthenticated()")
+				// spel表达式 访问令牌解析端点（/auth/check_token）需要认证
+				.checkTokenAccess("isAuthenticated()");
+	}
 
-    /**
-     * 重点
-     * 先获取已经有的五种授权，然后添加我们自己的进去
-     *
-     * @param endpoints AuthorizationServerEndpointsConfigurer
-     * @return TokenGranter
-     */
-    private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints) {
-        List<TokenGranter> granters = new ArrayList<>(Collections.singletonList(endpoints.getTokenGranter()));
-        granters.add(new SmsCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), redisService));
-        granters.add(new CaptchaTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), redisService));
-        granters.add(new SocialTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(), redisService, factory));
-        return new CompositeTokenGranter(granters);
-    }
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		clientService.setSelectClientDetailsSql(Oauth2Constant.SELECT_CLIENT_DETAIL_SQL);
+		clientService.setFindClientDetailsSql(Oauth2Constant.FIND_CLIENT_DETAIL_SQL);
+		clients.withClientDetails(clientService);
+	}
 
-    /**
-     * jwt token增强，添加额外信息
-     * @return
-     */
-    @Bean
-    public TokenEnhancer tokenEnhancer() {
-        return new TokenEnhancer() {
-            @Override
-            public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
+	@Bean
+	public JwtAccessTokenConverter jwtAccessTokenConverter() {
+		JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+		jwtAccessTokenConverter.setSigningKey(Oauth2Constant.SIGN_KEY);
+		return jwtAccessTokenConverter;
+	}
 
-                // 添加额外信息的map
-                final Map<String, Object> additionMessage = new HashMap<>(2);
-                // 获取当前登录的用户
-                MateUser user = (MateUser) oAuth2Authentication.getUserAuthentication().getPrincipal();
+	/**
+	 * 重点
+	 * 先获取已经有的五种授权，然后添加我们自己的进去
+	 *
+	 * @param endpoints AuthorizationServerEndpointsConfigurer
+	 * @return TokenGranter
+	 */
+	private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints, DefaultTokenServices tokenServices) {
+		List<TokenGranter> granters = new ArrayList<>(Collections.singletonList(endpoints.getTokenGranter()));
+		granters.add(new SmsCodeTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
+				endpoints.getOAuth2RequestFactory(), redisService));
+		granters.add(new CaptchaTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
+				endpoints.getOAuth2RequestFactory(), redisService));
+		granters.add(new SocialTokenGranter(authenticationManager, tokenServices, endpoints.getClientDetailsService(),
+				endpoints.getOAuth2RequestFactory(), redisService, factory));
+		return new CompositeTokenGranter(granters);
+	}
 
-                // 如果用户不为空 则把id放入jwt token中
-                if (user != null) {
-                    additionMessage.put("userId", String.valueOf(user.getId()));
-                    additionMessage.put("userName", user.getUsername());
-                    additionMessage.put("avatar", user.getAvatar());
-                    additionMessage.put("roleId", String.valueOf(user.getRoleId()));
-                    additionMessage.put("type", user.getType());
-                    additionMessage.put("tenantId",user.getTenantId());
-                }
-                ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(additionMessage);
-                return oAuth2AccessToken;
-            }
-        };
-    }
+	/**
+	 * 创建默认的tokenServices
+	 *
+	 * @return DefaultTokenServices
+	 */
+	private DefaultTokenServices createDefaultTokenServices() {
+		DefaultTokenServices tokenServices = new SingleLoginTokenServices(false);
+		tokenServices.setTokenStore(redisTokenStore());
+		// 支持刷新Token
+		tokenServices.setSupportRefreshToken(true);
+		tokenServices.setReuseRefreshToken(false);
+		tokenServices.setClientDetailsService(clientService);
+		addUserDetailsService(tokenServices);
+		return tokenServices;
+	}
+
+	/**
+	 * jwt token增强，添加额外信息
+	 *
+	 * @return
+	 */
+	@Bean
+	public TokenEnhancer tokenEnhancer() {
+		return new TokenEnhancer() {
+			@Override
+			public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
+
+				// 添加额外信息的map
+				final Map<String, Object> additionMessage = new HashMap<>(2);
+				// 对于客户端鉴权模式，直接返回token
+				if (oAuth2Authentication.getUserAuthentication() == null) {
+					return oAuth2AccessToken;
+				}
+				// 获取当前登录的用户
+				MateUser user = (MateUser) oAuth2Authentication.getUserAuthentication().getPrincipal();
+
+				// 如果用户不为空 则把id放入jwt token中
+				if (user != null) {
+					additionMessage.put("userId", String.valueOf(user.getId()));
+					additionMessage.put("userName", user.getUsername());
+					additionMessage.put("avatar", user.getAvatar());
+					additionMessage.put("roleId", String.valueOf(user.getRoleId()));
+					additionMessage.put("type", user.getType());
+					additionMessage.put("tenantId", user.getTenantId());
+				}
+				((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionMessage);
+				return oAuth2AccessToken;
+			}
+		};
+	}
 }

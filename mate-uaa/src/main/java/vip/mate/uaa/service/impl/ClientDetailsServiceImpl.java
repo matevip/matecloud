@@ -58,6 +58,7 @@ public class ClientDetailsServiceImpl extends JdbcClientDetailsService {
 		if (StringUtils.isEmpty(clientDetails)) {
 			clientDetails = getCacheClient(clientId);
 		}
+		clientDetails.getAuthorizedGrantTypes().add(Oauth2Constant.CLIENT_CREDENTIALS);
 		return clientDetails;
 	}
 
