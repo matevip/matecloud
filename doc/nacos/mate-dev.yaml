@@ -32,6 +32,8 @@ mate:
   # 网关认证开关
   uaa:
     enable: false
+    # 开关：同应用账号互踢
+    isSingleLogin: false
     ignore-url:
       - /auth/login/**
       - /auth/callback/**

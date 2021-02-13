@@ -37,7 +37,6 @@ public class SysAttachmentController extends BaseController {
 
     /**
      * 附件分页
-     * @param page　分页参数
      * @param search　关键词
      * @return Result
      */

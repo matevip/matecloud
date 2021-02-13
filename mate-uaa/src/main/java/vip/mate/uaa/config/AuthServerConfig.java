@@ -17,7 +17,8 @@
 package vip.mate.uaa.config;
 
 import com.xkcoding.justauth.AuthRequestFactory;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -60,7 +61,7 @@ import java.util.*;
  **/
 
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
@@ -75,6 +76,9 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 	private final RedisService redisService;
 
 	private final AuthRequestFactory factory;
+
+	@Value("${mate.uaa.isSingleLogin:false}")
+	private boolean isSingleLogin = false;
 
 
 	/**
@@ -160,7 +164,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 	 * @return DefaultTokenServices
 	 */
 	private DefaultTokenServices createDefaultTokenServices() {
-		DefaultTokenServices tokenServices = new SingleLoginTokenServices(false);
+		DefaultTokenServices tokenServices = new SingleLoginTokenServices(isSingleLogin);
 		tokenServices.setTokenStore(redisTokenStore());
 		// 支持刷新Token
 		tokenServices.setSupportRefreshToken(true);
