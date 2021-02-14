@@ -95,7 +95,7 @@
         <transmittable.version>2.12.0</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.8.0</rocketmq.version>
-        <seata.version>1.4.0</seata.version>
+        <seata.version>1.4.1</seata.version>
         <prometheus.version>1.6.2</prometheus.version>
 
         <jasypt.version>3.0.3</jasypt.version>
