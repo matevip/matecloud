@@ -167,8 +167,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 		DefaultTokenServices tokenServices = new SingleLoginTokenServices(isSingleLogin);
 		tokenServices.setTokenStore(redisTokenStore());
 		// 支持刷新Token
-		tokenServices.setSupportRefreshToken(true);
-		tokenServices.setReuseRefreshToken(false);
+		tokenServices.setSupportRefreshToken(Boolean.TRUE);
+		tokenServices.setReuseRefreshToken(Boolean.FALSE);
 		tokenServices.setClientDetailsService(clientService);
 		addUserDetailsService(tokenServices);
 		return tokenServices;
@@ -177,7 +177,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 	/**
 	 * jwt token增强，添加额外信息
 	 *
-	 * @return
+	 * @return TokenEnhancer
 	 */
 	@Bean
 	public TokenEnhancer tokenEnhancer() {
@@ -196,12 +196,12 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
 				// 如果用户不为空 则把id放入jwt token中
 				if (user != null) {
-					additionMessage.put("userId", String.valueOf(user.getId()));
-					additionMessage.put("userName", user.getUsername());
-					additionMessage.put("avatar", user.getAvatar());
-					additionMessage.put("roleId", String.valueOf(user.getRoleId()));
-					additionMessage.put("type", user.getType());
-					additionMessage.put("tenantId", user.getTenantId());
+					additionMessage.put(Oauth2Constant.MATE_USER_ID, String.valueOf(user.getId()));
+					additionMessage.put(Oauth2Constant.MATE_USER_NAME, user.getUsername());
+					additionMessage.put(Oauth2Constant.MATE_AVATAR, user.getAvatar());
+					additionMessage.put(Oauth2Constant.MATE_ROLE_ID, String.valueOf(user.getRoleId()));
+					additionMessage.put(Oauth2Constant.MATE_TYPE, user.getType());
+					additionMessage.put(Oauth2Constant.MATE_TENANT_ID, user.getTenantId());
 				}
 				((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionMessage);
 				return oAuth2AccessToken;
