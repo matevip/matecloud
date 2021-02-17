@@ -20,10 +20,13 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-feign</artifactId>
         </dependency>
+        <!-- 按需求开启sentinel -->
+        <!--
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-sentinel</artifactId>
         </dependency>
+        -->
         <!-- Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
