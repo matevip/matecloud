@@ -2,6 +2,11 @@ package vip.mate.core.common.constant;
 
 import lombok.experimental.UtilityClass;
 
+/**
+ * Mate基本常量
+ *
+ * @author pangu
+ */
 @UtilityClass
 public class MateConstant {
 
@@ -88,6 +93,11 @@ public class MateConstant {
 	 * json类型报文，UTF-8字符集
 	 */
 	public static final String JSON_UTF8 = "application/json;charset=UTF-8";
+
+
+	public static final String CONFIG_DATA_ID_DYNAMIC_ROUTES = "mate-dynamic-routes.yaml";
+	public static final String CONFIG_GROUP = "DEFAULT_GROUP";
+	public static final long CONFIG_TIMEOUT_MS = 5000;
 
 
 }
