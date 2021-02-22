@@ -41,6 +41,7 @@ public class DynamicRouteInit {
 			properties.put(PropertyKeyConst.SERVER_ADDR, nacosProperties.getServerAddr());
 			properties.put(PropertyKeyConst.USERNAME, nacosProperties.getUsername());
 			properties.put(PropertyKeyConst.PASSWORD, nacosProperties.getPassword());
+			properties.put(PropertyKeyConst.NAMESPACE, nacosProperties.getNamespace());
 			ConfigService configService = NacosFactory.createConfigService(properties);
 
 			String content = configService.getConfig(MateConstant.CONFIG_DATA_ID_DYNAMIC_ROUTES, nacosProperties.getGroup(), MateConstant.CONFIG_TIMEOUT_MS);
