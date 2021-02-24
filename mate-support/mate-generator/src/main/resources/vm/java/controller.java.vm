@@ -2,8 +2,8 @@ package ${packageName}.controller;
 
 import java.util.List;
 import java.util.Map;
-import com.jeeos.core.common.api.Result;
-import com.jeeos.core.auth.annotation.PreAuth;
+import vip.mate.core.common.api.Result;
+import vip.mate.core.auth.annotation.PreAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
-import com.jeeos.core.web.controller.BaseController;
+import vip.mate.core.web.controller.BaseController;
 import ${packageName}.domain.${ClassName};
 import ${packageName}.service.I${ClassName}Service;
-import com.jeeos.core.file.util.ExcelUtil;
+import vip.mate.core.file.util.ExcelUtil;
 
 
 /**

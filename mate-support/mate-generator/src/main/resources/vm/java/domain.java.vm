@@ -8,9 +8,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 #if($table.crud || $table.sub)
-import com.jeeos.core.database.entity.BaseEntity;
+import vip.mate.core.database.entity.BaseEntity;
 #elseif($table.tree)
-import com.jeeos.core.database.entity.BaseEntity;
+import vip.mate.core.database.entity.BaseEntity;
 #end
 
 /**

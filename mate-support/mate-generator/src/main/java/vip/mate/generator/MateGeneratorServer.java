@@ -1,5 +1,6 @@
 package vip.mate.generator;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2.3.8
  */
 @SpringBootApplication
+@MapperScan({"vip.mate.generator.mapper"})
 public class MateGeneratorServer {
 	public static void main(String[] args) {
 		SpringApplication.run(MateGeneratorServer.class, args);

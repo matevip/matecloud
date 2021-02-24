@@ -3,7 +3,7 @@ package ${packageName}.service.impl;
 import java.util.List;
 import java.util.Date;
 import java.time.LocalDateTime;
-import com.jeeos.core.web.util.CollectionUtil;
+import vip.mate.core.web.util.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
