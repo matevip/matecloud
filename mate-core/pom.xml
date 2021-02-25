@@ -224,10 +224,10 @@
             <properties>
                 <!--当前环境-->
                 <spring.active>local</spring.active>
-                <config.server-addr>192.168.1.120:8848</config.server-addr>
+                <config.server-addr>127.0.0.1:8848</config.server-addr>
                 <config.namespace></config.namespace>
                 <config.group>DEFAULT_GROUP</config.group>
-                <discovery.server-addr>192.168.1.120:8848</discovery.server-addr>
+                <discovery.server-addr>127.0.0.1:8848</discovery.server-addr>
                 <sentinel.port>8719</sentinel.port>
                 <sentinel.dashboard>192.168.1.120:8088</sentinel.dashboard>
             </properties>
