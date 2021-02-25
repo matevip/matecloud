@@ -1,0 +1,59 @@
+package ${packageName}.service.impl;
+
+import java.util.List;
+import java.util.Date;
+import java.time.LocalDateTime;
+import vip.mate.core.web.util.CollectionUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+#foreach ($column in $columns)
+#if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
+#break
+#end
+#end
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+#if($table.sub)
+import java.util.ArrayList;
+import org.springframework.transaction.annotation.Transactional;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${packageName}.domain.${subClassName};
+#end
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.service.I${ClassName}Service;
+
+/**
+ * ${functionName}Service业务层处理
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service
+{
+    @Autowired
+    private ${ClassName}Mapper ${className}Mapper;
+
+    /**
+     * 查询${functionName}列表
+     *
+     * @param query
+     * @return ${functionName}
+     */
+    @Override
+    public List<${ClassName}> select${ClassName}List(Map<String, String> query)
+    {
+        return ${className}Mapper.select${ClassName}List(query);
+    }
+
+    @Override
+    public IPage<${ClassName}> listPage(Map<String, String> query) {
+        long current = CollectionUtil.strToLong(query.get("current"), 0L);
+        long size = CollectionUtil.strToLong(query.get("size"), 0L);
+        Page<${ClassName}> page = new Page<>(current, size);
+        return ${className}Mapper.select${ClassName}List(page,query);
+    }
+}
