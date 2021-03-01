@@ -70,7 +70,7 @@
         <jetcache.version>2.6.0</jetcache.version>
 
         <!-- Apache Dubbo -->
-        <dubbo.version>2.7.9</dubbo.version>
+        <dubbo.version>2.7.8</dubbo.version>
         <fastjson.version>1.2.75</fastjson.version>
 
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
@@ -89,7 +89,7 @@
         <commons-collections.version>3.2.2</commons-collections.version>
 
         <dozer.version>6.5.0</dozer.version>
-        <redisson.version>3.14.1</redisson.version>
+        <redisson.version>3.15.0</redisson.version>
         <lettuce.version>5.3.5.RELEASE</lettuce.version>
         <sentinel.version>1.8.1</sentinel.version>
         <transmittable.version>2.12.0</transmittable.version>
