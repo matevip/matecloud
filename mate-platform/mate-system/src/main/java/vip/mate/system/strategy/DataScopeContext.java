@@ -29,7 +29,7 @@ public class DataScopeContext {
 		strategyMap.forEach(this.strategyMap::put);
 	}
 
-	public List<Integer> getDeptIdsForDataScope(RoleDTO roleDto, Integer type) {
+	public List<Long> getDeptIdsForDataScope(RoleDTO roleDto, Integer type) {
 		return strategyMap.get(String.valueOf(type)).getDeptIds(roleDto, DataScopeTypeEnum.valueOf(type));
 	}
 }

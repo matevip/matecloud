@@ -19,5 +19,5 @@ public interface AbstractDataScopeHandler {
 	 * @param dataScopeTypeEnum 数据权限枚举
 	 * @return int数组
 	 */
-	List<Integer> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum);
+	List<Long> getDeptIds(RoleDTO roleDto, DataScopeTypeEnum dataScopeTypeEnum);
 }

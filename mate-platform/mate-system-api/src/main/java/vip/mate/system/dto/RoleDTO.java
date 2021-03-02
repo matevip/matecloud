@@ -13,6 +13,7 @@ public class RoleDTO {
 	private String roleDesc;
 	private String delFlag;
 	private int dsType;
-	List<Integer> permissionIds;
-	List<Integer> roleDepts;
+	List<Long> permissionIds;
+	List<Long> roleDepts;
+
 }
