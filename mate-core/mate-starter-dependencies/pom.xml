@@ -59,6 +59,8 @@
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
         <druid.version>1.2.5</druid.version>
         <mybatis.plus.version>3.4.2</mybatis.plus.version>
+        <mybaits.generator.version>3.4.1</mybaits.generator.version>
+        <dynamic-datasource.version>3.3.1</dynamic-datasource.version>
         <velocity.version>1.7</velocity.version>
 
         <swagger.version>2.10.5</swagger.version>
@@ -303,7 +305,12 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.4.1</version>
+                <version>${mybaits.generator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
             </dependency>
 
             <dependency>
