@@ -84,10 +84,9 @@
         <justauth.springboot.version>1.3.3</justauth.springboot.version>
         <okhttp.version>4.9.0</okhttp.version>
 
-        <servlet.version>2.5</servlet.version>
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
 
-        <elastic.version>7.11.1</elastic.version>
+        <elastic.version>7.10.2</elastic.version>
         <commons-collections.version>3.2.2</commons-collections.version>
 
         <dozer.version>6.5.0</dozer.version>
@@ -451,11 +450,6 @@
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
                 <version>${okhttp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>${servlet.version}</version>
             </dependency>
 
             <!--shardingsphere的springboot依赖jar-->
