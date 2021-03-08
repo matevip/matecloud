@@ -18,11 +18,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-redis</artifactId>
             <scope>provided</scope>
