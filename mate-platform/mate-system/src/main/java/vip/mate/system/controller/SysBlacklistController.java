@@ -1,7 +1,6 @@
 package vip.mate.system.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -59,8 +58,8 @@ public class SysBlacklistController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> page(Page<?> page, Search search) {
-        return Result.data(sysBlacklistService.listPage(page, search));
+    public Result<?> page(Search search) {
+        return Result.data(sysBlacklistService.listPage(search));
     }
 
     /**

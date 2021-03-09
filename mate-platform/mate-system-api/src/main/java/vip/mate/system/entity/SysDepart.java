@@ -1,13 +1,15 @@
 package vip.mate.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import vip.mate.core.database.entity.BaseEntity;
+
+import java.util.List;
 
 /**
  * <p>

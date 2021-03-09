@@ -18,11 +18,12 @@ package vip.mate.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
+import vip.mate.core.database.util.PageUtil;
 import vip.mate.system.entity.SysRoute;
 import vip.mate.system.mapper.SysRouteMapper;
 import vip.mate.system.service.ISysRouteService;
@@ -42,18 +43,15 @@ import java.util.List;
 public class SysRouteServiceImpl extends ServiceImpl<SysRouteMapper, SysRoute> implements ISysRouteService {
 
 	@Override
-	public IPage<SysRoute> listPage(Page page, Search search) {
-		LambdaQueryWrapper<SysRoute> queryWrapper = new LambdaQueryWrapper<>();
-		if (StringUtil.isNotBlank(search.getStartDate())) {
-			queryWrapper.between(SysRoute::getCreateTime, search.getStartDate(), search.getEndDate());
-		}
-		if (StringUtil.isNotBlank(search.getKeyword())) {
-			queryWrapper.like(SysRoute::getServiceId, search.getKeyword())
-					.or()
-					.like(SysRoute::getName, search.getKeyword());
-		}
+	public IPage<SysRoute> listPage(Search search) {
+		LambdaQueryWrapper<SysRoute> queryWrapper = Wrappers.<SysRoute>query().lambda()
+				.between(StringUtil.isNotBlank(search.getStartDate()), SysRoute::getCreateTime, search.getStartDate(), search.getEndDate());
+		boolean isKeyword = StringUtil.isNotBlank(search.getKeyword());
+		queryWrapper.like(isKeyword, SysRoute::getServiceId, search.getKeyword())
+				.or(isKeyword)
+				.like(isKeyword, SysRoute::getName, search.getKeyword());
 		queryWrapper.orderByDesc(SysRoute::getCreateTime);
-		return this.baseMapper.selectPage(page, queryWrapper);
+		return this.baseMapper.selectPage(PageUtil.getPage(search), queryWrapper);
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://cdn.mate.vip/matecloud.jpg" width="300">
+  <img src="https://cdn.mate.vip/matecloud.svg" width="260">
 </p>
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.7.RELEASE-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR9-blue" alt="SpringCloud"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.3.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.9.RELEASE-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR10-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.5.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
 ## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
@@ -37,21 +37,21 @@ QQ群：2003638
 </p>
 git 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR8, Spring Boot 2.3.7.RELEASE, Spring Cloud Alibaba 2.2.3.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR9, Spring Boot 2.3.9.RELEASE, Spring Cloud Alibaba 2.2.5.RELEASE版本进行系统设计；
 
-- 统一注册：支持nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
+- 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
 - 统一认证：统一Oauth2认证协议，采用jwt的方式，实现统一认证，并支持自定义grant_type实现手机号码登录，第三方登录正在开发中；
 
 - 业务监控：利用Spring Boot Admin 来监控各个独立Service的运行状态；利用Hystrix Dashboard来实时查看接口的运行状态和调用频率等。
 
-- 内部调用：集成了feign和dubbo两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
+- 内部调用：集成了Feign和Dubbo两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
 
 - 业务熔断：采用Sentinel实现业务熔断处理，避免服务之间出现雪崩;
 
 - 身份注入：通过注解的方式，实现用户登录信息的快速注入；
 
-- 在线文档：通过接入knife4j，实现在线API文档的查看与调试;
+- 在线文档：通过接入Knife4j，实现在线API文档的查看与调试;
 
 - 代码生成：基于Mybatis-plus-generator自动生成代码，提升开发效率，生成模式不断优化中，暂不支持前端代码生成；
 
@@ -108,7 +108,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>2.1.8</version>
+            <version>2.2.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

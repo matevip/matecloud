@@ -1,7 +1,6 @@
 package vip.mate.component.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -38,7 +37,6 @@ public class SysAttachmentController extends BaseController {
 
     /**
      * 附件分页
-     * @param page　分页参数
      * @param search　关键词
      * @return Result
      */
@@ -53,8 +51,8 @@ public class SysAttachmentController extends BaseController {
             @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
             @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
-    public Result<?> page(Page page, Search search) {
-        return Result.data(sysAttachmentService.listPage(page, search));
+    public Result<?> page(Search search) {
+        return Result.data(sysAttachmentService.listPage(search));
     }
 
     /**

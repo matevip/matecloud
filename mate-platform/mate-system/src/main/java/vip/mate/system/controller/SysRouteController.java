@@ -16,7 +16,6 @@
  */
 package vip.mate.system.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -53,7 +52,6 @@ public class SysRouteController extends BaseController {
 	/**
 	 * 分页列表
 	 *
-	 * @param page   分页信息
 	 * @param search 　搜索关键词
 	 * @return Result
 	 */
@@ -68,8 +66,8 @@ public class SysRouteController extends BaseController {
 			@ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
 			@ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
 	})
-	public Result<?> page(Page<?> page, Search search) {
-		return Result.data(sysRouteService.listPage(page, search));
+	public Result<?> page(Search search) {
+		return Result.data(sysRouteService.listPage(search));
 	}
 
 	/**

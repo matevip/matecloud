@@ -189,6 +189,8 @@ CREATE TABLE `mate_sys_role` (
      `role_name` varchar(64) DEFAULT NULL COMMENT '角色名称',
      `role_code` varchar(64) DEFAULT NULL COMMENT '角色编码',
      `description` varchar(255) DEFAULT NULL COMMENT '描述',
+     `data_type` tinyint(2) DEFAULT NULL COMMENT '数据权限类型',
+     `data_scope` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '数据权限范围 1 全部 2 本级 3 本级以及子级 4 自定义',
      `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
      `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

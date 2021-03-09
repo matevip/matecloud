@@ -1,0 +1,1 @@
+package vip.mate.generator.controller;
