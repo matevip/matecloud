@@ -1,0 +1,109 @@
+package ${packageName}.controller;
+
+import java.util.List;
+import java.util.Map;
+import vip.mate.core.common.api.Result;
+import vip.mate.core.auth.annotation.PreAuth;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import vip.mate.core.web.controller.BaseController;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.service.I${ClassName}Service;
+import vip.mate.core.file.util.ExcelUtil;
+
+
+/**
+ * ${functionName}Controller
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@RestController
+@AllArgsConstructor
+@RequestMapping("/${moduleName}/${businessName}")
+public class ${ClassName}Controller extends BaseController
+{
+    @Autowired
+    private I${ClassName}Service ${className}Service;
+
+    /**
+     * 查询${functionName}列表
+     */
+    @PreAuth
+    @GetMapping("/list")
+#if($table.crud || $table.sub)
+    public Result<?> list(@RequestParam Map<String, String> query)
+    {
+        return Result.data(${className}Service.listPage(query));
+    }
+#elseif($table.tree)
+    public Result<?> list(@RequestParam Map<String, String> query)
+    {
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(query);
+        return Result.data(list);
+    }
+#end
+
+    /**
+     * 导出${functionName}列表
+     */
+    @PreAuth
+    @GetMapping("/export")
+    public Result<?> export(@RequestParam Map<String, String> query,HttpServletResponse response)
+    {
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(query);
+        ExcelUtil.exportExcel(list,"result","sheet1",${ClassName}.class,"client",response);
+        return Result.success("导出成功");
+    }
+
+    /**
+     * 获取${functionName}详细信息
+     */
+    @PreAuth
+    @GetMapping(value = "/{${pkColumn.javaField}}")
+    public Result<?> getInfo(@PathVariable("${pkColumn.javaField}") ${pkColumn.javaType} ${pkColumn.javaField})
+    {
+        return Result.data(${className}Service.getById(${pkColumn.javaField}));
+    }
+
+    /**
+     * 新增${functionName}
+     */
+    @PreAuth
+    @PostMapping
+    public Result<?> add(@RequestBody ${ClassName} ${className})
+    {
+        ${className}Service.save(${className});
+        return Result.success("新增成功");
+    }
+
+    /**
+     * 修改${functionName}
+     */
+    @PreAuth
+    @PutMapping
+    public  Result<?> edit(@RequestBody ${ClassName} ${className})
+    {
+        ${className}Service.updateById(${className});
+        return Result.success("修改成功");
+    }
+
+    /**
+     * 删除${functionName}
+     */
+    @PreAuth
+	@DeleteMapping("/{${pkColumn.javaField}s}")
+    public Result<?> remove(@PathVariable ${pkColumn.javaType}[] ${pkColumn.javaField}s)
+    {
+        ${className}Service.removeByIds(Arrays.asList(${pkColumn.javaField}s));
+        return Result.success("删除成功");
+    }
+}

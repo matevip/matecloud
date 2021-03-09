@@ -1,0 +1,45 @@
+routes:
+  # mate-uaa
+  - id: mate-uaa
+    predicates:
+      - name: Path
+        args:
+          _genkey_0: /mate-uaa/**
+    filters: []
+    uri: lb://mate-uaa
+    order: 0
+  # mate-system
+  - id: mate-system
+    predicates:
+      - name: Path
+        args:
+          _genkey_0: /mate-system/**
+    filters:
+      - name: RequestRateLimiter
+        args:
+          # 限流策略
+          key-resolver: '#{@remoteAddrKeyResolver}'
+          # 令牌桶每秒填充率
+          redis-rate-limiter.burstCapacity: 20
+          # 令牌桶容量
+          redis-rate-limiter.replenishRate: 20
+    uri: lb://mate-system
+    order: 0
+  # mate-component
+  - id: mate-component
+    predicates:
+      - name: Path
+        args:
+          _genkey_0: /mate-component/**
+    filters: []
+    uri: lb://mate-component
+    order: 0
+  # mate-code
+  - id: mate-code
+    predicates:
+      - name: Path
+        args:
+          _genkey_0: /mate-code/**
+    filters: []
+    uri: lb://mate-code
+    order: 0

@@ -72,10 +72,10 @@ public class SecurityUtil {
 		Claims claims = getClaims(token);
 		// 然后根据token获取用户登录信息，这里省略获取用户信息的过程
 		LoginUser loginUser = new LoginUser();
-		loginUser.setUserId(String.valueOf(claims.get("userId")));
-		loginUser.setAccount((String) claims.get("userName"));
-		loginUser.setRoleId(String.valueOf(claims.get("roleId")));
-		loginUser.setType(NumberUtil.stoi(String.valueOf(claims.get("type"))));
+		loginUser.setUserId(String.valueOf(claims.get(Oauth2Constant.MATE_USER_ID)));
+		loginUser.setAccount((String) claims.get(Oauth2Constant.MATE_USER_NAME));
+		loginUser.setRoleId(String.valueOf(claims.get(Oauth2Constant.MATE_ROLE_ID)));
+		loginUser.setType(NumberUtil.stoi(String.valueOf(claims.get(Oauth2Constant.MATE_TYPE))));
 		UserContext.setUser(loginUser);
 		return loginUser;
 	}

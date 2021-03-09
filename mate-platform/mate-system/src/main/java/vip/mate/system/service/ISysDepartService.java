@@ -1,8 +1,7 @@
 package vip.mate.system.service;
 
-import com.alicp.jetcache.anno.Cached;
-import vip.mate.system.entity.SysDepart;
 import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.system.entity.SysDepart;
 import vip.mate.system.poi.SysDepartPOI;
 import vip.mate.system.vo.SysDepartVO;
 
@@ -19,11 +18,34 @@ import java.util.Map;
  */
 public interface ISysDepartService extends IService<SysDepart> {
 
-    //@Cached(name="sysDepartService.tree", expire = 3600)
-    List<SysDepartVO> tree();
+	/**
+	 * 查询部门树
+	 *
+	 * @return 部门响应对象列表
+	 */
+	//@Cached(name="sysDepartService.tree", expire = 3600)
+	List<SysDepartVO> tree();
 
-    List<SysDepartVO> searchList(Map<String, Object> search);
+	/**
+	 * 查询部门列表
+	 *
+	 * @param search 查询条件
+	 * @return 部门响应对象列表
+	 */
+	List<SysDepartVO> searchList(Map<String, Object> search);
 
-    List<SysDepartPOI> export();
+	/**
+	 * 部门导出
+	 *
+	 * @return 导出数据列表
+	 */
+	List<SysDepartPOI> export();
 
+	/**
+	 * 通过此部门id查询于此相关的部门ids
+	 *
+	 * @param deptId 部门ID
+	 * @return ID列表
+	 */
+	List<Long> selectDeptIds(Long deptId);
 }
