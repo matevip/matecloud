@@ -19,6 +19,16 @@ spring:
       port: 23333
   main:
     allow-bean-definition-overriding: true
+  #修改文件上传限制
+  servlet:
+    multipart:
+      # 文件最大限制
+      max-file-size: 1024MB
+      # 请求最大限制
+      max-request-size: 1024MB
+      enabled: true
+      # 设置文件缓存的临界点,超过则先保存到临时目录,默认为0,所有文件都会进行缓存
+      file-size-threshold: 0
 
 #feign配置
 feign:
