@@ -32,14 +32,6 @@ CREATE TABLE IF NOT EXISTS `mate_data_source` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '逻辑删除'
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='数据源表';
 
---
--- 转存表中的数据 `mate_data_source`
---
-
-INSERT INTO `mate_data_source` (`id`, `name`, `driver_class`, `url`, `username`, `password`, `remark`, `status`, `created_at`, `updated_at`, `deleted_at`, `is_deleted`) VALUES
-(1, '1', '1', '1', '1', '1', '1', 1, '2020-04-20 02:59:22', NULL, NULL, 0),
-(2, '2', '2', '2', '2', '2', '2', 2, '2020-04-20 03:03:34', NULL, NULL, 0);
-
 
 --
 -- 表的结构 `mate_sys_api`
@@ -760,17 +752,6 @@ INSERT INTO `mate_sys_user` (`id`, `tenant_id`, `account`, `password`, `name`, `
 ALTER TABLE `mate_data_source`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `mate_duben_doc`
---
-ALTER TABLE `mate_duben_doc`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indexes for table `mate_duben_set`
---
-ALTER TABLE `mate_duben_set`
-  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Indexes for table `mate_sys_api`
@@ -873,16 +854,6 @@ ALTER TABLE `mate_sys_user`
 --
 ALTER TABLE `mate_data_source`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `mate_duben_doc`
---
-ALTER TABLE `mate_duben_doc`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文档id',AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT for table `mate_duben_set`
---
-ALTER TABLE `mate_duben_set`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文档集id',AUTO_INCREMENT=1689;
 --
 -- AUTO_INCREMENT for table `mate_sys_api`
 --
