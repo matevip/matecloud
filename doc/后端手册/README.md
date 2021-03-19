@@ -27,7 +27,10 @@ sql语句在nacos-server-1.4.1\nacos\conf\nacos-mysql.sql
 
 
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616176347347-39ffa606-e388-4a45-b160-1e4daa384129.png#align=left&display=inline&height=415&margin=%5Bobject%20Object%5D&name=image.png&originHeight=415&originWidth=771&size=25454&status=done&style=none&width=771)
+
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616176824706-aa324977-abb5-4c77-bed6-97d125b621ab.png#align=left&display=inline&height=241&margin=%5Bobject%20Object%5D&name=image.png&originHeight=241&originWidth=453&size=17200&status=done&style=none&width=453)
 
 ### 2、nacos连接mysql数据库
@@ -68,7 +71,11 @@ sql语句在nacos-server-1.4.1\nacos\conf\nacos-mysql.sql
 create database `matex` default character set utf8mb4 collate utf8mb4_general_ci;
 --2、导入matex_schema.sql
 ```
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616177927303-ed121743-8aaf-40b5-aa96-b69849416c5e.png#align=left&display=inline&height=276&margin=%5Bobject%20Object%5D&name=image.png&originHeight=276&originWidth=310&size=14390&status=done&style=none&width=310)![image.png](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616177889449-7333654b-8bac-4cd1-a979-63f584ac156f.png#align=left&display=inline&height=414&margin=%5Bobject%20Object%5D&name=image.png&originHeight=414&originWidth=509&size=45286&status=done&style=none&width=509)
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616177927303-ed121743-8aaf-40b5-aa96-b69849416c5e.png#align=left&display=inline&height=276&margin=%5Bobject%20Object%5D&name=image.png&originHeight=276&originWidth=310&size=14390&status=done&style=none&width=310)
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616177889449-7333654b-8bac-4cd1-a979-63f584ac156f.png#align=left&display=inline&height=414&margin=%5Bobject%20Object%5D&name=image.png&originHeight=414&originWidth=509&size=45286&status=done&style=none&width=509)
+
+
 ### 3、运行项目
 > 运行项目顺序
 
@@ -81,7 +88,8 @@ create database `matex` default character set utf8mb4 collate utf8mb4_general_ci
 > 选择启动运行环境 
 
 #### 第一种方案
-## ![](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616089279060-df8fd39b-56d9-4a24-af04-fa05b0b6254f.png?x-oss-process=image%2Fresize%2Cw_543#align=left&display=inline&height=357&margin=%5Bobject%20Object%5D&originHeight=357&originWidth=543&status=done&style=none&width=543)
+
+![](https://cdn.nlark.com/yuque/0/2021/png/2654448/1616089279060-df8fd39b-56d9-4a24-af04-fa05b0b6254f.png?x-oss-process=image%2Fresize%2Cw_543#align=left&display=inline&height=357&margin=%5Bobject%20Object%5D&originHeight=357&originWidth=543&status=done&style=none&width=543)
 
 
 #### 第二种方案
