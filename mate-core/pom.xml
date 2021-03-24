@@ -68,6 +68,7 @@
         <module>mate-starter-encrypt</module>
         <module>mate-starter-rabbit</module>
         <module>mate-starter-mybatis</module>
+        <module>mate-starter-idempotent</module>
     </modules>
 
     <properties>
