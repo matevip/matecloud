@@ -21,6 +21,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-redis</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

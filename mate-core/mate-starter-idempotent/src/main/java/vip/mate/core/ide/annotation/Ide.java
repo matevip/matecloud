@@ -15,7 +15,7 @@ public @interface Ide {
 	/**
 	 * 关键key
 	 * key是本次请求中参数的键，
-	 * 重复请求的key取自header中的ruid
+	 * 重复请求的key取自header中的rid
 	 * 用来标识这个请求的唯一性
 	 * 拦截器中会使用key从请求参数中获取value
 	 *

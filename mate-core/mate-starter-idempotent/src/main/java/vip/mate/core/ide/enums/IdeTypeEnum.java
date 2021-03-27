@@ -20,7 +20,7 @@ public enum IdeTypeEnum {
 	/**
 	 * ruid 是针对每一次请求的
 	 */
-	RUID(1, "RUID"),
+	RID(1, "RID"),
 	/**
 	 * key+val 是针对相同参数请求
 	 */

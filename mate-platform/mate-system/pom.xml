@@ -45,6 +45,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-rule</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-idempotent</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
