@@ -30,6 +30,11 @@ import javax.servlet.http.HttpServletRequest;
  * 1.rid 是针对每一次请求的
  * 2.key+val 是针对相同参数请求
  * </p>
+ * <p>
+ * 另根据谢新的建议对所有参数进行加密检验，提供思路，可以自行扩展
+ * DigestUtils.md5Hex(userId + "-" + request.getRequestURL().toString()+"-"+ JSON.toJSONString(request.getParameterMap()));
+ * 或 DigestUtils.md5Hex(ip + "-" + request.getRequestURL().toString()+"-"+ JSON.toJSONString(request.getParameterMap()));
+ * </p>
  *
  * @author pangu
  */
