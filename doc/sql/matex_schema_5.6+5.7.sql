@@ -742,6 +742,19 @@ INSERT INTO `mate_sys_user` (`id`, `tenant_id`, `account`, `password`, `name`, `
 (10, '100000', 'admin10', '{bcrypt}$2a$10$A5cfRbFDCsOg.1UTlWyEZu8DJHSr9GnANXQMsRSIDAtZHuiQicr0K', 'admin6', 'mate', 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2084118128,2518711034&fm=26&gp=0.jpg', 'mate@mate.vip', '18910001000', NULL, 1, 1, 1, '1', NULL, NULL, '2020-06-15 12:05:43', '2020-07-15 03:58:00', '0'),
 (22, '100000', 'pp1', '{bcrypt}$2a$10$jddK.xwTn99XM9ggy64Zgu.eBK2GBiyk9RmtQEjg99S2F8otQ8ieq', 'pp1', NULL, 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2084118128,2518711034&fm=26&gp=0.jpg', NULL, '1899', '2020-06-26 16:00:00', 0, 2, 1, '0', NULL, NULL, '2020-06-30 09:57:13', '2020-06-30 19:06:46', '0');
 
+-- ----------------------------
+-- 角色和部门关联表  角色1-N部门
+-- ----------------------------
+create table mate_sys_role_depart
+(
+    `id`      bigint(64) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    role_id   bigint(20) not null comment '角色ID',
+    depart_id bigint(20) not null comment '部门ID',
+    primary key (id)
+) engine = innodb
+  AUTO_INCREMENT = 1
+  DEFAULT CHARSET = utf8mb4 comment = '角色和部门关联表';
+
 --
 -- Indexes for dumped tables
 --
