@@ -1,0 +1,104 @@
+version: '3.0'
+services:
+  nacos:
+    image: nacos/nacos-server:2.0.0
+    container_name: nacos-standalone
+    env_file:
+      - ./env/nacos-standlone-mysql.env
+    volumes:
+      - ./nacos/standalone-logs/:/home/nacos/logs
+      - ./nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+      - "9555:9555"
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.21
+    env_file:
+      - ./env/mysql.env
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mysql/conf/:/etc/mysql/conf.d
+      - ./mysql/logs/:/logs
+      - ./mysql/data/:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  redis:
+      image: redis:6.0.9
+      container_name: redis
+      hostname: redis
+      restart: always
+      ports:
+        - 6379:6379
+      networks:
+        - net_db
+      volumes:
+        - ./redis/conf/redis.conf:/etc/redis/redis.conf:rw
+        - ./redis/data:/data:rw
+      command:
+        redis-server /etc/redis/redis.conf --appendonly yes --requirepass 123456
+
+
+  
+  rmqnamesrv:
+    image: foxiswho/rocketmq:server
+    container_name: rmqnamesrv
+    ports:
+      - 9876:9876
+    volumes:
+      - ./rmqnamesrv/data/logs:/opt/logs
+      - ./rmqnamesrv/data/store:/opt/store
+    networks:
+        rmq:
+          aliases:
+            - rmqnamesrv
+    depends_on:
+      - mysql
+  
+  rmqbroker:
+    image: foxiswho/rocketmq:broker
+    container_name: rmqbroker
+    ports:
+      - 10909:10909
+      - 10911:10911
+    volumes:
+      - ./rmqbroker/data/logs:/opt/logs
+      - ./rmqbroker/data/store:/opt/store
+      - ./rmqbroker/data/brokerconf/broker.conf:/etc/rocketmq/broker.conf
+    environment:
+        NAMESRV_ADDR: "rmqnamesrv:9876"
+        JAVA_OPTS: " -Duser.home=/opt"
+        JAVA_OPT_EXT: "-server -Xms128m -Xmx128m -Xmn128m"
+    command: mqbroker -c /etc/rocketmq/broker.conf
+    depends_on:
+      - rmqnamesrv
+    networks:
+      rmq:
+        aliases:
+          - rmqbroker
+  
+  rmqconsole:
+    image: styletang/rocketmq-console-ng
+    container_name: rmqconsole
+    ports:
+      - 8080:8080
+    environment:
+        JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+    depends_on:
+      - rmqnamesrv
+    networks:
+      rmq:
+        aliases:
+          - rmqconsole
+  
+networks:
+  net_db:
+    driver: bridge
+  rmq:
+    name: rmq
+    driver: bridge
