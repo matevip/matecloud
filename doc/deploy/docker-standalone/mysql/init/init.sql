@@ -1,3 +1,4 @@
+SET NAMES 'utf8mb4';
 -- ----------------------------
 -- Table structure for config_info
 -- ----------------------------
