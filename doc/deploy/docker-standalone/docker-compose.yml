@@ -53,7 +53,14 @@ services:
     command:
       redis-server /etc/redis/redis.conf --appendonly yes --requirepass 123456
 
-
+  sentinel:
+    image: matecloud/sentinel-dashboard:1.8.1
+    hostname: "sentinel"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 8858:8858
+    restart: on-failure
 
   rmqnamesrv:
     image: foxiswho/rocketmq:server
