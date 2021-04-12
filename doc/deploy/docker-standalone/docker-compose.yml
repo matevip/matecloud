@@ -2,15 +2,16 @@ version: '3.0'
 services:
   nacos:
     image: nacos/nacos-server:2.0.0
-    container_name: nacos-standalone
+    hostname: "nacos-standalone"
     env_file:
       - ./env/nacos-standlone-mysql.env
     volumes:
       - ./nacos/standalone-logs/:/home/nacos/logs
       - ./nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
     ports:
-      - "8848:8848"
-      - "9555:9555"
+      - 8848:8848
+      - 9848:9848
+      - 9849:9849
     depends_on:
       - mysql
     restart: on-failure
@@ -25,8 +26,11 @@ services:
       - ./mysql/conf/:/etc/mysql/conf.d
       - ./mysql/logs/:/logs
       - ./mysql/data/:/var/lib/mysql
+      # 初始化目录挂载
+      - ./mysql/init/:/docker-entrypoint-initdb.d/
     ports:
       - "3306:3306"
+    restart: always
 
   redis:
       image: redis:6.0.9
