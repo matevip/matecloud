@@ -55,11 +55,12 @@ services:
 
   sentinel:
     image: matecloud/sentinel-dashboard:1.8.1
-    hostname: "sentinel"
+    container_name: "sentinel-dashboard"
     environment:
       - TZ=Asia/Shanghai
+      - JAVA_OPTS= -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dsentinel.dashboard.auth.username=sentinel -Dsentinel.dashboard.auth.password=sentinel -Dserver.servlet.session.timeout=7200
     ports:
-      - 8858:8858
+      - 8088:8080
     restart: on-failure
 
   rmqnamesrv:
