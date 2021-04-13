@@ -16,6 +16,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import vip.mate.core.redis.props.MateRedisProperties;
 import vip.mate.core.redis.core.RedisService;
+import vip.mate.core.redis.util.RedisLockUtil;
 
 /**
  * Redis基础配置类
@@ -67,5 +68,11 @@ public class RedisConfiguration {
 	@ConditionalOnBean(name = "redisTemplate")
 	public RedisService redisService() {
 		return new RedisService();
+	}
+
+	@Bean
+	@ConditionalOnBean(name = "redisTemplate")
+	public RedisLockUtil redisLockUtil() {
+		return new RedisLockUtil();
 	}
 }

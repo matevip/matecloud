@@ -73,7 +73,7 @@ public class ManualGenerator {
 		// dsc.setSchemaName("public");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 		dsc.setUsername("root");
-		dsc.setPassword("root");
+		dsc.setPassword("123456");
 		mpg.setDataSource(dsc);
 
 		// 包配置
