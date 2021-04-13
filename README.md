@@ -37,7 +37,7 @@ QQ群：2003638
 </p>
 git 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR9, Spring Boot 2.3.9.RELEASE, Spring Cloud Alibaba 2.2.5.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud Hoxton SR10, Spring Boot 2.3.9.RELEASE, Spring Cloud Alibaba 2.2.5.RELEASE版本进行系统设计；
 
 - 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -84,7 +84,15 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-starter-log -- 封装日志基础模块
 │  │  ├─mate-starter-sharding -- 封装多数据库基础模块
 │  │  ├─mate-starter-sms -- 封装短信基础模块
+│  │  ├─mate-starter-mail -- 封装邮件模块
 │  │  ├─mate-starter-kafka -- 封装kafka基础模块
+│  │  ├─mate-starter-rule -- 封装黑名单基础模块
+│  │  ├─mate-starter-idempotent -- 封装幂等基础模块
+│  │  ├─mate-starter-lock -- 封装分布式锁基础模块
+│  │  ├─mate-starter-encrypt -- 封装报文加密模块，支持AES和RSA
+│  │  ├─mate-starter-mongodb -- 封装mongodb数据库模块
+│  │  ├─mate-starter-strategy -- 封装策略模块
+│  │  ├─mate-starter-job -- 封装定时任务基础模块
 │  │─mate-gateway -- 统一网关模块 [10001]
 │  │─mate-uaa -- 统一认证中心模块 [20001]
 │  │─mate-platform -- 平台模块项目，目前包含系统子模块
@@ -108,7 +116,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>2.2.8</version>
+            <version>2.3.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

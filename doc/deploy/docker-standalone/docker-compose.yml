@@ -1,0 +1,125 @@
+version: '3.0'
+services:
+  nacos:
+    image: nacos/nacos-server:2.0.0
+    hostname: "nacos-standalone"
+    env_file:
+      - ./env/nacos-standlone-mysql.env
+    volumes:
+      - ./nacos/standalone-logs/:/home/nacos/logs
+      - ./nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - 8848:8848
+      - 9848:9848
+      - 9849:9849
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.21
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - ./mysql/conf/:/etc/mysql/conf.d
+      - ./mysql/logs/:/logs
+      - ./mysql/data/:/var/lib/mysql
+      # 初始化目录挂载
+      - ./mysql/init/:/docker-entrypoint-initdb.d/
+    ports:
+      - "3306:3306"
+    restart: always
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+
+  redis:
+    image: redis:6.0.9
+    container_name: redis
+    hostname: redis
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - net_db
+    volumes:
+      - ./redis/conf/redis.conf:/etc/redis/redis.conf:rw
+      - ./redis/data:/data:rw
+    command:
+      redis-server /etc/redis/redis.conf --appendonly yes --requirepass 123456
+
+  sentinel:
+    image: matecloud/sentinel-dashboard:1.8.1
+    container_name: "sentinel-dashboard"
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS= -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dsentinel.dashboard.auth.username=sentinel -Dsentinel.dashboard.auth.password=sentinel -Dserver.servlet.session.timeout=7200
+    ports:
+      - 8088:8080
+    restart: on-failure
+
+  rmqnamesrv:
+    image: foxiswho/rocketmq:server
+    container_name: rmqnamesrv
+    ports:
+      - 9876:9876
+    volumes:
+      - ./rmqnamesrv/data/logs:/opt/logs
+      - ./rmqnamesrv/data/store:/opt/store
+    networks:
+      rmq:
+        aliases:
+          - rmqnamesrv
+    depends_on:
+      - mysql
+    restart: always
+
+  rmqbroker:
+    image: foxiswho/rocketmq:broker
+    container_name: rmqbroker
+    ports:
+      - 10909:10909
+      - 10911:10911
+    volumes:
+      - ./rmqbroker/data/logs:/opt/logs
+      - ./rmqbroker/data/store:/opt/store
+      - ./rmqbroker/data/brokerconf/broker.conf:/etc/rocketmq/broker.conf
+    environment:
+      NAMESRV_ADDR: "rmqnamesrv:9876"
+      JAVA_OPTS: " -Duser.home=/opt"
+      JAVA_OPT_EXT: "-server -Xms128m -Xmx128m -Xmn128m"
+    command: mqbroker -c /etc/rocketmq/broker.conf
+    depends_on:
+      - rmqnamesrv
+    networks:
+      rmq:
+        aliases:
+          - rmqbroker
+    restart: always
+
+  rmqconsole:
+    image: styletang/rocketmq-console-ng
+    container_name: rmqconsole
+    ports:
+      - 8080:8080
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+    depends_on:
+      - rmqnamesrv
+    networks:
+      rmq:
+        aliases:
+          - rmqconsole
+    restart: always
+
+networks:
+  net_db:
+    driver: bridge
+  rmq:
+    name: rmq
+    driver: bridge

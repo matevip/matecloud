@@ -25,9 +25,9 @@ package vip.mate.core.common.constant;
 public class Oauth2Constant {
 
 
-	private static final String ALL = "/**";
+	public static final String ALL = "/**";
 
-	private static final String OAUTH_ALL = "/oauth/**";
+	public static final String OAUTH_ALL = "/oauth/**";
 
 	public static final String OAUTH_AUTHORIZE = "/oauth/authorize";
 
