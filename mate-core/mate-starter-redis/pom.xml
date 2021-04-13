@@ -28,8 +28,8 @@
             <artifactId>lettuce-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

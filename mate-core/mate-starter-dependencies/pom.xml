@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.9.RELEASE</version>
+        <version>2.4.4</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -42,9 +42,9 @@
         <matecloud.core.version>3.0.8-SNAPSHOT</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.3.9.RELEASE</spring.boot.version>
-        <spring.cloud.version>Hoxton.SR10</spring.cloud.version>
-        <alibaba.cloud.version>2.2.5.RELEASE</alibaba.cloud.version>
+        <spring.boot.version>2.4.4</spring.boot.version>
+        <spring.cloud.version>2020.0.2</spring.cloud.version>
+        <alibaba.cloud.version>2021.1</alibaba.cloud.version>
 
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -105,6 +105,9 @@
         <j2cache.version>2.8.2-release</j2cache.version>
         <gson.version>2.8.6</gson.version>
         <guava.version>30.1.1-jre</guava.version>
+        <aws-java-sdk-s3.version>1.11.996</aws-java-sdk-s3.version>
+        <lombok.version>1.18.20</lombok.version>
+        <hutool.version>5.6.3</hutool.version>
     </properties>
 
     <dependencyManagement>
@@ -565,6 +568,21 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${aws-java-sdk-s3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

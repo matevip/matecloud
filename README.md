@@ -4,9 +4,9 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.9.RELEASE-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR10-blue" alt="SpringCloud"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.5.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.4.4-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
 ## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
@@ -37,7 +37,7 @@ QQ群：2003638
 </p>
 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR10, Spring Boot 2.3.9.RELEASE, Spring Cloud Alibaba 2.2.5.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud 2020.0.2, Spring Boot 2.4.4, Spring Cloud Alibaba 2021.1版本进行系统设计；
 
 - 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -116,7 +116,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>2.3.8</version>
+            <version>2.5.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

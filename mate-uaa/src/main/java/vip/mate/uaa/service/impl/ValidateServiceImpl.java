@@ -1,9 +1,9 @@
 package vip.mate.uaa.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.wf.captcha.ArithmeticCaptcha;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.Oauth2Constant;
@@ -55,13 +55,13 @@ public class ValidateServiceImpl implements ValidateService {
     public void check(String key, String code) throws CaptchaException {
         Object codeFromRedis = redisService.get(Oauth2Constant.CAPTCHA_KEY + key);
 
-        if (StringUtils.isBlank(code)) {
+        if (StrUtil.isBlank(code)) {
             throw new CaptchaException("请输入验证码");
         }
         if (codeFromRedis == null) {
             throw new CaptchaException("验证码已过期");
         }
-        if (!StringUtils.equalsIgnoreCase(code, codeFromRedis.toString())) {
+        if (!StrUtil.equalsIgnoreCase(code, codeFromRedis.toString())) {
             throw new CaptchaException("验证码不正确");
         }
 

@@ -18,10 +18,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-cloud</artifactId>
         </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-gray</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>vip.mate</groupId>-->
+<!--            <artifactId>mate-starter-gray</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-rule</artifactId>

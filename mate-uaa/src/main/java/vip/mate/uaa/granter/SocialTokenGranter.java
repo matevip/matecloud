@@ -1,5 +1,6 @@
 package vip.mate.uaa.granter;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.xkcoding.justauth.AuthRequestFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,6 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,7 +65,7 @@ public class SocialTokenGranter extends AbstractTokenGranter {
 
 		String codeFromRedis = redisService.get(PREFIX + state).toString();
 
-		if (StringUtils.isBlank(code)) {
+		if (StrUtil.isBlank(code)) {
 			throw new UserDeniedAuthorizationException("未传入请求参数");
 		}
 		if (codeFromRedis == null) {

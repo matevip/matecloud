@@ -1,9 +1,9 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import vip.mate.core.web.tree.ForestNodeMerger;
@@ -41,10 +41,10 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
 		String startDate = String.valueOf(search.get("startDate"));
 		String endDate = String.valueOf(search.get("endDate"));
 		LambdaQueryWrapper<SysDepart> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-		if (StringUtils.isNotBlank(startDate) && !startDate.equals("null")) {
+		if (StrUtil.isNotBlank(startDate) && !startDate.equals("null")) {
 			lambdaQueryWrapper.between(SysDepart::getCreateTime, startDate, endDate);
 		}
-		if (StringUtils.isNotBlank(keyword) && !keyword.equals("null")) {
+		if (StrUtil.isNotBlank(keyword) && !keyword.equals("null")) {
 			lambdaQueryWrapper.like(SysDepart::getName, keyword);
 			lambdaQueryWrapper.or();
 			lambdaQueryWrapper.like(SysDepart::getId, keyword);
