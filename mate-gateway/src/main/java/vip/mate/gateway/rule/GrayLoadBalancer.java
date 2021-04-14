@@ -4,9 +4,11 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
 /**
+ * 灰度路由
+ *
+ * @author L.cm
  * @author madi
  * @date 2021-02-24 13:41
- * 灰度路由
  */
 public interface GrayLoadBalancer {
 

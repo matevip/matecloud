@@ -15,22 +15,22 @@ import vip.mate.gateway.rule.GrayLoadBalancer;
 import vip.mate.gateway.rule.VersionGrayLoadBalancer;
 
 /**
- * Mica ribbon rule auto configuration.
+ * 灰度负载模式自动装配
  *
+ * @author L.cm
  * @author madi
  * @date 2021-02-24 13:41
- *
  */
 @Configuration
 @EnableConfigurationProperties(GatewayLoadBalancerProperties.class)
 @ConditionalOnProperty(value = "gray.rule.enabled", havingValue = "true")
 @AutoConfigureBefore(GatewayReactiveLoadBalancerClientAutoConfiguration.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
-public class GrayLoadBalancerClientConfiguration {
+public class GrayLoadBalancerClientConfig {
 
 	@Bean
 	public ReactiveLoadBalancerClientFilter gatewayLoadBalancerClientFilter(GrayLoadBalancer grayLoadBalancer,
-																			GatewayLoadBalancerProperties properties) {
+	                                                                        GatewayLoadBalancerProperties properties) {
 		return new GrayReactiveLoadBalancerClientFilter(properties, grayLoadBalancer);
 	}
 

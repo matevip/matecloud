@@ -18,6 +18,9 @@ import vip.mate.gateway.rule.GrayLoadBalancer;
 import java.net.URI;
 
 /**
+ * 灰度过滤器
+ *
+ * @author L.cm
  * @author madi
  * @date 2021-02-24 13:41
  */
@@ -29,7 +32,7 @@ public class GrayReactiveLoadBalancerClientFilter extends ReactiveLoadBalancerCl
 	private GrayLoadBalancer grayLoadBalancer;
 
 	public GrayReactiveLoadBalancerClientFilter(GatewayLoadBalancerProperties properties, GrayLoadBalancer grayLoadBalancer) {
-		super(null, properties,null);
+		super(null, properties, null);
 		this.properties = properties;
 		this.grayLoadBalancer = grayLoadBalancer;
 	}
@@ -87,7 +90,7 @@ public class GrayReactiveLoadBalancerClientFilter extends ReactiveLoadBalancerCl
 
 	private Mono<Response<ServiceInstance>> choose(ServerWebExchange exchange) {
 		URI uri = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
-		ServiceInstance serviceInstance = grayLoadBalancer.choose(uri.getHost(),exchange.getRequest());
+		ServiceInstance serviceInstance = grayLoadBalancer.choose(uri.getHost(), exchange.getRequest());
 		return Mono.just(new DefaultResponse(serviceInstance));
 	}
 }
