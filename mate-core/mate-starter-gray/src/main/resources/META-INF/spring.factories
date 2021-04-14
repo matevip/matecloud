@@ -1,6 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  vip.mate.core.gray.config.RibbonDiscoveryRuleConfiguration,\
-vip.mate.core.loadbalance.config.GrayConfig,\
-  vip.mate.core.loadbalance.context.VersionContextHolderFilter
+  vip.mate.core.gray.config.GrayConfig,\
+  vip.mate.core.gray.context.VersionContextHolderFilter
 
 
