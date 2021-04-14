@@ -121,5 +121,4 @@ networks:
   net_db:
     driver: bridge
   rmq:
-    name: rmq
     driver: bridge
