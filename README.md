@@ -21,6 +21,7 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家
 admin | matecloud| mate-system模块不能执行增删改请求
 
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
+
 ### 版本演进
 核心中间件 | 2.5.8及以下 | 3.0.8
 ---|---|---
@@ -111,6 +112,8 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │─mate-support -- 支持中心项目，目前包括代码生成、admin模块
 │  │  ├─mate-code -- 封装代码生成逻辑 [30002]
 │  │  ├─mate-admin -- 封装spring-boot-admin逻辑 [30001]
+│  │  ├─mate-job -- xxl-jog定时任务模块
+│  │  ├─mate-job-admin -- 定时任务管理平台模块
 │  │─mate-mq -- 消息中心项目，支持kafka、RocketMQ等多种消息中间件
 │  │  ├─mate-log-producer -- 日志消息生产者，集成kafka [40001]
 │  │  ├─mate-message-consumer -- 消息服务消费者 [40002]
@@ -142,6 +145,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 
 ## 贡献者名单
 欢迎提交PR一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
+
 @L.cm、@Z先生、@苏慕彦、@简、@madi
 
 ## 特别鸣谢
