@@ -4,7 +4,7 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.4.4-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.4.5-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
@@ -25,7 +25,7 @@ admin | matecloud| mate-system模块不能执行增删改请求
 ### 版本演进
 核心中间件 | 2.5.8及以下 | 3.0.8
 ---|---|---
-Spring Boot | 2.3.*.RELEASE | 2.4.4
+Spring Boot | 2.3.*.RELEASE | 2.4.5
 Spring Cloud | Hoxton SR* | 2020.0.1
 Spring Cloud Alibaba | 2.2.*.RELEASE | 2021.1
 Nacos | 1.4.*及以下 | 2.0.0
@@ -46,7 +46,7 @@ QQ群：2003638
 </p>
 
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud 2020.0.2, Spring Boot 2.4.4, Spring Cloud Alibaba 2021.1版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud 2020.0.2, Spring Boot 2.4.5, Spring Cloud Alibaba 2021.1版本进行系统设计；
 
 - 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 

@@ -17,7 +17,7 @@ services:
     restart: on-failure
 
   mysql:
-    container_name: mysql
+    container_name: mate-mysql
     image: mysql:8.0.21
     env_file:
       - ./env/mysql.env
@@ -39,9 +39,8 @@ services:
       --lower_case_table_names=1
 
   redis:
-    image: redis:6.0.9
-    container_name: redis
-    hostname: redis
+    image: redis:latest
+    container_name: mate-redis
     restart: always
     ports:
       - 6379:6379

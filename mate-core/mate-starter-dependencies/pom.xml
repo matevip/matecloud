@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.4</version>
+        <version>2.4.5</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -42,7 +42,7 @@
         <matecloud.core.version>3.0.8-SNAPSHOT</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.4.4</spring.boot.version>
+        <spring.boot.version>2.4.5</spring.boot.version>
         <spring.cloud.version>2020.0.2</spring.cloud.version>
         <alibaba.cloud.version>2021.1</alibaba.cloud.version>
 
@@ -73,7 +73,7 @@
 
         <!-- Apache Dubbo -->
         <dubbo.version>2.7.9</dubbo.version>
-        <fastjson.version>1.2.75</fastjson.version>
+        <fastjson.version>1.2.76</fastjson.version>
 
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
@@ -583,6 +583,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-core</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <!-- 解决多个模块引入不同版本提示冲突，临时用 -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>1.68</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
