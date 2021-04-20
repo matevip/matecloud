@@ -1,0 +1,27 @@
+server:
+  port: 10001
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+    loadbalancer:
+      retry:
+        enabled: true
+mate:
+  #自定义路径配置
+  route:
+    config:
+      data-id: mate-gateway-router
+      group: DEFAULT_GROUP
+  #MateRequestProperties属性配置
+  request:
+    #traceId跟踪
+    trace: true
+    #获取IP
+    ip: true
+    #黑名单增强模式启动
+    enhance: true

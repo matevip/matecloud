@@ -1,0 +1,57 @@
+server:
+  port: 20002
+spring:
+  application:
+    name: ${artifactId}
+#数据源配置
+  datasource:
+    url: ${mate.datasource.url}
+    username: ${mate.datasource.username}
+    password: ${mate.datasource.password}
+
+dubbo:
+  scan:
+    base-packages: vip.mate.system.feign
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registries:
+    new:
+      address: spring-cloud://localhost
+#  registry:
+#   The Spring Cloud Dubbo's registry extension
+#    address: spring-cloud://localhost
+#   The traditional Dubbo's registry
+#    address: nacos://127.0.0.1:8848
+
+#jetcach配置
+#jetcache:
+#  remote:
+#    default:
+#      type: redis.lettuce
+#      keyConvertor: fastjson
+#      uri: redis://${spring.redis.host}:${spring.redis.port}/
+#      #uri:
+#      #  - redis://127.0.0.1:7000
+#      #  - redis://127.0.0.1:7001
+#      #  - redis://127.0.0.1:7002
+#      #readFrom: slavePreferred
+# 修改为springdata模式
+jetcache:
+  statIntervalMinutes: 1 #统计间隔分钟
+  areaInCacheName: false
+  local:
+    default: #默认area
+      type: caffeine
+      keyConvertor: fastjson
+  remote:
+    default:
+      type: redis.springdata # type由 redis.lettuce 变为了redis.springdata
+      keyConvertor: fastjson
+
+
+## 配置日志显示在spring boot admin
+logging:
+  file:
+    name: logs/app/mate-system/mate-system.log
