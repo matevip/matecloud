@@ -75,6 +75,7 @@ public class SecurityUtil {
 		loginUser.setUserId(String.valueOf(claims.get(Oauth2Constant.MATE_USER_ID)));
 		loginUser.setAccount((String) claims.get(Oauth2Constant.MATE_USER_NAME));
 		loginUser.setRoleId(String.valueOf(claims.get(Oauth2Constant.MATE_ROLE_ID)));
+		loginUser.setTenantId(String.valueOf(claims.get(Oauth2Constant.MATE_TENANT_ID)));
 		loginUser.setType(NumberUtil.stoi(String.valueOf(claims.get(Oauth2Constant.MATE_TYPE))));
 		UserContext.setUser(loginUser);
 		return loginUser;
