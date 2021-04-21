@@ -33,6 +33,7 @@ Sentinel | 1.8.1 | 1.8.1
 
 ### 官方文档
 #### 文档地址：http://www.mate.vip/docs
+#### 快速安装：http://www.mate.vip/archives/107
 
 ### 技术交流
 <p align="center"> 
@@ -146,7 +147,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 ## 贡献者名单
 欢迎提交PR一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
 
-@L.cm、@Z先生、@苏慕彦、@简、@madi
+@L.cm、@Z先生、@苏慕彦、@简、@madi、@yunfei08
 
 ## 特别鸣谢
 特别感谢卢神对MateCloud项目提供的技术支持！
