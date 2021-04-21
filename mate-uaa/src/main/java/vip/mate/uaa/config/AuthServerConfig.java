@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -61,6 +62,7 @@ import java.util.*;
  * @date 2019-10-11 23:21
  **/
 
+@Order(2)
 @Configuration
 @RequiredArgsConstructor
 @EnableAuthorizationServer

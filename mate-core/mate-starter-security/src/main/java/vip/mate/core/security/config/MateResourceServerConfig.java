@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -19,6 +20,7 @@ import vip.mate.core.security.handle.MateAuthenticationEntryPoint;
  *
  * @author pangu
  */
+@Order(5)
 @EnableResourceServer
 @RequiredArgsConstructor
 @EnableAutoConfiguration(exclude = UserDetailsServiceAutoConfiguration.class)
