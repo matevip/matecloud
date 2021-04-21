@@ -153,3 +153,6 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 - 卢春梦: mica  https://gitee.com/596392912/mica
 - chuzhixin: vue-admin-beautiful https://github.com/chuzhixin/vue-admin-beautiful
 
+## 开源项目推荐
+- SpringBoot脚手架: https://gitee.com/bdj/SpringBoot_v2
+

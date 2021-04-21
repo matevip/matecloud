@@ -17,6 +17,11 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!--安全模块 -->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.cloud</groupId>-->
