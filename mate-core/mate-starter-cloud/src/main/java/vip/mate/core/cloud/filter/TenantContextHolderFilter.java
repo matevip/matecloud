@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 import vip.mate.core.common.constant.TenantConstant;
 import vip.mate.core.common.context.TenantContextHolder;
+import vip.mate.core.common.entity.LoginUser;
+import vip.mate.core.common.util.SecurityUtil;
 import vip.mate.core.common.util.StringUtil;
 
 import javax.servlet.FilterChain;
@@ -34,11 +36,18 @@ public class TenantContextHolderFilter extends GenericFilterBean {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         try {
             //优先取请求参数中的tenantId值
-            String tenantId = request.getParameter(TenantConstant.MATE_TENANT_ID_PARAM);
-            if (StringUtil.isEmpty(tenantId)) {
-                tenantId = request.getHeader(TenantConstant.MATE_TENANT_ID);
+            String tenantId = request.getHeader(TenantConstant.MATE_TENANT_ID);
+            if (StringUtil.isBlank(tenantId)) {
+                String token = SecurityUtil.getHeaderToken(request);
+                if (StringUtil.isNotBlank(token)) {
+                    //取token中的tenantId值
+                    LoginUser loginUser = SecurityUtil.getUsername(request);
+                    if (loginUser != null) {
+                        tenantId = String.valueOf(loginUser.getTenantId());
+                    }
+                }
             }
-            log.debug("获取到的租户ID为:{}", tenantId);
+            log.info("获取到的租户ID为:{}", tenantId);
             if (StringUtil.isNotBlank(tenantId)) {
                 TenantContextHolder.setTenantId(tenantId);
             } else {
