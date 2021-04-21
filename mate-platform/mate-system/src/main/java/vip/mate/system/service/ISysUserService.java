@@ -29,6 +29,11 @@ public interface ISysUserService extends IService<SysUser> {
 	IPage<SysUser> listPage(Search search);
 
 	/**
+	 * 忽略租户查询用户信息
+	 * @return
+	 */
+	SysUser getOneIgnoreTenant(SysUser sysUser);
+	/**
 	 * 导出列表
 	 *
 	 * @return 导出POI数据

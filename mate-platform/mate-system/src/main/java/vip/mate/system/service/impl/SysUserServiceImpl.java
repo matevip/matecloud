@@ -26,6 +26,7 @@ import vip.mate.system.service.ISysUserService;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -81,13 +82,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		IPage<SysUser> sysUserPage = this.baseMapper.selectPage(PageUtil.getPage(search), queryWrapper);
 
 		// 拼装转换为中文字段数据
-		List<SysUser> sysUserList = sysUserPage.getRecords().stream().peek(sysUser -> {
+		List<SysUser> sysUserList = sysUserPage.getRecords().stream().filter(Objects::nonNull).peek(sysUser -> {
 			sysUser.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
 			sysUser.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
 			sysUser.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
 		}).collect(Collectors.toList());
 		sysUserPage.setRecords(sysUserList);
 		return sysUserPage;
+	}
+
+
+	@Override
+	public SysUser getOneIgnoreTenant(SysUser sysUser) {
+		return this.baseMapper.selectOneIgnoreTenant(sysUser);
 	}
 
 	@Override
