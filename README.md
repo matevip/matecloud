@@ -64,6 +64,7 @@ QQ群：2003638
         <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/9.png"/></td>
     </tr>
 </table>
+
 ### 功能特点
 - 主体框架：采用最新的Spring Cloud 2020.0.2, Spring Boot 2.4.5, Spring Cloud Alibaba 2021.1版本进行系统设计；
 
