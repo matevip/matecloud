@@ -5,7 +5,7 @@
     <parent>
         <artifactId>matecloud</artifactId>
         <groupId>vip.mate</groupId>
-        <version>2.5.8</version>
+        <version>3.0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -18,10 +18,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-cloud</artifactId>
         </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-gray</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>vip.mate</groupId>-->
+<!--            <artifactId>mate-starter-gray</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-rule</artifactId>

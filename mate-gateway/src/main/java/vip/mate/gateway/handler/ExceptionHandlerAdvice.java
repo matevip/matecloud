@@ -1,8 +1,8 @@
 package vip.mate.gateway.handler;
 
+import cn.hutool.core.util.StrUtil;
 import io.netty.channel.ConnectTimeoutException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class ExceptionHandlerAdvice {
 	@ExceptionHandler(value = {ResponseStatusException.class})
 	public Result<?> handle(ResponseStatusException ex) {
 		log.error("response status exception:{}", ex.getMessage());
-		if (StringUtils.contains(ex.getMessage(), HttpStatus.NOT_FOUND.toString())) {
+		if (StrUtil.contains(ex.getMessage(), HttpStatus.NOT_FOUND.toString())) {
 			return Result.fail(ResultCode.NOT_FOUND, ex.getMessage());
 		} else {
 			return Result.fail(ResultCode.ERROR);

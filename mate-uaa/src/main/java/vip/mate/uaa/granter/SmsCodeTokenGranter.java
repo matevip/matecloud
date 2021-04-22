@@ -1,6 +1,6 @@
 package vip.mate.uaa.granter;
 
-import org.apache.commons.lang.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,7 +51,7 @@ public class SmsCodeTokenGranter extends AbstractTokenGranter {
 		String mobile = parameters.get("mobile");
 		String code = parameters.get("code");
 
-		if (StringUtils.isBlank(code)) {
+		if (StrUtil.isBlank(code)) {
 			throw new UserDeniedAuthorizationException("请输入验证码！");
 		}
 
@@ -67,7 +67,7 @@ public class SmsCodeTokenGranter extends AbstractTokenGranter {
 			throw new UserDeniedAuthorizationException("验证码已过期！");
 		}
 		// 比较输入的验证码是否正确
-		if (!StringUtils.equalsIgnoreCase(code, codeFromRedis)) {
+		if (!StrUtil.equalsIgnoreCase(code, codeFromRedis)) {
 			throw new UserDeniedAuthorizationException("验证码不正确！");
 		}
 

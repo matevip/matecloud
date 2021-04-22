@@ -1,0 +1,57 @@
+server:
+  port: 20001
+spring:
+  application:
+    name: @artifactId@
+  #数据源配置
+  datasource:
+    url: ${mate.datasource.url}
+    username: ${mate.datasource.username}
+    password: ${mate.datasource.password}
+
+dubbo:
+  registry:
+    #   The Spring Cloud Dubbo's registry extension
+    ##  the default value of dubbo-provider-services is "*", that means to subscribe all providers,
+    ##  thus it's optimized if subscriber specifies the required providers.
+    address: spring-cloud://localhost
+#    address: nacos://127.0.0.1:8848
+  #   The traditional Dubbo's registry also is supported
+  #   address: zookeeper://127.0.0.1:2181
+  cloud:
+    # The subscribed services in consumer side
+    subscribed-services: ${provider.application.name}
+  consumer:
+    check: false
+
+provider:
+  application:
+    name: mate-system
+
+justauth:
+  enabled: true
+  type:
+    github:
+      client-id: 75a51afd3b0a2fc32952
+      client-secret: dcf425ac89******************736d2317b
+      redirect-uri: http://localhost:10001/mate-uaa/auth/callback/github
+    wechat_open:
+      client-id: wxdcb******4ff4
+      client-secret: b4e9dc************************a08ed6d
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/wechat/callback
+    QQ:
+      client-id: 10**********6
+      client-secret: 1f7d08**********5b7**********29e
+      redirect-uri: http://oauth.xkcoding.com/demo/oauth/qq/callback
+      union-id: false
+  cache:
+    type: redis
+    prefix: 'SOCIAL::STATE::'
+    timeout: 1h
+social:
+  vue:
+    url: http://localhost:9528/#/socialcallback
+## 配置日志显示在spring boot admin
+logging:
+  file:
+    name: logs/app/mate-uaa/mate-uaa.log

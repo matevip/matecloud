@@ -1,9 +1,9 @@
 package vip.mate.core.feign.fallback;
 
 import feign.Target;
-import feign.hystrix.FallbackFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cloud.openfeign.FallbackFactory;
 
 /**
  * 默认fallback，减少必要的编写fallback类

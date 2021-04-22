@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mate-support</artifactId>
         <groupId>vip.mate</groupId>
-        <version>2.5.8</version>
+        <version>3.0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -39,8 +39,8 @@
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.taobao</groupId>-->

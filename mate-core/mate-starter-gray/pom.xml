@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mate-core</artifactId>
         <groupId>vip.mate</groupId>
-        <version>2.5.8</version>
+        <version>3.0.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,6 +16,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-cloud</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

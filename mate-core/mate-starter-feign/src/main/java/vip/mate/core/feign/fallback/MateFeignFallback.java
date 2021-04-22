@@ -1,6 +1,5 @@
 package vip.mate.core.feign.fallback;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import feign.FeignException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

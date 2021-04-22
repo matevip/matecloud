@@ -1,14 +1,13 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.util.PageUtil;
 import vip.mate.core.rule.entity.BlackList;
@@ -38,8 +37,8 @@ public class SysBlacklistServiceImpl extends ServiceImpl<SysBlacklistMapper, Sys
 	@Override
 	public IPage<SysBlacklist> listPage(Search search) {
 		LambdaQueryWrapper<SysBlacklist> queryWrapper = Wrappers.<SysBlacklist>lambdaQuery()
-				.between(StringUtil.isNotBlank(search.getStartDate()), SysBlacklist::getCreateTime, search.getStartDate(), search.getEndDate());
-		boolean isKeyword = StringUtils.isNotBlank(search.getKeyword());
+				.between(StrUtil.isNotBlank(search.getStartDate()), SysBlacklist::getCreateTime, search.getStartDate(), search.getEndDate());
+		boolean isKeyword = StrUtil.isNotBlank(search.getKeyword());
 		queryWrapper.like(isKeyword, SysBlacklist::getId, search.getKeyword());
 		queryWrapper.or(isKeyword);
 		queryWrapper.like(SysBlacklist::getRequestUri, search.getKeyword());

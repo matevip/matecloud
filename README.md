@@ -4,9 +4,9 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.3.9.RELEASE-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR10-blue" alt="SpringCloud"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.5.RELEASE-brightgreen" alt="Spring Cloud Alibaba"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.4.5-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
 ## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
@@ -22,8 +22,18 @@ admin | matecloud| mate-system模块不能执行增删改请求
 
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
 
+### 版本演进
+核心中间件 | 2.5.8及以下 | 3.0.8
+---|---|---
+Spring Boot | 2.3.*.RELEASE | 2.4.5
+Spring Cloud | Hoxton SR* | 2020.0.1
+Spring Cloud Alibaba | 2.2.*.RELEASE | 2021.1
+Nacos | 1.4.*及以下 | 2.0.0
+Sentinel | 1.8.1 | 1.8.1
+
 ### 官方文档
-#### 文档地址：https://mate.vip/#/docs
+#### 文档地址：http://www.mate.vip/docs
+#### 快速安装：http://www.mate.vip/archives/107
 
 ### 技术交流
 <p align="center"> 
@@ -36,8 +46,27 @@ QQ群：2003638
     <img src="https://cdn.mate.vip/matecloud-framework.jpg" />
 </p>
 
+### 部分截图
+<table>
+    <tr>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/1.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/2.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/3.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/4.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/5.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/6.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/7.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/8.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/9.png"/></td>
+    </tr>
+</table>
+
 ### 功能特点
-- 主体框架：采用最新的Spring Cloud Hoxton SR10, Spring Boot 2.3.9.RELEASE, Spring Cloud Alibaba 2.2.5.RELEASE版本进行系统设计；
+- 主体框架：采用最新的Spring Cloud 2020.0.2, Spring Boot 2.4.5, Spring Cloud Alibaba 2021.1版本进行系统设计；
 
 - 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -103,6 +132,8 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │─mate-support -- 支持中心项目，目前包括代码生成、admin模块
 │  │  ├─mate-code -- 封装代码生成逻辑 [30002]
 │  │  ├─mate-admin -- 封装spring-boot-admin逻辑 [30001]
+│  │  ├─mate-job -- xxl-jog定时任务模块
+│  │  ├─mate-job-admin -- 定时任务管理平台模块
 │  │─mate-mq -- 消息中心项目，支持kafka、RocketMQ等多种消息中间件
 │  │  ├─mate-log-producer -- 日志消息生产者，集成kafka [40001]
 │  │  ├─mate-message-consumer -- 消息服务消费者 [40002]
@@ -116,7 +147,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>2.3.8</version>
+            <version>2.5.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -132,8 +163,16 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 |  Artemis前端源码   |  https://github.com/matevip/artemis   |  https://gitee.com/matevip/artemis   |
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
 
+## 贡献者名单
+欢迎提交PR一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
+
+@L.cm、@Z先生、@苏慕彦、@简、@madi、@yunfei08
+
 ## 特别鸣谢
 特别感谢卢神对MateCloud项目提供的技术支持！
 - 卢春梦: mica  https://gitee.com/596392912/mica
 - chuzhixin: vue-admin-beautiful https://github.com/chuzhixin/vue-admin-beautiful
+
+## 开源项目推荐
+- SpringBoot脚手架: https://gitee.com/bdj/SpringBoot_v2
 

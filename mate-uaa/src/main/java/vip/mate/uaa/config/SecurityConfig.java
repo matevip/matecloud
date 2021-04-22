@@ -19,6 +19,7 @@ package vip.mate.uaa.config;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,6 +46,7 @@ import javax.annotation.Resource;
  * @author xuzhanfu
  * @date 2019-10-11 23:25
  **/
+@Order(3)
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
