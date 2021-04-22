@@ -1,5 +1,6 @@
 package vip.mate.uaa.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,6 @@ import org.springframework.security.oauth2.common.exceptions.InvalidClientExcept
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import vip.mate.core.common.constant.Oauth2Constant;
 
 import javax.annotation.Resource;
@@ -55,7 +55,7 @@ public class ClientDetailsServiceImpl extends JdbcClientDetailsService {
 	@Override
 	public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
 		ClientDetails clientDetails = (ClientDetails) redisTemplate.opsForValue().get(clientKey(clientId));
-		if (StringUtils.isEmpty(clientDetails)) {
+		if (ObjectUtil.isEmpty(clientDetails)) {
 			clientDetails = getCacheClient(clientId);
 		}
 		clientDetails.getAuthorizedGrantTypes().add(Oauth2Constant.CLIENT_CREDENTIALS);
@@ -73,7 +73,7 @@ public class ClientDetailsServiceImpl extends JdbcClientDetailsService {
 
 		try {
 			clientDetails = super.loadClientByClientId(clientId);
-			if (!StringUtils.isEmpty(clientDetails)) {
+			if (ObjectUtil.isNotEmpty(clientDetails)) {
 				redisTemplate.opsForValue().set(clientKey(clientId), clientDetails);
 				log.debug("Cache clientId:{}, clientDetails:{}", clientId, clientDetails);
 			}

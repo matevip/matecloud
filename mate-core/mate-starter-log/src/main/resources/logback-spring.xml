@@ -121,7 +121,7 @@
     <!--可以输出项目中的debug日志，包括mybatis的sql日志-->
     <logger name="vip.mate.**.mapper" level="INFO" />
 
-    <springProfile name="local,dev,test,prod">
+    <springProfile name="local,dev,test,prod,docker">
         <root level="INFO">
             <appender-ref ref="StdoutAppender"/>
             <appender-ref ref="file_async"/>

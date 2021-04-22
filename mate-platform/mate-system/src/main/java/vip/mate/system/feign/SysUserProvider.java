@@ -50,8 +50,7 @@ public class SysUserProvider implements ISysUserProvider {
     @Log(value = "用户名查询用户", exception = "用户名查询用户请求失败")
     @ApiOperation(value = "用户用户名查询", notes = "用户用户名查询")
     public Result<UserInfo> getUserByUserName(String userName) {
-        SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>()
-                .eq(SysUser::getAccount, userName));
+        SysUser sysUser = sysUserService.getOneIgnoreTenant(new SysUser().setAccount(userName));
         return Result.data(getUserInfo(sysUser));
     }
 
@@ -60,8 +59,8 @@ public class SysUserProvider implements ISysUserProvider {
     @Log(value = "用户手机号查询", exception = "用户手机号查询请求失败")
     @ApiOperation(value = "用户手机号查询", notes = "用户手机号查询")
     public Result<UserInfo> getUserByMobile(String mobile) {
-        SysUser sysUser = sysUserService.getOne(new LambdaQueryWrapper<SysUser>()
-                .eq(SysUser::getTelephone, mobile));
+
+        SysUser sysUser = sysUserService.getOneIgnoreTenant(new SysUser().setTelephone(mobile));
         return Result.data(getUserInfo(sysUser));
     }
 

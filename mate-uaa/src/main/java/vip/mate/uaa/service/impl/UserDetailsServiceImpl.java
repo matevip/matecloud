@@ -1,5 +1,6 @@
 package vip.mate.uaa.service.impl;
 
+import cn.hutool.core.convert.Convert;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -80,7 +81,7 @@ public class UserDetailsServiceImpl implements MateUserDetailsService {
 		SysUser user = userInfo.getSysUser();
 		log.info("用户名：{}", userInfo.getSysUser().getAccount());
 		Collection<? extends GrantedAuthority> authorities
-				= AuthorityUtils.createAuthorityList("*:*:*");
+				= AuthorityUtils.createAuthorityList(Convert.toStrArray(userInfo.getPermissions()));
 		log.info("authorities: {}", authorities);
 		return new MateUser(user.getId(), userInfo.getType(), user.getDepartId(), user.getRoleId(), user.getTelephone(), user.getAvatar(),
 				user.getTenantId(), userInfo.getUserName(), user.getPassword(), ENABLE.equals(user.getStatus()),

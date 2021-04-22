@@ -2,4 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vip.mate.system.mapper.SysUserMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="vip.mate.system.entity.SysUser">
+        <result column="id" property="id"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="real_name" property="realName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="email" property="email"/>
+        <result column="telephone" property="telephone"/>
+        <result column="birthday" property="birthday"/>
+        <result column="sex" property="sex"/>
+        <result column="role_id" property="roleId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="depart_id" property="departId"/>
+        <result column="status" property="status"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,tenant_id,account,password,name,real_name,avatar,email,telephone,birthday,sex,role_id,depart_id,status,is_deleted,create_by,update_by,create_time,update_time
+    </sql>
+    <select id="selectOneIgnoreTenant" resultMap="BaseResultMap" parameterType="vip.mate.system.entity.SysUser">
+        SELECT <include refid="Base_Column_List" />
+        FROM mate_sys_user
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="account != null and account != ''">
+                account =#{account}
+            </if>
+            <if test="telephone != null and telephone != ''">
+                and telephone =#{telephone}
+            </if>
+        </trim>
+        limit 1
+    </select>
+
 </mapper>
