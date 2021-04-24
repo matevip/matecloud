@@ -6,6 +6,9 @@
 *.ear
 target/
 
+doc/deploy/docker-standalone/mysql
+doc/deploy/docker-standalone/nacos
+
 # eclipse
 .settings/
 .classpath
