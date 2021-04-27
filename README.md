@@ -9,12 +9,12 @@
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
-## 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
+## 🍟 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
 
 MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家提供技术框架的基础能力的封装，减少开发工作，让您只关注业务。
 
 ### 系统演示
-#### 演示地址：http://cloud.mate.vip
+#### 👉 演示地址：http://cloud.mate.vip
 
 账号 | 密码| 操作权限
 ---|---|---
@@ -22,31 +22,31 @@ admin | matecloud| mate-system模块不能执行增删改请求
 
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
 
-### 版本演进
+### 🎨 版本演进
 核心中间件 | 2.5.8及以下 | 3.1.8-SNAPSHOT
 ---|---|---
-Spring Boot | 2.3.*.RELEASE | 2.4.5
-Spring Cloud | Hoxton SR* | 2020.0.1
-Spring Cloud Alibaba | 2.2.*.RELEASE | 2021.1
-Nacos | 1.4.*及以下 | 2.0.0
-Sentinel | 1.8.1 | 1.8.1
+Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.4.5-blue" alt="SpringBoot"/>
+Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.1-blue" alt="SpringCloud"/>
+Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
+Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.0-blue" alt="nacos"/>
+Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
 
-### 官方文档
-#### 文档地址：http://www.mate.vip/docs
-#### 快速安装：http://www.mate.vip/archives/107
+### 📖 官方文档
+#### 📖 文档地址：http://www.mate.vip/docs
+#### 📖 快速安装：http://www.mate.vip/archives/107
 
-### 技术交流
+### 👷 技术交流
 <p align="center"> 
     <img src="https://cdn.mate.vip/matecloud_social2.jpg" />
 </p>
-QQ群：2003638
+👉 QQ群：2003638
 
-### 技术架构
+### 🍪 技术架构
 <p align="center"> 
     <img src="https://cdn.mate.vip/matecloud-framework.jpg" />
 </p>
 
-### 部分截图
+### ❓ 部分截图
 <table>
     <tr>
         <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/1.png"/></td>
@@ -65,7 +65,7 @@ QQ群：2003638
     </tr>
 </table>
 
-### 功能特点
+### 🔧 功能特点
 - 主体框架：采用最新的Spring Cloud 2020.0.2, Spring Boot 2.4.5, Spring Cloud Alibaba 2021.1版本进行系统设计；
 
 - 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
@@ -92,7 +92,7 @@ QQ群：2003638
 
 - 多租户功能：集成Mybatis Plus,实现saas多租户功能
 
-### 文件结构
+### 🗿 文件结构
 ```lua
 matecloud -- 父项目,各模块分离，方便集成和微服务
 │  ├─mate-core -- 核心通用模块，主模块
@@ -139,7 +139,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-message-consumer -- 消息服务消费者 [40002]
 │  │  ├─mate-message-producer -- 消息服务生产者 [40003] 
 ```
-### 核心模块提交至中央仓库
+### 🎨 核心模块提交至中央仓库
 如何引入依赖
 ```xml
 <dependencyManagement>
@@ -156,23 +156,23 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 ```
 然后在 dependencies 中添加自己所需使用的依赖即可使用。
 
-## 项目源码
+## 🌭 项目源码
 |  项目   |   GITHUB  |   码云   |
 |---  |--- | --- |
 |  MateCloud后端源码   |  https://github.com/matevip/matecloud   |  https://gitee.com/matevip/matecloud   |
 |  Artemis前端源码   |  https://github.com/matevip/artemis   |  https://gitee.com/matevip/artemis   |
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
 
-## 贡献者名单
+## 🍻 贡献者名单
 欢迎提交PR一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
 
 @L.cm、@Z先生、@苏慕彦、@简、@madi、@yunfei08
 
-## 特别鸣谢
+## ✨ 特别鸣谢
 特别感谢卢神对MateCloud项目提供的技术支持！
 - 卢春梦: mica  https://gitee.com/596392912/mica
 - chuzhixin: vue-admin-beautiful https://github.com/chuzhixin/vue-admin-beautiful
 
-## 开源项目推荐
+## 📚 开源项目推荐
 - SpringBoot脚手架: https://gitee.com/bdj/SpringBoot_v2
 
