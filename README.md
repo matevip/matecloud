@@ -13,7 +13,7 @@
 
 MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家提供技术框架的基础能力的封装，减少开发工作，让您只关注业务。
 
-### 系统演示
+### 🎨 系统演示
 #### 👉 演示地址：http://cloud.mate.vip
 
 账号 | 密码| 操作权限
@@ -21,8 +21,12 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家
 admin | matecloud| mate-system模块不能执行增删改请求
 
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
+#### 🍯 企业版：http://plus.mate.vip
+账号 | 密码| 操作权限
+---|---|---
+yanshi | yanshi123 | 查看权限，如需全部权限加微信联系
 
-### 🎨 版本演进
+### 📌 版本演进
 核心中间件 | 2.5.8及以下 | 3.1.8-SNAPSHOT
 ---|---|---
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.4.5-blue" alt="SpringBoot"/>
@@ -32,8 +36,8 @@ Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.0-blue
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
 
 ### 📖 官方文档
-#### 📖 文档地址：http://www.mate.vip/docs
-#### 📖 快速安装：http://www.mate.vip/archives/107
+#### 👉 文档地址：http://www.mate.vip/docs
+#### 👉 快速安装：http://www.mate.vip/archives/107
 
 ### 👷 技术交流
 <p align="center"> 
