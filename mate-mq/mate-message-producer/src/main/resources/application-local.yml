@@ -8,3 +8,9 @@ spring:
       rocketmq:
         binder:
           name-server: 127.0.0.1:9876
+      bindings:
+        send-out-0:
+          destination: sms-topic
+          content-type: application/json
+          producer:
+            group: sms-group
