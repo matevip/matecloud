@@ -31,7 +31,7 @@ public class SmsConsumerService {
 	 * @return
 	 */
 	@Bean
-	public Consumer<String> send() {
+	public Consumer<String> sms() {
 		return message -> {
 			log.info("接收的普通消息为：{}", message);
 		};

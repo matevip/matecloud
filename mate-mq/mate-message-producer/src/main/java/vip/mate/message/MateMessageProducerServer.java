@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
  * @author pangu
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-//@EnableBinding({MateSource.class})
 public class MateMessageProducerServer {
 	public static void main(String[] args) {
 		SpringApplication.run(MateMessageProducerServer.class, args);
