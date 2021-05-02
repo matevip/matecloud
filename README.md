@@ -24,7 +24,7 @@ admin | matecloud| mate-system模块不能执行增删改请求
 #### 🍯 企业版：http://plus.mate.vip
 账号 | 密码| 操作权限
 ---|---|---
-yanshi | yanshi123 | 查看权限，如需全部权限加微信联系
+admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
 
 ### 📌 版本演进
 核心中间件 | 2.5.8及以下 | 3.1.8-SNAPSHOT
@@ -53,19 +53,19 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 ### ❓ 部分截图
 <table>
     <tr>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/1.png"/></td>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/2.png"/></td>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/3.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/1.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/2.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/3.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/4.png"/></td>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/5.png"/></td>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/6.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/4.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/5.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/6.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/7.png"/></td>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/8.png"/></td>
-        <td><img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/9.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/7.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/8.png"/></td>
+        <td><img src="https://gitee.com/matevip/matecloud/raw/master/doc/images/9.png"/></td>
     </tr>
 </table>
 
