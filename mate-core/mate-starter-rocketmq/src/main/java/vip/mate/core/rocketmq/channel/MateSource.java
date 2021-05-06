@@ -6,9 +6,11 @@ import vip.mate.core.rocketmq.constant.MessageConstant;
 
 /**
  * 生产者Channel
+ * 3.0.8+版本不再使用
  *
  * @author xuzhanfu
  */
+@Deprecated
 public interface MateSource {
 
 	/**
