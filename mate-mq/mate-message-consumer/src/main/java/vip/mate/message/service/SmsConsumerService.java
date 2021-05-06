@@ -15,16 +15,6 @@ import java.util.function.Consumer;
 @Service
 public class SmsConsumerService {
 
-//	/**
-//	 * 监控听短信input
-//	 *
-//	 * @param message 消费文本内容
-//	 */
-//	@StreamListener(MessageConstant.SMS_MESSAGE_INPUT)
-//	public void handler(@Payload String message) {
-//		log.error("接收到的消息为:{}", message);
-//	}
-
 	/**
 	 * 函数式编辑接收消息
 	 *
