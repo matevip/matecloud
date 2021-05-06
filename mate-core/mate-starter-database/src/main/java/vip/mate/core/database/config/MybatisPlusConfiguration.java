@@ -16,6 +16,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import vip.mate.core.common.factory.YamlPropertySourceFactory;
 import vip.mate.core.database.handler.MateMetaObjectHandler;
@@ -30,6 +32,7 @@ import vip.mate.core.mybatis.props.MateMybatisProperties;
  * @author xuzhanfu
  * @author L.cm
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
 @AllArgsConstructor
 @EnableTransactionManagement

@@ -3,16 +3,16 @@ spring:
   cloud:
     stream:
       bindings:
-        log_input:
+        log-in-0:
           destination: mate-log
 #          producer:
 #            headerMode: none
-#          content-type: text/plain
-        log_output:
+          content-type: text/plain
+        log-out-0:
           destination: mate-log
 #          consumer:
 #            headerMode: none
-#          content-type: application/json
+          content-type: application/json
 #      default-binder: kafka
       kafka:
         binder:

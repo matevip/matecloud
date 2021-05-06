@@ -9,6 +9,7 @@ import org.springframework.messaging.SubscribableChannel;
  * 日志消息通道
  * @author pangu
  */
+@Deprecated
 public interface LogChannel {
 
     /**

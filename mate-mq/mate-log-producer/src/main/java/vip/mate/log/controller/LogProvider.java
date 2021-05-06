@@ -2,13 +2,13 @@ package vip.mate.log.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vip.mate.core.common.dto.CommonLog;
-import vip.mate.core.kafka.channel.LogChannel;
+import vip.mate.core.kafka.constant.LogConstant;
+
+import java.util.function.Consumer;
 
 /**
  * @author xuzhanfu
@@ -18,21 +18,18 @@ import vip.mate.core.kafka.channel.LogChannel;
 @AllArgsConstructor
 public class LogProvider {
 
-    private final LogChannel logChannel;
+    private final StreamBridge streamBridge;
 
     @GetMapping("/sendMessageStr")
     public boolean sendMessage(String message) {
-        return logChannel.sendLogMessage().send(MessageBuilder.withPayload(message).build());
+        return streamBridge.send(LogConstant.LOG_OUTPUT, message);
     }
 
-//    @StreamListener(LogChannel.LOG_INPUT)
-//    public void receive(@Payload String message) {
-//        log.info(String.format("consume: %s", message) + ",receive time:" +System.nanoTime());
-//    }
-
-    @StreamListener(LogChannel.LOG_INPUT)
-    public void handler(@Payload CommonLog commonLog) {
-        log.info(String.format("consume: %s", commonLog) + ",receive time:" +System.nanoTime());
+    @Bean
+    public Consumer<String> log() {
+        return message -> {
+            log.info("接收的普通消息为：{}", message);
+        };
     }
 
 }

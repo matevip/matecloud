@@ -6,9 +6,10 @@ import vip.mate.core.rocketmq.constant.MessageConstant;
 
 /**
  * 消费者Channel
- *
+ * 3.0.8+版本不再使用
  * @author pangu
  */
+@Deprecated
 public interface MateSink {
 
 	String SMS_MESSAGE_INPUT = MessageConstant.SMS_MESSAGE_INPUT;
