@@ -12,7 +12,7 @@
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>3.1.8-SNAPSHOT</version>
+    <version>3.1.8</version>
     <packaging>pom</packaging>
     <name>mate-starter-dependencies</name>
     <description>based on Spring Cloud Alibaba dependencies</description>
@@ -39,7 +39,7 @@
     </scm>
 
     <properties>
-        <matecloud.core.version>3.1.8-SNAPSHOT</matecloud.core.version>
+        <matecloud.core.version>3.1.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.4.5</spring.boot.version>

@@ -27,10 +27,10 @@ admin | matecloud| mate-system模块不能执行增删改请求
 admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
 
 ### 📌 版本演进
-核心中间件 | 2.5.8及以下 | 3.1.8-SNAPSHOT
+核心中间件 | 2.5.8及以下 | 3.1.8
 ---|---|---
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.4.5-blue" alt="SpringBoot"/>
-Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.1-blue" alt="SpringCloud"/>
+Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
 Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.0-blue" alt="nacos"/>
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
