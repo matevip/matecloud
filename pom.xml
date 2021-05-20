@@ -20,6 +20,7 @@
         <module>mate-support</module>
         <module>mate-platform</module>
         <module>mate-mq</module>
+        <module>mate-examples</module>
     </modules>
 
     <properties>
