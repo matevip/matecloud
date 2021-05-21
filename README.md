@@ -27,7 +27,7 @@ admin | matecloud| mate-system模块不能执行增删改请求
 admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
 
 ### 📌 版本演进
-核心中间件 | 2.5.8及以下 | 3.1.8
+核心中间件 | 2.5.8及以下 | 3.0.8+
 ---|---|---
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.4.5-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
@@ -151,7 +151,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>3.0.8</version>
+            <version>3.1.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
