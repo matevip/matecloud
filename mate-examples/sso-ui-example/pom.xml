@@ -25,6 +25,10 @@
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vip.mate</groupId>
+            <artifactId>mate-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

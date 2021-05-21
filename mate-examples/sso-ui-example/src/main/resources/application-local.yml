@@ -1,0 +1,19 @@
+server:
+  port: 32001
+spring:
+  application:
+    name: @artifactId@
+  #数据源配置
+  datasource:
+    url: ${mate.datasource.url}
+    username: ${mate.datasource.username}
+    password: ${mate.datasource.password}
+security:
+  oauth2:
+    client:
+      client-id: mate
+      client-secret: mate_secret
+      access-token-uri: http://127.0.0.1:20001/oauth/token
+      user-authorization-uri: http://127.0.0.1:20001/oauth/authorize
+    resource:
+      token-info-uri: http://127.0.0.1:20001/oauth/check_token
