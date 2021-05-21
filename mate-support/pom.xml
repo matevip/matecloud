@@ -16,12 +16,6 @@
         <module>mate-admin</module>
         <module>mate-job</module>
         <module>mate-job-admin</module>
-        <module>mate-generator</module>
     </modules>
-
-    <dependencies>
-
-    </dependencies>
-
 
 </project>
