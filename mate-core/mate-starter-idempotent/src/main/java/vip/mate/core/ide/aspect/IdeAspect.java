@@ -1,8 +1,8 @@
 package vip.mate.core.ide.aspect;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.micrometer.core.instrument.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -90,7 +90,7 @@ public class IdeAspect extends BaseAspect {
 				//2.1.通过rid模式判断是否属于重复提交
 				String rid = request.getHeader(HEADER_RID_KEY);
 
-				if (StringUtils.isNotBlank(rid)) {
+				if (StrUtil.isNotBlank(rid)) {
 					Boolean result = redisService.tryLock(REDIS_KEY_PREFIX + rid, LOCK_WAIT_TIME);
 					if (!result) {
 						throw new IdeException("命中RID重复请求");
@@ -105,7 +105,7 @@ public class IdeAspect extends BaseAspect {
 					|| ide.ideTypeEnum() == IdeTypeEnum.KEY) {
 				//2.2.通过自定义key模式判断是否属于重复提交
 				String key = ide.key();
-				if (StringUtils.isNotBlank(key)) {
+				if (StrUtil.isNotBlank(key)) {
 					String val = "";
 					Object[] paramValues = joinPoint.getArgs();
 					String[] paramNames = ((CodeSignature) joinPoint.getSignature()).getParameterNames();
@@ -128,7 +128,7 @@ public class IdeAspect extends BaseAspect {
 
 					//判断重复提交的条件
 					String perFix = ide.perFix();
-					if (StringUtils.isNotBlank(val)) {
+					if (StrUtil.isNotBlank(val)) {
 						perFix = perFix + ":" + val;
 
 						try {
@@ -165,7 +165,7 @@ public class IdeAspect extends BaseAspect {
 					ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 					HttpServletRequest request = attributes.getRequest();
 					String rid = request.getHeader(HEADER_RID_KEY);
-					if (StringUtils.isNotBlank(rid)) {
+					if (StrUtil.isNotBlank(rid)) {
 						try {
 //							redisService.unLock(REDIS_KEY_PREFIX + rid);
 							log.info("msg1=当前请求已成功处理,,rid={}", rid);
@@ -180,7 +180,7 @@ public class IdeAspect extends BaseAspect {
 						|| ide.ideTypeEnum() == IdeTypeEnum.KEY) {
 					// 自定义key
 					String key = ide.key();
-					if (StringUtils.isNotBlank(key) && StringUtils.isNotBlank(PER_FIX_KEY.get())) {
+					if (StrUtil.isNotBlank(key) && StrUtil.isNotBlank(PER_FIX_KEY.get())) {
 						try {
 //							redisService.unLock(PER_FIX_KEY.get());
 							log.info("msg1=当前请求已成功释放,,key={}", PER_FIX_KEY.get());
