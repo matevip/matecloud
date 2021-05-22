@@ -32,7 +32,7 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.4.5-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
-Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.0-blue" alt="nacos"/>
+Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.1-blue" alt="nacos"/>
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
 
 ### 📖 官方文档
@@ -74,9 +74,9 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 
 - 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
-- 统一认证：统一Oauth2认证协议，采用jwt的方式，实现统一认证，并支持自定义grant_type实现手机号码登录，第三方登录正在开发中；
+- 统一认证：统一Oauth2认证协议，采用jwt的方式，实现统一认证，并支持自定义grant_type实现手机号码登录，第三方登录集成JustAuth实现微信、支付宝等多种登录模式；
 
-- 业务监控：利用Spring Boot Admin 来监控各个独立Service的运行状态；利用Hystrix Dashboard来实时查看接口的运行状态和调用频率等。
+- 业务监控：利用Spring Boot Admin 来监控各个独立Service的运行状态。
 
 - 内部调用：集成了Feign和Dubbo两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
 
@@ -90,7 +90,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 
 - 消息中心：集成消息中间件RocketMQ，对业务进行异步处理;
 
-- 业务分离：采用前后端分离的框架设计，前端采用vue-element-admin
+- 业务分离：采用前后端分离的框架设计，前端采用vue-element-admin,商业版采用antd-pro-vue
   
 - 链路追踪：自定义traceId的方式，实现简单的链路追踪功能
 
@@ -151,7 +151,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>3.1.8</version>
+            <version>3.2.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
