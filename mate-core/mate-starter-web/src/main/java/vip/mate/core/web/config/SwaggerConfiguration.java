@@ -31,8 +31,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Swagger配置类，提供给WEB服务使用
@@ -70,7 +72,9 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 			HttpServletRequest.class,
 			HttpServletResponse.class,
 			HttpSession.class,
-			ApiIgnore.class
+			ApiIgnore.class,
+			Principal.class,
+			Map.class
 	};
 
 	@Bean(value = "userApi")
