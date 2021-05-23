@@ -42,10 +42,10 @@ public class OauthController {
 	@PostMapping("/token")
 	@ApiOperation(value = "用户登录Post", notes = "用户登录Post")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "grant_type", required = true, value = "授权类型", paramType = "form"),
-			@ApiImplicitParam(name = "username", required = false, value = "用户名", paramType = "form"),
-			@ApiImplicitParam(name = "password", required = false, value = "密码", paramType = "form"),
-			@ApiImplicitParam(name = "scope", required = true, value = "使用范围", paramType = "form"),
+			@ApiImplicitParam(name = "grant_type", required = true, value = "授权类型", paramType = "query"),
+			@ApiImplicitParam(name = "username", required = false, value = "用户名", paramType = "query"),
+			@ApiImplicitParam(name = "password", required = false, value = "密码", paramType = "query"),
+			@ApiImplicitParam(name = "scope", required = true, value = "使用范围", paramType = "query"),
 	})
 	public Result<?> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
 		return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
