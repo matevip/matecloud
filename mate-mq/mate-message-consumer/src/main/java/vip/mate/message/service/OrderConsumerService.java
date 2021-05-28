@@ -1,14 +1,10 @@
 package vip.mate.message.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.support.ErrorMessage;
 import org.springframework.stereotype.Service;
-import vip.mate.core.rocketmq.channel.MateSink;
-import vip.mate.core.rocketmq.entity.Order;
 
 import java.util.function.Consumer;
 
