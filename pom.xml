@@ -8,10 +8,10 @@
     <groupId>vip.mate</groupId>
     <artifactId>matecloud</artifactId>
     <packaging>pom</packaging>
-    <version>3.5.8-SNAPSHOT</version>
+    <version>3.5.8</version>
 
     <name>matecloud</name>
-    <description>Mate Cloud - 基于Spring Cloud Alibaba实现的微服务架构</description>
+    <description>MateCloud - 基于Spring Cloud Alibaba实现的微服务架构</description>
 
     <modules>
         <module>mate-core</module>
@@ -24,7 +24,7 @@
     </modules>
 
     <properties>
-        <matecloud.core.version>3.5.8-SNAPSHOT</matecloud.core.version>
+        <matecloud.core.version>3.5.8</matecloud.core.version>
         <java.version>1.8</java.version>
         <maven.plugin.version>3.8.1</maven.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
