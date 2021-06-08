@@ -168,14 +168,14 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
 
 ## 🍻 贡献者名单
-欢迎提交PR一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
+欢迎提交[PR](https://gitee.com/matevip/matecloud/pulls)一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
 
 @L.cm、@Z先生、@苏慕彦、@简、@madi、@yunfei08
 
 ## ✨ 特别鸣谢
 特别感谢卢神对`MateCloud`项目提供的技术支持！
 - 卢春梦: [mica](https://gitee.com/596392912/mica)  
-- chuzhixin:[vue-admin-beautiful](https://github.com/chuzhixin/vue-admin-beautiful)
+- chuzhixin: [vue-admin-beautiful](https://github.com/chuzhixin/vue-admin-beautiful)
 
 ## 📚 开源项目推荐
 - [SpringBoot脚手架](https://gitee.com/bdj/SpringBoot_v2)
