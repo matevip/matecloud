@@ -102,7 +102,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  ├─mate-core -- 核心通用模块，主模块
 │  │  ├─mate-starter-common -- 封装通用模块
 │  │  ├─mate-starter-cloud -- 封装微服务模块
-│  │  ├─mate-starter-auth -- 封装token认证模块
+│  │  ├─mate-starter-auth -- 封装token验证模块
 │  │  ├─mate-starter-security -- 封装OAuth2基础模块
 │  │  ├─mate-starter-web -- 封装WEB服务基础模块
 │  │  ├─mate-starter-database -- 封装Mybatis及数据库基础模块
@@ -151,7 +151,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>3.3.8</version>
+            <version>3.5.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
