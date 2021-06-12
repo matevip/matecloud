@@ -3,7 +3,6 @@ package vip.mate.core.web.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import vip.mate.core.common.api.Result;
@@ -80,19 +79,6 @@ public class BaseExceptionHandler {
         log.error("程序异常：{}" + ex.toString());
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
-
-    /**
-     * NullPointerException 空指针异常捕获处理
-     * @param ex 自定义NullPointerException异常类型
-     * @return Result
-     */
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public Result<?> handleException(AccessDeniedException ex) {
-        log.error("程序异常：{}" + ex.toString());
-        return Result.fail(HttpStatus.FORBIDDEN.value(), ex.getMessage());
-    }
-
 
     /**
      * 通用Exception异常捕获
