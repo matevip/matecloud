@@ -4,8 +4,8 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.0-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.1-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
@@ -29,8 +29,8 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 ### 📌 版本演进
 核心中间件 | 2.5.8及以下 | 3.0.8+
 ---|---|---
-Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.0-blue" alt="SpringBoot"/>
-Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.2-blue" alt="SpringCloud"/>
+Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.1-blue" alt="SpringBoot"/>
+Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
 Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.1-blue" alt="nacos"/>
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
@@ -70,31 +70,31 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 </table>
 
 ### 🔧 功能特点
-- 主体框架：采用最新的Spring Cloud 2020.0.2, Spring Boot 2.5.0, Spring Cloud Alibaba 2021.1版本进行系统设计；
+- 主体框架：采用最新的`Spring Cloud 2020.0.3`, `Spring Boot 2.5.1`, `Spring Cloud Alibaba 2021.1`版本进行系统设计；
 
-- 统一注册：支持Nacos作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
+- 统一注册：支持`Nacos`作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
-- 统一认证：统一Oauth2认证协议，采用jwt的方式，实现统一认证，并支持自定义grant_type实现手机号码登录，第三方登录集成JustAuth实现微信、支付宝等多种登录模式；
+- 统一认证：统一`Oauth2`认证协议，采用jwt的方式，实现统一认证，并支持自定义grant_type实现手机号码登录，第三方登录集成JustAuth实现微信、支付宝等多种登录模式；
 
-- 业务监控：利用Spring Boot Admin 来监控各个独立Service的运行状态。
+- 业务监控：利用`Spring Boot Admin`来监控各个独立Service的运行状态。
 
-- 内部调用：集成了Feign和Dubbo两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
+- 内部调用：集成了`Feign`和`Dubbo`两种模式支持内部调用，并且可以实现无缝切换，适合新老程序员，快速熟悉项目；
 
-- 业务熔断：采用Sentinel实现业务熔断处理，避免服务之间出现雪崩;
+- 业务熔断：采用`Sentinel`实现业务熔断处理，避免服务之间出现雪崩;
 
 - 身份注入：通过注解的方式，实现用户登录信息的快速注入；
 
-- 在线文档：通过接入Knife4j，实现在线API文档的查看与调试;
+- 在线文档：通过接入`Knife4j`，实现在线API文档的查看与调试;
 
-- 代码生成：基于Mybatis-plus-generator自动生成代码，提升开发效率，生成模式不断优化中，暂不支持前端代码生成；
+- 代码生成：基于`Mybatis-plus-generator`自动生成代码，提升开发效率，生成模式不断优化中，暂不支持前端代码生成；
 
-- 消息中心：集成消息中间件RocketMQ，对业务进行异步处理;
+- 消息中心：集成消息中间件`RocketMQ`和`Kafka`，对业务进行异步处理;
 
-- 业务分离：采用前后端分离的框架设计，前端采用vue-element-admin,商业版采用antd-pro-vue
+- 业务分离：采用前后端分离的框架设计，前端采用`vue-element-admin`,商业版采用`antd-pro-vue`
   
 - 链路追踪：自定义traceId的方式，实现简单的链路追踪功能
 
-- 多租户功能：集成Mybatis Plus,实现saas多租户功能
+- 多租户功能：集成`Mybatis Plus`,实现SAAS多租户功能
 
 ### 🗿 文件结构
 ```lua
@@ -102,7 +102,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  ├─mate-core -- 核心通用模块，主模块
 │  │  ├─mate-starter-common -- 封装通用模块
 │  │  ├─mate-starter-cloud -- 封装微服务模块
-│  │  ├─mate-starter-auth -- 封装token认证模块
+│  │  ├─mate-starter-auth -- 封装token验证模块
 │  │  ├─mate-starter-security -- 封装OAuth2基础模块
 │  │  ├─mate-starter-web -- 封装WEB服务基础模块
 │  │  ├─mate-starter-database -- 封装Mybatis及数据库基础模块
@@ -151,7 +151,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>3.2.8</version>
+            <version>3.5.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -168,15 +168,15 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
 
 ## 🍻 贡献者名单
-欢迎提交PR一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
+欢迎提交[PR](https://gitee.com/matevip/matecloud/pulls)一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
 
 @L.cm、@Z先生、@苏慕彦、@简、@madi、@yunfei08
 
 ## ✨ 特别鸣谢
-特别感谢卢神对MateCloud项目提供的技术支持！
-- 卢春梦: mica  https://gitee.com/596392912/mica
-- chuzhixin: vue-admin-beautiful https://github.com/chuzhixin/vue-admin-beautiful
+特别感谢卢神对`MateCloud`项目提供的技术支持！
+- 卢春梦: [mica](https://gitee.com/596392912/mica)  
+- chuzhixin: [vue-admin-beautiful](https://github.com/chuzhixin/vue-admin-beautiful)
 
 ## 📚 开源项目推荐
-- SpringBoot脚手架: https://gitee.com/bdj/SpringBoot_v2
+- [SpringBoot脚手架](https://gitee.com/bdj/SpringBoot_v2)
 
