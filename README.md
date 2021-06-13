@@ -36,8 +36,9 @@ Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.1-blue
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
 
 ### 📖 官方文档
-#### 👉 文档地址：http://www.mate.vip/docs
-#### 👉 快速安装：http://www.mate.vip/archives/107
+#### 👉 文档地址：[http://www.mate.vip/docs](http://www.mate.vip/docs)
+#### 👉 商业版文档：[http://doc.mate.vip](http://doc.mate.vip)
+#### 👉 快速安装：[http://www.mate.vip/archives/107](http://www.mate.vip/archives/107)
 
 ### 👷 技术交流
 <p align="center"> 
@@ -151,7 +152,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>3.5.8</version>
+            <version>3.6.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
