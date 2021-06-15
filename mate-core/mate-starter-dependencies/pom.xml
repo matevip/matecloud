@@ -86,7 +86,7 @@
 
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
 
-        <elastic.version>7.12.1</elastic.version>
+        <elastic.version>7.13.2</elastic.version>
         <commons-collections.version>3.2.2</commons-collections.version>
 
         <dozer.version>6.5.0</dozer.version>
