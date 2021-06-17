@@ -69,6 +69,7 @@
         <module>mate-starter-rabbit</module>
         <module>mate-starter-mybatis</module>
         <module>mate-starter-idempotent</module>
+      <module>mate-starter-validator</module>
     </modules>
 
     <properties>
