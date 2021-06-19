@@ -1,6 +1,9 @@
 spring:
   cloud:
     stream:
+      ## 消息多个需要在此定义
+      function:
+        definition: sms,email,order
       bindings:
         sms-out-0:
           destination: sms-topic
