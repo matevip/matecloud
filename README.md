@@ -36,8 +36,9 @@ Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.1-blue
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
 
 ### 📖 官方文档
-#### 👉 文档地址：http://www.mate.vip/docs
-#### 👉 快速安装：http://www.mate.vip/archives/107
+#### 👉 文档地址：[http://www.mate.vip/docs](http://www.mate.vip/docs)
+#### 👉 商业版文档：[http://doc.mate.vip](http://doc.mate.vip)
+#### 👉 快速安装：[http://www.mate.vip/archives/107](http://www.mate.vip/archives/107)
 
 ### 👷 技术交流
 <p align="center"> 
@@ -126,6 +127,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 │  │  ├─mate-starter-mongodb -- 封装mongodb数据库模块
 │  │  ├─mate-starter-strategy -- 封装策略模块
 │  │  ├─mate-starter-job -- 封装定时任务基础模块
+│  │  ├─mate-starter-validator -- 封装统一检验基础模块
 │  │─mate-gateway -- 统一网关模块 [10001]
 │  │─mate-uaa -- 统一认证中心模块 [20001]
 │  │─mate-platform -- 平台模块项目，目前包含系统子模块
@@ -151,7 +153,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>3.5.8</version>
+            <version>3.6.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -170,7 +172,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 ## 🍻 贡献者名单
 欢迎提交[PR](https://gitee.com/matevip/matecloud/pulls)一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
 
-@L.cm、@Z先生、@苏慕彦、@简、@madi、@yunfei08
+@L.cm、@Z先生、@苏慕彦、@简、@madi、@yunfei08、[@hackerdom](https://github.com/aaronuu)
 
 ## ✨ 特别鸣谢
 特别感谢卢神对`MateCloud`项目提供的技术支持！
