@@ -1,7 +1,7 @@
-<p style="text-align: center">
+<p align="center">
   <img src="https://cdn.mate.vip/matecloud.svg" width="260">
 </p>
-<p style="text-align: center">
+<p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
   <img src="https://img.shields.io/badge/Spring%20Boot-2.5.1-green" alt="SpringBoot"/>
@@ -41,13 +41,13 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 #### 👉 快速安装：[http://www.mate.vip/archives/107](http://www.mate.vip/archives/107)
 
 ### 👷 技术交流
-<p style="text-align: center">
+<p align="center"> 
     <img src="https://cdn.mate.vip/matecloud_social2.jpg" />
 </p>
 👉 QQ群：2003638
 
 ### 🍪 技术架构
-<p style="text-align: center">
+<p align="center"> 
     <img src="https://cdn.mate.vip/matecloud-framework.jpg" />
 </p>
 
