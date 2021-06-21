@@ -82,7 +82,7 @@
         <ip2region.version>1.7.2</ip2region.version>
         <justauth.version>1.15.8</justauth.version>
         <justauth.springboot.version>1.3.3</justauth.springboot.version>
-        <okhttp.version>4.9.0</okhttp.version>
+        <okhttp.version>4.9.1</okhttp.version>
 
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
 
