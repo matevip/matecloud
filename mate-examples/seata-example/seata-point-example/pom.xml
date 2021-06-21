@@ -3,18 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>matecloud</artifactId>
+        <artifactId>seata-example</artifactId>
         <groupId>vip.mate</groupId>
         <version>3.8.8-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mate-examples</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>sso-ui-example</module>
-        <module>seata-example</module>
-    </modules>
+    <artifactId>seata-point-example</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
