@@ -1,6 +1,7 @@
 package vip.mate.seata.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * @author pangu
  */
 @Data
+@TableName("mate_demo_user")
 public class User {
 	@TableId
 	Integer id;
