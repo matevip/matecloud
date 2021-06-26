@@ -169,6 +169,10 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 |  Artemis前端源码   |  https://github.com/matevip/artemis   |  https://gitee.com/matevip/artemis   |
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
 
+## 🥥 微服务项目示例
+
+- 🥥 [https://gitee.com/matevip/mate-demo](https://gitee.com/matevip/mate-demo)
+
 ## 🍻 贡献者名单
 欢迎提交[PR](https://gitee.com/matevip/matecloud/pulls)一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
 
