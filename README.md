@@ -4,7 +4,7 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.1-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.2-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
@@ -29,10 +29,10 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 ### 📌 版本演进
 核心中间件 | 2.5.8及以下 | 3.0.8+
 ---|---|---
-Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.1-blue" alt="SpringBoot"/>
+Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.2-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
-Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.1-blue" alt="nacos"/>
+Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.2-blue" alt="nacos"/>
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
 
 ### 📖 官方文档
@@ -71,7 +71,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 </table>
 
 ### 🔧 功能特点
-- 主体框架：采用最新的`Spring Cloud 2020.0.3`, `Spring Boot 2.5.1`, `Spring Cloud Alibaba 2021.1`版本进行系统设计；
+- 主体框架：采用最新的`Spring Cloud 2020.0.3`, `Spring Boot 2.5.2`, `Spring Cloud Alibaba 2021.1`版本进行系统设计；
 
 - 统一注册：支持`Nacos`作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -153,7 +153,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>3.6.8</version>
+            <version>3.7.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -168,6 +168,10 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 |  MateCloud后端源码   |  https://github.com/matevip/matecloud   |  https://gitee.com/matevip/matecloud   |
 |  Artemis前端源码   |  https://github.com/matevip/artemis   |  https://gitee.com/matevip/artemis   |
 |  MateBoot后端源码   |  https://github.com/matevip/mateboot   |  https://gitee.com/matevip/mateboot   |
+
+## 🥥 微服务项目示例
+
+- 🥥 [https://gitee.com/matevip/mate-demo](https://gitee.com/matevip/mate-demo)
 
 ## 🍻 贡献者名单
 欢迎提交[PR](https://gitee.com/matevip/matecloud/pulls)一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
