@@ -8,7 +8,7 @@ seata:
     nacos:
       group: SEATA_GROUP
       namespace:
-      server-addr: 127.0.0.1:8848
+      server-addr: ${spring.cloud.nacos.discovery.server-addr} # Nacos 服务地址
   service:
     # 虚拟组和分组的映射
     vgroup-mapping:
@@ -19,5 +19,5 @@ seata:
     nacos:
       cluster: default # 使用的 Seata 分组
       namespace: # Nacos 命名空间
-      serverAddr: 127.0.0.1:8848 # Nacos 服务地址
+      serverAddr: ${spring.cloud.nacos.discovery.server-addr} # Nacos 服务地址
   enabled: true
