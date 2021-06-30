@@ -1,7 +1,9 @@
 package vip.mate.core.web.config;
 
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +46,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableSwagger2WebMvc
-@AllArgsConstructor
+@RequiredArgsConstructor
 //@Profile({"!prod"})
 @Import(BeanValidatorPluginsConfiguration.class)
 @EnableConfigurationProperties(MateSwaggerProperties.class)
@@ -52,6 +54,14 @@ import java.util.Map;
 public class SwaggerConfiguration implements WebMvcConfigurer {
 
 	private final MateSwaggerProperties swaggerProperties;
+
+	private final OpenApiExtensionResolver openApiExtensionResolver;
+
+	@Autowired
+	public SwaggerConfiguration(OpenApiExtensionResolver openApiExtensionResolver, MateSwaggerProperties swaggerProperties) {
+		this.openApiExtensionResolver = openApiExtensionResolver;
+		this.swaggerProperties = swaggerProperties;
+	}
 
 	@Bean
 	public PathProvider pathProvider() {
@@ -98,7 +108,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 				.securityContexts(securityContexts())
 				.pathProvider(pathProvider())
 				.ignoredParameterTypes(ignoredParameterTypes)
-				.pathMapping("/");
+				.pathMapping("/").extensions(openApiExtensionResolver.buildSettingExtensions());
 	}
 
 	@Override
