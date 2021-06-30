@@ -65,7 +65,7 @@
 
         <swagger.version>2.10.5</swagger.version>
         <swagger.models.version>1.6.2</swagger.models.version>
-        <knife4j.version>2.0.8</knife4j.version>
+        <knife4j.version>2.0.9</knife4j.version>
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
