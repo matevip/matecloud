@@ -2,8 +2,7 @@ package vip.mate.core.web.config;
 
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +45,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableSwagger2WebMvc
-@RequiredArgsConstructor
+@AllArgsConstructor
 //@Profile({"!prod"})
 @Import(BeanValidatorPluginsConfiguration.class)
 @EnableConfigurationProperties(MateSwaggerProperties.class)
@@ -56,12 +55,6 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 	private final MateSwaggerProperties swaggerProperties;
 
 	private final OpenApiExtensionResolver openApiExtensionResolver;
-
-	@Autowired
-	public SwaggerConfiguration(OpenApiExtensionResolver openApiExtensionResolver, MateSwaggerProperties swaggerProperties) {
-		this.openApiExtensionResolver = openApiExtensionResolver;
-		this.swaggerProperties = swaggerProperties;
-	}
 
 	@Bean
 	public PathProvider pathProvider() {
