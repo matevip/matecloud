@@ -45,15 +45,12 @@
         <module>mate-starter-jetcache</module>
         <module>mate-starter-log</module>
         <module>mate-starter-gray</module>
-        <module>mate-starter-sharding</module>
-        <module>mate-starter-elasticsearch</module>
         <module>mate-starter-redis</module>
         <module>mate-starter-oss</module>
         <module>mate-starter-sms</module>
         <module>mate-starter-kafka</module>
         <module>mate-starter-file</module>
         <module>mate-starter-cloud</module>
-        <module>mate-starter-dozer</module>
         <module>mate-starter-rule</module>
         <module>mate-starter-sentinel</module>
         <module>mate-starter-seata</module>
@@ -61,11 +58,8 @@
         <module>mate-starter-job</module>
         <module>mate-starter-mail</module>
         <module>mate-starter-strategy</module>
-        <module>mate-starter-retrofit</module>
-        <module>mate-starter-j2cache</module>
         <module>mate-starter-mongodb</module>
         <module>mate-starter-lock</module>
-        <module>mate-starter-encrypt</module>
         <module>mate-starter-rabbit</module>
         <module>mate-starter-mybatis</module>
         <module>mate-starter-idempotent</module>

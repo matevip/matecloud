@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    vip.mate.core.dozer.config.DozerConfiguration
