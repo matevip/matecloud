@@ -21,12 +21,32 @@ import java.util.List;
  */
 public interface ISysDictService extends IService<SysDict> {
 
-    @Cached(name= SystemConstant.SYS_DICT_CACHE, expire = 3600)
+    /**
+     * 根据编码和键获取值
+     *
+     * @param code
+     * @param dictKey
+     * @return
+     */
+    @Cached(name = SystemConstant.SYS_DICT_CACHE, expire = 3600)
     Result<String> getValue(String code, String dictKey);
 
-    @Cached(name= SystemConstant.SYS_DICT_CACHE, key="#code", expire = 3600)
+    /**
+     * 根据编码查询字典列表
+     *
+     * @param code
+     * @return
+     */
+    @Cached(name = SystemConstant.SYS_DICT_CACHE, key = "#code", expire = 3600)
     Result<List<SysDict>> getList(String code);
 
+    /**
+     * 字典分页查询
+     *
+     * @param page
+     * @param search
+     * @return
+     */
     IPage<SysDict> listPage(Page page, Search search);
 
 }

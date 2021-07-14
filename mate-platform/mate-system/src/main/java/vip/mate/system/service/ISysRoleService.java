@@ -18,12 +18,34 @@ import java.util.Map;
  */
 public interface ISysRoleService extends IService<SysRole> {
 
+    /**
+     * 角色树
+     *
+     * @return
+     */
     List<SysRoleVO> tree();
 
+    /**
+     * 查询角色列表
+     *
+     * @param search
+     * @return
+     */
     List<SysRole> listSearch(Map<String, String> search);
 
+    /**
+     * 查询权限集
+     *
+     * @param id
+     * @return
+     */
     List<String> getPermission(String id);
 
+    /**
+     * 角色导出
+     *
+     * @return
+     */
     List<SysRolePOI> export();
 
 }

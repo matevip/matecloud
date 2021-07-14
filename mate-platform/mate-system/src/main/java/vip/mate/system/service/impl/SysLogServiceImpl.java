@@ -1,11 +1,11 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.util.PageUtil;
 import vip.mate.system.entity.SysLog;
@@ -25,10 +25,10 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
 
 	@Override
 	public IPage<SysLog> listPage(Search search) {
-		boolean isKeyword = StringUtil.isNotBlank(search.getKeyword());
+		boolean isKeyword = StrUtil.isNotBlank(search.getKeyword());
 		LambdaQueryWrapper<SysLog> queryWrapper = Wrappers.lambdaQuery();
 		// 查询开始日期和结束日期
-		queryWrapper.between(StringUtil.isNotBlank(search.getStartDate()), SysLog::getCreateTime, search.getStartDate(), search.getEndDate());
+		queryWrapper.between(StrUtil.isNotBlank(search.getStartDate()), SysLog::getCreateTime, search.getStartDate(), search.getEndDate());
 		// 关键词查询
 		queryWrapper.like(isKeyword, SysLog::getTitle, search.getKeyword()).or(isKeyword).like(isKeyword, SysLog::getTraceId, search.getKeyword());
 		//　字段排序

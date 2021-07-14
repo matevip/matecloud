@@ -9,21 +9,24 @@ import java.util.*;
 
 /**
  * Collection工具类
+ *
+ * @author pangu
  */
 public class CollectionUtil {
 
     /**
      * 将以“,”分隔的字符串转成为Collection
+     *
      * @param str 字符串
      * @return Collection
      */
-    public static Collection<? extends Serializable> stringToCollection(String str){
+    public static Collection<? extends Serializable> stringToCollection(String str) {
         if (StringUtils.isBlank(str)) {
             return null;
         } else {
             String[] strArray = str.split(",");
             final Long[] longs = new Long[strArray.length];
-            for (int i = 0; i < strArray.length ; i++) {
+            for (int i = 0; i < strArray.length; i++) {
                 longs[i] = strToLong(strArray[i], 0L);
             }
             return arrayToCollection(longs);
@@ -32,6 +35,7 @@ public class CollectionUtil {
 
     /**
      * 将字组转换成Collection
+     *
      * @param longArray Long数组
      * @return Collection
      */
@@ -43,6 +47,7 @@ public class CollectionUtil {
 
     /**
      * 字符串转换为long
+     *
      * @param str
      * @param defaultValue
      * @return
@@ -60,6 +65,7 @@ public class CollectionUtil {
 
     /**
      * 字符串转换为long
+     *
      * @param str
      * @param defaultValue
      * @return

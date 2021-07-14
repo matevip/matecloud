@@ -1,10 +1,10 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import vip.mate.core.common.api.Result;
-import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.system.entity.SysDict;
 import vip.mate.system.mapper.SysDictMapper;
@@ -43,13 +43,13 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     @Override
     public IPage<SysDict> listPage(Page page, Search search) {
         LambdaQueryWrapper<SysDict> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtil.isNotBlank(search.getStartDate())) {
+        if (StrUtil.isNotBlank(search.getStartDate())) {
             queryWrapper.between(SysDict::getCreateTime, search.getStartDate(), search.getEndDate());
         }
-        if (StringUtil.isNotBlank(search.getKeyword())) {
-            queryWrapper.like(SysDict::getId,search.getKeyword());
+        if (StrUtil.isNotBlank(search.getKeyword())) {
+            queryWrapper.like(SysDict::getId, search.getKeyword());
             queryWrapper.or();
-            queryWrapper.like(SysDict::getCode,search.getKeyword());
+            queryWrapper.like(SysDict::getCode, search.getKeyword());
         }
         queryWrapper.eq(SysDict::getParentId, 0);
         return this.page(page, queryWrapper);

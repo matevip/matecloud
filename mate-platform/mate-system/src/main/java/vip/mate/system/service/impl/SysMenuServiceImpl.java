@@ -1,11 +1,11 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
@@ -43,10 +43,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> searchList(Search search) {
         LambdaQueryWrapper<SysMenu> lambda = Wrappers.<SysMenu>query().lambda();
-        if (StringUtil.isNotBlank(search.getStartDate())) {
+        if (StrUtil.isNotBlank(search.getStartDate())) {
             lambda.between(SysMenu::getCreateTime, search.getStartDate(), search.getEndDate());
         }
-        if (StringUtil.isNotBlank(search.getKeyword())) {
+        if (StrUtil.isNotBlank(search.getKeyword())) {
             lambda.like(SysMenu::getName, search.getKeyword()).or().like(SysMenu::getId, search.getKeyword());
         }
         lambda.orderByAsc(SysMenu::getSort);
