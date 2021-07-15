@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -26,6 +27,7 @@ import java.util.List;
 @Slf4j
 @Component
 @AllArgsConstructor
+@Profile({"!prod"})
 public class RequestLogFilter implements GlobalFilter, Ordered {
 
 	private static final String START_TIME = "startTime";
