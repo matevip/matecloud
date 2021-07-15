@@ -3,8 +3,13 @@ package vip.mate.core.lock;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import vip.mate.core.lock.config.strategy.*;
+import vip.mate.core.lock.config.strategy.ClusterRedissonConfigStrategyImpl;
+import vip.mate.core.lock.config.strategy.MasterslaveRedissonConfigStrategyImpl;
+import vip.mate.core.lock.config.strategy.RedissonConfigContext;
+import vip.mate.core.lock.config.strategy.SentinelRedissonConfigStrategyImpl;
+import vip.mate.core.lock.config.strategy.StandaloneRedissonConfigStrategyImpl;
 import vip.mate.core.lock.constant.RedisConnectionType;
 import vip.mate.core.lock.props.RedissonProperties;
 
@@ -19,7 +24,7 @@ public class RedissonManager {
 
 	private Config config = new Config();
 
-	private Redisson redisson = null;
+	private RedissonClient redisson = null;
 
 	public RedissonManager() {
 	}
@@ -27,7 +32,7 @@ public class RedissonManager {
 	public RedissonManager(RedissonProperties redissonProperties) {
 		try {
 			config = RedissonConfigFactory.getInstance().createConfig(redissonProperties);
-			redisson = (Redisson) Redisson.create(config);
+			redisson =  Redisson.create(config);
 		} catch (Exception e) {
 			log.error("Redisson init error", e);
 			throw new IllegalArgumentException("please input correct configurations," +
@@ -35,7 +40,7 @@ public class RedissonManager {
 		}
 	}
 
-	public Redisson getRedisson() {
+	public RedissonClient getRedisson() {
 		return redisson;
 	}
 
@@ -72,11 +77,10 @@ public class RedissonManager {
 		Config createConfig(RedissonProperties redissonProperties) {
 			Preconditions.checkNotNull(redissonProperties);
 			Preconditions.checkNotNull(redissonProperties.getAddress(), "redisson.lock.server.address cannot be NULL!");
-			Preconditions.checkNotNull(redissonProperties.getType(), "redisson.lock.server.password cannot be NULL");
-			Preconditions.checkNotNull(redissonProperties.getDatabase(), "redisson.lock.server.database cannot be NULL");
+			// Preconditions.checkNotNull(redissonProperties.getType(), "redisson.lock.server.password cannot be NULL");
 			String connectionType = redissonProperties.getType();
 			// 声明配置上下文
-			RedissonConfigContext redissonConfigContext = null;
+			RedissonConfigContext redissonConfigContext;
 			if (connectionType.equals(RedisConnectionType.STANDALONE.getConnection_type())) {
 				redissonConfigContext = new RedissonConfigContext(new StandaloneRedissonConfigStrategyImpl());
 			} else if (connectionType.equals(RedisConnectionType.SENTINEL.getConnection_type())) {

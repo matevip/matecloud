@@ -23,9 +23,9 @@ public class ClusterRedissonConfigStrategyImpl implements RedissonConfigStrategy
 			String password = redissonProperties.getPassword();
 			String[] addrTokens = address.split(",");
 			// 设置cluster节点的服务IP和端口
-			for (int i = 0; i < addrTokens.length; i++) {
+			for (String addrToken : addrTokens) {
 				config.useClusterServers()
-						.addNodeAddress(GlobalConstant.REDIS_CONNECTION_PREFIX.getConstant_value() + addrTokens[i]);
+						.addNodeAddress(GlobalConstant.REDIS_CONNECTION_PREFIX.getConstant_value() + addrToken);
 				if (StringUtils.isNotBlank(password)) {
 					config.useClusterServers().setPassword(password);
 				}
