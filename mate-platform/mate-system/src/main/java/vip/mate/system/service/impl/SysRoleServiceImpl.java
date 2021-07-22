@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vip.mate.system.entity.SysDepart;
 import vip.mate.system.entity.SysRole;
 import vip.mate.system.entity.SysRolePermission;
 import vip.mate.system.mapper.SysRoleMapper;
@@ -46,10 +47,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 		if (StrUtil.isNotBlank(startDate) && !startDate.equals("null")) {
 			lambdaQueryWrapper.between(SysRole::getCreateTime, startDate, endDate);
 		}
-		if (StrUtil.isNotBlank(keyword) && !keyword.equals("null")) {
-			lambdaQueryWrapper.like(SysRole::getRoleName, keyword);
-			lambdaQueryWrapper.or();
-			lambdaQueryWrapper.like(SysRole::getId, keyword);
+		if (StrUtil.isNotBlank(keyword)) {
+			lambdaQueryWrapper.and(i -> i
+					.or().like(SysRole::getRoleName, keyword)
+					.or().like(SysRole::getId, keyword));
 		}
 		return this.baseMapper.selectList(lambdaQueryWrapper);
 	}
