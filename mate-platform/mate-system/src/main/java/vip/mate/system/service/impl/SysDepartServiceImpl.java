@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 @Service
 public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart> implements ISysDepartService {
 
+    private final static String NULL = "null";
     @Override
     public List<SysDepartVO> tree() {
         return baseMapper.tree();
@@ -41,10 +42,10 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
         String startDate = String.valueOf(search.get("startDate"));
         String endDate = String.valueOf(search.get("endDate"));
         LambdaQueryWrapper<SysDepart> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        if (StrUtil.isNotBlank(startDate) && !startDate.equals("null")) {
+        if (StrUtil.isNotBlank(startDate) && !startDate.equals(NULL)) {
             lambdaQueryWrapper.between(SysDepart::getCreateTime, startDate, endDate);
         }
-        if (StrUtil.isNotBlank(keyword)) {
+        if (StrUtil.isNotBlank(keyword) && !keyword.equals(NULL)) {
             lambdaQueryWrapper.and(i -> i
                     .or().like(SysDepart::getName, keyword)
                     .or().like(SysDepart::getId, keyword));

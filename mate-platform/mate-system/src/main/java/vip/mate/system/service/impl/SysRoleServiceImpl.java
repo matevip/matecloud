@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vip.mate.system.entity.SysDepart;
 import vip.mate.system.entity.SysRole;
 import vip.mate.system.entity.SysRolePermission;
 import vip.mate.system.mapper.SysRoleMapper;
@@ -30,6 +29,7 @@ import java.util.stream.Collectors;
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
+	private final static String NULL = "null";
 	@Autowired
 	private ISysRolePermissionService sysRolePermissionService;
 
@@ -44,10 +44,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 		String startDate = String.valueOf(search.get("startDate"));
 		String endDate = String.valueOf(search.get("endDate"));
 		LambdaQueryWrapper<SysRole> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-		if (StrUtil.isNotBlank(startDate) && !startDate.equals("null")) {
+		if (StrUtil.isNotBlank(startDate) && !startDate.equals(NULL)) {
 			lambdaQueryWrapper.between(SysRole::getCreateTime, startDate, endDate);
 		}
-		if (StrUtil.isNotBlank(keyword)) {
+		if (StrUtil.isNotEmpty(keyword) && !keyword.equals(NULL)) {
 			lambdaQueryWrapper.and(i -> i
 					.or().like(SysRole::getRoleName, keyword)
 					.or().like(SysRole::getId, keyword));
