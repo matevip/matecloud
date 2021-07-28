@@ -1,5 +1,6 @@
 package vip.mate.core.web.config;
 
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,7 +16,11 @@ import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.*;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.paths.DefaultPathProvider;
@@ -53,7 +58,9 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
 	private final MateSwaggerProperties swaggerProperties;
 
-	@Bean
+    private final OpenApiExtensionResolver openApiExtensionResolver;
+
+    @Bean
 	public PathProvider pathProvider() {
 		return new DefaultPathProvider() {
 			@Override
@@ -98,7 +105,9 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 				.securityContexts(securityContexts())
 				.pathProvider(pathProvider())
 				.ignoredParameterTypes(ignoredParameterTypes)
-				.pathMapping("/");
+				.pathMapping("/")
+                .groupName(MateConstant.MATE_APP_VERSION)
+                .extensions(openApiExtensionResolver.buildExtensions(MateConstant.MATE_APP_VERSION));
 	}
 
 	@Override
