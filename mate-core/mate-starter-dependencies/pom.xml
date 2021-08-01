@@ -200,11 +200,6 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>mate-starter-dozer</artifactId>
-                <version>${matecloud.core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-rule</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
