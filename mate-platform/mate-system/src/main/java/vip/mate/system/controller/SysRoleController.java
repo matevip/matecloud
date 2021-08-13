@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.database.entity.Search;
 import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.redis.core.RedisService;
@@ -46,6 +47,21 @@ public class SysRoleController extends BaseController {
     private final ISysRoleService sysRoleService;
     private final ISysRolePermissionService sysRolePermissionService;
     private final RedisService redisService;
+
+    @PreAuth
+    @Log(value = "角色分页")
+    @GetMapping("/page")
+    @ApiOperation(value = "角色分页")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
+            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
+            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
+            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
+            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    })
+    public Result<?> page(Search search) {
+        return Result.data(sysRoleService.listPage(search));
+    }
 
     /**
      * 角色列表

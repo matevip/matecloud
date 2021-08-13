@@ -1,7 +1,9 @@
 package vip.mate.system.service;
 
-import vip.mate.system.entity.SysRole;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.core.database.entity.Search;
+import vip.mate.system.entity.SysRole;
 import vip.mate.system.poi.SysRolePOI;
 import vip.mate.system.vo.SysRoleVO;
 
@@ -48,4 +50,11 @@ public interface ISysRoleService extends IService<SysRole> {
      */
     List<SysRolePOI> export();
 
+    /**
+     * 分页列表
+     *
+     * @param search
+     * @return
+     */
+    IPage<SysRole> listPage(Search search);
 }
