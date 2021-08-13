@@ -31,7 +31,6 @@ public class TreeUtil {
 			MenuMeta meta = new MenuMeta();
 			meta.setIcon(sysMenu.getIcon());
 			meta.setTitle(sysMenu.getName());
-			tree.setComponent(sysMenu.getPath());
 			if (sysMenu.getParentId() == -1L) {
 				tree.setComponent("Layout");
 				tree.setRedirect("noRedirect");

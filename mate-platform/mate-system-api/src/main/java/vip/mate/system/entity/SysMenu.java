@@ -41,6 +41,11 @@ public class SysMenu extends BaseEntity {
     @ApiModelProperty(value = "路径")
     private String path;
     /**
+     * 组件
+     */
+    @ApiModelProperty(value = "组件")
+    private String component;
+    /**
      * 父菜单ID
      */
     @ApiModelProperty(value = "父菜单ID")
