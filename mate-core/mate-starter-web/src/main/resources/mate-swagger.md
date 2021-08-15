@@ -92,7 +92,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 - 消息中心：集成消息中间件`RocketMQ`和`Kafka`，对业务进行异步处理;
 
 - 业务分离：采用前后端分离的框架设计，前端采用`vue-element-admin`,商业版采用`antd-pro-vue`
-  
+
 - 链路追踪：自定义traceId的方式，实现简单的链路追踪功能
 
 - 多租户功能：集成`Mybatis Plus`,实现SAAS多租户功能
@@ -180,7 +180,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 
 ## ✨ 特别鸣谢
 特别感谢卢神对`MateCloud`项目提供的技术支持！
-- 卢春梦: [mica](https://gitee.com/596392912/mica)  
+- 卢春梦: [mica](https://gitee.com/596392912/mica)
 - chuzhixin: [vue-admin-beautiful](https://github.com/chuzhixin/vue-admin-beautiful)
 
 ## 📚 开源项目推荐

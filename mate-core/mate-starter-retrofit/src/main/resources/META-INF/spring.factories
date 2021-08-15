@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  vip.mate.core.retrofit.config.RetrofitConfiguration
-
-

@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.2</version>
+        <version>2.5.3</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>3.8.8</version>
+    <version>4.0.8</version>
     <packaging>pom</packaging>
     <name>mate-starter-dependencies</name>
     <description>based on Spring Cloud Alibaba dependencies</description>
@@ -39,10 +39,10 @@
     </scm>
 
     <properties>
-        <matecloud.core.version>3.8.8</matecloud.core.version>
+        <matecloud.core.version>4.0.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.5.2</spring.boot.version>
+        <spring.boot.version>2.5.3</spring.boot.version>
         <spring.cloud.version>2020.0.3</spring.cloud.version>
         <alibaba.cloud.version>2021.1</alibaba.cloud.version>
 
@@ -65,7 +65,7 @@
 
         <swagger.version>2.10.5</swagger.version>
         <swagger.models.version>1.6.2</swagger.models.version>
-        <knife4j.version>2.0.8</knife4j.version>
+        <knife4j.version>2.0.9</knife4j.version>
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
@@ -75,9 +75,9 @@
         <dubbo.version>2.7.12</dubbo.version>
         <fastjson.version>1.2.76</fastjson.version>
 
-        <spring-boot-admin.version>2.4.1</spring-boot-admin.version>
+        <spring-boot-admin.version>2.5.0</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
-        <nacos.client.version>2.0.2</nacos.client.version>
+        <nacos.client.version>2.0.3</nacos.client.version>
         <easypoi.version>4.3.0</easypoi.version>
         <ip2region.version>1.7.2</ip2region.version>
         <justauth.version>1.15.8</justauth.version>
@@ -86,13 +86,13 @@
 
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
 
-        <elastic.version>7.13.2</elastic.version>
+        <elastic.version>7.13.3</elastic.version>
         <commons-collections.version>3.2.2</commons-collections.version>
 
         <dozer.version>6.5.0</dozer.version>
         <redisson.version>3.15.0</redisson.version>
         <lettuce.version>5.3.5.RELEASE</lettuce.version>
-        <sentinel.version>1.8.1</sentinel.version>
+        <sentinel.version>1.8.2</sentinel.version>
         <transmittable.version>2.12.0</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.9.0</rocketmq.version>
@@ -196,11 +196,6 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>mate-starter-file</artifactId>
-                <version>${matecloud.core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>mate-starter-dozer</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
             <dependency>

@@ -1,6 +1,7 @@
 package vip.mate.system.controller;
 
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -67,6 +68,14 @@ public class SysLogController extends BaseController {
     })
     public Result<?> del(@RequestParam String ids) {
         return Result.condition(sysLogService.removeByIds(CollectionUtil.stringToCollection(ids)));
+    }
+
+    @PreAuth()
+    @Log(value = "日志清空")
+    @PostMapping("/empty")
+    @ApiOperation(value = "日志清空")
+    public Result<?> empty() {
+        return Result.condition(sysLogService.remove(Wrappers.emptyWrapper()));
     }
 
 }

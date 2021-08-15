@@ -15,6 +15,12 @@ import java.util.List;
  */
 public interface ISysRolePermissionService extends IService<SysRolePermission> {
 
+    /**
+     * 根据角色查询菜单ID列表
+     *
+     * @param roleId 角色ID
+     * @return 菜单ID列表
+     */
     List<String> getMenuIdByRoleId(String roleId);
 
 }

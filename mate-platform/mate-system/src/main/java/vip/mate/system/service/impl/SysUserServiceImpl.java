@@ -1,16 +1,15 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import vip.mate.core.common.exception.BaseException;
-import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.enums.OrderTypeEnum;
 import vip.mate.core.database.util.PageUtil;
@@ -64,13 +63,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 	public IPage<SysUser> listPage(Search search) {
 
 		LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
-		queryWrapper.between(StringUtil.isNotBlank(search.getStartDate()), SysUser::getCreateTime, search.getStartDate(), search.getEndDate());
-		boolean isKeyword = StringUtil.isNotBlank(search.getKeyword());
+		queryWrapper.between(StrUtil.isNotBlank(search.getStartDate()), SysUser::getCreateTime, search.getStartDate(), search.getEndDate());
+		boolean isKeyword = StrUtil.isNotBlank(search.getKeyword());
 		queryWrapper.like(isKeyword, SysUser::getName, search.getKeyword()).or(isKeyword)
 				.like(isKeyword, SysUser::getId, search.getKeyword());
 
 		// 根据排序字段进行排序
-		if (StringUtil.isNotBlank(search.getProp())) {
+		if (StrUtil.isNotBlank(search.getProp())) {
 			if (OrderTypeEnum.ASC.getValue().equalsIgnoreCase(search.getOrder())) {
 				queryWrapper.orderByAsc(SysUser::getId);
 			} else {

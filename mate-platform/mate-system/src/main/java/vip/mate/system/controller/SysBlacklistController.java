@@ -43,7 +43,6 @@ public class SysBlacklistController extends BaseController {
 
     /**
      * 黑名单分页
-     * @param page　分页参数
      * @param search　关键词
      * @return Result
      */

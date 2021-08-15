@@ -8,6 +8,7 @@ import lombok.Data;
 import vip.mate.core.web.tree.INode;
 import vip.mate.system.entity.MenuMeta;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +78,8 @@ public class SysMenuVO implements INode {
 	private Boolean target;
 
 	private String typeName;
+
+	private LocalDateTime createTime;
 
 	/**
 	 * 子孙节点
