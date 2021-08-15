@@ -3,7 +3,6 @@ package vip.mate.core.database.config;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
@@ -85,9 +84,9 @@ public class MybatisPlusConfiguration {
 		PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
 		paginationInnerInterceptor.setMaxLimit(MAX_LIMIT);
 		//防止全表更新与删除插件: BlockAttackInnerInterceptor
-		BlockAttackInnerInterceptor blockAttackInnerInterceptor = new BlockAttackInnerInterceptor();
+		// BlockAttackInnerInterceptor blockAttackInnerInterceptor = new BlockAttackInnerInterceptor();
 		interceptor.addInnerInterceptor(paginationInnerInterceptor);
-		interceptor.addInnerInterceptor(blockAttackInnerInterceptor);
+		// interceptor.addInnerInterceptor(blockAttackInnerInterceptor);
 		return interceptor;
 	}
 
