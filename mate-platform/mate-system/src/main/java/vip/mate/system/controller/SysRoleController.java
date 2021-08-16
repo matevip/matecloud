@@ -2,6 +2,7 @@ package vip.mate.system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -93,7 +94,23 @@ public class SysRoleController extends BaseController {
     @PostMapping("/set")
     @ApiOperation(value = "角色设置", notes = "角色设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody SysRole sysRole) {
-        return Result.condition(sysRoleService.saveOrUpdate(sysRole));
+        return Result.condition(sysRoleService.set(sysRole));
+    }
+
+    /**
+     * 角色状态变更
+     *
+     * @param sysRole
+     * @return
+     */
+    @PreAuth
+    @Log(value = "角色状态变更")
+    @PostMapping("/set-status")
+    @ApiOperation(value = "角色状态变更")
+    public Result<?> setStatus(@Valid @RequestBody SysRole sysRole) {
+        return Result.condition(sysRoleService.update(Wrappers.<SysRole>lambdaUpdate().
+                set(SysRole::getStatus, sysRole.getStatus())
+                .eq(SysRole::getId, sysRole.getId())));
     }
 
     /**
