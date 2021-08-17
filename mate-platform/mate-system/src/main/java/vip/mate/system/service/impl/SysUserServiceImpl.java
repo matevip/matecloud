@@ -39,73 +39,75 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
-	private final ISysDepartService sysDepartService;
-	private final ISysDictService dictService;
-	private final ISysRoleService sysRoleService;
+    private final ISysDepartService sysDepartService;
+    private final ISysDictService dictService;
+    private final ISysRoleService sysRoleService;
 
-	@Override
-	public boolean status(String ids, String status) {
-		Collection<? extends Serializable> collection = CollectionUtil.stringToCollection(ids);
+    @Override
+    public boolean status(String ids, String status) {
+        Collection<? extends Serializable> collection = CollectionUtil.stringToCollection(ids);
 
-		if (ObjectUtils.isEmpty(collection)) {
-			throw new BaseException("传入的ID值不能为空！");
-		}
+        if (ObjectUtils.isEmpty(collection)) {
+            throw new BaseException("传入的ID值不能为空！");
+        }
 
-		collection.forEach(id -> {
-			SysUser sysUser = this.baseMapper.selectById(CollectionUtil.objectToLong(id, 0L));
-			sysUser.setStatus(status);
-			this.baseMapper.updateById(sysUser);
-		});
-		return true;
-	}
+        collection.forEach(id -> {
+            SysUser sysUser = this.baseMapper.selectById(CollectionUtil.objectToLong(id, 0L));
+            sysUser.setStatus(status);
+            this.baseMapper.updateById(sysUser);
+        });
+        return true;
+    }
 
-	@Override
-	public IPage<SysUser> listPage(Search search) {
+    @Override
+    public IPage<SysUser> listPage(Search search, SysUser user) {
 
-		LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
-		queryWrapper.between(StrUtil.isNotBlank(search.getStartDate()), SysUser::getCreateTime, search.getStartDate(), search.getEndDate());
-		boolean isKeyword = StrUtil.isNotBlank(search.getKeyword());
-		queryWrapper.like(isKeyword, SysUser::getName, search.getKeyword()).or(isKeyword)
-				.like(isKeyword, SysUser::getId, search.getKeyword());
+        LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.between(StrUtil.isNotBlank(search.getStartDate()), SysUser::getCreateTime, search.getStartDate(), search.getEndDate());
+        boolean isKeyword = StrUtil.isNotBlank(search.getKeyword());
+        queryWrapper.like(isKeyword, SysUser::getName, search.getKeyword()).or(isKeyword)
+                .like(isKeyword, SysUser::getId, search.getKeyword());
 
-		// 根据排序字段进行排序
-		if (StrUtil.isNotBlank(search.getProp())) {
-			if (OrderTypeEnum.ASC.getValue().equalsIgnoreCase(search.getOrder())) {
-				queryWrapper.orderByAsc(SysUser::getId);
-			} else {
-				queryWrapper.orderByDesc(SysUser::getId);
-			}
-		}
-		// 分页查询
-		IPage<SysUser> sysUserPage = this.baseMapper.selectPage(PageUtil.getPage(search), queryWrapper);
+        queryWrapper.eq(user.getDepartId() != null, SysUser::getDepartId, user.getDepartId());
 
-		// 拼装转换为中文字段数据
-		List<SysUser> sysUserList = sysUserPage.getRecords().stream().peek(sysUser -> {
-			sysUser.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
-			sysUser.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
-			sysUser.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
-		}).collect(Collectors.toList());
-		sysUserPage.setRecords(sysUserList);
-		return sysUserPage;
-	}
+        // 根据排序字段进行排序
+        if (StrUtil.isNotBlank(search.getProp())) {
+            if (OrderTypeEnum.ASC.getValue().equalsIgnoreCase(search.getOrder())) {
+                queryWrapper.orderByAsc(SysUser::getId);
+            } else {
+                queryWrapper.orderByDesc(SysUser::getId);
+            }
+        }
+        // 分页查询
+        IPage<SysUser> sysUserPage = this.baseMapper.selectPage(PageUtil.getPage(search), queryWrapper);
 
-	@Override
-	public SysUser getOneIgnoreTenant(SysUser sysUser) {
-		return this.baseMapper.selectOneIgnoreTenant(sysUser);
-	}
+        // 拼装转换为中文字段数据
+        List<SysUser> sysUserList = sysUserPage.getRecords().stream().peek(sysUser -> {
+            sysUser.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
+            sysUser.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
+            sysUser.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
+        }).collect(Collectors.toList());
+        sysUserPage.setRecords(sysUserList);
+        return sysUserPage;
+    }
 
-	@Override
-	public List<SysUserPOI> export() {
-		LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-		queryWrapper.eq(SysUser::getIsDeleted, "0");
-		List<SysUser> sysUsers = this.baseMapper.selectList(queryWrapper);
-		return sysUsers.stream().map(sysUser -> {
-			SysUserPOI sysUserPOI = new SysUserPOI();
-			BeanUtils.copyProperties(sysUser, sysUserPOI);
-			sysUserPOI.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
-			sysUserPOI.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
-			sysUserPOI.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
-			return sysUserPOI;
-		}).collect(Collectors.toList());
-	}
+    @Override
+    public SysUser getOneIgnoreTenant(SysUser sysUser) {
+        return this.baseMapper.selectOneIgnoreTenant(sysUser);
+    }
+
+    @Override
+    public List<SysUserPOI> export() {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getIsDeleted, "0");
+        List<SysUser> sysUsers = this.baseMapper.selectList(queryWrapper);
+        return sysUsers.stream().map(sysUser -> {
+            SysUserPOI sysUserPoi = new SysUserPOI();
+            BeanUtils.copyProperties(sysUser, sysUserPoi);
+            sysUserPoi.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
+            sysUserPoi.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
+            sysUserPoi.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
+            return sysUserPoi;
+        }).collect(Collectors.toList());
+    }
 }
