@@ -42,16 +42,17 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 
 ## 🔥 前端重大更新
 前端采用`Vue3.2`、`Vite 2.5.*`、 `Ant-Design-Vue 2.*`、`TypeScript` 的大型中后台解决方案。
-### 技术栈
-- Vue 3.2.*
-- vuex 4.x
-- typescript 4.x
-- ant-design-vue 2.x
-- axios 0.21.x
-- echarts 5.x
-- vite 2.x
-### 版本发布
-`4.0.8-M1`版本已经发布，实现了系统管理的基础功能。欢迎体验。
+### 👉 技术栈
+- Vue 3.2.2
+- Pinia 2.0.0-rc.4
+- vue-i18n 9.1.7
+- typescript 4.29.1
+- ant-design-vue 2.2.6
+- axios 0.21.1
+- vue-router 4.0.11
+- vite 2.5.0-beta.2
+### 👉 版本发布
+`4.0.8-M1`版本已经发布，实现了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。欢迎体验。
 
 ## 👷 技术交流
 <p align="center"> 
@@ -194,7 +195,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 ## ✨ 特别鸣谢
 特别感谢卢神对`MateCloud`项目提供的技术支持！
 - 卢春梦: [mica](https://gitee.com/596392912/mica)  
-- chuzhixin: [vue-admin-beautiful](https://github.com/chuzhixin/vue-admin-beautiful)o
+- chuzhixin: [vue-admin-beautiful](https://github.com/chuzhixin/vue-admin-beautiful)
 - anncwb: [vue-vben-admin](https://github.com/anncwb/vue-vben-admin
 ## 📚 开源项目推荐
 - [SpringBoot脚手架](https://gitee.com/bdj/SpringBoot_v2)
