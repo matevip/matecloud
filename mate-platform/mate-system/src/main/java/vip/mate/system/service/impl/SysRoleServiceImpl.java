@@ -1,12 +1,15 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.util.PageUtil;
 import vip.mate.system.entity.SysRole;
@@ -52,7 +55,33 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
                     .or().like(SysRole::getRoleName, search.getKeyword())
                     .or().like(SysRole::getId, search.getKeyword()));
         }
-        return this.baseMapper.selectPage(PageUtil.getPage(search), lambdaQueryWrapper);
+        IPage<SysRole> sysRolePage = this.baseMapper.selectPage(PageUtil.getPage(search), lambdaQueryWrapper);
+        List<SysRole> records = sysRolePage.getRecords();
+        // 将权限列表添加到分页列表中
+        List<SysRole> collect = records.stream().map(sysRole -> sysRole.setMenu(this.getPermission(sysRole.getId().toString())))
+                .collect(Collectors.toList());
+        // 用新的List赋值分页对象
+        sysRolePage.setRecords(collect);
+        return sysRolePage;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean set(SysRole sysRole) {
+        this.saveOrUpdate(sysRole);
+        if (ObjectUtil.isNotEmpty(sysRole.getMenu())) {
+            List<SysRolePermission> collect = sysRole.getMenu().stream().map(s -> {
+                SysRolePermission sysRolePermission = new SysRolePermission();
+                sysRolePermission.setMenuId(Long.valueOf(s));
+                sysRolePermission.setRoleId(sysRole.getId());
+                return sysRolePermission;
+            }).collect(Collectors.toList());
+            // 根据角色ID删除所有菜单值
+            sysRolePermissionService.remove(Wrappers.<SysRolePermission>lambdaQuery().eq(SysRolePermission::getRoleId, sysRole.getId()));
+            // 重新写入角色对应的权限值
+            sysRolePermissionService.saveBatch(collect);
+        }
+        return Boolean.TRUE;
     }
 
     @Override

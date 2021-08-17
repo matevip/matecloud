@@ -57,4 +57,12 @@ public interface ISysRoleService extends IService<SysRole> {
      * @return
      */
     IPage<SysRole> listPage(Search search);
+
+    /**
+     * 设置角色
+     *
+     * @param sysRole 角色对象
+     * @return 布尔
+     */
+    boolean set(SysRole sysRole);
 }
