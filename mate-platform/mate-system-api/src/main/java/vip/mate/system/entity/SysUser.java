@@ -113,6 +113,12 @@ public class SysUser extends BaseEntity {
     private String isDeleted;
 
     /**
+     * 备注
+     */
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
+    /**
      * 部门名称
      */
     @TableField(exist = false)
