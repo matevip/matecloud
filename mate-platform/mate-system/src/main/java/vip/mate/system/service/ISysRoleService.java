@@ -65,4 +65,12 @@ public interface ISysRoleService extends IService<SysRole> {
      * @return 布尔
      */
     boolean set(SysRole sysRole);
+
+    /**
+     * 根据ids批量删除角色
+     *
+     * @param ids ID列表
+     * @return boolean
+     */
+    boolean batchDeleteByIds(String ids);
 }

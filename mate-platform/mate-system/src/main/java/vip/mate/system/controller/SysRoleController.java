@@ -1,6 +1,7 @@
 package vip.mate.system.controller;
 
 
+import cn.hutool.core.util.NumberUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
+import vip.mate.core.common.constant.SystemConstant;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.core.log.annotation.Log;
@@ -84,6 +86,28 @@ public class SysRoleController extends BaseController {
     }
 
     /**
+     * 所有角色列表
+     *
+     * @return List
+     */
+    @PreAuth
+    @Log(value = "所有角色列表")
+    @GetMapping("/all-list")
+    @ApiOperation(value = "所有角色列表")
+    public Result<?> allList() {
+        // 设置一个未授权的角色信息，提供给前端使用
+        SysRole sysRole = new SysRole();
+        sysRole.setId(NumberUtil.parseLong(SystemConstant.ROLE_DEFAULT_ID));
+        sysRole.setRoleName(SystemConstant.ROLE_DEFAULT_VALUE);
+        // 查询所有角色列表
+        List<SysRole> list = sysRoleService.list();
+        // 增加未授权角色信息
+        list.add(sysRole);
+        // 业务返回
+        return Result.data(list);
+    }
+
+    /**
      * 角色设置
      *
      * @param sysRole SysRole对象
@@ -146,7 +170,7 @@ public class SysRoleController extends BaseController {
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     public Result<?> delete(@RequestParam String ids) {
-        return Result.condition(sysRoleService.removeByIds(CollectionUtil.stringToCollection(ids)));
+        return Result.condition(sysRoleService.batchDeleteByIds(ids));
     }
 
     /**

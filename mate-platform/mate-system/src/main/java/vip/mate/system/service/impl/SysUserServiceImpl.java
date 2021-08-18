@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import vip.mate.core.common.constant.SystemConstant;
 import vip.mate.core.common.exception.BaseException;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.enums.OrderTypeEnum;
@@ -38,6 +39,8 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
+
+
 
     private final ISysDepartService sysDepartService;
     private final ISysDictService dictService;
@@ -85,7 +88,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         List<SysUser> sysUserList = sysUserPage.getRecords().stream().peek(sysUser -> {
             sysUser.setDepartName(sysDepartService.getById(sysUser.getDepartId()).getName());
             sysUser.setStatusName(dictService.getValue("status", sysUser.getStatus()).getData());
-            sysUser.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
+            // 判断如果roleId为0，则赋值一个默认值
+            if (SystemConstant.ROLE_DEFAULT_ID.equals(sysUser.getRoleId())) {
+                sysUser.setRoleName(SystemConstant.ROLE_DEFAULT_VALUE);
+            } else {
+                sysUser.setRoleName(sysRoleService.getById(sysUser.getRoleId()).getRoleName());
+            }
         }).collect(Collectors.toList());
         sysUserPage.setRecords(sysUserList);
         return sysUserPage;
