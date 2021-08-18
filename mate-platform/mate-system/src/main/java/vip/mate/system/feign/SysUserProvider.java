@@ -1,7 +1,7 @@
 package vip.mate.system.feign;
 
+import cn.hutool.core.collection.ListUtil;
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -17,11 +17,9 @@ import vip.mate.system.entity.SysUser;
 import vip.mate.system.service.ISysRolePermissionService;
 import vip.mate.system.service.ISysUserService;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 远程调用获取用户信息
+ *
  * @author xuzhanfu
  */
 @Slf4j
@@ -70,10 +68,8 @@ public class SysUserProvider implements ISysUserProvider {
         }
         UserInfo userInfo = new UserInfo();
         userInfo.setSysUser(sysUser);
-        userInfo.setPermissions(sysRolePermissionService.getMenuIdByRoleId(sysUser.getRoleId().toString()));
-        List<Long> longs = new ArrayList<>();
-        longs.add(sysUser.getRoleId());
-        userInfo.setRoleIds(longs);
+        userInfo.setPermissions(sysRolePermissionService.getMenuIdByRoleId(sysUser.getRoleId()));
+        userInfo.setRoleIds(ListUtil.toList(sysUser.getRoleId()));
         userInfo.setTenantId(sysUser.getTenantId());
         log.debug("feign调用：userInfo:{}", userInfo);
         return userInfo;

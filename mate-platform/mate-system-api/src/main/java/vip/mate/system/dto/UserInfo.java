@@ -35,7 +35,7 @@ public class UserInfo implements Serializable {
 	 * 系统角色标识组
 	 */
 	@ApiModelProperty(value = "系统角色标识组")
-	private List<Long> roleIds;
+	private List<String> roleIds;
 
 	/**
 	 * 登录类型　1：用户名密码登录　2：手机号登录　3：社交登录
