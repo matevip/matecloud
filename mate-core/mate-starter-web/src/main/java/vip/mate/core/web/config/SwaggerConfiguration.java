@@ -1,5 +1,6 @@
 package vip.mate.core.web.config;
 
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -53,6 +54,8 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
 	private final MateSwaggerProperties swaggerProperties;
 
+	private final OpenApiExtensionResolver openApiExtensionResolver;
+
 	@Bean
 	public PathProvider pathProvider() {
 		return new DefaultPathProvider() {
@@ -98,7 +101,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 				.securityContexts(securityContexts())
 				.pathProvider(pathProvider())
 				.ignoredParameterTypes(ignoredParameterTypes)
-				.pathMapping("/");
+				.pathMapping("/").extensions(openApiExtensionResolver.buildSettingExtensions());
 	}
 
 	@Override

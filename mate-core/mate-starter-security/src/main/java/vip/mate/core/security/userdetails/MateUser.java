@@ -24,7 +24,7 @@ public class MateUser extends User {
 	/**
 	 * 部门ID
 	 */
-	private final Long roleId;
+	private final String roleId;
 	/**
 	 * 部门ID
 	 */
@@ -50,7 +50,7 @@ public class MateUser extends User {
 	 */
 	private final int type;
 
-	public MateUser(Long id, int type, Long departId, Long roleId, String phone, String avatar, String tenantId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+	public MateUser(Long id, int type, Long departId, String roleId, String phone, String avatar, String tenantId, String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.id = id;
 		this.type = type;

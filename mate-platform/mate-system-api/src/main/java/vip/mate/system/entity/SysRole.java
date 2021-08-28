@@ -1,5 +1,6 @@
 package vip.mate.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import vip.mate.core.database.entity.BaseEntity;
+
+import java.util.List;
 
 /**
  * <p>
@@ -36,6 +39,16 @@ public class SysRole extends BaseEntity {
     @ApiModelProperty(value = "角色编码")
     private String roleCode;
     /**
+     * 排序
+     */
+    @ApiModelProperty(value = "排序")
+    private int sort;
+    /**
+     * 状态
+     */
+    @ApiModelProperty(value = "状态")
+    private String status;
+    /**
      * 描述
      */
     @ApiModelProperty(value = "描述")
@@ -51,4 +64,11 @@ public class SysRole extends BaseEntity {
      */
     @ApiModelProperty(value = "租户ID")
     private Integer tenantId;
+
+    /**
+     * 菜单列表
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "菜单列表")
+    private List<String> menu;
 }

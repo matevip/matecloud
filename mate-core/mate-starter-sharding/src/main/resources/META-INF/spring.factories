@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  vip.mate.core.sharding.config.DataSourceConfiguration
-
-

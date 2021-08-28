@@ -47,7 +47,7 @@ public class OauthController {
 			@ApiImplicitParam(name = "password", required = false, value = "密码", paramType = "query"),
 			@ApiImplicitParam(name = "scope", required = true, value = "使用范围", paramType = "query"),
 	})
-	public Result<?> postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+	public Result<?> postAccessToken(Principal principal, @RequestBody Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
 		return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());
 	}
 

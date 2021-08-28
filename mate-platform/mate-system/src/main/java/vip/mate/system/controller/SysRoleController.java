@@ -1,7 +1,9 @@
 package vip.mate.system.controller;
 
 
+import cn.hutool.core.util.NumberUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
-import vip.mate.core.common.constant.MateConstant;
-import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.common.constant.SystemConstant;
+import vip.mate.core.database.entity.Search;
 import vip.mate.core.file.util.ExcelUtil;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.redis.core.RedisService;
@@ -49,6 +51,21 @@ public class SysRoleController extends BaseController {
     private final ISysRolePermissionService sysRolePermissionService;
     private final RedisService redisService;
 
+    @PreAuth
+    @Log(value = "角色分页")
+    @GetMapping("/page")
+    @ApiOperation(value = "角色分页")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
+            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
+            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
+            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
+            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    })
+    public Result<?> page(Search search) {
+        return Result.data(sysRoleService.listPage(search));
+    }
+
     /**
      * 角色列表
      *
@@ -69,6 +86,28 @@ public class SysRoleController extends BaseController {
     }
 
     /**
+     * 所有角色列表
+     *
+     * @return List
+     */
+    @PreAuth
+    @Log(value = "所有角色列表")
+    @GetMapping("/all-list")
+    @ApiOperation(value = "所有角色列表")
+    public Result<?> allList() {
+        // 设置一个未授权的角色信息，提供给前端使用
+        SysRole sysRole = new SysRole();
+        sysRole.setId(NumberUtil.parseLong(SystemConstant.ROLE_DEFAULT_ID));
+        sysRole.setRoleName(SystemConstant.ROLE_DEFAULT_VALUE);
+        // 查询所有角色列表
+        List<SysRole> list = sysRoleService.list();
+        // 增加未授权角色信息
+        list.add(sysRole);
+        // 业务返回
+        return Result.data(list);
+    }
+
+    /**
      * 角色设置
      *
      * @param sysRole SysRole对象
@@ -79,7 +118,23 @@ public class SysRoleController extends BaseController {
     @PostMapping("/set")
     @ApiOperation(value = "角色设置", notes = "角色设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody SysRole sysRole) {
-        return Result.condition(sysRoleService.saveOrUpdate(sysRole));
+        return Result.condition(sysRoleService.set(sysRole));
+    }
+
+    /**
+     * 角色状态变更
+     *
+     * @param sysRole
+     * @return
+     */
+    @PreAuth
+    @Log(value = "角色状态变更")
+    @PostMapping("/set-status")
+    @ApiOperation(value = "角色状态变更")
+    public Result<?> setStatus(@Valid @RequestBody SysRole sysRole) {
+        return Result.condition(sysRoleService.update(Wrappers.<SysRole>lambdaUpdate().
+                set(SysRole::getStatus, sysRole.getStatus())
+                .eq(SysRole::getId, sysRole.getId())));
     }
 
     /**
@@ -115,7 +170,7 @@ public class SysRoleController extends BaseController {
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     public Result<?> delete(@RequestParam String ids) {
-        return Result.condition(sysRoleService.removeByIds(CollectionUtil.stringToCollection(ids)));
+        return Result.condition(sysRoleService.batchDeleteByIds(ids));
     }
 
     /**

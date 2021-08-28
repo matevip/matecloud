@@ -84,11 +84,13 @@ public class AuthController {
         }
 
         Map<String, Object> data = new HashMap<>(7);
-        data.put("userName", loginUser.getAccount());
+        data.put("username", loginUser.getAccount());
         data.put("avatar", userInfo.getSysUser().getAvatar());
         data.put("roleId", userInfo.getSysUser().getRoleId());
         data.put("departId", userInfo.getSysUser().getDepartId());
         data.put("tenantId", userInfo.getSysUser().getTenantId());
+        data.put("realName", userInfo.getSysUser().getRealName());
+        data.put("nickName", userInfo.getSysUser().getName());
         List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(String.valueOf(userInfo.getSysUser().getRoleId()));
         data.put("permissions", stringList);
         // 存入redis,以用于mate-starter-auth的PreAuthAspect查询权限使用

@@ -16,12 +16,12 @@
  */
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysApi;
@@ -45,13 +45,13 @@ public class SysApiServiceImpl extends ServiceImpl<SysApiMapper, SysApi> impleme
 	@Override
 	public IPage<SysApi> listPage(Page page, Search search, String serviceId) {
 		LambdaQueryWrapper<SysApi> queryWrapper = new LambdaQueryWrapper<>();
-		if (StringUtil.isNotBlank(search.getStartDate())) {
+		if (StrUtil.isNotBlank(search.getStartDate())) {
 			queryWrapper.between(SysApi::getCreateTime, search.getStartDate(), search.getEndDate());
 		}
-		if (StringUtil.isNotBlank(search.getKeyword())) {
-			queryWrapper.like(SysApi::getCode, search.getKeyword())
-					.or()
-					.like(SysApi::getPath, search.getKeyword());
+		if (StrUtil.isNotBlank(search.getKeyword())) {
+			queryWrapper.and(i -> i
+					.or().like(SysApi::getCode, search.getKeyword())
+					.or().like(SysApi::getPath, search.getKeyword()));
 		}
 		if (!serviceId.equals("-1")) {
 			queryWrapper.eq(SysApi::getServiceId, serviceId);

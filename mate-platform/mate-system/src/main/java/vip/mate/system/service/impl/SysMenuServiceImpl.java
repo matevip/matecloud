@@ -1,11 +1,11 @@
 package vip.mate.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.web.tree.ForestNodeMerger;
 import vip.mate.core.web.util.CollectionUtil;
@@ -43,10 +43,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> searchList(Search search) {
         LambdaQueryWrapper<SysMenu> lambda = Wrappers.<SysMenu>query().lambda();
-        if (StringUtil.isNotBlank(search.getStartDate())) {
+        if (StrUtil.isNotBlank(search.getStartDate())) {
             lambda.between(SysMenu::getCreateTime, search.getStartDate(), search.getEndDate());
         }
-        if (StringUtil.isNotBlank(search.getKeyword())) {
+        if (StrUtil.isNotBlank(search.getKeyword())) {
             lambda.like(SysMenu::getName, search.getKeyword()).or().like(SysMenu::getId, search.getKeyword());
         }
         lambda.orderByAsc(SysMenu::getSort);
@@ -60,14 +60,16 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public boolean status(String ids, String status) {
+        if (StrUtil.isNotBlank(ids)) {
+            return false;
+        }
         Collection<? extends Serializable> collection = CollectionUtil.stringToCollection(ids);
-
-        for (Object id: collection){
+        for (Object id : collection) {
             SysMenu sysMenu = this.baseMapper.selectById(CollectionUtil.objectToLong(id, 0L));
             sysMenu.setStatus(status);
             this.baseMapper.updateById(sysMenu);
         }
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
@@ -81,5 +83,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             BeanUtils.copyProperties(sysMenu, sysMenuPOI);
             return sysMenuPOI;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean checkChild(Long id) {
+        return this.getMenuChild(id) > 0 ? Boolean.TRUE : Boolean.FALSE;
+    }
+
+    @Override
+    public int getMenuChild(Long menuId) {
+        return this.baseMapper.selectCount(Wrappers.<SysMenu>lambdaQuery().select(SysMenu::getId).eq(SysMenu::getParentId, menuId));
     }
 }

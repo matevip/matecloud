@@ -92,7 +92,7 @@ public class SysUser extends BaseEntity {
      * 角色id
      */
     @ApiModelProperty(value = "角色id")
-    private Long roleId;
+    private String roleId;
 
     /**
      * 部门id
@@ -111,6 +111,12 @@ public class SysUser extends BaseEntity {
      */
     @ApiModelProperty(value = "删除标识")
     private String isDeleted;
+
+    /**
+     * 备注
+     */
+    @ApiModelProperty(value = "备注")
+    private String remark;
 
     /**
      * 部门名称

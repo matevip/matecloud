@@ -7,6 +7,7 @@ CREATE TABLE `mate_sys_menu` (
   `name` varchar(32) DEFAULT NULL COMMENT '菜单标题',
   `permission` varchar(32) DEFAULT NULL COMMENT '菜单权限',
   `path` varchar(128) DEFAULT NULL COMMENT '路径',
+  `component` varchar(128) DEFAULT NULL COMMENT '组件',
   `parent_id` bigint(20) DEFAULT '0' COMMENT '父菜单ID',
   `icon` varchar(32) DEFAULT NULL COMMENT '菜单图标',
   `sort` int(11) DEFAULT '1' COMMENT '排序值',
@@ -22,80 +23,82 @@ CREATE TABLE `mate_sys_menu` (
   `is_deleted` char(1) DEFAULT '0' COMMENT '删除标识',
   `tenant_id` bigint(20) unsigned DEFAULT '0' COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2063 DEFAULT CHARSET=utf8mb4 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2069 DEFAULT CHARSET=utf8mb4 COMMENT='菜单权限表';
 
 -- ----------------------------
 -- 初始化-菜单权限表数据
 -- ----------------------------
-INSERT INTO `mate_sys_menu` VALUES (1000, '系统管理', NULL, '/system', -1, 'imac', 1, '0', '0', '0', '0', NULL, NULL, '2020-06-17 14:21:45', '2020-08-11 03:41:11', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1100, '用户管理', NULL, '/system/user', 1000, 'user', 2, '0', '1', '0', '0', NULL, NULL, '2020-06-18 14:28:36', '2021-04-08 14:15:40', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1101, '用户新增', 'sys:user:add', '', 1100, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-17 14:32:51', '2020-07-03 08:51:48', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1102, '用户修改', 'sys:user:edit', NULL, 1100, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:27:40', '2020-07-03 08:51:50', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1103, '用户删除', 'sys:user:delete', NULL, 1100, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:27:56', '2020-07-03 08:51:52', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1104, '用户启用', 'sys:user:enable', NULL, 1100, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 08:49:47', '2020-07-03 08:55:39', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1105, '用户禁用', 'sys:user:disable', NULL, 1100, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 08:50:16', '2020-07-03 08:55:40', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1106, '用户导出', 'sys:user:export', NULL, 1100, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 08:50:58', '2020-07-03 08:55:42', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1200, '角色管理', NULL, '/system/role', 1000, 'repair', 4, '0', '1', '0', '0', NULL, NULL, '2020-06-19 16:36:01', '2021-04-08 14:16:36', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1201, '角色新增', 'sys:role:add', NULL, 1200, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:37:12', '2020-07-03 14:00:56', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1202, '角色修改', 'sys:role:edit', NULL, 1200, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:38:23', '2020-07-03 14:01:06', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1203, '角色删除', 'sys:role:delete', NULL, 1200, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:38:53', '2020-07-03 14:01:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1204, '角色导出', 'sys:role:export', NULL, 1200, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 14:02:37', '2020-07-03 14:02:50', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1205, '角色权限', 'sys:role:perm', NULL, 1200, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 14:03:32', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1300, '菜单管理', NULL, '/system/menu', 1000, 'tree', 1, '0', '1', '0', '0', NULL, NULL, '2020-06-19 16:39:07', '2021-04-08 14:16:05', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1301, '菜单新增', 'sys:menu:add', NULL, 1300, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:39:48', '2020-07-03 14:11:59', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1302, '菜单修改', 'sys:menu:edit', NULL, 1300, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:40:21', '2020-07-03 14:12:15', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1303, '菜单删除', 'sys:menu:delete', NULL, 1300, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-20 00:40:42', '2020-07-03 14:12:23', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1304, '菜单启用', 'sys:menu:enable', NULL, 1300, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 14:12:59', '2020-07-03 14:13:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1305, '菜单禁用', 'sys:menu:disable', NULL, 1300, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 14:13:34', '2020-07-03 14:13:57', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1306, '菜单导出', 'sys:menu:export', NULL, 1300, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 14:14:32', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1400, '部门管理', NULL, '/system/depart', 1000, 'table2', 3, '0', '1', '0', '0', NULL, NULL, '2020-06-26 22:52:41', '2021-04-08 14:16:25', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1401, '部门新增', 'sys:depart:add', NULL, 1400, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-27 14:53:37', '2020-07-03 14:26:12', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1402, '部门修改', 'sys:depart:edit', NULL, 1400, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-27 14:54:47', '2020-07-03 14:26:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1403, '部门删除', 'sys:depart:delete', NULL, 1400, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-06-27 14:55:15', '2020-07-03 14:26:17', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (1404, '部门导出', 'sys:depart:export', NULL, 1400, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-03 14:27:26', '2020-07-03 14:27:45', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2015, '开发运维', NULL, '/devops', -1, 'settings', 3, '0', '0', '0', '0', NULL, NULL, '2020-07-05 11:20:31', '2020-10-19 22:21:49', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2016, '数据源管理', '', '/devops/datasource', 2015, 'table', 1, '0', '1', '0', '0', NULL, NULL, '2020-07-06 19:21:58', '2020-07-09 06:50:01', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2017, '数据源新增', 'sys:datasource:add', NULL, 2016, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-07 04:08:11', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2018, '数据源修改', 'sys:datasource:edit', NULL, 2016, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-07 04:08:40', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2019, '数据源删除', 'sys:datasource:delete', NULL, 2016, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-07 04:09:05', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2020, '数据源导出', 'sys:datasource:export', NULL, 2016, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-07 04:09:25', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2021, '代码生成', NULL, '/devops/generator', 2015, 'download', 1, '0', '1', '0', '0', NULL, NULL, '2020-07-09 07:08:50', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2022, '代码生成', 'devops:gen', NULL, 2021, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-08 23:09:45', '2020-07-13 14:35:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2023, '监控配置中心', NULL, '/devops/monitor', 2015, 'validCode', 1, '0', '1', '0', '0', NULL, NULL, '2020-07-10 20:23:07', '2020-07-11 04:39:40', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2026, '客户端管理', NULL, '/system/client', 1000, 'iPhone', 7, '0', '1', '0', '0', NULL, NULL, '2020-07-13 22:47:20', '2021-04-08 14:17:27', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2027, '新增客户端', 'sys:client:add', NULL, 2026, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-13 22:47:44', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2028, '修改客户端', 'sys:client:edit', NULL, 2026, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-13 23:47:37', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2029, '删除客户端', 'sys:client:delete', NULL, 2026, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-13 23:48:11', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2030, '导出客户端', 'sys:client:export', NULL, 2026, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-13 23:48:28', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2031, '启禁客户端', 'sys:client:status', NULL, 2026, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-13 23:49:22', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2032, '操作日志', NULL, '/system/log', 1000, 'comment', 8, '0', '1', '0', '0', NULL, NULL, '2020-07-15 05:11:09', '2021-04-08 14:26:14', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2033, '详细日志', 'sys:log:detail', NULL, 2032, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-16 04:05:48', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2034, '日志删除', 'sys:log:delete', NULL, 2032, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-16 04:06:16', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2035, '字典管理', NULL, '/system/dict', 1000, 'add', 6, '0', '1', '0', '0', NULL, NULL, '2020-07-17 09:29:31', '2021-04-08 14:17:17', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2036, '新增字典', 'sys:dict:add', NULL, 2035, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-20 02:48:01', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2037, '修改字典', 'sys:dict:edit', NULL, 2035, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-20 02:48:20', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2038, '删除字典', 'sys:dict:delete', NULL, 2035, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-07-20 02:48:39', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2039, '组件管理', NULL, '/system/component', 1000, 'nested', 5, '0', '1', '0', '0', NULL, NULL, '2020-08-08 05:35:05', '2021-04-08 14:17:09', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2040, '内容管理', NULL, '/content', -1, 'content', 4, '0', '0', '0', '0', NULL, NULL, '2020-08-09 00:21:42', '2020-08-29 03:12:22', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2041, '文件管理', NULL, '/content/attachment', 2040, 'folder', 1, '0', '1', '0', '0', NULL, NULL, '2020-08-09 00:27:06', '2020-08-10 03:31:49', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2042, '修改组件', 'sys:comp:edit', NULL, 2039, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-08-10 00:42:28', '2020-08-10 08:42:57', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2043, '上传文件', 'sys:attach:add', NULL, 2041, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-08-10 08:43:52', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2044, '删除文件', 'sys:attach:delete', NULL, 2041, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-08-10 08:44:29', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2045, '网关中心', NULL, '/gateway', -1, 'gateway', 2, '0', '0', '0', '0', NULL, NULL, '2020-08-28 19:12:00', '2020-10-19 22:21:52', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2047, '黑名单管理', NULL, '/gateway/blacklist', 2045, 'blacklist', 3, '0', '1', '0', '0', NULL, NULL, '2020-08-29 03:15:34', '2020-10-19 22:21:40', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2048, '新增黑名单', 'gw:bl:add', NULL, 2047, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-08-29 09:38:52', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2049, '修改黑名单', 'gw:bl:edit', NULL, 2047, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-08-29 09:39:27', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2050, '删除黑名单', 'gw:bl:del', NULL, 2047, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-08-29 09:39:51', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2051, '黑名单状态', 'gw:bl:status', NULL, 2047, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-08-29 09:44:20', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2053, '文档管理', NULL, '/content/doc', 2040, 'comment', 1, '0', '1', '0', '0', NULL, NULL, '2020-09-07 12:16:38', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2055, 'API管理', NULL, '/gateway/api', 2045, 'discovery', 2, '0', '1', '0', '0', NULL, NULL, '2020-10-14 14:00:06', '2020-10-17 12:53:38', '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2056, '微服务管理', NULL, '/gateway/route', 2045, 'share3', 1, '0', '1', '0', '0', NULL, NULL, '2020-10-17 12:53:27', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2057, '同步API', 'gw:api:sync', NULL, 2055, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-10-17 14:16:06', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2058, '删除API', 'gw:api:del', NULL, 2055, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-10-17 14:17:25', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2059, '修改API', 'gw:api:edit', NULL, 2055, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-10-17 14:17:58', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2060, '新增微服务', 'gw:route:add', NULL, 2056, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-10-19 05:19:45', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2061, '修改微服务', 'gw:route:edit', NULL, 2056, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-10-19 05:20:49', NULL, '0', '0', 0);
-INSERT INTO `mate_sys_menu` VALUES (2062, '删除微服务', 'gw:route:del', NULL, 2056, NULL, 1, '0', '2', '0', '0', NULL, NULL, '2020-10-19 05:21:03', NULL, '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1000, '系统管理', NULL, '/system', 'Layout', -1, 'ant-design:appstore-outlined', 1, '0', '0', '0', '1', NULL, NULL, '2020-06-17 14:21:45', '2021-08-13 20:56:34', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1100, '用户管理', NULL, '/system/user', '/system/user/index', 1000, 'ant-design:user-outlined', 2, '0', '1', '0', '1', NULL, NULL, '2020-06-18 14:28:36', '2021-08-13 21:28:25', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1101, '用户新增', 'sys:user:add', '', NULL, 1100, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-17 14:32:51', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1102, '用户修改', 'sys:user:edit', NULL, NULL, 1100, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:27:40', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1103, '用户删除', 'sys:user:delete', NULL, NULL, 1100, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:27:56', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1104, '用户启用', 'sys:user:enable', NULL, NULL, 1100, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 08:49:47', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1105, '用户禁用', 'sys:user:disable', NULL, NULL, 1100, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 08:50:16', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1106, '用户导出', 'sys:user:export', NULL, NULL, 1100, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 08:50:58', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1200, '角色管理', NULL, '/system/role', '/system/role/index', 1000, 'ant-design:team-outlined', 4, '0', '1', '0', '1', NULL, NULL, '2020-06-19 16:36:01', '2021-08-14 07:17:58', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1201, '角色新增', 'sys:role:add', NULL, NULL, 1200, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:37:12', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1202, '角色修改', 'sys:role:edit', NULL, NULL, 1200, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:38:23', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1203, '角色删除', 'sys:role:delete', NULL, NULL, 1200, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:38:53', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1204, '角色导出', 'sys:role:export', NULL, NULL, 1200, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 14:02:37', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1205, '角色权限', 'sys:role:perm', NULL, NULL, 1200, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 14:03:32', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1300, '菜单管理', NULL, '/system/menu', '/system/menu/index', 1000, 'ant-design:menu-unfold-outlined', 1, '0', '1', '0', '1', NULL, NULL, '2020-06-19 16:39:07', '2021-08-13 21:03:17', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1301, '菜单新增', 'sys:menu:add', NULL, NULL, 1300, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:39:48', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1302, '菜单修改', 'sys:menu:edit', NULL, NULL, 1300, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:40:21', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1303, '菜单删除', 'sys:menu:delete', NULL, NULL, 1300, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-20 00:40:42', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1304, '菜单启用', 'sys:menu:enable', NULL, NULL, 1300, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 14:12:59', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1305, '菜单禁用', 'sys:menu:disable', NULL, NULL, 1300, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 14:13:34', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1306, '菜单导出', 'sys:menu:export', NULL, NULL, 1300, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 14:14:32', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1400, '部门管理', NULL, '/system/depart', '/system/depart/index', 1000, 'ant-design:apartment-outlined', 3, '0', '1', '0', '1', NULL, NULL, '2020-06-26 22:52:41', '2021-08-13 21:20:11', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1401, '部门新增', 'sys:depart:add', NULL, NULL, 1400, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-27 14:53:37', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1402, '部门修改', 'sys:depart:edit', NULL, NULL, 1400, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-27 14:54:47', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1403, '部门删除', 'sys:depart:delete', NULL, NULL, 1400, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-06-27 14:55:15', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (1404, '部门导出', 'sys:depart:export', NULL, NULL, 1400, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-03 14:27:26', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2015, '开发运维', NULL, '/devops', 'Layout', -1, 'ant-design:tool-outlined', 3, '0', '0', '0', '1', NULL, NULL, '2020-07-05 11:20:31', '2021-08-14 15:00:56', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2016, '数据源管理', '', '/devops/datasource', '/devops/datasource/index', 2015, 'ant-design:database-outlined', 1, '0', '1', '0', '1', NULL, NULL, '2020-07-06 19:21:58', '2021-08-16 23:06:52', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2017, '数据源新增', 'sys:datasource:add', NULL, NULL, 2016, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-07 04:08:11', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2018, '数据源修改', 'sys:datasource:edit', NULL, NULL, 2016, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-07 04:08:40', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2019, '数据源删除', 'sys:datasource:delete', NULL, NULL, 2016, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-07 04:09:05', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2020, '数据源导出', 'sys:datasource:export', NULL, NULL, 2016, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-07 04:09:25', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2021, '代码生成', NULL, '/devops/generator', '/devops/generator/index', 2015, 'ant-design:experiment-outlined', 1, '0', '1', '0', '1', NULL, NULL, '2020-07-09 07:08:50', '2021-08-16 23:06:19', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2022, '代码生成', 'devops:gen', NULL, NULL, 2021, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-08 23:09:45', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2023, '监控配置中心', NULL, '/devops/monitor', '/devops/monitor/index', 2015, 'ant-design:desktop-outlined', 1, '0', '1', '0', '1', NULL, NULL, '2020-07-10 20:23:07', '2021-08-16 23:04:56', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2026, '客户端管理', NULL, '/system/client', '/system/client/index', 1000, 'ant-design:mobile-outlined', 7, '0', '1', '0', '1', NULL, NULL, '2020-07-13 22:47:20', '2021-08-14 14:52:32', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2027, '新增客户端', 'sys:client:add', NULL, NULL, 2026, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-13 22:47:44', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2028, '修改客户端', 'sys:client:edit', NULL, NULL, 2026, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-13 23:47:37', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2029, '删除客户端', 'sys:client:delete', NULL, NULL, 2026, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-13 23:48:11', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2030, '导出客户端', 'sys:client:export', NULL, NULL, 2026, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-13 23:48:28', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2031, '启禁客户端', 'sys:client:status', NULL, NULL, 2026, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-13 23:49:22', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2032, '操作日志', NULL, '/system/log', '/system/log/index', 1000, 'ant-design:ordered-list-outlined', 8, '0', '1', '0', '1', NULL, NULL, '2020-07-15 05:11:09', '2021-08-14 14:55:52', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2033, '详细日志', 'sys:log:detail', NULL, NULL, 2032, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-16 04:05:48', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2034, '日志删除', 'sys:log:delete', NULL, NULL, 2032, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-16 04:06:16', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2035, '字典管理', NULL, '/system/dict', '/system/dict/index', 1000, 'ant-design:read-outlined', 6, '0', '1', '0', '1', NULL, NULL, '2020-07-17 09:29:31', '2021-08-14 14:36:16', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2036, '新增字典', 'sys:dict:add', NULL, NULL, 2035, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-20 02:48:01', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2037, '修改字典', 'sys:dict:edit', NULL, NULL, 2035, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-20 02:48:20', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2038, '删除字典', 'sys:dict:delete', NULL, NULL, 2035, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-07-20 02:48:39', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2039, '组件管理', NULL, '/content/component', '/content/component/index', 2040, 'ant-design:usb-outlined', 1, '0', '1', '0', '1', NULL, NULL, '2020-08-08 05:35:05', '2021-08-16 23:09:40', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2040, '内容管理', NULL, '/content', 'Layout', -1, 'ant-design:dribbble-outlined', 4, '0', '0', '0', '1', NULL, NULL, '2020-08-09 00:21:42', '2021-08-14 15:01:58', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2041, '文件管理', NULL, '/content/attachment', '/content/attachment/index', 2040, 'ant-design:folder-open-twotone', 2, '0', '1', '0', '1', NULL, NULL, '2020-08-09 00:27:06', '2021-08-16 23:10:21', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2042, '修改组件', 'sys:comp:edit', NULL, NULL, 2039, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-08-10 00:42:28', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2043, '上传文件', 'sys:attach:add', NULL, NULL, 2041, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-08-10 08:43:52', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2044, '删除文件', 'sys:attach:delete', NULL, NULL, 2041, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-08-10 08:44:29', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2045, '网关中心', NULL, '/gateway', 'Layout', -1, 'ant-design:instagram-outlined', 2, '0', '0', '0', '1', NULL, NULL, '2020-08-28 19:12:00', '2021-08-14 14:58:31', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2047, '黑名单管理', NULL, '/gateway/blacklist', '/gateway/blacklist/index', 2045, 'ant-design:codepen-square-filled', 3, '0', '1', '0', '1', NULL, NULL, '2020-08-29 03:15:34', '2021-08-16 23:03:31', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2048, '新增黑名单', 'gw:bl:add', NULL, NULL, 2047, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-08-29 09:38:52', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2049, '修改黑名单', 'gw:bl:edit', NULL, NULL, 2047, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-08-29 09:39:27', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2050, '删除黑名单', 'gw:bl:del', NULL, NULL, 2047, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-08-29 09:39:51', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2051, '黑名单状态', 'gw:bl:status', NULL, NULL, 2047, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-08-29 09:44:20', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2055, 'API管理', NULL, '/gateway/api', '/gateway/api/index', 2045, 'ant-design:sliders-outlined', 2, '0', '1', '0', '1', NULL, NULL, '2020-10-14 14:00:06', '2021-08-16 23:02:57', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2056, '微服务管理', NULL, '/gateway/route', '/gateway/route/index', 2045, 'ant-design:ungroup-outlined', 1, '0', '1', '0', '1', NULL, NULL, '2020-10-17 12:53:27', '2021-08-16 22:56:32', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2057, '同步API', 'gw:api:sync', NULL, NULL, 2055, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-10-17 14:16:06', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2058, '删除API', 'gw:api:del', NULL, NULL, 2055, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-10-17 14:17:25', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2059, '修改API', 'gw:api:edit', NULL, NULL, 2055, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-10-17 14:17:58', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2060, '新增微服务', 'gw:route:add', NULL, NULL, 2056, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-10-19 05:19:45', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2061, '修改微服务', 'gw:route:edit', NULL, NULL, 2056, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-10-19 05:20:49', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2062, '删除微服务', 'gw:route:del', NULL, NULL, 2056, NULL, 1, '0', '2', '0', '1', NULL, NULL, '2020-10-19 05:21:03', '2021-07-24 23:29:27', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2064, '工作台', NULL, '/dashboard', 'Layout', -1, 'ant-design:windows-outlined', 0, '0', '0', '0', '0', NULL, NULL, '2021-08-16 09:07:39', '2021-08-16 18:29:30', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2065, '分析页', NULL, '/dashboard', '/dashboard/analysis/index', 2064, 'ant-design:rise-outlined', 0, '0', '1', '0', '0', NULL, NULL, '2021-08-16 09:14:24', '2021-08-16 16:07:05', '0', '0', 0);
+INSERT INTO `mate_sys_menu` VALUES (2068, '工作台', NULL, '/dashboard/workbench', '/dashboard/workbench/index', 2064, 'ant-design:block-outlined', 2, '0', '1', '0', '0', NULL, NULL, '2021-08-16 20:23:58', NULL, '0', '0', 0);
 
 -- ----------------------------
 -- 2、用户表 mate_sys_user
@@ -116,6 +119,7 @@ CREATE TABLE `mate_sys_user` (
   `role_id` bigint(20) DEFAULT '0' COMMENT '角色id',
   `depart_id` bigint(20) DEFAULT '0' COMMENT '部门id',
   `status` char(1) DEFAULT NULL COMMENT '状态',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -174,6 +178,8 @@ CREATE TABLE `mate_sys_role` (
   `role_name` varchar(64) DEFAULT NULL COMMENT '角色名称',
   `role_code` varchar(64) DEFAULT NULL COMMENT '角色编码',
   `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `sort` int(11) DEFAULT '0' COMMENT '排序',
+  `status` char(1) DEFAULT NULL COMMENT '状态',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -187,8 +193,8 @@ CREATE TABLE `mate_sys_role` (
 -- ----------------------------
 -- 初始化-角色表数据
 -- ----------------------------
-INSERT INTO `mate_sys_role` VALUES (1, '管理员', 'admin', '管理员组', NULL, NULL, '2020-06-28 15:02:16', NULL, '0', NULL);
-INSERT INTO `mate_sys_role` VALUES (2, '演示会员', 'demo2', '演示会员组', NULL, NULL, '2020-06-28 07:02:36', '2020-06-28 07:02:58', '0', NULL);
+INSERT INTO `mate_sys_role` VALUES (1, '管理员', 'admin', '管理员组', 0, '1', NULL, NULL, '2020-06-28 15:02:16', '2021-08-14 07:36:57', '0', NULL);
+INSERT INTO `mate_sys_role` VALUES (2, '演示会员', 'demo2', '演示会员组', 0, '1', NULL, NULL, '2020-06-28 07:02:36', '2021-08-14 07:37:02', '0', NULL);
 
 -- ----------------------------
 -- 5、字典表 mate_sys_dict
@@ -353,7 +359,7 @@ CREATE TABLE `mate_sys_role_permission` (
   `menu_id` bigint(64) DEFAULT NULL COMMENT '菜单id',
   `role_id` bigint(64) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2173 DEFAULT CHARSET=utf8mb4 COMMENT='角色权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2710 DEFAULT CHARSET=utf8mb4 COMMENT='角色权限表';
 
 -- ----------------------------
 -- 初始化-角色权限表数据
@@ -364,76 +370,205 @@ INSERT INTO `mate_sys_role_permission` VALUES (979, 1301, 2);
 INSERT INTO `mate_sys_role_permission` VALUES (980, 1302, 2);
 INSERT INTO `mate_sys_role_permission` VALUES (981, 1303, 2);
 INSERT INTO `mate_sys_role_permission` VALUES (982, 2009, 2);
-INSERT INTO `mate_sys_role_permission` VALUES (2103, 1000, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2104, 1300, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2105, 1301, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2106, 1302, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2107, 1303, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2108, 1304, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2109, 1305, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2110, 1306, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2111, 1100, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2112, 1101, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2113, 1102, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2114, 1103, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2115, 1104, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2116, 1105, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2117, 1106, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2118, 1400, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2119, 1401, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2120, 1402, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2121, 1403, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2122, 1404, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2123, 1200, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2124, 1201, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2125, 1202, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2126, 1203, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2127, 1204, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2128, 1205, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2129, 2026, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2130, 2027, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2131, 2028, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2132, 2029, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2133, 2030, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2134, 2031, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2135, 2035, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2136, 2036, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2137, 2037, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2138, 2038, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2139, 2039, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2140, 2042, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2141, 2032, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2142, 2033, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2143, 2034, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2144, 2045, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2145, 2056, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2146, 2060, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2147, 2061, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2148, 2062, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2149, 2055, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2150, 2057, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2151, 2058, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2152, 2059, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2153, 2047, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2154, 2048, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2155, 2049, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2156, 2050, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2157, 2051, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2158, 2015, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2159, 2016, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2160, 2017, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2161, 2018, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2162, 2019, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2163, 2020, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2164, 2021, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2165, 2022, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2166, 2023, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2167, 2040, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2168, 2041, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2169, 2043, 1);
-INSERT INTO `mate_sys_role_permission` VALUES (2170, 2044, 1);
 INSERT INTO `mate_sys_role_permission` VALUES (2171, NULL, NULL);
-INSERT INTO `mate_sys_role_permission` VALUES (2172, 2053, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2370, 1000, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2371, 1300, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2372, 1301, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2373, 1302, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2374, 1303, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2375, 1304, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2376, 1305, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2377, 1306, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2378, 1100, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2379, 1101, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2380, 1102, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2381, 1103, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2382, 1104, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2383, 1105, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2384, 1106, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2385, 1400, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2386, 1401, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2387, 1402, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2388, 1403, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2389, 1404, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2390, 1200, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2391, 1201, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2392, 1202, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2393, 1203, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2394, 1204, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2395, 1205, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2396, 2039, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2397, 2042, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2398, 2035, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2399, 2036, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2400, 2037, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2401, 2038, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2402, 2026, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2403, 2027, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2404, 2028, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2405, 2029, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2406, 2030, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2407, 2031, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2408, 2032, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2409, 2033, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2410, 2034, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2411, 2045, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2412, 2056, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2413, 2060, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2414, 2061, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2415, 2062, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2416, 2055, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2417, 2057, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2418, 2058, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2419, 2059, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2420, 2047, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2421, 2048, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2422, 2049, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2423, 2050, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2424, 2051, 3);
+INSERT INTO `mate_sys_role_permission` VALUES (2567, 2064, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2568, 2065, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2569, 1000, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2570, 1300, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2571, 1301, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2572, 1302, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2573, 1303, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2574, 1304, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2575, 1305, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2576, 1306, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2577, 1100, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2578, 1101, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2579, 1102, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2580, 1103, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2581, 1104, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2582, 1105, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2583, 1106, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2584, 1400, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2585, 1401, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2586, 1402, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2587, 1403, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2588, 1404, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2589, 1200, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2590, 1201, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2591, 1202, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2592, 1203, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2593, 1204, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2594, 1205, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2595, 2035, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2596, 2036, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2597, 2037, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2598, 2038, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2599, 2026, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2600, 2027, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2601, 2028, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2602, 2029, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2603, 2030, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2604, 2031, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2605, 2032, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2606, 2033, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2607, 2034, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2608, 2045, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2609, 2056, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2610, 2060, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2611, 2061, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2612, 2062, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2613, 2055, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2614, 2057, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2615, 2058, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2616, 2059, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2617, 2047, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2618, 2048, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2619, 2049, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2620, 2050, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2621, 2051, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2622, 2015, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2623, 2016, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2624, 2017, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2625, 2018, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2626, 2019, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2627, 2020, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2628, 2021, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2629, 2022, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2630, 2023, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2631, 2040, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2632, 2053, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2633, 2039, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2634, 2042, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2635, 2041, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2636, 2043, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2637, 2044, 4);
+INSERT INTO `mate_sys_role_permission` VALUES (2638, 1000, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2639, 1300, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2640, 1301, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2641, 1302, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2642, 1303, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2643, 1304, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2644, 1305, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2645, 1306, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2646, 1100, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2647, 1101, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2648, 1102, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2649, 1103, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2650, 1104, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2651, 1105, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2652, 1106, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2653, 1400, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2654, 1401, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2655, 1402, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2656, 1403, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2657, 1404, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2658, 1200, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2659, 1201, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2660, 1202, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2661, 1203, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2662, 1204, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2663, 1205, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2664, 2035, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2665, 2036, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2666, 2037, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2667, 2038, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2668, 2026, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2669, 2027, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2670, 2028, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2671, 2029, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2672, 2030, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2673, 2031, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2674, 2032, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2675, 2033, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2676, 2034, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2677, 2039, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2678, 2042, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2679, 2040, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2680, 2053, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2681, 2041, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2682, 2043, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2683, 2044, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2684, 2045, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2685, 2056, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2686, 2060, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2687, 2061, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2688, 2062, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2689, 2055, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2690, 2057, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2691, 2058, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2692, 2059, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2693, 2047, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2694, 2048, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2695, 2049, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2696, 2050, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2697, 2051, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2698, 2015, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2699, 2016, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2700, 2017, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2701, 2018, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2702, 2019, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2703, 2020, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2704, 2021, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2705, 2022, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2706, 2023, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2707, 2065, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2708, 2068, 1);
+INSERT INTO `mate_sys_role_permission` VALUES (2709, 2064, 1);
 
 -- ----------------------------
 -- 11、系统接口表 mate_sys_api

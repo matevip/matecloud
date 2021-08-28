@@ -1,0 +1,31 @@
+server:
+  port: 30001
+spring:
+  application:
+    name: @artifactId@
+  boot:
+    admin:
+      ui:
+        title: @artifactId@-server
+      client:
+        instance:
+          metadata:
+            tags:
+              environment: local
+      notify:
+        dingding:
+          enabled: false
+          token: AA***************BB
+  security:
+    user:
+      name: admin
+      password: matecloud
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

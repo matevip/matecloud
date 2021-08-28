@@ -18,28 +18,38 @@ import java.util.List;
  */
 public interface ISysUserService extends IService<SysUser> {
 
-	boolean status(String ids, String status);
+    /**
+     * 用户状态设置
+     *
+     * @param ids    id列表串
+     * @param status 状态
+     * @return boolean
+     */
+    boolean status(String ids, String status);
 
-	/**
-	 * 分页业务方法
-	 *
-	 * @param search 　搜索参数
-	 * @return IPage
-	 */
-	IPage<SysUser> listPage(Search search);
+    /**
+     * 业务分页
+     *
+     * @param search  分页搜索
+     * @param sysUser 部门参数
+     * @return 分页列表
+     */
+    IPage<SysUser> listPage(Search search, SysUser sysUser);
 
 
-	/**
-	 * 忽略租户查询用户信息
-	 * @return
-	 */
-	SysUser getOneIgnoreTenant(SysUser sysUser);
+    /**
+     * 忽略租户查询用户信息
+     *
+     * @param sysUser 用户对象
+     * @return 用户对象
+     */
+    SysUser getOneIgnoreTenant(SysUser sysUser);
 
-	/**
-	 * 导出列表
-	 *
-	 * @return 导出POI数据
-	 */
-	List<SysUserPOI> export();
+    /**
+     * 导出列表
+     *
+     * @return 导出POI数据
+     */
+    List<SysUserPOI> export();
 
 }
