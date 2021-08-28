@@ -119,6 +119,7 @@ CREATE TABLE `mate_sys_user` (
   `role_id` bigint(20) DEFAULT '0' COMMENT '角色id',
   `depart_id` bigint(20) DEFAULT '0' COMMENT '部门id',
   `status` char(1) DEFAULT NULL COMMENT '状态',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

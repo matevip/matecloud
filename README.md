@@ -4,7 +4,7 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.3-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.4-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
@@ -29,7 +29,7 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 ## 📌 版本演进
 核心中间件 | 2.5.8及以下 | 3.0.8+
 ---|---|---
-Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.3-blue" alt="SpringBoot"/>
+Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.4-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
 Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.2-blue" alt="nacos"/>
@@ -52,7 +52,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 - vue-router 4.0.11
 - vite 2.5.0-beta.2
 ### 👉 版本发布
-`4.0.8-M1`版本已经发布，实现了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。欢迎体验。
+`4.0.9-SNAPSHOT-M1`版本已经发布，实现了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。欢迎体验。
 
 ## 👷 技术交流
 <p align="center"> 
@@ -85,7 +85,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 </table>
 
 ## 🔧 功能特点
-- 主体框架：采用最新的`Spring Cloud 2020.0.3`, `Spring Boot 2.5.3`, `Spring Cloud Alibaba 2021.1`版本进行系统设计；
+- 主体框架：采用最新的`Spring Cloud 2020.0.3`, `Spring Boot 2.5.4`, `Spring Cloud Alibaba 2021.1`版本进行系统设计；
 
 - 统一注册：支持`Nacos`作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -196,7 +196,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 特别感谢卢神对`MateCloud`项目提供的技术支持！
 - 卢春梦: [mica](https://gitee.com/596392912/mica)  
 - chuzhixin: [vue-admin-beautiful](https://github.com/chuzhixin/vue-admin-beautiful)
-- anncwb: [vue-vben-admin](https://github.com/anncwb/vue-vben-admin
+- anncwb: [vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
 ## 📚 开源项目推荐
 - [SpringBoot脚手架](https://gitee.com/bdj/SpringBoot_v2)
 

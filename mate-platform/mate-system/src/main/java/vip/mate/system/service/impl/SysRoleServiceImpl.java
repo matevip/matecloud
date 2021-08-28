@@ -14,12 +14,15 @@ import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.util.PageUtil;
 import vip.mate.system.entity.SysRole;
 import vip.mate.system.entity.SysRolePermission;
+import vip.mate.system.entity.SysUser;
 import vip.mate.system.mapper.SysRoleMapper;
 import vip.mate.system.poi.SysRolePOI;
 import vip.mate.system.service.ISysRolePermissionService;
 import vip.mate.system.service.ISysRoleService;
+import vip.mate.system.service.ISysUserService;
 import vip.mate.system.vo.SysRoleVO;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,6 +41,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private final static String NULL = "null";
     @Autowired
     private ISysRolePermissionService sysRolePermissionService;
+
+    @Autowired
+    private ISysUserService sysUserService;
 
     @Override
     public List<SysRoleVO> tree() {
@@ -80,6 +86,23 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             sysRolePermissionService.remove(Wrappers.<SysRolePermission>lambdaQuery().eq(SysRolePermission::getRoleId, sysRole.getId()));
             // 重新写入角色对应的权限值
             sysRolePermissionService.saveBatch(collect);
+        }
+        return Boolean.TRUE;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean batchDeleteByIds(String ids) {
+        String[] idArray = null;
+        if (StrUtil.isNotBlank(ids)) {
+            idArray = ids.split(",");
+            Arrays.stream(idArray).forEach(s -> {
+                // 根据roleId清理掉此角色下面的所有菜单信息
+                sysRolePermissionService.remove(Wrappers.<SysRolePermission>lambdaQuery().eq(SysRolePermission::getRoleId, s));
+                // 根据roleId清理掉用户里的角色信息，需要下次重新授权
+                sysUserService.update(Wrappers.<SysUser>lambdaUpdate().set(SysUser::getRoleId, 0).eq(SysUser::getRoleId, s));
+                this.removeById(s);
+            });
         }
         return Boolean.TRUE;
     }

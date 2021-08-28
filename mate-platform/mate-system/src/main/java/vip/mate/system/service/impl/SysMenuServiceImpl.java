@@ -60,14 +60,16 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public boolean status(String ids, String status) {
+        if (StrUtil.isNotBlank(ids)) {
+            return false;
+        }
         Collection<? extends Serializable> collection = CollectionUtil.stringToCollection(ids);
-
-        for (Object id: collection){
+        for (Object id : collection) {
             SysMenu sysMenu = this.baseMapper.selectById(CollectionUtil.objectToLong(id, 0L));
             sysMenu.setStatus(status);
             this.baseMapper.updateById(sysMenu);
         }
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
@@ -81,5 +83,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             BeanUtils.copyProperties(sysMenu, sysMenuPOI);
             return sysMenuPOI;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean checkChild(Long id) {
+        return this.getMenuChild(id) > 0 ? Boolean.TRUE : Boolean.FALSE;
+    }
+
+    @Override
+    public int getMenuChild(Long menuId) {
+        return this.baseMapper.selectCount(Wrappers.<SysMenu>lambdaQuery().select(SysMenu::getId).eq(SysMenu::getParentId, menuId));
     }
 }
