@@ -58,7 +58,7 @@
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
         <druid.version>1.2.6</druid.version>
-        <mybatis.plus.version>3.4.3.1</mybatis.plus.version>
+        <mybatis.plus.version>3.4.3.2</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
         <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
         <velocity.version>1.7</velocity.version>
@@ -73,7 +73,7 @@
 
         <!-- Apache Dubbo -->
         <dubbo.version>2.7.12</dubbo.version>
-        <fastjson.version>1.2.76</fastjson.version>
+        <fastjson.version>1.2.78</fastjson.version>
 
         <spring-boot-admin.version>2.5.0</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
