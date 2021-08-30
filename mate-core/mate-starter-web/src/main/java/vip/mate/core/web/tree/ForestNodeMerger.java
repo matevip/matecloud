@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * 节点归并类
+ *
  * @author pangu
  * @link https://blog.csdn.net/u014424628/article/details/51765394?utm_source=blogxgwz2
  */
