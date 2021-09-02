@@ -53,7 +53,7 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
-@Api(value = "API管理", tags = "API管理接口")
+@Api(value = "API管理")
 public class SysApiController extends BaseController {
 
     private final ISysApiService sysApiService;
@@ -68,9 +68,9 @@ public class SysApiController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "API列表", exception = "API列表请求异常")
+    @Log(value = "API分页")
     @GetMapping("/page")
-    @ApiOperation(value = "API列表", notes = "分页查询")
+    @ApiOperation(value = "API分页")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
             @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -89,9 +89,9 @@ public class SysApiController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "API信息", exception = "API信息请求异常")
+    @Log(value = "API信息")
     @GetMapping("/get")
-    @ApiOperation(value = "API信息", notes = "根据ID查询")
+    @ApiOperation(value = "API信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
     })
@@ -106,9 +106,9 @@ public class SysApiController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "API设置", exception = "API设置请求异常")
+    @Log(value = "API设置")
     @PostMapping("/set")
-    @ApiOperation(value = "API设置", notes = "API设置,支持新增或修改")
+    @ApiOperation(value = "API设置")
     public Result<?> set(@Valid @RequestBody SysApi sysApi) {
         return Result.condition(sysApiService.saveOrUpdate(sysApi));
     }
@@ -120,9 +120,9 @@ public class SysApiController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "API删除", exception = "API删除请求异常")
+    @Log(value = "API删除")
     @PostMapping("/del")
-    @ApiOperation(value = "API删除", notes = "API删除")
+    @ApiOperation(value = "API删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
@@ -138,9 +138,9 @@ public class SysApiController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "API状态", exception = "API状态请求异常")
+    @Log(value = "API状态")
     @PostMapping("/set-status")
-    @ApiOperation(value = "API状态", notes = "状态包括：启用、禁用")
+    @ApiOperation(value = "API状态")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个id用,号隔开", paramType = "form"),
             @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
@@ -156,8 +156,8 @@ public class SysApiController extends BaseController {
      */
     @PreAuth
     @PostMapping("/sync")
-    @ApiOperation(value = "API同步", notes = "API同步")
-    @Log(value = "API同步", exception = "API同步请求异常")
+    @ApiOperation(value = "API同步")
+    @Log(value = "API同步")
     public Result<?> sync() {
         Set<Object> serviceIds = redisService.sGet(MateConstant.MATE_SERVICE_RESOURCE);
         for (Object service : serviceIds) {
