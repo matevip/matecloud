@@ -56,7 +56,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" a
 
 ## 👷 技术交流
 <p align="center"> 
-    <img src="https://cdn.mate.vip/matecloud_social2.jpg" />
+    <img src="https://gitee.com/matevip/matecloud/raw/dev/doc/images/qr_group.jpg" />
 </p>
 👉 QQ群：2003638
 
