@@ -32,27 +32,13 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.4-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
-Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.2-blue" alt="nacos"/>
-Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.1-blue" alt="sentinel"/>
+Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.3-blue" alt="nacos"/>
+Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.2-blue" alt="sentinel"/>
 
 ## 📖 官方文档
 ### 👉 文档地址：[http://www.mate.vip/docs](http://www.mate.vip/docs)
 ### 👉 商业版文档：[http://doc.mate.vip](http://doc.mate.vip)
 ### 👉 快速安装：[http://www.mate.vip/archives/107](http://www.mate.vip/archives/107)
-
-## 🔥 前端重大更新
-前端采用`Vue3.2.4`、`Vite 2.5.1`、 `Ant-Design-Vue 2.2.6`、`TypeScript` 的大型中后台解决方案。
-### 👉 技术栈
-- Vue 3.2.4
-- Pinia 2.0.0-rc.6
-- vue-i18n 9.1.7
-- typescript 4.29.1
-- ant-design-vue 2.2.6
-- axios 0.21.1
-- vue-router 4.0.11
-- vite 2.5.1
-### 👉 版本发布
-`4.0.8-M2`版本已经发布，完善了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。后续功能正在加紧开发中，欢迎体验。
 
 ## 👷 技术交流
 <p align="center"> 
@@ -175,6 +161,21 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 </dependencyManagement>
 ```
 然后在 dependencies 中添加自己所需使用的依赖即可使用。
+
+## 🔥 前端重大更新
+前端采用`Vue3.2.4`、`Vite 2.5.1`、 `Ant-Design-Vue 2.2.6`、`TypeScript` 的大型中后台解决方案。
+### 👉 技术栈
+- Vue 3.2.4
+- Pinia 2.0.0-rc.6
+- vue-i18n 9.1.7
+- typescript 4.29.1
+- ant-design-vue 2.2.6
+- axios 0.21.1
+- vue-router 4.0.11
+- vite 2.5.1
+### 👉 版本发布
+`4.0.8-M2`版本已经发布，完善了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。后续功能正在加紧开发中，欢迎体验。
+
 
 ## 🌭 项目源码
 |  项目   |   GITHUB  |   码云   |
