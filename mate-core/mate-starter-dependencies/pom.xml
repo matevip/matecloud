@@ -72,7 +72,7 @@
         <jetcache.version>2.6.0</jetcache.version>
 
         <!-- Apache Dubbo -->
-        <dubbo.version>2.7.12</dubbo.version>
+        <dubbo.version>[2.7.13,)</dubbo.version>
         <fastjson.version>1.2.78</fastjson.version>
 
         <spring-boot-admin.version>2.5.0</spring-boot-admin.version>
