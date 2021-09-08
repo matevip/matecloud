@@ -58,7 +58,7 @@
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
         <druid.version>1.2.6</druid.version>
-        <mybatis.plus.version>3.4.3.2</mybatis.plus.version>
+        <mybatis.plus.version>3.4.3.3</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
         <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
         <velocity.version>1.7</velocity.version>
@@ -78,7 +78,7 @@
         <spring-boot-admin.version>2.5.0</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
         <nacos.client.version>2.0.3</nacos.client.version>
-        <easypoi.version>4.3.0</easypoi.version>
+        <easypoi.version>4.4.0</easypoi.version>
         <ip2region.version>1.7.2</ip2region.version>
         <justauth.version>1.15.8</justauth.version>
         <justauth.springboot.version>1.3.3</justauth.springboot.version>
@@ -99,15 +99,15 @@
         <seata.version>1.4.2</seata.version>
         <prometheus.version>1.6.2</prometheus.version>
 
-        <jasypt.version>3.0.3</jasypt.version>
+        <jasypt.version>3.0.4</jasypt.version>
 
         <retrofit.version>2.2.3</retrofit.version>
         <j2cache.version>2.8.2-release</j2cache.version>
-        <gson.version>2.8.6</gson.version>
+        <gson.version>2.8.8</gson.version>
         <guava.version>30.1.1-jre</guava.version>
-        <aws-java-sdk-s3.version>1.11.996</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.63</aws-java-sdk-s3.version>
         <lombok.version>1.18.20</lombok.version>
-        <hutool.version>5.6.3</hutool.version>
+        <hutool.version>5.7.11</hutool.version>
     </properties>
 
     <dependencyManagement>
