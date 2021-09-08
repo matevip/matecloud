@@ -87,11 +87,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public boolean checkChild(Long id) {
-        return this.getMenuChild(id) > 0 ? Boolean.TRUE : Boolean.FALSE;
+        return this.getMenuChild(id) > 0L ? Boolean.TRUE : Boolean.FALSE;
     }
 
     @Override
-    public int getMenuChild(Long menuId) {
+    public Long getMenuChild(Long menuId) {
         return this.baseMapper.selectCount(Wrappers.<SysMenu>lambdaQuery().select(SysMenu::getId).eq(SysMenu::getParentId, menuId));
     }
 }
