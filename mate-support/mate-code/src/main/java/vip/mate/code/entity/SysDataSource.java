@@ -1,15 +1,11 @@
 package vip.mate.code.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import vip.mate.core.database.entity.BaseEntity;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -66,7 +62,7 @@ public class SysDataSource extends BaseEntity {
      * 状态
      */
     @ApiModelProperty(value = "状态")
-    private Boolean status;
+    private String status;
 
 
 }

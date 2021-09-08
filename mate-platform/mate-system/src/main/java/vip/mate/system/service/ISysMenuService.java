@@ -72,6 +72,6 @@ public interface ISysMenuService extends IService<SysMenu> {
      * @param menuId 菜单ID
      * @return parentId
      */
-    int getMenuChild(Long menuId);
+    Long getMenuChild(Long menuId);
 
 }

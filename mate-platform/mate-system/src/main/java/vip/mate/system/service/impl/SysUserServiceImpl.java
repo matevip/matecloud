@@ -40,8 +40,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
-
-
     private final ISysDepartService sysDepartService;
     private final ISysDictService dictService;
     private final ISysRoleService sysRoleService;
