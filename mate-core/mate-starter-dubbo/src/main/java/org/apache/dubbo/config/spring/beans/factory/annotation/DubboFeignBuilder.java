@@ -4,14 +4,12 @@ import feign.Feign;
 import feign.Target;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.spring.reference.ReferenceBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.Objects;
-
-import static com.alibaba.spring.util.AnnotationUtils.getAttributes;
-import static org.springframework.core.annotation.AnnotationAttributes.fromMap;
 
 /**
  * Dubbo、Feign整合类
@@ -39,10 +37,10 @@ public class DubboFeignBuilder extends Feign.Builder {
 
     @Override
     public <T> T target(Target<T> target) {
-        ReferenceBeanBuilder beanBuilder = ReferenceBeanBuilder.create(fromMap(getAttributes(defaultReference,
-                applicationContext.getEnvironment(), true)), applicationContext).interfaceClass(target.type());
+        ReferenceBeanBuilder referenceBeanBuilder = new ReferenceBeanBuilder();
+        referenceBeanBuilder.setInterface(target.type());
         try {
-            T object = (T) beanBuilder.build().getObject();
+            T object = (T) referenceBeanBuilder.build().getObject();
             return object;
         } catch (Exception e) {
             throw new RuntimeException(e);
