@@ -33,6 +33,11 @@ public enum ResultCode implements IResultCode {
 	 * Too Many Requests
 	 */
 	TOO_MANY_REQUESTS(429, "Too Many Requests"),
+
+	/**
+	 * 服务不可用
+	 */
+	SERVICE_UNAVAILABLE(503, "服务不可用"),
 	/**
 	 * 参数错误
 	 */
