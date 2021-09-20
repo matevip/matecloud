@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.api.ResultCode;
 import vip.mate.core.common.exception.TokenException;
+import vip.mate.core.common.util.StringPool;
 
 
 /**
@@ -29,7 +30,8 @@ public class ExceptionHandlerAdvice {
             return Result.fail(ResultCode.NOT_FOUND, ex.getMessage());
         } else if (StrUtil.contains(ex.getMessage(), HttpStatus.SERVICE_UNAVAILABLE.toString())) {
             // 状态为503时，打印消息
-            return Result.fail(ResultCode.SERVICE_UNAVAILABLE, "服务找不到，错误消息:" + ex.getMessage());
+            return Result.fail(ResultCode.SERVICE_UNAVAILABLE,
+                    ResultCode.SERVICE_UNAVAILABLE.getMsg() + StringPool.COLON + ex.getMessage());
         } else {
             return Result.fail(ResultCode.ERROR);
         }
