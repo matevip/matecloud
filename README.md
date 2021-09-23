@@ -21,10 +21,12 @@ MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家
 admin | matecloud| mate-system模块不能执行增删改请求
 
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
-### 🍯 企业版：http://plus.mate.vip
+### 🍯 商业版：http://plus.mate.vip
 账号 | 密码| 操作权限
 ---|---|---
 admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
+
+[商业版与开源版对比](http://doc.mate.vip/vip/product/business/)
 
 ## 📌 版本演进
 核心中间件 | 2.5.8及以下 | 3.0.8+
