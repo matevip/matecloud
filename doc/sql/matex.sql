@@ -586,7 +586,7 @@ CREATE TABLE `mate_sys_api` (
   `path` varchar(255) DEFAULT NULL COMMENT '请求路径',
   `content_type` varchar(100) DEFAULT NULL COMMENT '响应类型',
   `service_id` varchar(100) DEFAULT NULL COMMENT '服务ID',
-  `status` char(1) DEFAULT '1' COMMENT 'API状态:0:禁用 1:启用',
+  `status` char(1) DEFAULT '0' COMMENT 'API状态:0:启用 1:禁用',
   `auth` char(1) DEFAULT '0' COMMENT '是否认证:0:不认证 1:认证',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
@@ -596,99 +596,6 @@ CREATE TABLE `mate_sys_api` (
   `tenant_id` int(11) DEFAULT NULL COMMENT '租户ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COMMENT='系统接口表';
-
-
--- ----------------------------
--- 初始化-系统接口表数据
--- ----------------------------
-INSERT INTO `mate_sys_api` VALUES (1, '4d1d7152e5ba14f3b17b51aa6f5c3fe8', '数据源项列表', '数据源项列表', 'GET', 'vip.mate.code.controller.SysDataSourceController', 'optionList', '/data-source/option-list', '', 'mate-code', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (2, '0cd169937833856e39b1781b4576aa0c', '数据源删除', '数据源删除', 'POST', 'vip.mate.code.controller.SysDataSourceController', 'del', '/data-source/del', '', 'mate-code', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (3, 'af13b998a6fd5d4b4890502ea09e757b', '数据源分页', '数据源分页', 'GET', 'vip.mate.code.controller.SysDataSourceController', 'page', '/data-source/page', '', 'mate-code', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (4, 'ff77ff46d88dc18d1db143e507a8b9ec', '数据源信息', '数据源信息,根据ID查询', 'GET', 'vip.mate.code.controller.SysDataSourceController', 'get', '/data-source/get', '', 'mate-code', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (5, 'f0971e6df527eede4f0cf2a9a6554a4b', '数据源设置', '数据源设置,支持新增或修改', 'POST', 'vip.mate.code.controller.SysDataSourceController', 'set', '/data-source/set', 'application/json;charset=UTF-8', 'mate-code', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (6, '6a3bbd4c88d34f7999494f4d1cdb68bd', '数据库表信息', '数据库表信息', 'POST', 'vip.mate.code.controller.SysCodeController', 'tableList', '/code/table-list', '', 'mate-code', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (7, 'eaed145ea5bc1a75389e29eb8862f46d', '代码生成', '代码生成', 'POST', 'vip.mate.code.controller.SysCodeController', 'execute', '/code/generator-code', '', 'mate-code', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (8, '1c01329d9081dd24f43521a7355c3131', '用户登录Post', '用户登录Post', 'POST', 'vip.mate.uaa.controller.OauthController', 'postAccessToken', '/oauth/token', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', '2020-10-20 09:12:55', '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (9, 'aba8bdcbcb92e87e8dd3b1eca4581eb1', '用户信息', '用户信息', 'GET', 'vip.mate.uaa.controller.AuthController', 'getUser', '/auth/get/user', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (10, '6ae701fa710ee54285a2a874943929de', '第三方登录回调', '第三方登录回调', 'GET', 'vip.mate.uaa.controller.AuthController', 'callback', '/auth/callback/{oauthType}', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (11, '44a84ebcca70e4d399cc7329ae53a294', '第三方登录', '第三方登录', 'POST', 'vip.mate.uaa.controller.AuthController', 'login', '/auth/login/{oauthType}', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (12, 'c3e89549d2cd6a550673a5f0f0999588', '退出登录', '退出登录', 'POST', 'vip.mate.uaa.controller.AuthController', 'logout', '/auth/logout', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (13, 'fd26ebbb42eeafa6bc1a5551153a2290', '验证码获取', '验证码获取', 'GET', 'vip.mate.uaa.controller.AuthController', 'authCode', '/auth/code', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (14, '240d2897eb2d2ed4d15ddfdd939232b6', '手机验证码下发', '手机验证码下发', 'GET', 'vip.mate.uaa.controller.AuthController', 'smsCode', '/auth/sms-code', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (15, '0f31df9a8db1df105508afa93b074930', '登录类型', '登录类型', 'GET', 'vip.mate.uaa.controller.AuthController', 'loginType', '/auth/list', '', 'mate-uaa', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (16, '87f2b83c8a49fbe8166e78a49353ba7f', '获取菜单列表', '根据角色ID获取菜单列表', 'GET', 'vip.mate.system.feign.SysRolePermissionProvider', 'getMenuIdByRoleId', '/provider/role-permission/permission', '', 'mate-system', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (17, 'cea9d573e219b4c15dcac02c6c84acae', '用户ID查询', '用户ID查询', 'GET', 'vip.mate.system.feign.SysUserProvider', 'getUserById', '/provider/user/id', '', 'mate-system', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (18, 'da6b14e72532f46b12fc67b45dad208f', '用户用户名查询', '用户用户名查询', 'GET', 'vip.mate.system.feign.SysUserProvider', 'getUserByUserName', '/provider/user/username', '', 'mate-system', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (19, 'd2affc1b35b2baec49813f0b20743d9f', '用户手机号查询', '用户手机号查询', 'GET', 'vip.mate.system.feign.SysUserProvider', 'getUserByMobile', '/provider/user/mobile', '', 'mate-system', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (20, 'ce1be04ba688df4c1ad7d156116f96c1', '字典列表', '根据code获取字典列表', 'GET', 'vip.mate.system.feign.SysDictProvider', 'getList', '/provider/dict/list', '', 'mate-system', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (21, '229054689b7b9bff20a5128b36c5d9bf', '字典值', '根据code和dictKey获取值', 'GET', 'vip.mate.system.feign.SysDictProvider', 'getValue', '/provider/dict/value', '', 'mate-system', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (22, 'cf5af93cd67ee6d74fcdae3216990a71', '日志设置', '日志设置', 'POST', 'vip.mate.system.feign.SysLogProvider', 'set', '/provider/log/set', 'application/json;charset=UTF-8', 'mate-system', '1', '0', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (23, '61970f669724bb3e016e99846621dcaf', 'API状态', '状态包括：启用、禁用', 'POST', 'vip.mate.system.controller.SysApiController', 'setStatus', '/api/set-status', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (24, '558e6b243aed6ea2cb7fa49e5f2cd83d', 'API删除', 'API删除', 'POST', 'vip.mate.system.controller.SysApiController', 'del', '/api/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (25, 'cedf94b1c53a31bd9c4e550e670ec382', 'API列表', '分页查询', 'GET', 'vip.mate.system.controller.SysApiController', 'page', '/api/page', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (26, 'bfebca06819591fb729c2dd004a5dae7', 'API信息', '根据ID查询', 'GET', 'vip.mate.system.controller.SysApiController', 'get', '/api/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (27, 'b15e96c84dbc6e4e266426c7f370c64d', 'API设置', 'API设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysApiController', 'set', '/api/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (28, 'fb508556e5851c2dd4d3cb5adb9a3ebe', 'API同步', 'API同步', 'POST', 'vip.mate.system.controller.SysApiController', 'sync', '/api/sync', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (29, '15cc4660be1df040172b21a7cfb6bfb0', '角色权限设置', '角色权限设置', 'POST', 'vip.mate.system.controller.SysRoleController', 'savePermission', '/role/set-permission', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (30, '3c4766f920f2b2762796ab1f23dc3747', '导出角色', '导出角色', 'POST', 'vip.mate.system.controller.SysRoleController', 'export', '/role/export', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (31, '18f524eabfeee4a4f607502df1772bf0', '角色信息', '根据ID查询', 'GET', 'vip.mate.system.controller.SysRoleController', 'get', '/role/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (32, '30f37312c4f39bf139eae532d8718ddb', '角色删除', '角色删除，支持批量操作', 'POST', 'vip.mate.system.controller.SysRoleController', 'delete', '/role/delete', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (33, 'f8a3cd040b7505082ff0761fc0ec57d1', '角色列表', '角色列表，根据query查询', 'GET', 'vip.mate.system.controller.SysRoleController', 'list', '/role/list', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (34, 'd7dc5460ad815d10cf593357ef9035a4', '角色设置', '角色设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysRoleController', 'set', '/role/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (35, 'cc040f3ad2c2bbd333f85dac3290707f', '角色权限列表', '角色权限列表', 'GET', 'vip.mate.system.controller.SysRoleController', 'getPermission', '/role/get-permission', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (36, '3132721d01d9dfdeb85ce5be59f47cd0', '角色树', '角色树', 'GET', 'vip.mate.system.controller.SysRoleController', 'tree', '/role/tree', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (37, '6b2c4db232b4d7432f74e48b40ee2ec6', '字典删除', '字典删除', 'POST', 'vip.mate.system.controller.SysDictController', 'del', '/dict/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (38, '8361e6eab1ed2bbbb0eccf086182376d', '字典分页', '字典分页', 'GET', 'vip.mate.system.controller.SysDictController', 'page', '/dict/page', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (39, '71ac4de98d9455136ef10e7d0a388745', '字典列表key查询', '字典列表key查询', 'GET', 'vip.mate.system.controller.SysDictController', 'getDictValue', '/dict/get-dict-value', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (40, '2116da876073f1ad71e677f010195b56', '字典项列表', '字典项列表', 'GET', 'vip.mate.system.controller.SysDictController', 'listValue', '/dict/list-value', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (41, 'eb427a14fa30167d708a20a1ecd9f699', '字典列表code查询', '字典列表code查询', 'GET', 'vip.mate.system.controller.SysDictController', 'listCode', '/dict/list-code', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (42, '2efa1e14facd02de585f755732c3025d', '字典信息', '根据ID查询', 'GET', 'vip.mate.system.controller.SysDictController', 'get', '/dict/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (43, 'c8629e5d870b295f5112fb3b2292bb5e', '字典设置', '字典设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysDictController', 'set', '/dict/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (44, 'a53752c2608e83164dbbaaab4fe94b32', '系统路由表删除', '系统路由表删除', 'POST', 'vip.mate.system.controller.SysRouteController', 'del', '/route/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (45, '237c64ae6e11b73b17d163fd34dfacae', '系统路由分页', '分页查询', 'GET', 'vip.mate.system.controller.SysRouteController', 'page', '/route/page', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (46, 'f97861d8a8ab59700d0b1e6fdfa170a6', '系统路由列表', '系统路由列表', 'GET', 'vip.mate.system.controller.SysRouteController', 'listItem', '/route/list-item', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (47, '292ec619e796b2ba7fca2787ad626ef5', '系统路由表信息', '根据ID查询', 'GET', 'vip.mate.system.controller.SysRouteController', 'get', '/route/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (48, '2597ff33c4eb041ceb3eb380dfb568b7', '系统路由表设置', '系统路由表设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysRouteController', 'set', '/route/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (49, '37dbe097797343d2dd73421fedc28d13', '客户端状态', '客户端状态：启用、禁用', 'POST', 'vip.mate.system.controller.SysClientController', 'setStatus', '/client/set-status', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (50, 'a0698ba9c55b8b34eb1d18601b6404b0', '客户端删除', '客户端删除', 'POST', 'vip.mate.system.controller.SysClientController', 'del', '/client/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (51, '808c8606e1a04378e6fe484bfa8e96d9', '客户端分页', '客户端分页', 'GET', 'vip.mate.system.controller.SysClientController', 'page', '/client/page', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (52, '791b3d641cbcd8f8e3d797d34004fefa', '客户端导出', '客户端导出', 'POST', 'vip.mate.system.controller.SysClientController', 'export', '/client/export', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (53, '607700fe45709b39c134974ee9132c23', '客户端信息', '客户端信息,根据ID查询', 'GET', 'vip.mate.system.controller.SysClientController', 'get', '/client/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (54, '8cbd4b8b5cab0cadbac7e5161ba32856', '客户端设置', '客户端设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysClientController', 'set', '/client/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (55, 'affc77e87638cec289664a87e5b23803', '部门删除', '部门删除', 'POST', 'vip.mate.system.controller.SysDepartController', 'del', '/depart/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (56, 'ad3acb2d8117fedb59535776c313279a', '部门导出', '部门导出', 'POST', 'vip.mate.system.controller.SysDepartController', 'export', '/depart/export', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (57, '3ef33db333255aee73f513cccc074175', '部门信息', '部门信息,根据ID查询', 'GET', 'vip.mate.system.controller.SysDepartController', 'get', '/depart/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (58, '46532d6cd52cdbe360dcea06573c4306', '部门列表', '部门列表，根据search查询', 'GET', 'vip.mate.system.controller.SysDepartController', 'list', '/depart/list', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (59, 'a1a4b644344f1c90b800a2744def39b9', '部门设置', '部门设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysDepartController', 'set', '/depart/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (60, 'a3e2e3de4432bd2b2759b3f079d0b8a6', '部门树', '部门树', 'GET', 'vip.mate.system.controller.SysDepartController', 'tree', '/depart/tree', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (61, 'bf66729eade77ec366107b564bc8d1f8', '用户状态', '状态包括：启用、禁用', 'POST', 'vip.mate.system.controller.SysUserController', 'setStatus', '/user/set-status', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (62, 'f5a57d978adf0c58177076d8f91e62f1', '用户删除', '用户删除', 'POST', 'vip.mate.system.controller.SysUserController', 'del', '/user/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (63, '3965fba22f3628b7846cb55183619259', '用户密码设置', '用户密码设置', 'POST', 'vip.mate.system.controller.SysUserController', 'setPassword', '/user/set-password', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (64, 'da038ce4f08b5bfa76c45487fa995131', '用户列表', '分页查询', 'GET', 'vip.mate.system.controller.SysUserController', 'page', '/user/page', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (65, '9f55dcda54dcb16515fed6bfa5d743a7', '导出用户', '导出用户', 'POST', 'vip.mate.system.controller.SysUserController', 'export', '/user/export', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (66, '5de06489c809b27b9f50a696538e0372', '用户信息', '根据ID查询', 'GET', 'vip.mate.system.controller.SysUserController', 'get', '/user/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (67, '43bab7218f6a3c27943097e24badf382', '设置用户', '新增或修改用户', 'POST', 'vip.mate.system.controller.SysUserController', 'set', '/user/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (68, 'e210e97e9cf161930609358a28f5835f', '黑名单信息', '黑名单信息,根据ID查询', 'GET', 'vip.mate.system.controller.SysBlacklistController', 'info', '/blacklist/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (69, '4798eb12924d6f9c9883ba3c160df2ce', '黑名单状态', '黑名单状态,状态包括：启用、禁用', 'POST', 'vip.mate.system.controller.SysBlacklistController', 'setStatus', '/blacklist/set-status', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (70, '2efb64abd7c136ca5bcd02b2d7ab4e08', '黑名单删除', '黑名单删除', 'POST', 'vip.mate.system.controller.SysBlacklistController', 'del', '/blacklist/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (71, '862e1ce03525e331e9f5fae5d949cb36', '黑名单分页', '黑名单分页', 'GET', 'vip.mate.system.controller.SysBlacklistController', 'page', '/blacklist/page', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (72, '89fbcdc911d0348d6c02560146c1c3b5', '黑名单设置', '黑名单设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysBlacklistController', 'set', '/blacklist/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (73, '1203d0422fc2937053fae33b2422b851', '日志删除', '日志删除', 'POST', 'vip.mate.system.controller.SysLogController', 'del', '/log/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (74, 'd8a6c8fc8ce040d7241a993fc5205513', '日志列表', '日志列表', 'GET', 'vip.mate.system.controller.SysLogController', 'page', '/log/page', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (75, 'ddd1be208bfa568c71c70a6e915ad11a', '菜单状态', '状态包括：启用、禁用', 'POST', 'vip.mate.system.controller.SysMenuController', 'setStatus', '/menu/set-status', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (76, '8d1543ef715f259ade524132e9d1dad3', '菜单分级列表', '菜单分级列表', 'GET', 'vip.mate.system.controller.SysMenuController', 'grade', '/menu/grade', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (77, '2d8d4ea69a18818a1735275911a47e8e', '菜单删除', '菜单删除', 'POST', 'vip.mate.system.controller.SysMenuController', 'del', '/menu/del', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (78, '0eef1aea5ea45364e8d9d8633408eca2', '菜单导出', '菜单导出', 'POST', 'vip.mate.system.controller.SysMenuController', 'export', '/menu/export', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (79, '42b6efbc0201b39d0961009d0dde763f', '菜单信息', '根据ID查询', 'GET', 'vip.mate.system.controller.SysMenuController', 'get', '/menu/get', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (80, '09b744aa117856131ccebc125ea3f668', '菜单列表', '菜单列表，根据关键词查询', 'GET', 'vip.mate.system.controller.SysMenuController', 'list', '/menu/list', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (81, 'b4fbfbea29741f7c7d6f1845a3529263', '菜单设置', '菜单设置,支持新增或修改', 'POST', 'vip.mate.system.controller.SysMenuController', 'set', '/menu/set', 'application/json;charset=UTF-8', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (82, 'f339fb5f7850d2ce02af0c2bd7b5864c', '菜单树', '根据roleId查询菜单树', 'GET', 'vip.mate.system.controller.SysMenuController', 'tree', '/menu/tree', '', 'mate-system', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (83, '581fcf1e512f78737b59d5ef46b00e68', '查询OSS配置', '查询OSS配置', 'GET', 'vip.mate.component.controller.SysConfigController', 'getConfigByCode', '/config/get-config-by-code', '', 'mate-component', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (84, '67e760391dc41cfce8f1eb490cf25590', '默认配置', '默认配置', 'GET', 'vip.mate.component.controller.SysConfigController', 'defaultOss', '/config/default-oss', '', 'mate-component', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (85, '3a5d36e02b2f335c05f29447dd250193', '保存默认配置', '保存默认配置', 'POST', 'vip.mate.component.controller.SysConfigController', 'saveDefaultOss', '/config/save-default-oss', '', 'mate-component', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (86, '9cd9e1e794871d16e6979c9d54f456c8', '保存OSS配置', '保存OSS配置', 'POST', 'vip.mate.component.controller.SysConfigController', 'saveConfigOss', '/config/save-config-oss', 'application/json;charset=UTF-8', 'mate-component', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (87, '5588f0697f631f1b95616035f2bd8831', '删除文件', '删除文件', 'POST', 'vip.mate.component.controller.SysAttachmentController', 'del', '/attachment/del', '', 'mate-component', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
-INSERT INTO `mate_sys_api` VALUES (88, 'fb2da47cf384518853d9f908de4a8ad6', '附件分页', '附件分页，根据query查询', 'GET', 'vip.mate.component.controller.SysAttachmentController', 'page', '/attachment/page', '', 'mate-component', '1', '1', NULL, NULL, '2020-10-19 22:22:25', NULL, '0', NULL);
 
 -- ----------------------------
 -- 12、系统路由表 mate_sys_route
@@ -700,7 +607,7 @@ CREATE TABLE `mate_sys_route` (
   `path` varchar(255) DEFAULT NULL COMMENT '服务前缀',
   `url` varchar(255) DEFAULT NULL COMMENT '地址',
   `service_id` varchar(100) DEFAULT NULL COMMENT '服务编码',
-  `status` char(1) DEFAULT '1' COMMENT 'API状态:0:禁用 1:启用',
+  `status` char(1) DEFAULT '0' COMMENT 'API状态:0:启用 1:禁用',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
   `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -713,10 +620,10 @@ CREATE TABLE `mate_sys_route` (
 -- ----------------------------
 -- 初始化-系统路由表数据
 -- ----------------------------
-INSERT INTO `mate_sys_route` VALUES (1, '系统服务', '/mate-system/**', NULL, 'mate-system', '1', NULL, NULL, '2020-10-18 22:59:02', '2020-10-18 23:03:42', '0', NULL);
-INSERT INTO `mate_sys_route` VALUES (2, '认证服务', '/mate-uaa/**', NULL, 'mate-uaa', '1', NULL, NULL, '2020-10-18 15:14:13', '2020-10-18 23:14:24', '0', NULL);
-INSERT INTO `mate_sys_route` VALUES (3, '代码服务', '/mate-code/**', NULL, 'mate-code', '1', NULL, NULL, '2020-10-18 20:21:25', '2020-10-20 09:13:45', '0', NULL);
-INSERT INTO `mate_sys_route` VALUES (4, '组件服务', '/mate-component/**', NULL, 'mate-component', '1', NULL, NULL, '2020-10-18 20:22:42', '2020-10-20 09:13:14', '0', NULL);
+INSERT INTO `mate_sys_route` VALUES (1, '系统服务', '/mate-system/**', 'mate-system', 'mate-system', '0', NULL, NULL, '2020-10-18 22:59:02', '2021-09-23 14:13:21', '0', NULL);
+INSERT INTO `mate_sys_route` VALUES (2, '认证服务', '/mate-uaa/**', 'mate-uaa', 'mate-uaa', '0', NULL, NULL, '2020-10-18 15:14:13', '2021-09-23 14:13:36', '0', NULL);
+INSERT INTO `mate_sys_route` VALUES (3, '代码服务', '/mate-code/**', 'mate-code', 'mate-code', '0', NULL, NULL, '2020-10-18 20:21:25', '2021-09-23 14:13:31', '0', NULL);
+INSERT INTO `mate_sys_route` VALUES (4, '组件服务', '/mate-component/**', 'mate-component', 'mate-component', '0', NULL, NULL, '2020-10-18 20:22:42', '2021-09-23 14:13:27', '0', NULL);
 
 -- ----------------------------
 -- 13、系统黑名单表 mate_sys_blacklist
