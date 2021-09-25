@@ -194,8 +194,8 @@ CREATE TABLE `mate_sys_role` (
 -- ----------------------------
 -- 初始化-角色表数据
 -- ----------------------------
-INSERT INTO `mate_sys_role` VALUES (1, '管理员', 'admin', '管理员组', 0, '1', NULL, NULL, '2020-06-28 15:02:16', '2021-08-14 07:36:57', '0', NULL);
-INSERT INTO `mate_sys_role` VALUES (2, '演示会员', 'demo2', '演示会员组', 0, '1', NULL, NULL, '2020-06-28 07:02:36', '2021-08-14 07:37:02', '0', NULL);
+INSERT INTO `mate_sys_role` VALUES (1, '管理员', 'admin', '管理员组', 0, '0', NULL, NULL, '2020-06-28 15:02:16', '2021-09-25 16:16:31', '0', NULL);
+INSERT INTO `mate_sys_role` VALUES (2, '演示会员', 'demo2', '演示会员组', 0, '0', NULL, NULL, '2020-06-28 07:02:36', '2021-09-25 16:16:18', '0', NULL);
 
 -- ----------------------------
 -- 5、字典表 mate_sys_dict
