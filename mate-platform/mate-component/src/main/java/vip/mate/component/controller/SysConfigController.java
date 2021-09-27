@@ -35,9 +35,9 @@ public class SysConfigController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "查询OSS配置", exception = "查询OSS配置异常")
+    @Log(value = "查询OSS配置")
     @GetMapping("/get-config-by-code")
-    @ApiOperation(value = "查询OSS配置", notes = "查询OSS配置")
+    @ApiOperation(value = "查询OSS配置")
     public Result<?> getConfigByCode(@RequestParam String code) {
         return Result.data(sysConfigService.getConfigByCode(code));
     }
@@ -47,8 +47,8 @@ public class SysConfigController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "默认配置", exception = "默认配置异常")
-    @ApiOperation(value = "默认配置", notes = "默认配置")
+    @Log(value = "默认配置")
+    @ApiOperation(value = "默认配置")
     @GetMapping("/default-oss")
     public Result<?> defaultOss() {
         return Result.data(sysConfigService.defaultOss());
@@ -60,8 +60,8 @@ public class SysConfigController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "保存默认配置", exception = "保存默认配置异常")
-    @ApiOperation(value = "保存默认配置", notes = "保存默认配置")
+    @Log(value = "保存默认配置")
+    @ApiOperation(value = "保存默认配置")
     @PostMapping("/save-default-oss")
     public Result<?> saveDefaultOss(@RequestParam String code) {
         return Result.condition(sysConfigService.saveDefaultOss(code));
@@ -74,8 +74,8 @@ public class SysConfigController extends BaseController {
      * @return
      */
     @PreAuth
-    @Log(value = "保存OSS配置", exception = "保存OSS配置异常")
-    @ApiOperation(value = "保存OSS配置", notes = "保存OSS配置")
+    @Log(value = "保存OSS配置")
+    @ApiOperation(value = "保存OSS配置")
     @PostMapping("/save-config-oss")
     public Result<?> saveConfigOss(@Valid @RequestBody OssProperties ossProperties, @RequestParam String code) {
         return Result.condition(sysConfigService.saveConfigOss(ossProperties, code));

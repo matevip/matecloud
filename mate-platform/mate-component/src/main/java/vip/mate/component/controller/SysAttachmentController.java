@@ -41,9 +41,9 @@ public class SysAttachmentController extends BaseController {
      * @return Result
      */
     @PreAuth
-    @Log(value = "附件分页", exception = "附件分页请求异常")
+    @Log(value = "附件分页")
     @GetMapping("/page")
-    @ApiOperation(value = "附件分页", notes = "附件分页，根据query查询")
+    @ApiOperation(value = "附件分页")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
             @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -60,8 +60,8 @@ public class SysAttachmentController extends BaseController {
      * @param file　文件
      * @return Result
      */
-    @Log(value = "附件上传", exception = "附件上传请求异常")
-    @ApiOperation(value = "附件上传", notes = "附件上传")
+    @Log(value = "附件上传")
+    @ApiOperation(value = "附件上传")
     @PostMapping("/upload")
     public Result<?> upload(@RequestParam("file") MultipartFile file) {
         return sysAttachmentService.upload(file);
@@ -73,8 +73,8 @@ public class SysAttachmentController extends BaseController {
      * @return
      */
     @PreAuth
-    @Log(value = "删除文件", exception = "删除文件请求异常")
-    @ApiOperation(value = "删除文件", notes = "删除文件")
+    @Log(value = "删除文件")
+    @ApiOperation(value = "删除文件")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
