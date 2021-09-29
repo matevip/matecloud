@@ -240,15 +240,16 @@ public class DubboFeignProviderBeanPostProcessor implements BeanDefinitionRegist
         // ServiceBean Bean name
         String beanName = generateServiceBeanName(serviceAnnotationAttributes, interfaceClass);
 
-        if (scanner.checkCandidate(beanName, serviceBeanDefinition)) { // check duplicated candidate bean
-            registry.registerBeanDefinition(beanName, serviceBeanDefinition);
-            log.warn("The BeanDefinition[" + serviceBeanDefinition +
-                    "] of ServiceBean has been registered with name : " + beanName);
-        } else {
-            log.warn("The Duplicated BeanDefinition[" + serviceBeanDefinition +
-                    "] of ServiceBean[ bean name : " + beanName +
-                    "] was be found , Did @DubboComponentScan scan to same package in many times?");
-        }
+        registry.registerBeanDefinition(beanName, serviceBeanDefinition);
+//        if (scanner.checkCandidate(beanName, serviceBeanDefinition)) { // check duplicated candidate bean
+//            registry.registerBeanDefinition(beanName, serviceBeanDefinition);
+//            log.warn("The BeanDefinition[" + serviceBeanDefinition +
+//                    "] of ServiceBean has been registered with name : " + beanName);
+//        } else {
+//            log.warn("The Duplicated BeanDefinition[" + serviceBeanDefinition +
+//                    "] of ServiceBean[ bean name : " + beanName +
+//                    "] was be found , Did @DubboComponentScan scan to same package in many times?");
+//        }
     }
 
     /**
