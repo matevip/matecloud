@@ -4,8 +4,8 @@
 <p align="center">
   <img src='https://img.shields.io/github/license/matevip/matecloud' alt='License'/>
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.4-green" alt="SpringBoot"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.5.5-green" alt="SpringBoot"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.4-blue" alt="SpringCloud"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
@@ -14,23 +14,25 @@
 MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家提供技术框架的基础能力的封装，减少开发工作，让您只关注业务。
 
 ## 🎨 系统演示
-### 👉 演示地址：http://cloud.mate.vip
+### 👉 演示地址：https://cloud.mate.vip
 
 账号 | 密码| 操作权限
 ---|---|---
 admin | matecloud| mate-system模块不能执行增删改请求
 
 如果需要验证手机号码登录，手机号码采用页面默认号码，点击获取验证码，输入1188，即可登录。
-### 🍯 企业版：http://plus.mate.vip
+### 🍯 商业版：https://plus.mate.vip
 账号 | 密码| 操作权限
 ---|---|---
 admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
 
+[商业版与开源版对比](https://doc.mate.vip/vip/product/business/)
+
 ## 📌 版本演进
 核心中间件 | 2.5.8及以下 | 3.0.8+
 ---|---|---
-Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.4-blue" alt="SpringBoot"/>
-Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="SpringCloud"/>
+Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.5.5-blue" alt="SpringBoot"/>
+Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.4-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="SpringCloudAlibaba"/>
 Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.3-blue" alt="nacos"/>
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.2-blue" alt="sentinel"/>
@@ -71,7 +73,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.2-blue" a
 </table>
 
 ## 🔧 功能特点
-- 主体框架：采用最新的`Spring Cloud 2020.0.3`, `Spring Boot 2.5.4`, `Spring Cloud Alibaba 2021.1`版本进行系统设计；
+- 主体框架：采用最新的`Spring Cloud 2020.0.4`, `Spring Boot 2.5.5`, `Spring Cloud Alibaba 2021.1`版本进行系统设计；
 
 - 统一注册：支持`Nacos`作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
@@ -153,7 +155,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>4.0.8</version>
+            <version>4.0.10</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -163,18 +165,18 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 然后在 dependencies 中添加自己所需使用的依赖即可使用。
 
 ## 🔥 前端重大更新
-前端采用`Vue3.2.4`、`Vite 2.5.1`、 `Ant-Design-Vue 2.2.6`、`TypeScript` 的大型中后台解决方案。
+前端采用`Vue 3.2.12`、`Vite 2.5.8`、 `Ant-Design-Vue 2.2.8`、`TypeScript` 的大型中后台解决方案。
 ### 👉 技术栈
-- Vue 3.2.4
-- Pinia 2.0.0-rc.6
+- Vue 3.2.12
+- Pinia 2.0.0-rc.8
 - vue-i18n 9.1.7
-- typescript 4.29.1
+- typescript 4.4.2
 - ant-design-vue 2.2.6
-- axios 0.21.1
+- axios 0.21.3
 - vue-router 4.0.11
-- vite 2.5.1
+- vite 2.5.8
 ### 👉 版本发布
-`4.0.8-M2`版本已经发布，完善了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。后续功能正在加紧开发中，欢迎体验。
+`4.0.8-M3`版本已经发布，完善了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。后续功能正在加紧开发中，欢迎体验。
 
 
 ## 🌭 项目源码
