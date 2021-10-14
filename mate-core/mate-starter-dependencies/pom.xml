@@ -102,10 +102,9 @@
         <jasypt.version>3.0.4</jasypt.version>
 
         <retrofit.version>2.2.3</retrofit.version>
-        <j2cache.version>2.8.2-release</j2cache.version>
         <gson.version>2.8.8</gson.version>
         <guava.version>30.1.1-jre</guava.version>
-        <aws-java-sdk-s3.version>1.12.63</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.86</aws-java-sdk-s3.version>
         <lombok.version>1.18.20</lombok.version>
         <hutool.version>5.7.14</hutool.version>
     </properties>
@@ -541,11 +540,6 @@
                 <groupId>com.github.lianjiatech</groupId>
                 <artifactId>retrofit-spring-boot-starter</artifactId>
                 <version>${retrofit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.oschina.j2cache</groupId>
-                <artifactId>j2cache-core</artifactId>
-                <version>${j2cache.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>
