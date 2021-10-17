@@ -107,6 +107,7 @@
         <aws-java-sdk-s3.version>1.12.86</aws-java-sdk-s3.version>
         <lombok.version>1.18.20</lombok.version>
         <hutool.version>5.7.14</hutool.version>
+        <security.oauth.version>2.5.5</security.oauth.version>
     </properties>
 
     <dependencyManagement>
@@ -583,6 +584,11 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>1.68</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security.oauth.boot</groupId>
+                <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+                <version>${security.oauth.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
