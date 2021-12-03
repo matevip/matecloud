@@ -3,6 +3,7 @@ spring:
     active: @spring.active@
   main:
     allow-bean-definition-overriding: true
+    allow-circular-references: true
   cloud:
     nacos:
       config:
