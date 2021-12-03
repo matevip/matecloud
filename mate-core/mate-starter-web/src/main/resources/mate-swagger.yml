@@ -27,3 +27,8 @@ knife4j:
     footerCustomContent: Apache License 2.0 | Copyright  2020-[北京道天地科技有限公司](https://gitee.com/matevip/matecloud)
     enableHomeCustom: true
     homeCustomLocation: classpath:mate-swagger.md
+# 默认路径匹配策略切换回ant_path_matcher
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

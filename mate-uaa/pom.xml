@@ -5,7 +5,7 @@
     <parent>
         <artifactId>matecloud</artifactId>
         <groupId>vip.mate</groupId>
-        <version>4.0.11</version>
+        <version>4.1.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,10 +36,6 @@
         <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>vip.mate</groupId>
-            <artifactId>mate-starter-auth</artifactId>
         </dependency>
         <dependency>
             <groupId>vip.mate</groupId>
