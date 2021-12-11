@@ -108,6 +108,7 @@
         <lombok.version>1.18.20</lombok.version>
         <hutool.version>5.7.14</hutool.version>
         <spring.security.version>2.5.5</spring.security.version>
+        <log4j2.version>2.15.0</log4j2.version>
     </properties>
 
     <dependencyManagement>
@@ -589,6 +590,16 @@
                 <groupId>org.springframework.security.oauth.boot</groupId>
                 <artifactId>spring-security-oauth2-autoconfigure</artifactId>
                 <version>${spring.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>${log4j2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
