@@ -108,7 +108,6 @@
         <lombok.version>1.18.20</lombok.version>
         <hutool.version>5.7.14</hutool.version>
         <spring.security.version>2.5.5</spring.security.version>
-        <log4j2.version>2.15.0</log4j2.version>
     </properties>
 
     <dependencyManagement>
@@ -591,15 +590,21 @@
                 <artifactId>spring-security-oauth2-autoconfigure</artifactId>
                 <version>${spring.security.version}</version>
             </dependency>
+            <!-- 排除掉Log4j2的依赖 -->
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j2.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-logging</artifactId>
+                <version>${spring.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-to-slf4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
