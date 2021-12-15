@@ -12,7 +12,7 @@
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>4.1.8</version>
+    <version>4.2.8</version>
     <packaging>pom</packaging>
     <name>mate-starter-dependencies</name>
     <description>based on Spring Cloud Alibaba dependencies</description>
@@ -39,7 +39,7 @@
     </scm>
 
     <properties>
-        <matecloud.core.version>4.1.8</matecloud.core.version>
+        <matecloud.core.version>4.2.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.6.1</spring.boot.version>
@@ -589,6 +589,22 @@
                 <groupId>org.springframework.security.oauth.boot</groupId>
                 <artifactId>spring-security-oauth2-autoconfigure</artifactId>
                 <version>${spring.security.version}</version>
+            </dependency>
+            <!-- 排除掉Log4j2的依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-logging</artifactId>
+                <version>${spring.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-to-slf4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
