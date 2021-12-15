@@ -9,6 +9,9 @@
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
+## 🔥 2021年度osc中国开源项目评选，欢迎投票
+投票地址： https://www.oschina.net/project/top_cn_2021?id=614
+
 ## 🍟 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
 
 MateCloud是一款基于Spring Cloud Alibaba的微服务架构。旨在为大家提供技术框架的基础能力的封装，减少开发工作，让您只关注业务。
@@ -155,7 +158,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>4.0.11</version>
+            <version>4.1.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -173,7 +176,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 - typescript 4.4.2
 - ant-design-vue 2.2.6
 - axios 0.21.3
-- vue-router 4.1.8
+- vue-router 4.2.8
 - vite 2.5.8
 ### 👉 版本发布
 `4.0.8-M3`版本已经发布，完善了系统管理的基础功能，主要包括菜单管理、用户管理、角色管理、部门管理、日志管理、客户端管理等功能。后续功能正在加紧开发中，欢迎体验。
