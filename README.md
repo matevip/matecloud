@@ -41,6 +41,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.2-blue" a
 ### 👉 文档地址：[http://www.mate.vip/docs](http://www.mate.vip/docs)
 ### 👉 商业版文档：[http://doc.mate.vip](http://doc.mate.vip)
 ### 👉 快速安装：[http://www.mate.vip/archives/107](http://www.mate.vip/archives/107)
+免安装直接运行 [![TeamCode try-it-now](https://static01.teamcode.com/badge/demo.svg)](https://www.teamcode.com/tin/clone?applicationId=273423345540034560)
 
 ## 👷 技术交流
 <p align="center"> 
