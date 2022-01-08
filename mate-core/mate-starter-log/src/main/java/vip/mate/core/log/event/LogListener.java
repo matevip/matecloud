@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 import vip.mate.core.common.dto.CommonLog;
 import vip.mate.core.log.feign.ICommonLogProvider;
 import vip.mate.core.log.feign.ISysLogProvider;
@@ -17,7 +16,6 @@ import vip.mate.core.log.props.LogType;
  * @since 2020-7-15
  */
 @Slf4j
-@Component
 public class LogListener {
 
     private ISysLogProvider sysLogProvider;
