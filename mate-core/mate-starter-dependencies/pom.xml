@@ -58,7 +58,7 @@
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
         <druid.version>1.2.8</druid.version>
-        <mybatis.plus.version>3.4.3.4</mybatis.plus.version>
+        <mybatis.plus.version>3.5.0</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
         <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
 
@@ -105,7 +105,7 @@
         <guava.version>30.1.1-jre</guava.version>
         <aws-java-sdk-s3.version>1.12.86</aws-java-sdk-s3.version>
         <lombok.version>1.18.20</lombok.version>
-        <hutool.version>5.7.14</hutool.version>
+        <hutool.version>5.7.19</hutool.version>
         <spring.security.version>2.5.5</spring.security.version>
     </properties>
 
