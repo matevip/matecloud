@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
+        <version>2.6.3</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -42,7 +42,7 @@
         <matecloud.core.version>4.2.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.6.2</spring.boot.version>
+        <spring.boot.version>2.6.3</spring.boot.version>
         <spring.cloud.version>2021.0.0</spring.cloud.version>
         <alibaba.cloud.version>2021.1</alibaba.cloud.version>
 
@@ -68,7 +68,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
-        <jetcache.version>2.6.0</jetcache.version>
+        <jetcache.version>2.6.2</jetcache.version>
 
         <!-- Apache Dubbo -->
         <dubbo.version>[2.7.13,)</dubbo.version>
@@ -76,7 +76,7 @@
 
         <spring-boot-admin.version>2.5.4</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
-        <nacos.client.version>2.0.3</nacos.client.version>
+        <nacos.client.version>2.0.4</nacos.client.version>
         <easypoi.version>4.4.0</easypoi.version>
         <ip2region.version>1.7.2</ip2region.version>
         <justauth.version>1.15.8</justauth.version>
