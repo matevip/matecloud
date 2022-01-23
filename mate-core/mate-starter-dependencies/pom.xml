@@ -107,6 +107,7 @@
         <lombok.version>1.18.20</lombok.version>
         <hutool.version>5.7.19</hutool.version>
         <spring.security.version>2.5.5</spring.security.version>
+        <caffeine.version>3.0.5</caffeine.version>
     </properties>
 
     <dependencyManagement>
@@ -599,6 +600,11 @@
                         <artifactId>log4j-to-slf4j</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
