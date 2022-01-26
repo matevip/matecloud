@@ -7,22 +7,22 @@ spring:
   cloud:
     nacos:
       config:
-        namespace: ${NACOS.NAMESPACE:@config.namespace@}
-        server-addr: ${NACOS.URL:@config.server-addr@}
-        group: ${NACOS.GROUP:@config.group@}
+        namespace: @config.namespace@
+        server-addr: @config.server-addr@
+        group: @config.group@
         file-extension: yaml
         prefix: mate
-      #        shared-configs:
-      #          - @artifactId@-@spring.active@.${spring.cloud.nacos.config.file-extension}
-      #            refresh-enabled: true
-      #        shared-configs[0]:
-      #          data-id: @artifactId@.yaml
-      #          group: DEFAULT_GROUP
-      #          refresh: true
+#        shared-configs:
+#          - @artifactId@-@spring.active@.${spring.cloud.nacos.config.file-extension}
+#            refresh-enabled: true
+#        shared-configs[0]:
+#          data-id: @artifactId@.yaml
+#          group: DEFAULT_GROUP
+#          refresh: true
       discovery:
-        namespace: ${NACOS.NAMESPACE:@config.namespace@}
-        server-addr: ${NACOS.URL:@config.server-addr@}
-        group: ${NACOS.GROUP:@config.group@}
+        namespace: config.namespace@
+        server-addr: @config.server-addr@
+        group: @config.group@
         watch:
           enabled: false
     sentinel:
