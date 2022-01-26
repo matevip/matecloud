@@ -108,6 +108,7 @@
         <hutool.version>5.7.19</hutool.version>
         <spring.security.version>2.5.5</spring.security.version>
         <caffeine.version>3.0.5</caffeine.version>
+        <sun.jaxb.version>2.3.5</sun.jaxb.version>
     </properties>
 
     <dependencyManagement>
@@ -605,6 +606,11 @@
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${sun.jaxb.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
