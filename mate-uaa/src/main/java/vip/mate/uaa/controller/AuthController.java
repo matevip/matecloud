@@ -13,6 +13,7 @@ import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.*;
+import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.Oauth2Constant;
 import vip.mate.core.common.entity.LoginUser;
@@ -124,6 +125,7 @@ public class AuthController {
 
     /**
      * 验证码下发
+     *
      * @param mobile 手机号码
      * @return Result
      */
@@ -180,4 +182,13 @@ public class AuthController {
         httpServletResponse.sendRedirect(url);
     }
 
+    @PreAuth
+    @Log(value = "用户按钮权限")
+    @GetMapping("/get/permission")
+    @ApiOperation(value = "用户按钮权限")
+    public Result<?> getPermission(HttpServletRequest request) {
+        LoginUser loginUser = SecurityUtil.getUsername(request);
+        List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(loginUser.getRoleId());
+        return Result.data(stringList);
+    }
 }
