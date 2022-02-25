@@ -20,7 +20,7 @@ spring:
 #          group: DEFAULT_GROUP
 #          refresh: true
       discovery:
-        namespace: config.namespace@
+        namespace: @config.namespace@
         server-addr: @config.server-addr@
         group: @config.group@
         watch:
