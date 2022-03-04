@@ -44,7 +44,7 @@
 
         <spring.boot.version>2.6.4</spring.boot.version>
         <spring.cloud.version>2021.0.1</spring.cloud.version>
-        <alibaba.cloud.version>2021.1</alibaba.cloud.version>
+        <alibaba.cloud.version>2021.0.1.0</alibaba.cloud.version>
 
         <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
