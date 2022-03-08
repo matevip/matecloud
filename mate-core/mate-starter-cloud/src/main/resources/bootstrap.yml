@@ -7,9 +7,9 @@ spring:
   cloud:
     nacos:
       config:
-        namespace: ${NACOS.NAMESPACE:@config.namespace@}
-        server-addr: ${NACOS.URL:@config.server-addr@}
-        group: ${NACOS.GROUP:@config.group@}
+        namespace: @config.namespace@
+        server-addr: @config.server-addr@
+        group: @config.group@
         file-extension: yaml
         prefix: mate
       #        shared-configs:
@@ -20,9 +20,9 @@ spring:
       #          group: DEFAULT_GROUP
       #          refresh: true
       discovery:
-        namespace: ${NACOS.NAMESPACE:@config.namespace@}
-        server-addr: ${NACOS.URL:@config.server-addr@}
-        group: ${NACOS.GROUP:@config.group@}
+        namespace: ${spring.cloud.nacos.config.namespace}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        group: ${spring.cloud.nacos.config.group}
         watch:
           enabled: false
     sentinel:
