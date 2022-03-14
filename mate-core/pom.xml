@@ -64,6 +64,7 @@
         <module>mate-starter-mybatis</module>
         <module>mate-starter-idempotent</module>
         <module>mate-starter-validator</module>
+        <module>mate-starter-springdoc</module>
     </modules>
 
     <properties>
