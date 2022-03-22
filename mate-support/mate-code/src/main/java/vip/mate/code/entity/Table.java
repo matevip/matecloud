@@ -16,15 +16,12 @@
  */
 package vip.mate.code.entity;
 
-import vip.mate.core.database.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import vip.mate.core.database.entity.BaseEntity;
 
 /**
  * 代码生成基础表实体类
