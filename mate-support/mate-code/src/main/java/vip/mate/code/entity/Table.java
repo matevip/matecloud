@@ -16,15 +16,12 @@
  */
 package vip.mate.code.entity;
 
-import vip.mate.core.database.entity.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import vip.mate.core.database.entity.BaseEntity;
 
 /**
  * 代码生成基础表实体类
@@ -120,26 +117,5 @@ public class Table extends BaseEntity {
 	*/
 	@ApiModelProperty(value = "备注")
 	private String remark;
-	/**
-	* 创建者
-	*/
-	@ApiModelProperty(value = "创建者")
-	private Long createBy;
-	/**
-	* 创建时间
-	*/
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime createTime;
-	/**
-	* 更新者
-	*/
-	@ApiModelProperty(value = "更新者")
-	private Long updateBy;
-	/**
-	* 更新时间
-	*/
-	@ApiModelProperty(value = "更新时间")
-	private LocalDateTime updateTime;
-
 
 }
