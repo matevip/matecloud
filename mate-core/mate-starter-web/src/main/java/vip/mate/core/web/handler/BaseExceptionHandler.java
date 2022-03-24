@@ -3,7 +3,9 @@ package vip.mate.core.web.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.WebConstant;
@@ -29,8 +31,8 @@ public class BaseExceptionHandler {
      * @param ex 自定义BaseException异常类型
      * @return Result
      */
-    @ExceptionHandler
-    public Result<?> handleException(BaseException ex) {
+    @ExceptionHandler(BaseException.class)
+    public Result<?> handleBaseException(BaseException ex) {
         log.error("程序异常：" + ex.toString());
         return Result.fail(WebConstant.Status.UNAUTHORIZED.getCode(), ex.getMessage());
     }
@@ -41,8 +43,8 @@ public class BaseExceptionHandler {
      * @param ex 自定义TokenException异常类型
      * @return Result
      */
-    @ExceptionHandler
-    public Result<?> handleException(TokenException ex) {
+    @ExceptionHandler(TokenException.class)
+    public Result<?> handleTokenException(TokenException ex) {
         log.error("程序异常==>errorCode:{}, exception:{}", HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
         return Result.fail(WebConstant.Status.UNAUTHORIZED.getCode(), ex.getMessage());
     }
@@ -65,8 +67,8 @@ public class BaseExceptionHandler {
      * @param ex 自定义PreviewException异常类型
      * @return Result
      */
-    @ExceptionHandler
-    public Result<?> handleException(PreviewException ex) {
+    @ExceptionHandler(PreviewException.class)
+    public Result<?> handlePreviewException(PreviewException ex) {
         log.error("程序异常：" + ex.toString());
         return Result.fail(WebConstant.Status.INTERNAL_SERVER_ERROR.getCode(), ex.getMessage());
     }
@@ -77,8 +79,8 @@ public class BaseExceptionHandler {
      * @param ex 自定义NullPointerException异常类型
      * @return Result
      */
-    @ExceptionHandler
-    public Result<?> handleException(NullPointerException ex) {
+    @ExceptionHandler(NullPointerException.class)
+    public Result<?> handleNullPointerException(NullPointerException ex) {
         log.error("程序异常：{}" + ex.toString());
         return Result.fail(WebConstant.Status.INTERNAL_SERVER_ERROR.getCode(), ex.getMessage());
     }
@@ -89,7 +91,7 @@ public class BaseExceptionHandler {
      * @param ex 自定义Exception异常类型
      * @return Result
      */
-    @ExceptionHandler
+    @ExceptionHandler(Exception.class)
     public Result<?> handleException(Exception ex) {
         log.error("程序异常：" + ex.toString());
         String message = ex.getMessage();
