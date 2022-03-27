@@ -16,8 +16,11 @@
  */
 package vip.mate.code.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.apache.ibatis.annotations.Param;
 import vip.mate.code.entity.Table;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import vip.mate.code.vo.TableInfoVO;
 
 /**
  * <p>
@@ -28,5 +31,14 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-03-21
  */
 public interface TableMapper extends BaseMapper<Table> {
+
+    /**
+     * 分页查询表格
+     *
+     * @param page      分页参数
+     * @param tableName 表名
+     * @return
+     */
+    IPage<TableInfoVO> selectByPage(IPage<?> page, @Param("tableName") String tableName);
 
 }

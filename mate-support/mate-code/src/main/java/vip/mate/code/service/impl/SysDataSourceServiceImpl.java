@@ -10,6 +10,7 @@ import vip.mate.code.entity.SysDataSource;
 import vip.mate.code.mapper.SysDataSourceMapper;
 import vip.mate.code.service.ISysDataSourceService;
 import vip.mate.code.vo.SysDataSourceVO;
+import vip.mate.core.common.vo.BaseListVO;
 import vip.mate.core.web.util.CollectionUtil;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class SysDataSourceServiceImpl extends ServiceImpl<SysDataSourceMapper, S
     }
 
     @Override
-    public List<SysDataSourceVO> optionList() {
+    public List<BaseListVO> optionList() {
         return this.baseMapper.optionList();
     }
 }

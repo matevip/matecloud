@@ -23,9 +23,13 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 
+import vip.mate.code.dto.TableInfoDTO;
+import vip.mate.code.service.TableInfoService;
+import vip.mate.code.vo.TableInfoVO;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
+import vip.mate.core.database.util.PageUtil;
 import vip.mate.core.log.annotation.Log;
 import vip.mate.core.web.util.CollectionUtil;
 
@@ -33,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.web.controller.BaseController;
 import vip.mate.code.service.ITableService;
 import vip.mate.code.entity.Table;
+
 import javax.validation.Valid;
 
 /**
@@ -50,6 +55,7 @@ import javax.validation.Valid;
 public class TableController extends BaseController {
 
     private final ITableService tableService;
+    private final TableInfoService tableInfoService;
 
     /**
      * 分页列表
@@ -62,14 +68,14 @@ public class TableController extends BaseController {
     @GetMapping("/page")
     @ApiOperation(value = "代码生成基础表列表", notes = "分页查询")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-        @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-        @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-        @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-        @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
+            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
+            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
+            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
+            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
     public Result<?> page(Search search) {
-		return Result.data(tableService.listPage(search));
+        return Result.data(tableService.listPage(search));
     }
 
     /**
@@ -86,29 +92,29 @@ public class TableController extends BaseController {
             @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
     })
     public Result<?> get(@RequestParam String id) {
-		return Result.data(tableService.getById(id));
-	}
+        return Result.data(tableService.getById(id));
+    }
 
     /**
-    * 代码生成基础表设置
-    *
-    * @param table Table 对象
-    * @return Result
-    */
+     * 代码生成基础表设置
+     *
+     * @param table Table 对象
+     * @return Result
+     */
     @PreAuth
     @Log(value = "代码生成基础表设置", exception = "代码生成基础表设置请求异常")
     @PostMapping("/set")
     @ApiOperation(value = "代码生成基础表设置", notes = "代码生成基础表设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody Table table) {
-		return Result.condition(tableService.saveOrUpdate(table));
-	}
+        return Result.condition(tableService.saveOrUpdate(table));
+    }
 
     /**
-    * 代码生成基础表删除
-    *
-    * @param ids id字符串，根据,号分隔
-    * @return Result
-    */
+     * 代码生成基础表删除
+     *
+     * @param ids id字符串，根据,号分隔
+     * @return Result
+     */
     @PreAuth
     @Log(value = "代码生成基础表删除", exception = "代码生成基础表删除请求异常")
     @PostMapping("/del")
@@ -117,7 +123,20 @@ public class TableController extends BaseController {
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     public Result<?> del(@RequestParam String ids) {
-		return Result.condition(tableService.removeByIds(CollectionUtil.stringToCollection(ids)));
-	}
+        return Result.condition(tableService.removeByIds(CollectionUtil.stringToCollection(ids)));
+    }
+
+    /**
+     * 根据数据源查询列表分页
+     *
+     * @param search
+     * @param tableInfoDTO
+     * @return
+     */
+    @GetMapping("/table-page")
+    public Result<?> tablePage(Search search, TableInfoDTO tableInfoDTO) {
+        return Result.data(tableInfoService
+                .queryPage(PageUtil.getPage(search), tableInfoDTO.getTableName(), tableInfoDTO.getDsName()));
+    }
 }
 

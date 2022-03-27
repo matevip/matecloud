@@ -3,6 +3,7 @@ package vip.mate.code.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import vip.mate.code.entity.SysDataSource;
 import vip.mate.code.vo.SysDataSourceVO;
+import vip.mate.core.common.vo.BaseListVO;
 
 import java.util.List;
 
@@ -16,6 +17,6 @@ import java.util.List;
  */
 public interface SysDataSourceMapper extends BaseMapper<SysDataSource> {
 
-    List<SysDataSourceVO> optionList();
+    List<BaseListVO> optionList();
 
 }
