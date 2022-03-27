@@ -51,4 +51,36 @@
         create_time DESC
     </select>
 
+    <select id="queryTableInfo" resultType="vip.mate.code.vo.TableInfoVO">
+        SELECT
+            `table_name`,
+            engine,
+            table_comment,
+            create_time
+        FROM
+            information_schema.TABLES
+        WHERE
+            table_schema = ( SELECT DATABASE ( ) )
+          AND `table_name` = #{tableName}
+    </select>
+
+    <select id="listColumnInfo" resultType="vip.mate.code.vo.ColumnInfoVO">
+        SELECT
+            column_name,
+            data_type,
+            column_comment,
+            column_key,
+            extra,
+            is_nullable,
+            column_type
+        FROM
+            information_schema.COLUMNS
+        WHERE
+            table_name = #{tableName}
+          AND table_schema = ( SELECT DATABASE ( ) )
+        ORDER BY
+            ordinal_position
+    </select>
+
+
 </mapper>

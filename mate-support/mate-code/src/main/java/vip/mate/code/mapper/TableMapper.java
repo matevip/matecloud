@@ -20,7 +20,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Param;
 import vip.mate.code.entity.Table;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import vip.mate.code.vo.ColumnInfoVO;
 import vip.mate.code.vo.TableInfoVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,5 +43,20 @@ public interface TableMapper extends BaseMapper<Table> {
      * @return
      */
     IPage<TableInfoVO> selectByPage(IPage<?> page, @Param("tableName") String tableName);
+
+    /**
+     * 从数据库内查询表信息
+     *
+     * @param tableName
+     * @return
+     */
+    TableInfoVO queryTableInfo(@Param("tableName") String tableName);
+
+    /**
+     * 查询列信息
+     * @param tableName 表名
+     * @return List<ColumnInfo>
+     */
+    List<ColumnInfoVO> listColumnInfo(@Param("tableName") String tableName);
 
 }
