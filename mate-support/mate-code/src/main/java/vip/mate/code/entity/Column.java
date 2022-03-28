@@ -16,6 +16,7 @@
  */
 package vip.mate.code.entity;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -153,5 +154,8 @@ public class Column extends BaseEntity {
 	@ApiModelProperty(value = "显示顺序")
 	private Integer sort;
 
+	public String readNameNoSuffix() {
+		return StrUtil.isNotEmpty(this.getComment()) ? this.getComment().replaceAll("(?:\\（)[^\\(\\)]*(?:\\）)", StrUtil.EMPTY) : this.getComment();
+	}
 
 }

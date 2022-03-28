@@ -20,23 +20,19 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
-
+import org.springframework.web.bind.annotation.*;
 import vip.mate.code.dto.TableInfoDTO;
+import vip.mate.code.entity.Table;
+import vip.mate.code.service.ITableService;
 import vip.mate.code.service.TableInfoService;
-import vip.mate.code.vo.TableInfoVO;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.util.PageUtil;
 import vip.mate.core.log.annotation.Log;
-import vip.mate.core.web.util.CollectionUtil;
-
-import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.web.controller.BaseController;
-import vip.mate.code.service.ITableService;
-import vip.mate.code.entity.Table;
+import vip.mate.core.web.util.CollectionUtil;
 
 import javax.validation.Valid;
 
@@ -137,6 +133,11 @@ public class TableController extends BaseController {
     public Result<?> tablePage(Search search, TableInfoDTO tableInfoDTO) {
         return Result.data(tableInfoService
                 .queryPage(PageUtil.getPage(search), tableInfoDTO.getTableName(), tableInfoDTO.getDsName()));
+    }
+
+    public Result<?> initTable(String tableName, TableInfoDTO tableInfoDTO) {
+        tableInfoService.initTable(tableName, tableInfoDTO.getDsName());
+        return Result.condition(true);
     }
 }
 

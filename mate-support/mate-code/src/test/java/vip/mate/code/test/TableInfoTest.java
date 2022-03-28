@@ -2,7 +2,6 @@ package vip.mate.code.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -36,5 +35,10 @@ public class TableInfoTest {
     void getColumnInfoTest() {
         List<ColumnInfoVO> columnInfoVOS = tableInfoService.listColumnInfo("def_tenant", "localdb");
         log.info("columnInfo: {}", JSONObject.toJSONString(columnInfoVOS));
+    }
+
+    @Test
+    void getTableTest() {
+        tableInfoService.initTable("mate_sys_menu", "master");
     }
 }

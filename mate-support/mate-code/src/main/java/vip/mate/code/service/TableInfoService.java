@@ -1,11 +1,14 @@
 package vip.mate.code.service;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import vip.mate.code.entity.Table;
 import vip.mate.code.mapper.TableMapper;
+import vip.mate.code.util.CodeUtil;
 import vip.mate.code.vo.ColumnInfoVO;
 import vip.mate.code.vo.TableInfoVO;
 
@@ -40,4 +43,13 @@ public class TableInfoService {
         return tableMapper.listColumnInfo(tableName);
     }
 
+    public void initTable(String tableName, String dsName) {
+        TableInfoVO tableInfoVO = this.queryTableInfo(tableName, dsName);
+        Table table = BeanUtil.copyProperties(tableInfoVO, Table.class);
+        table.setName(tableInfoVO.getTableName());
+        table.setComment(tableInfoVO.getTableComment());
+        CodeUtil.initTableExt(table);
+        List<ColumnInfoVO> columnInfoVOS = this.listColumnInfo(tableName, dsName);
+        System.out.println(JSON.toJSONString(table));
+    }
 }
