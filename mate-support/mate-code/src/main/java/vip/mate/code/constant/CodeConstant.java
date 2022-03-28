@@ -11,6 +11,27 @@ import cn.hutool.core.util.StrUtil;
 public class CodeConstant {
 
     /**
+     * 自增
+     */
+    public static final String TABLE_AUTO_INCREMENT = "auto_increment";
+
+    /**
+     * PRI
+     */
+    public static final String PRI = "PRI";
+
+    /**
+     * 是否可空
+     */
+    public static final String NO = "no";
+
+    /**
+     * 是否惟一
+     */
+    public static final String UNI = "UNI";
+
+
+    /**
      * 数据库字符串类型
      */
     public static final String[] COLUMN_TYPE_STR = {"char", "varchar", "nvarchar", "varchar2"};
@@ -83,7 +104,7 @@ public class CodeConstant {
     /**
      * 后端base基类字段
      */
-    public static final String[] BASE_ENTITY = {"id", "name", "status", "sort", "remark", "createBy", "createTime", "updateBy", "updateTime", "delFlag"};
+    public static final String[] BASE_ENTITY = {"id", "name", "status", "sort", "remark", "createBy", "createTime", "updateBy", "updateTime", "isDelete"};
 
     /**
      * 后端tree基类字段
@@ -118,7 +139,7 @@ public class CodeConstant {
     /**
      * 必定隐藏字段（前后端均隐藏）
      */
-    public static final String[] COLUMN_MUST_HIDE = {"delFlag", "tenantId"};
+    public static final String[] COLUMN_MUST_HIDE = {"is_delete", "tenantId"};
 
     /**
      * 字典名称转换移除匹配字段
