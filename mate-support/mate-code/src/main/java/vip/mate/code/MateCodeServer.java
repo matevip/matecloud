@@ -1,4 +1,4 @@
-package vip.mate;
+package vip.mate.code;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +13,6 @@ import vip.mate.core.feign.annotation.EnableMateFeign;
  **/
 @EnableMateFeign
 @SpringBootApplication
-@MapperScan({"vip.mate.generator.mapper"})
 public class MateCodeServer {
     public static void main(String[] args) {
         SpringApplication.run(MateCodeServer.class, args);

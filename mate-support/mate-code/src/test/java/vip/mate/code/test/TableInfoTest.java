@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import vip.mate.code.service.ITableService;
 import vip.mate.code.service.TableInfoService;
 import vip.mate.code.vo.ColumnInfoVO;
 import vip.mate.code.vo.TableInfoVO;
@@ -19,6 +20,9 @@ public class TableInfoTest {
 
     @Autowired
     private TableInfoService tableInfoService;
+
+    @Autowired
+    private ITableService tableService;
 
     /**
      * 测试指定数据源的分页表数据
@@ -39,6 +43,6 @@ public class TableInfoTest {
 
     @Test
     void getTableTest() {
-        tableInfoService.initTable("mate_sys_menu", "master");
+        tableService.initTable("def_tenant", "localdb");
     }
 }

@@ -136,7 +136,7 @@ public class TableController extends BaseController {
     }
 
     public Result<?> initTable(String tableName, TableInfoDTO tableInfoDTO) {
-        tableInfoService.initTable(tableName, tableInfoDTO.getDsName());
+        tableService.initTable(tableName, tableInfoDTO.getDsName());
         return Result.condition(true);
     }
 }
