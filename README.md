@@ -34,8 +34,8 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.6.5-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2021.0.1-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.1.0-blue" alt="SpringCloudAlibaba"/>
-Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.3-blue" alt="nacos"/>
-Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.2-blue" alt="sentinel"/>
+Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.4-blue" alt="nacos"/>
+Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.3-blue" alt="sentinel"/>
 
 ## 📖 官方文档
 ### 👉 文档地址：[http://www.mate.vip/docs](http://www.mate.vip/docs)
