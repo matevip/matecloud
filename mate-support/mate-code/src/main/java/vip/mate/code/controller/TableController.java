@@ -135,6 +135,15 @@ public class TableController extends BaseController {
                 .queryPage(PageUtil.getPage(search), tableInfoDTO.getTableName(), tableInfoDTO.getDsName()));
     }
 
+    /**
+     * 数据初始化
+     * <p>在表单编辑前执行，先以初始配置数据进行初始化，可自行编辑内容</p>
+     *
+     * @param tableName    表名
+     * @param tableInfoDTO 数据源名称
+     * @return 状态
+     */
+    @PostMapping("/init-able")
     public Result<?> initTable(String tableName, TableInfoDTO tableInfoDTO) {
         tableService.initTable(tableName, tableInfoDTO.getDsName());
         return Result.condition(true);

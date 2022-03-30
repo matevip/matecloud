@@ -37,12 +37,12 @@ public class TableInfoTest {
 
     @Test
     void getColumnInfoTest() {
-        List<ColumnInfoVO> columnInfoVOS = tableInfoService.listColumnInfo("def_tenant", "localdb");
+        List<ColumnInfoVO> columnInfoVOS = tableInfoService.listColumnInfo("mate_sys_user", "master");
         log.info("columnInfo: {}", JSONObject.toJSONString(columnInfoVOS));
     }
 
     @Test
     void getTableTest() {
-        tableService.initTable("def_tenant", "localdb");
+        tableService.initTable("mate_sys_user", "master");
     }
 }
