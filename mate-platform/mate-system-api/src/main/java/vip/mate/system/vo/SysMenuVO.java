@@ -69,7 +69,7 @@ public class SysMenuVO implements INode {
 
 	private String component;
 
-	private Boolean hidden;
+	private String hidden;
 
 	private String redirect;
 
