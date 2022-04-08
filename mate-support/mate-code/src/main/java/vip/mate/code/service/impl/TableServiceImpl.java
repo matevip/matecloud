@@ -17,11 +17,17 @@
 package vip.mate.code.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.springframework.stereotype.Service;
 import vip.mate.code.constant.CodeConstant;
 import vip.mate.code.entity.Column;
@@ -31,12 +37,16 @@ import vip.mate.code.service.IColumnService;
 import vip.mate.code.service.ITableService;
 import vip.mate.code.service.TableInfoService;
 import vip.mate.code.util.CodeUtil;
+import vip.mate.code.util.VmUtil;
 import vip.mate.code.vo.ColumnInfoVO;
 import vip.mate.code.vo.TableInfoVO;
+import vip.mate.core.common.util.StringPool;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.database.util.PageUtil;
 
+import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -112,5 +122,37 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         }
         // 批量存储字段数据
         columnService.saveBatch(collect);
+    }
+
+    @Override
+    public List<JSONObject> previewCode(String tableName) {
+        List<JSONObject> dataMap = new ArrayList<>();
+        Table table = this.getOne(Wrappers.<Table>lambdaQuery().eq(Table::getName, tableName));
+        if (ObjectUtil.isEmpty(table)) {
+            // @Todo添加多数据源的部分代码
+            initTable(tableName, "master");
+            table = this.getOne(Wrappers.<Table>lambdaQuery().eq(Table::getName, tableName));
+        }
+        List<Column> columns = columnService.list(Wrappers.<Column>lambdaQuery().eq(Column::getTableId, table.getId()));
+        // 初始化Velocity模板
+        VmUtil.initVelocity();
+        // 获取模板数据
+        VelocityContext velocityContext = VmUtil.setupContext(table, columns);
+        JSONObject data = null;
+        // 模板列表
+        List<String> templates = VmUtil.getTemplateList(null);
+        for (String template : templates) {
+            // 渲染模板
+            StringWriter sw = new StringWriter();
+            Template tpl = Velocity.getTemplate(template, StringPool.UTF_8);
+            tpl.merge(velocityContext, sw);
+            data = new JSONObject();
+            String vmName = StrUtil.subAfter(template, StrUtil.SLASH, true);
+            data.put("name", vmName);
+            data.put("language", StrUtil.subAfter(vmName, StrUtil.DOT, true));
+            data.put("template", sw.toString());
+            dataMap.add(data);
+        }
+        return dataMap;
     }
 }
