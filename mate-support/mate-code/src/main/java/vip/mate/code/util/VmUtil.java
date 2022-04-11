@@ -7,6 +7,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import vip.mate.code.entity.Column;
 import vip.mate.code.entity.Table;
+import vip.mate.core.common.util.DateUtil;
 import vip.mate.core.common.util.StringPool;
 
 import java.util.ArrayList;
@@ -92,6 +93,8 @@ public class VmUtil {
         velocityContext.put("columns", columns);
         // 业务表信息
         velocityContext.put("table", table);
+        // 时间
+        velocityContext.put("date", DateUtil.getCurrentDate());
         return velocityContext;
     }
 
