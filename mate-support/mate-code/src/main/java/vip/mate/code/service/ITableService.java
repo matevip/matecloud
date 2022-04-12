@@ -16,10 +16,13 @@
  */
 package vip.mate.code.service;
 
-import vip.mate.code.entity.Table;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import vip.mate.code.entity.Table;
 import vip.mate.core.database.entity.Search;
+
+import java.util.List;
 
 /**
  * <p>
@@ -49,4 +52,11 @@ public interface ITableService extends IService<Table> {
      */
     void initTable(String tableName, String dsName);
 
+    /**
+     * 预览代码
+     *
+     * @param tableName 表名
+     * @return 数据列表
+     */
+    List<JSONObject> previewCode(String tableName);
 }

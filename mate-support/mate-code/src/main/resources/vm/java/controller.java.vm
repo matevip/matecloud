@@ -14,7 +14,7 @@
  * limitations under the License.
  * Author: pangu(7333791@qq.com)
  */
-package ${package.Controller};
+package ${packageName}.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,46 +27,30 @@ import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
+import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 
-#if(${restControllerStyle})
 import org.springframework.web.bind.annotation.RestController;
-#else
-import org.springframework.stereotype.Controller;
-#end
-#if(${superControllerClassPackage})
-import ${superControllerClassPackage};
-#end
-import $!{package.Service}.$!{table.serviceName};
-import ${package.Entity}.${entity};
+import ${packageName}.service.I${ClassName}Service;
+import ${packageName}.entity.${BusinessName};
 import javax.validation.Valid;
 
 /**
  * <p>
- * $!{table.comment} 前端控制器
+ * $!{functionName} 前端控制器
  * </p>
  *
  * @author ${author}
  * @since ${date}
  */
-#if(${restControllerStyle})
-@RestController
-#else
-@Controller
-#end
-@AllArgsConstructor
-@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
-@Api(value = "$!{table.comment}", tags = "$!{table.comment}接口")
-#if(${kotlin})
-class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
-#else
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
 
-    private final $!{table.serviceName} $!{table.entityPath}Service;
+@RestController
+@AllArgsConstructor
+@RequestMapping("$!{businessName}")
+@Api(value = "$!{functionName}", tags = "$!{functionName}接口")
+public class ${ClassName}Controller extends BaseController {
+
+    private final I$!{BusinessName}Service $!{businessName}Service;
 
     /**
      * 分页列表
@@ -75,9 +59,9 @@ public class ${table.controllerName} {
      * @return Result
      */
     @PreAuth
-    @Log(value = "$!{table.comment}列表", exception = "$!{table.comment}列表请求异常")
+    @Log(value = "$!{functionName}列表")
     @GetMapping("/page")
-    @ApiOperation(value = "$!{table.comment}列表", notes = "分页查询")
+    @ApiOperation(value = "$!{functionName}列表")
     @ApiImplicitParams({
         @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
         @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
@@ -86,56 +70,55 @@ public class ${table.controllerName} {
         @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
     })
     public Result<?> page(Search search) {
-		return Result.data($!{table.entityPath}Service.listPage(search));
+		return Result.data($!{businessName}Service.listPage(search));
     }
 
     /**
-     * $!{table.comment}信息
+     * $!{functionName}信息
      *
      * @param id Id
      * @return Result
      */
     @PreAuth
-    @Log(value = "$!{table.comment}信息", exception = "$!{table.comment}信息请求异常")
+    @Log(value = "$!{functionName}信息")
     @GetMapping("/get")
-    @ApiOperation(value = "$!{table.comment}信息", notes = "根据ID查询")
+    @ApiOperation(value = "$!{functionName}信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
     })
     public Result<?> get(@RequestParam String id) {
-		return Result.data($!{table.entityPath}Service.getById(id));
+		return Result.data($!{businessName}Service.getById(id));
 	}
 
     /**
-    * $!{table.comment}设置
+    * $!{functionName}设置
     *
     * @param $!{table.entityPath} $!{entity} 对象
     * @return Result
     */
     @PreAuth
-    @Log(value = "$!{table.comment}设置", exception = "$!{table.comment}设置请求异常")
+    @Log(value = "$!{functionName}设置")
     @PostMapping("/set")
-    @ApiOperation(value = "$!{table.comment}设置", notes = "$!{table.comment}设置,支持新增或修改")
-    public Result<?> set(@Valid @RequestBody $!{entity} $!{table.entityPath}) {
-		return Result.condition($!{table.entityPath}Service.saveOrUpdate($!{table.entityPath}));
+    @ApiOperation(value = "$!{functionName}设置"")
+    public Result<?> set(@Valid @RequestBody $!{BusinessName} $!{businessName}) {
+		return Result.condition($!{businessName}Service.saveOrUpdate($!{businessName}));
 	}
 
     /**
-    * $!{table.comment}删除
+    * $!{functionName}删除
     *
     * @param ids id字符串，根据,号分隔
     * @return Result
     */
     @PreAuth
-    @Log(value = "$!{table.comment}删除", exception = "$!{table.comment}删除请求异常")
+    @Log(value = "$!{functionName}删除")
     @PostMapping("/del")
-    @ApiOperation(value = "$!{table.comment}删除", notes = "$!{table.comment}删除")
+    @ApiOperation(value = "$!{functionName}删除")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
     })
     public Result<?> del(@RequestParam String ids) {
-		return Result.condition($!{table.entityPath}Service.removeByIds(CollectionUtil.stringToCollection(ids)));
+		return Result.condition($!{businessName}Service.removeByIds(CollectionUtil.stringToCollection(ids)));
 	}
 }
 
-#end

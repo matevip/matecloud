@@ -16,6 +16,7 @@
  */
 package vip.mate.code.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -35,6 +36,7 @@ import vip.mate.core.web.controller.BaseController;
 import vip.mate.core.web.util.CollectionUtil;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -147,6 +149,12 @@ public class TableController extends BaseController {
     public Result<?> initTable(String tableName, TableInfoDTO tableInfoDTO) {
         tableService.initTable(tableName, tableInfoDTO.getDsName());
         return Result.condition(true);
+    }
+
+    @GetMapping("/preview")
+    public Result<?> preview(@RequestParam String tableName) {
+        List<JSONObject> codeMap = tableService.previewCode(tableName);
+        return Result.data(codeMap);
     }
 }
 

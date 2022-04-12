@@ -26,6 +26,13 @@ admin | matecloud| mate-system模块不能执行增删改请求
 ---|---|---
 admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
 
+### 🍯 商业版Vue3的快照版：https://v3.mate.vip
+此版本正在加速孵化中，欢迎入群提建议。
+
+账号 | 密码| 操作权限
+---|---|---
+admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
+
 [商业版与开源版对比](https://doc.mate.vip/vip/product/business/)
 
 ## 📌 版本演进
