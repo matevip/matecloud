@@ -68,7 +68,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
-        <jetcache.version>2.6.2</jetcache.version>
+        <jetcache.version>2.6.4</jetcache.version>
 
         <!-- Apache Dubbo -->
         <dubbo.version>[2.7.13,)</dubbo.version>
