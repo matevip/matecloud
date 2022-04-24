@@ -14,9 +14,9 @@
  * limitations under the License.
  * Author: pangu(7333791@qq.com)
  */
-package $!{package.Entity};
+package $!{packageName}.entity;
 
-#foreach($pkg in $!{table.importPackages})
+#foreach($pkg in $!{importList})
 import $!{pkg};
 #end
 #if($!{entityLombokModel})
@@ -47,7 +47,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "$!{entity}对象", description = #if ("$!{table.comment}"=="")"$!{entity}对象"#else"$!{table.comment}"#end)
 #end
 #if($!{superEntityClass})
-public class $!{entity} extends $!{superEntityClass}#if($!{activeRecord})<$!{entity}>#end {
+public class $!{ClassName} extends $!{superEntityClass}{
 #elseif($!{activeRecord})
 @Accessors(chain = true)
 public class $!{entity} extends Model<$!{entity}> {
