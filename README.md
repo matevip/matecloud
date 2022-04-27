@@ -27,11 +27,12 @@ admin | matecloud| mate-system模块不能执行增删改请求
 admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
 
 ### 🍯 商业版Vue3的快照版：https://v3.mate.vip
-此版本正在加速孵化中，欢迎入群提建议。
+管理员类型 | 账号| 密码 | 用途
+---|---|---|---  
+超级管理员 | admin | matecloud123 | 超级用户
+租户管理员 | tenant | matecloud123 | 此处模拟商城系统
 
-账号 | 密码| 操作权限
----|---|---
-admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信 matecloud 联系
+`注意`：租户管理员的菜单完全自定义，可用于扩展开发商城系统、CRM系统、OA系统等任意系统需求。
 
 [商业版与开源版对比](https://doc.mate.vip/vip/product/business/)
 
