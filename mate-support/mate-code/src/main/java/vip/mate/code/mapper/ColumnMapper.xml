@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.mate.code.mapper.ColumnMapper">
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="BaseResultMap" type="vip.mate.code.entity.Column">
+                <result column="id" property="id" />
+                    <result column="table_id" property="tableId" />
+                    <result column="name" property="name" />
+                    <result column="comment" property="comment" />
+                    <result column="type" property="type" />
+                    <result column="java_type" property="javaType" />
+                    <result column="java_field" property="javaField" />
+                    <result column="is_pk" property="isPk" />
+                    <result column="is_increment" property="isIncrement" />
+                    <result column="is_required" property="isRequired" />
+                    <result column="is_view" property="isView" />
+                    <result column="is_insert" property="isInsert" />
+                    <result column="is_edit" property="isEdit" />
+                    <result column="is_list" property="isList" />
+                    <result column="is_query" property="isQuery" />
+                    <result column="is_unique" property="isUnique" />
+                    <result column="is_import" property="isImport" />
+                    <result column="is_export" property="isExport" />
+                    <result column="is_hide" property="isHide" />
+                    <result column="is_cover" property="isCover" />
+                    <result column="query_type" property="queryType" />
+                    <result column="html_type" property="htmlType" />
+                    <result column="dict_type" property="dictType" />
+                    <result column="sort" property="sort" />
+                    <result column="create_by" property="createBy" />
+                    <result column="create_time" property="createTime" />
+                    <result column="update_by" property="updateBy" />
+                    <result column="update_time" property="updateTime" />
+        </resultMap>
+
+        <!-- 通用查询结果列 -->
+        <sql id="Base_Column_List">
+                    id,
+                table_id, name, comment, type, java_type, java_field, is_pk, is_increment, is_required, is_view, is_insert, is_edit, is_list, is_query, is_unique, is_import, is_export, is_hide, is_cover, query_type, html_type, dict_type, sort, create_by, create_time, update_by, update_time
+        </sql>
+
+</mapper>

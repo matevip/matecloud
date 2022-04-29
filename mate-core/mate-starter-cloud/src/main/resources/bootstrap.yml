@@ -12,16 +12,17 @@ spring:
         group: @config.group@
         file-extension: yaml
         prefix: mate
-#        shared-configs:
-#          - @artifactId@-@spring.active@.${spring.cloud.nacos.config.file-extension}
-#            refresh-enabled: true
-#        shared-configs[0]:
-#          data-id: @artifactId@.yaml
-#          group: DEFAULT_GROUP
-#          refresh: true
+      #        shared-configs:
+      #          - @artifactId@-@spring.active@.${spring.cloud.nacos.config.file-extension}
+      #            refresh-enabled: true
+      #        shared-configs[0]:
+      #          data-id: @artifactId@.yaml
+      #          group: DEFAULT_GROUP
+      #          refresh: true
       discovery:
-        namespace: @config.namespace@
-        server-addr: @config.server-addr@
+        namespace: ${spring.cloud.nacos.config.namespace}
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        group: ${spring.cloud.nacos.config.group}
         watch:
           enabled: false
     sentinel:
@@ -33,7 +34,12 @@ spring:
       eager: true
       transport:
         #port: @sentinel.port@
-        dashboard: @sentinel.dashboard@
+        dashboard: ${SENTINEL.URL:@sentinel.dashboard@}
+    loadbalancer:
+      cache:
+        enabled: true
+        caffeine:
+          spec: initialCapacity=500,expireAfterWrite=5s
 feign:
   sentinel:
     enabled: true

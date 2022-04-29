@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 import vip.mate.core.cloud.props.MateApiProperties;
 import vip.mate.core.common.constant.MateConstant;
 import vip.mate.core.common.constant.Oauth2Constant;
+import vip.mate.core.common.constant.WebConstant;
 import vip.mate.core.common.util.ResponseUtil;
 import vip.mate.core.common.util.SecurityUtil;
 import vip.mate.core.common.util.StringPool;
@@ -105,7 +106,7 @@ public class PreUaaFilter implements GlobalFilter, Ordered {
 	}
 
 	private Mono<Void> unauthorized(ServerHttpResponse resp, String msg) {
-		return ResponseUtil.webFluxResponseWriter(resp, MateConstant.JSON_UTF8, HttpStatus.UNAUTHORIZED, msg); }
+		return ResponseUtil.webFluxResponseWriter(resp, WebConstant.JSON_UTF8, HttpStatus.UNAUTHORIZED, msg); }
 
 	@Override
 	public int getOrder() {

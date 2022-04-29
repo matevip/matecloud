@@ -23,55 +23,51 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TransactionOrderServiceImpl implements ITransactionOrderService {
 
-	private final RocketMQTemplate rocketMQTemplate;
+    private final RocketMQTemplate rocketMQTemplate;
 
-	private final StreamBridge streamBridge;
+    private final StreamBridge streamBridge;
 
-	/**
-	 * 这里消息发送只是half发送，
-	 * 后面消息队列中half成功后，在TestTransactionListener中的executeLocalTransaction的方法中决定是否要提交本地事务
-	 */
-	@Override
-	public void testTransaction() {
-		Order order = Order.builder()
-				.id(1L)
-				.goodsId(100L)
-				.goodsPrice(BigDecimal.valueOf(100.00))
-				.tradeId(100L)
-				.number(2)
-				.createTime(LocalDateTime.now())
-				.build();
+    /**
+     * 这里消息发送只是half发送，
+     * 后面消息队列中half成功后，在TestTransactionListener中的executeLocalTransaction的方法中决定是否要提交本地事务
+     */
+    @Override
+    public void testTransaction() {
+        Order order = Order.builder()
+                .id(1L)
+                .goodsId(100L)
+                .goodsPrice(BigDecimal.valueOf(100.00))
+                .tradeId(100L)
+                .number(2)
+                .createTime(LocalDateTime.now())
+                .build();
 
-		// 事务id
-		String transactionId = UUID.randomUUID().toString();
-		rocketMQTemplate.sendMessageInTransaction(MessageConstant.ORDER_BINDER_GROUP,
-				MessageConstant.ORDER_MESSAGE_OUTPUT,
-				MessageBuilder.withPayload(order)
-		.setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId)
-		.setHeader("share_id", 3).build(),
-				4L);
+        // 事务id
+        String transactionId = UUID.randomUUID().toString();
+        rocketMQTemplate.sendMessageInTransaction(MessageConstant.ORDER_BINDER_GROUP, MessageBuilder.withPayload(order)
+                .setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId)
+                .setHeader("share_id", 3).build(), 4L);
+        log.info("half消息发送成功");
 
-		log.info("half消息发送成功");
+    }
 
-	}
+    @Override
+    public void testStreamTransaction() {
 
-	@Override
-	public void testStreamTransaction() {
+        Order order = Order.builder()
+                .id(1L)
+                .goodsId(100L)
+                .goodsPrice(BigDecimal.valueOf(100.00))
+                .tradeId(100L)
+                .number(2)
+                .createTime(LocalDateTime.now())
+                .build();
+        // 事务id
+        String transactionId = UUID.randomUUID().toString();
 
-		Order order = Order.builder()
-				.id(1L)
-				.goodsId(100L)
-				.goodsPrice(BigDecimal.valueOf(100.00))
-				.tradeId(100L)
-				.number(2)
-				.createTime(LocalDateTime.now())
-				.build();
-		// 事务id
-		String transactionId = UUID.randomUUID().toString();
-
-		streamBridge.send(MessageConstant.ORDER_MESSAGE_OUTPUT, MessageBuilder.withPayload(order)
-				.setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId)
-				.setHeader("share_id", 3).build());
-		log.info("half消息发送成功");
-	}
+        streamBridge.send(MessageConstant.ORDER_MESSAGE_OUTPUT, MessageBuilder.withPayload(order)
+                .setHeader(RocketMQHeaders.TRANSACTION_ID, transactionId)
+                .setHeader("share_id", 3).build());
+        log.info("half消息发送成功");
+    }
 }

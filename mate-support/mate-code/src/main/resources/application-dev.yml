@@ -8,3 +8,17 @@ spring:
     url: ${mate.datasource.url}
     username: ${mate.datasource.username}
     password: ${mate.datasource.password}
+# 代码生成
+code:
+  # 作者
+  author: david
+  # ui路径（空代表生成在后端主路径下，可设置为ui项目地址）
+  uiPath:
+  # 自动去除表前缀，默认是true
+  autoRemovePre: true
+  remove-lists:
+    # 表前缀（生成类名不会包含表前缀）
+    - prefix: mate_
+      # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
+      packageName: vip.mate.system
+      frontPackageName: system

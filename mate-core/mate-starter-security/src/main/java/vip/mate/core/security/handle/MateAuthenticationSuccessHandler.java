@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAut
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.constant.WebConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -80,7 +80,7 @@ public class MateAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		OAuth2AccessToken accessToken = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
 
 		// 直接结束
-		response.setContentType(MateConstant.JSON_UTF8);
+		response.setContentType(WebConstant.JSON_UTF8);
 		response.getWriter().write(objectMapper.writeValueAsString(accessToken));
 	}
 

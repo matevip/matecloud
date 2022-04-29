@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.1</version>
+        <version>2.6.7</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>4.2.8</version>
+    <version>4.4.8</version>
     <packaging>pom</packaging>
     <name>mate-starter-dependencies</name>
     <description>based on Spring Cloud Alibaba dependencies</description>
@@ -39,29 +39,28 @@
     </scm>
 
     <properties>
-        <matecloud.core.version>4.2.8</matecloud.core.version>
+        <matecloud.core.version>4.4.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.6.1</spring.boot.version>
-        <spring.cloud.version>2021.0.0</spring.cloud.version>
-        <alibaba.cloud.version>2021.1</alibaba.cloud.version>
+        <spring.boot.version>2.6.7</spring.boot.version>
+        <spring.cloud.version>2021.0.2</spring.cloud.version>
+        <alibaba.cloud.version>2021.0.1.0</alibaba.cloud.version>
 
-        <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
-        <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
-        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-        <maven-dockerfile-plugin.version>1.4.10</maven-dockerfile-plugin.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+        <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.12</nexus-staging-maven-plugin.version>
 
         <mysql.connector.version>8.0.22</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
-        <postgresql.connector.version>42.2.6</postgresql.connector.version>
-        <druid.version>1.2.8</druid.version>
-        <mybatis.plus.version>3.4.3.4</mybatis.plus.version>
+        <postgresql.connector.version>42.3.3</postgresql.connector.version>
+        <druid.version>1.2.9</druid.version>
+        <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
-        <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
-        <velocity.version>1.7</velocity.version>
+        <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
 
         <swagger.version>2.10.5</swagger.version>
         <swagger.models.version>1.6.2</swagger.models.version>
@@ -69,20 +68,20 @@
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
-        <jetcache.version>2.6.0</jetcache.version>
+        <jetcache.version>2.6.4</jetcache.version>
 
         <!-- Apache Dubbo -->
-        <dubbo.version>[2.7.13,)</dubbo.version>
-        <fastjson.version>1.2.78</fastjson.version>
+        <dubbo.version>3.0.7</dubbo.version>
+        <fastjson.version>1.2.80</fastjson.version>
 
-        <spring-boot-admin.version>2.5.4</spring-boot-admin.version>
+        <spring-boot-admin.version>2.6.6</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
-        <nacos.client.version>2.0.3</nacos.client.version>
+        <nacos.client.version>2.0.4</nacos.client.version>
         <easypoi.version>4.4.0</easypoi.version>
         <ip2region.version>1.7.2</ip2region.version>
-        <justauth.version>1.15.8</justauth.version>
+        <justauth.version>1.16.5</justauth.version>
         <justauth.springboot.version>1.3.3</justauth.springboot.version>
-        <okhttp.version>4.9.2</okhttp.version>
+        <okhttp.version>4.9.3</okhttp.version>
 
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
 
@@ -90,24 +89,27 @@
         <commons-collections.version>3.2.2</commons-collections.version>
 
         <dozer.version>6.5.0</dozer.version>
-        <redisson.version>3.15.0</redisson.version>
-        <lettuce.version>6.1.5.RELEASE</lettuce.version>
-        <sentinel.version>1.8.2</sentinel.version>
+        <redisson.version>3.17.0</redisson.version>
+        <lettuce.version>6.1.6.RELEASE</lettuce.version>
+        <sentinel.version>1.8.3</sentinel.version>
         <transmittable.version>2.12.2</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
-        <rocketmq.version>4.9.0</rocketmq.version>
+        <rocketmq.version>4.9.3</rocketmq.version>
         <seata.version>1.4.2</seata.version>
-        <prometheus.version>1.7.4</prometheus.version>
+        <prometheus.version>1.8.5</prometheus.version>
 
         <jasypt.version>3.0.4</jasypt.version>
 
         <retrofit.version>2.2.3</retrofit.version>
-        <gson.version>2.8.8</gson.version>
-        <guava.version>30.1.1-jre</guava.version>
-        <aws-java-sdk-s3.version>1.12.86</aws-java-sdk-s3.version>
-        <lombok.version>1.18.20</lombok.version>
-        <hutool.version>5.7.14</hutool.version>
-        <spring.security.version>2.5.5</spring.security.version>
+        <gson.version>2.8.9</gson.version>
+        <guava.version>31.1-jre</guava.version>
+        <aws-java-sdk-s3.version>1.12.205</aws-java-sdk-s3.version>
+        <lombok.version>1.18.24</lombok.version>
+        <hutool.version>5.7.22</hutool.version>
+        <spring.security.version>2.6.6</spring.security.version>
+        <caffeine.version>3.0.6</caffeine.version>
+        <sun.jaxb.version>2.3.5</sun.jaxb.version>
+        <springdoc-openapi.version>1.6.8</springdoc-openapi.version>
     </properties>
 
     <dependencyManagement>
@@ -321,11 +323,6 @@
                 <version>${dynamic-datasource.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
-                <version>${velocity.version}</version>
-            </dependency>
             <!--Swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -409,11 +406,13 @@
                 <artifactId>poi</artifactId>
                 <version>${poi.version}</version>
             </dependency>
+            <!--
             <dependency>
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.client.version}</version>
             </dependency>
+            -->
             <!-- easypoi -->
             <dependency>
                 <groupId>cn.afterturn</groupId>
@@ -606,6 +605,27 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${sun.jaxb.version}</version>
+            </dependency>
+            <!-- SpringDoc -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                <version>${springdoc-openapi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -627,7 +647,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -636,18 +656,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <version>${maven-jar-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>${maven-site-plugin.version}</version>
             </plugin>
             <!-- Source -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>${maven-source-plugin.version}</version>
                 <configuration>
                     <attach>true</attach>
                 </configuration>
@@ -664,7 +684,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
+                <version>${maven-gpg-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -678,14 +698,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <show>private</show>
                     <nohelp>true</nohelp>
                     <charset>UTF-8</charset>
                     <encoding>UTF-8</encoding>
                     <docencoding>UTF-8</docencoding>
-                    <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
                 <executions>
                     <execution>
@@ -700,7 +719,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
+                <version>${nexus-staging-maven-plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>sonatype</serverId>

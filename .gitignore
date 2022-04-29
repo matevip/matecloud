@@ -20,6 +20,8 @@ temp/
 # idea
 .idea/
 *.iml
+*.iws
+*.ipr
 
 *velocity.log*
 
@@ -30,11 +32,6 @@ temp/
 .factorypath
 .springBeans
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.ipr
-
 ### NetBeans ###
 nbproject/private/
 build/
@@ -44,3 +41,6 @@ nbdist/
 
 *.log
 tmp/
+
+# 环境变量
+local.env
