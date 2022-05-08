@@ -74,7 +74,7 @@
         <dubbo.version>3.0.7</dubbo.version>
         <fastjson.version>1.2.80</fastjson.version>
 
-        <spring-boot-admin.version>2.6.6</spring-boot-admin.version>
+        <spring-boot-admin.version>2.6.7</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
         <nacos.client.version>2.1.0</nacos.client.version>
         <easypoi.version>4.4.0</easypoi.version>
