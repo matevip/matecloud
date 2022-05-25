@@ -3,6 +3,7 @@ package vip.mate.core.web.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -22,7 +23,7 @@ import java.util.TimeZone;
  * @link https://blog.csdn.net/weixin_44600430/article/details/105512891
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(ObjectMapper.class)
 @AutoConfigureBefore(JacksonAutoConfiguration.class)
 public class DateConverterConfiguration {

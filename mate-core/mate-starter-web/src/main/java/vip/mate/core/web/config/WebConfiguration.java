@@ -2,13 +2,10 @@ package vip.mate.core.web.config;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import vip.mate.core.redis.core.RedisService;
-import vip.mate.core.web.listener.RequestMappingScanListener;
 import vip.mate.core.web.support.LoginUserArgumentResolver;
 
 import java.util.List;
@@ -19,7 +16,7 @@ import java.util.List;
  * @author pangu
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @AllArgsConstructor
 public class WebConfiguration implements WebMvcConfigurer {
 
@@ -41,11 +38,11 @@ public class WebConfiguration implements WebMvcConfigurer {
 	 *
 	 * @return RequestMappingScanListener
 	 */
-	@Bean
-	@ConditionalOnMissingBean(RequestMappingScanListener.class)
-	public RequestMappingScanListener resourceAnnotationScan() {
-		RequestMappingScanListener scan = new RequestMappingScanListener(redisService);
-		log.info("资源扫描类.[{}]", scan);
-		return scan;
-	}
+//	@Bean
+//	@ConditionalOnMissingBean(RequestMappingScanListener.class)
+//	public RequestMappingScanListener resourceAnnotationScan() {
+//		RequestMappingScanListener scan = new RequestMappingScanListener(redisService);
+//		log.info("资源扫描类.[{}]", scan);
+//		return scan;
+//	}
 }

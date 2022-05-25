@@ -1,9 +1,9 @@
 package vip.mate.core.database.config;
 
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import java.math.BigInteger;
  * @author pangu
  * @link https://www.cnblogs.com/asker009/p/12888388.html
  */
-@Configuration
+@AutoConfiguration
 public class JacksonConfiguration {
 
 	/**

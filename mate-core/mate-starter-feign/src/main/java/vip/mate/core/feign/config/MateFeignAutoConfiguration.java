@@ -2,6 +2,7 @@ package vip.mate.core.feign.config;
 
 import feign.Feign;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -9,7 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.MateFeignClientsRegistrar;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import vip.mate.core.feign.endpoint.FeignClientEndpoint;
 
@@ -18,7 +18,7 @@ import vip.mate.core.feign.endpoint.FeignClientEndpoint;
  *
  * @author xuzhanfu
  */
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(Feign.class)
 @Import(MateFeignClientsRegistrar.class)
 @AutoConfigureAfter(EnableFeignClients.class)
@@ -30,10 +30,4 @@ public class MateFeignAutoConfiguration {
     public FeignClientEndpoint feignClientEndpoint(ApplicationContext context) {
         return new FeignClientEndpoint(context);
     }
-
-//    @Bean
-//    @Primary
-//    public MateHystrixTargeter mateFeignTargeter() {
-//        return new MateHystrixTargeter();
-//    }
 }

@@ -5,9 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.ReflectionUtils;
@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
  * @author pangu
  * 2020-7-5
  */
-@Configuration
+@AutoConfiguration
 @EnableSwagger2WebMvc
 @AllArgsConstructor
 //@Profile({"!prod"})

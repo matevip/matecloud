@@ -9,11 +9,11 @@ import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerIntercept
 import lombok.AllArgsConstructor;
 import org.apache.ibatis.type.EnumTypeHandler;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.Ordered;
@@ -33,7 +33,7 @@ import vip.mate.core.mybatis.props.MateMybatisProperties;
  * @author L.cm
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@Configuration
+@AutoConfiguration
 @AllArgsConstructor
 @EnableTransactionManagement
 @EnableConfigurationProperties(MateMybatisProperties.class)

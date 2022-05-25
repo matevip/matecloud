@@ -2,10 +2,10 @@ package vip.mate.core.database.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import vip.mate.core.common.factory.YamlPropertySourceFactory;
 
@@ -14,10 +14,8 @@ import vip.mate.core.common.factory.YamlPropertySourceFactory;
  *
  * @author pangu
  */
-@Configuration
+@AutoConfiguration
 @PropertySource(factory = YamlPropertySourceFactory.class, value = "classpath:mate-druid.yml")
-// 打开和关闭druid模式加密
-//@PropertySource(value = "classpath:mate-decrypt.properties")
 public class DruidConfiguration {
 	/**
 	 * 注册一个StatViewServlet

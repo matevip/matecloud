@@ -1,0 +1,3 @@
+vip.mate.core.database.config.DruidConfiguration
+vip.mate.core.database.config.MybatisPlusConfiguration
+vip.mate.core.database.config.TenantConfiguration

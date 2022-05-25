@@ -1,5 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  vip.mate.core.gray.config.GrayConfig,\
-  vip.mate.core.gray.context.VersionContextHolderFilter
-
-
