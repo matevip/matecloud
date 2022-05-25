@@ -37,12 +37,12 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 [商业版与开源版对比](https://doc.mate.vip/vip/product/business/)
 
 ## 📌 版本演进
-核心中间件 | 2.5.8及以下 | 3.0.8+
+核心中间件 | 2.5.8及以下 | 当前:4.4.9
 ---|---|---
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.7.0-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2021.0.2-blue" alt="SpringCloud"/>
 Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.1.0-blue" alt="SpringCloudAlibaba"/>
-Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.0.4-blue" alt="nacos"/>
+Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.1.0-blue" alt="nacos"/>
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.3-blue" alt="sentinel"/>
 
 ## 📖 官方文档
@@ -163,7 +163,7 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
         <dependency>
             <groupId>vip.mate</groupId>
             <artifactId>mate-starter-dependencies</artifactId>
-            <version>4.3.8</version>
+            <version>4.4.8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
