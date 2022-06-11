@@ -43,7 +43,7 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.7.0</spring.boot.version>
-        <spring.cloud.version>2021.0.2</spring.cloud.version>
+        <spring.cloud.version>2021.0.3</spring.cloud.version>
         <alibaba.cloud.version>2021.0.1.0</alibaba.cloud.version>
 
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
@@ -54,11 +54,11 @@
         <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.12</nexus-staging-maven-plugin.version>
 
-        <mysql.connector.version>8.0.22</mysql.connector.version>
+        <mysql.connector.version>8.0.29</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.3.3</postgresql.connector.version>
         <druid.version>1.2.9</druid.version>
-        <mybatis.plus.version>3.5.1</mybatis.plus.version>
+        <mybatis.plus.version>3.5.2</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
         <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
 
@@ -68,7 +68,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
-        <jetcache.version>2.6.4</jetcache.version>
+        <jetcache.version>2.6.5</jetcache.version>
 
         <!-- Apache Dubbo -->
         <dubbo.version>3.0.7</dubbo.version>
