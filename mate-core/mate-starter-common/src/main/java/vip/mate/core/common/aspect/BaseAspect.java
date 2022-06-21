@@ -1,8 +1,8 @@
 package vip.mate.core.common.aspect;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPath;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONPath;
 import org.aspectj.lang.JoinPoint;
 
 import java.lang.annotation.Annotation;
@@ -79,7 +79,7 @@ public abstract class BaseAspect {
 			params = condition.split(",");
 			for (String param : params) {
 				param = param.replace("#", "");
-				JSONObject val = (JSONObject) JSONPath.read(condition, param);
+				JSONObject val = (JSONObject) JSONPath.eval(condition, param);
 			}
 		}
 		return sb.toString();
