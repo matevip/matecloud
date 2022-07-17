@@ -57,7 +57,7 @@
         <mysql.connector.version>8.0.29</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.3.3</postgresql.connector.version>
-        <druid.version>1.2.9</druid.version>
+        <druid.version>1.2.11</druid.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
         <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
@@ -68,13 +68,13 @@
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
-        <jetcache.version>2.6.5</jetcache.version>
+        <jetcache.version>2.6.6</jetcache.version>
 
         <!-- Apache Dubbo -->
         <dubbo.version>3.0.7</dubbo.version>
-        <fastjson2.version>2.0.7</fastjson2.version>
+        <fastjson2.version>2.0.9</fastjson2.version>
 
-        <spring-boot-admin.version>2.7.0</spring-boot-admin.version>
+        <spring-boot-admin.version>2.7.2</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
         <nacos.client.version>2.1.0</nacos.client.version>
         <easypoi.version>4.4.0</easypoi.version>
@@ -95,7 +95,7 @@
         <transmittable.version>2.12.2</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.9.3</rocketmq.version>
-        <seata.version>1.4.2</seata.version>
+        <seata.version>1.5.2</seata.version>
         <prometheus.version>1.8.5</prometheus.version>
 
         <jasypt.version>3.0.4</jasypt.version>
