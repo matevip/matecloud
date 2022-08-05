@@ -127,4 +127,8 @@ public class GsonUtil {
 		}
 		return map;
 	}
+
+	public static JsonElement toJsonElement(String content) {
+		return JsonParser.parseString(content);
+	}
 }
