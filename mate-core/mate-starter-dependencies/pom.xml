@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>2.7.6</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -42,8 +42,8 @@
         <matecloud.core.version>4.6.8-SNAPSHOT</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.7.5</spring.boot.version>
-        <spring.cloud.version>2021.0.4</spring.cloud.version>
+        <spring.boot.version>2.7.6</spring.boot.version>
+        <spring.cloud.version>2021.0.5</spring.cloud.version>
         <alibaba.cloud.version>2021.0.4.0</alibaba.cloud.version>
 
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
@@ -54,27 +54,24 @@
         <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.12</nexus-staging-maven-plugin.version>
 
-        <mysql.connector.version>8.0.29</mysql.connector.version>
+        <mysql.connector.version>8.0.31</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.4.3</postgresql.connector.version>
-        <druid.version>1.2.11</druid.version>
+        <druid.version>1.2.15</druid.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
-        <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
+        <dynamic-datasource.version>3.5.2</dynamic-datasource.version>
 
-        <swagger.version>2.10.5</swagger.version>
-        <swagger.models.version>1.6.2</swagger.models.version>
-        <knife4j.version>2.0.9</knife4j.version>
         <jjwt.version>0.9.1</jjwt.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
-        <jetcache.version>2.6.6</jetcache.version>
+        <jetcache.version>2.6.7</jetcache.version>
 
         <!-- Apache Dubbo -->
         <dubbo.version>3.0.12</dubbo.version>
         <fastjson2.version>2.0.11</fastjson2.version>
 
-        <spring-boot-admin.version>2.7.5</spring-boot-admin.version>
+        <spring-boot-admin.version>2.7.7</spring-boot-admin.version>
         <poi.version>4.1.2</poi.version>
         <nacos.client.version>2.1.2</nacos.client.version>
         <easypoi.version>4.4.0</easypoi.version>
@@ -91,7 +88,7 @@
         <dozer.version>6.5.0</dozer.version>
         <redisson.version>3.17.0</redisson.version>
         <lettuce.version>6.1.6.RELEASE</lettuce.version>
-        <sentinel.version>1.8.3</sentinel.version>
+        <sentinel.version>1.8.6</sentinel.version>
         <transmittable.version>2.12.2</transmittable.version>
         <commons-io.version>2.8.0</commons-io.version>
         <rocketmq.version>4.9.3</rocketmq.version>
