@@ -1,8 +1,7 @@
 package vip.mate.core.common.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.Getter;
 import vip.mate.core.common.constant.MateConstant;
@@ -17,21 +16,21 @@ import java.io.Serializable;
  */
 @Data
 @Getter
-@ApiModel(value = "统一响应消息报文")
+@Schema(description = "统一响应消息报文")
 public class Result<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "状态码", required = true)
+	@Schema(description = "状态码", required = true)
 	private int code;
 
-	@ApiModelProperty(value = "消息内容", required = true)
+	@Schema(description = "消息内容", required = true)
 	private String msg;
 
-	@ApiModelProperty(value = "时间戳", required = true)
+	@Schema(description = "时间戳", required = true)
 	private long time;
 
-	@ApiModelProperty(value = "业务数据")
+	@Schema(description = "业务数据")
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private T data;
 

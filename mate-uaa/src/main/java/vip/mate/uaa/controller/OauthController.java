@@ -1,9 +1,10 @@
 package vip.mate.uaa.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -26,26 +27,26 @@ import java.util.Map;
 @RestController
 @RequestMapping("/oauth")
 @AllArgsConstructor
-@Api(tags = "Oauth2管理")
+@Tag(name = "Oauth2管理")
 public class OauthController {
 
 	private final TokenEndpoint tokenEndpoint;
 
 	@Log(value = "用户登录", exception = "用户登录请求异常")
 	@GetMapping("/token")
-	@ApiOperation(value = "用户登录Get", notes = "用户登录Get")
+	@Operation(summary = "用户登录Get", description = "用户登录Get")
 	public Result<?> getAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
 		return custom(tokenEndpoint.getAccessToken(principal, parameters).getBody());
 	}
 
 	@Log(value = "用户登录", exception = "用户登录请求异常")
 	@PostMapping("/token")
-	@ApiOperation(value = "用户登录Post", notes = "用户登录Post")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "grant_type", required = true, value = "授权类型", paramType = "query"),
-			@ApiImplicitParam(name = "username", required = false, value = "用户名", paramType = "query"),
-			@ApiImplicitParam(name = "password", required = false, value = "密码", paramType = "query"),
-			@ApiImplicitParam(name = "scope", required = true, value = "使用范围", paramType = "query"),
+	@Operation(summary = "用户登录Post", description = "用户登录Post")
+	@Parameters({
+			@Parameter(name = "grant_type", required = true,  description = "授权类型", in = ParameterIn.QUERY),
+			@Parameter(name = "username", required = true,  description = "用户名", in = ParameterIn.QUERY),
+			@Parameter(name = "password", required = true,  description = "密码", in = ParameterIn.QUERY),
+			@Parameter(name = "scope", required = true,  description = "使用范围", in = ParameterIn.QUERY),
 	})
 	public Result<?> postAccessToken(Principal principal, @RequestBody Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
 		return custom(tokenEndpoint.postAccessToken(principal, parameters).getBody());

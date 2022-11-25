@@ -1,10 +1,11 @@
 package vip.mate.uaa.controller;
 
 import com.xkcoding.justauth.AuthRequestFactory;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthCallback;
@@ -46,7 +47,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/auth")
-@Api(tags = "认证管理")
+@Tag(name = "认证管理")
 public class AuthController {
 
     @Qualifier("consumerTokenServices")
@@ -66,10 +67,10 @@ public class AuthController {
 
     @Log(value = "用户信息", exception = "用户信息请求异常")
     @GetMapping("/get/user")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Mate-Auth", required = true, value = "授权类型", paramType = "header")
+    @Parameters({
+            @Parameter(name = "Mate-Auth", required = true,  description = "授权类型", in = ParameterIn.QUERY)
     })
-    @ApiOperation(value = "用户信息", notes = "用户信息")
+    @Operation(summary = "用户信息", description = "用户信息")
     public Result<?> getUser(HttpServletRequest request) {
 
         LoginUser loginUser = SecurityUtil.getUsername(request);
@@ -102,9 +103,9 @@ public class AuthController {
 
     @Log(value = "验证码获取", exception = "验证码获取请求异常")
     @GetMapping("/code")
-    @ApiOperation(value = "验证码获取", notes = "验证码获取")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Authorization", required = true, value = "授权类型", paramType = "header")
+    @Operation(summary = "验证码获取", description = "验证码获取")
+    @Parameters({
+            @Parameter(name = "Authorization", required = true,  description = "授权类型", in = ParameterIn.QUERY)
     })
     public Result<?> authCode() {
         return validateService.getCode();
@@ -112,9 +113,9 @@ public class AuthController {
 
     @Log(value = "退出登录", exception = "退出登录请求异常")
     @PostMapping("/logout")
-    @ApiOperation(value = "退出登录", notes = "退出登录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Mate-Auth", required = true, value = "授权类型", paramType = "header")
+    @Operation(summary = "退出登录", description = "退出登录")
+    @Parameters({
+            @Parameter(name = "Mate-Auth", required = true,  description = "授权类型", in = ParameterIn.QUERY)
     })
     public Result<?> logout(HttpServletRequest request) {
         if (StringUtil.isNotBlank(SecurityUtil.getHeaderToken(request))) {
@@ -130,9 +131,9 @@ public class AuthController {
      * @return Result
      */
     @Log(value = "手机验证码下发", exception = "手机验证码下发请求异常")
-    @ApiOperation(value = "手机验证码下发", notes = "手机验证码下发")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "Authorization", required = true, value = "授权类型", paramType = "header")
+    @Operation(summary = "手机验证码下发", description = "手机验证码下发")
+    @Parameters({
+            @Parameter(name = "Authorization", required = true,  description = "授权类型", in = ParameterIn.QUERY)
     })
     @GetMapping("/sms-code")
     public Result<?> smsCode(String mobile) {
@@ -145,7 +146,7 @@ public class AuthController {
      */
     @Log(value = "登录类型", exception = "登录类型请求异常")
     @GetMapping("/list")
-    @ApiOperation(value = "登录类型", notes = "登录类型")
+    @Operation(summary = "登录类型", description = "登录类型")
     public Map<String, String> loginType() {
         List<String> oauthList = factory.oauthList();
         return oauthList.stream().collect(Collectors.toMap(oauth -> oauth.toLowerCase() + "登录", oauth -> "http://localhost:10001/mate-uaa/auth/login/" + oauth.toLowerCase()));
@@ -159,7 +160,7 @@ public class AuthController {
      * @throws IOException IO异常
      */
     @Log(value = "第三方登录", exception = "第三方登录请求异常")
-    @ApiOperation(value = "第三方登录", notes = "第三方登录")
+    @Operation(summary = "第三方登录", description = "第三方登录")
     @PostMapping("/login/{oauthType}")
     public void login(@PathVariable String oauthType, HttpServletResponse response) throws IOException {
         AuthRequest authRequest = factory.get(oauthType);
@@ -173,7 +174,7 @@ public class AuthController {
      * @param callback  携带返回的信息
      */
     @Log(value = "第三方登录回调", exception = "第三方登录回调请求异常")
-    @ApiOperation(value = "第三方登录回调", notes = "第三方登录回调")
+    @Operation(summary = "第三方登录回调", description = "第三方登录回调")
     @GetMapping("/callback/{oauthType}")
     public void callback(@PathVariable String oauthType, AuthCallback callback, HttpServletResponse httpServletResponse) throws IOException {
         String url = socialConfig.getUrl() + "?code=" + oauthType + "-" + callback.getCode() + "&state=" + callback.getState();
@@ -185,7 +186,7 @@ public class AuthController {
     @PreAuth
     @Log(value = "用户按钮权限")
     @GetMapping("/get/permission")
-    @ApiOperation(value = "用户按钮权限")
+    @Operation(summary = "用户按钮权限")
     public Result<?> getPermission(HttpServletRequest request) {
         LoginUser loginUser = SecurityUtil.getUsername(request);
         List<String> stringList = sysRolePermissionProvider.getMenuIdByRoleId(loginUser.getRoleId());

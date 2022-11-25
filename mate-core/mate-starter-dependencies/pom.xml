@@ -109,7 +109,7 @@
         <spring.security.version>2.6.6</spring.security.version>
         <caffeine.version>3.0.6</caffeine.version>
         <sun.jaxb.version>2.3.5</sun.jaxb.version>
-        <springdoc-openapi.version>1.6.8</springdoc-openapi.version>
+        <springdoc.version>1.6.13</springdoc.version>
     </properties>
 
     <dependencyManagement>
@@ -250,6 +250,11 @@
                 <artifactId>mate-starter-idempotent</artifactId>
                 <version>${matecloud.core.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mate-starter-swagger</artifactId>
+                <version>${matecloud.core.version}</version>
+            </dependency>
             <!-- 微服务基础包 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -323,32 +328,6 @@
                 <version>${dynamic-datasource.version}</version>
             </dependency>
 
-            <!--Swagger-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-models</artifactId>
-                <version>${swagger.models.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-micro-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-ui</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
             <!-- JWT -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -617,13 +596,14 @@
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc-openapi.version}</version>
+                <version>${springdoc.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-webmvc-core</artifactId>
-                <version>${springdoc-openapi.version}</version>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

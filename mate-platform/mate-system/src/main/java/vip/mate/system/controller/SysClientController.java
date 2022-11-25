@@ -1,10 +1,10 @@
 package vip.mate.system.controller;
 
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.core.auth.annotation.PreAuth;
@@ -33,7 +33,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/client")
-@Api(tags = "客户端管理")
+@Tag(name = "客户端管理")
 public class SysClientController extends BaseController {
 
 	private final ISysClientService sysClientService;
@@ -47,13 +47,13 @@ public class SysClientController extends BaseController {
 	@PreAuth
 	@Log(value = "客户端分页", exception = "客户端分页请求异常")
 	@GetMapping("/page")
-	@ApiOperation(value = "客户端分页", notes = "客户端分页")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-			@ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-			@ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-			@ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-			@ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+	@Operation(summary = "客户端分页", description = "客户端分页")
+	@Parameters({
+			@Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+			@Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+			@Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+			@Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+			@Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
 	})
 	public Result<?> page(Search search) {
 		return Result.data(sysClientService.listPage(search));
@@ -68,7 +68,7 @@ public class SysClientController extends BaseController {
 	@PreAuth
 	@Log(value = "客户端设置", exception = "客户端设置请求异常")
 	@PostMapping("/set")
-	@ApiOperation(value = "客户端设置", notes = "客户端设置,支持新增或修改")
+	@Operation(summary = "客户端设置", description = "客户端设置,支持新增或修改")
 	public Result<?> set(@Valid @RequestBody SysClient sysClient) {
 		return Result.condition(sysClientService.saveOrUpdate(sysClient));
 	}
@@ -82,9 +82,9 @@ public class SysClientController extends BaseController {
 	@PreAuth
 	@Log(value = "客户端信息", exception = "客户端信息请求异常")
 	@GetMapping("/get")
-	@ApiOperation(value = "客户端信息", notes = "客户端信息,根据ID查询")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", required = true, value = "主键ID", paramType = "form"),
+	@Operation(summary = "客户端信息", description = "客户端信息,根据ID查询")
+	@Parameters({
+			@Parameter(name = "id", required = true,  description = "主键ID", in = ParameterIn.DEFAULT),
 	})
 	public Result<?> get(@RequestParam String id) {
 		return Result.data(sysClientService.getById(id));
@@ -99,9 +99,9 @@ public class SysClientController extends BaseController {
 	@PreAuth
 	@Log(value = "客户端删除", exception = "客户端删除请求异常")
 	@PostMapping("/del")
-	@ApiOperation(value = "客户端删除", notes = "客户端删除")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+	@Operation(summary = "客户端删除", description = "客户端删除")
+	@Parameters({
+			@Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
 	})
 	public Result<?> del(@RequestParam String ids) {
 		if (sysClientService.removeByIds(CollectionUtil.stringToCollection(ids))) {
@@ -120,10 +120,10 @@ public class SysClientController extends BaseController {
 	@PreAuth
 	@Log(value = "客户端状态", exception = "客户端状态请求异常")
 	@PostMapping("/set-status")
-	@ApiOperation(value = "客户端状态", notes = "客户端状态：启用、禁用")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
-			@ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
+	@Operation(summary = "客户端状态", description = "客户端状态：启用、禁用")
+	@Parameters({
+			@Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT),
+			@Parameter(name = "status", required = true,  description = "状态", in = ParameterIn.DEFAULT)
 	})
 	public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
 		return Result.condition(sysClientService.status(ids, status));
@@ -135,7 +135,7 @@ public class SysClientController extends BaseController {
 	@PreAuth
 	@Log(value = "客户端导出", exception = "客户端导出请求异常")
 	@PostMapping("/export")
-	@ApiOperation(value = "客户端导出", notes = "客户端导出")
+	@Operation(summary = "客户端导出", description = "客户端导出")
 	public void export(HttpServletResponse response) {
 		List<SysClientPOI> sysClientPOIS = sysClientService.export();
 		//使用工具类导出excel

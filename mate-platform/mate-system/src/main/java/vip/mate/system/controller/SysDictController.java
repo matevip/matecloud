@@ -1,12 +1,12 @@
 package vip.mate.system.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/dict")
 @AllArgsConstructor
-@Api(tags = "字典管理")
+@Tag(name = "字典管理")
 public class SysDictController extends BaseController {
 
     private final ISysDictService sysDictService;
@@ -47,7 +47,7 @@ public class SysDictController extends BaseController {
     @PreAuth
     @Log(value = "字典列表code查询", exception = "字典列表请求异常")
     @GetMapping("/list-code")
-    @ApiOperation(value = "字典列表code查询", notes = "字典列表code查询")
+    @Operation(summary = "字典列表code查询", description = "字典列表code查询")
     public Result<?> listCode(String code) {
         return sysDictService.getList(code);
     }
@@ -62,7 +62,7 @@ public class SysDictController extends BaseController {
     @PreAuth
     @Log(value = "字典列表key查询", exception = "字典列表key查询请求异常")
     @GetMapping("/get-dict-value")
-    @ApiOperation(value = "字典列表key查询", notes = "字典列表key查询")
+    @Operation(summary = "字典列表key查询", description = "字典列表key查询")
     public Result<?> getDictValue(String code, String dictKey) {
         return sysDictService.getValue(code, dictKey);
     }
@@ -78,13 +78,13 @@ public class SysDictController extends BaseController {
     @PreAuth
     @Log(value = "字典分页", exception = "字典分页请求异常")
     @GetMapping("/page")
-    @ApiOperation(value = "字典分页", notes = "字典分页")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "字典分页", description = "字典分页")
+    @Parameters({
+            @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+            @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(Page page, Search search) {
         return Result.data(sysDictService.listPage(page, search));
@@ -99,7 +99,7 @@ public class SysDictController extends BaseController {
     @PreAuth
     @Log(value = "字典项列表", exception = "字典项列表异常")
     @GetMapping("list-value")
-    @ApiOperation(value = "字典项列表", notes = "字典项列表")
+    @Operation(summary = "字典项列表", description = "字典项列表")
     public Result<?> listValue(@RequestParam String code) {
         return Result.data(sysDictService.list(new LambdaQueryWrapper<SysDict>()
                 .eq(SysDict::getCode, code)
@@ -116,7 +116,7 @@ public class SysDictController extends BaseController {
     @PreAuth
     @Log(value = "字典设置", exception = "字典设置请求异常")
     @PostMapping("/set")
-    @ApiOperation(value = "字典设置", notes = "字典设置,支持新增或修改")
+    @Operation(summary = "字典设置", description = "字典设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody SysDict sysDict) {
         return Result.condition(sysDictService.saveOrUpdate(sysDict));
     }
@@ -130,9 +130,9 @@ public class SysDictController extends BaseController {
     @PreAuth
     @Log(value = "字典信息", exception = "字典信息请求异常")
     @GetMapping("/get")
-    @ApiOperation(value = "字典信息", notes = "根据ID查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "主键ID", paramType = "form"),
+    @Operation(summary = "字典信息", description = "根据ID查询")
+    @Parameters({
+            @Parameter(name = "id", required = true,  description = "主键ID", in = ParameterIn.DEFAULT),
     })
     public Result<?> get(@RequestParam String id) {
         return Result.data(sysDictService.getById(id));
@@ -147,9 +147,9 @@ public class SysDictController extends BaseController {
     @PreAuth
     @Log(value = "字典删除", exception = "字典删除请求异常")
     @PostMapping("/del")
-    @ApiOperation(value = "字典删除", notes = "字典删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "字典删除", description = "字典删除")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     @Transactional(rollbackFor = Exception.class)
     public Result<?> del(@RequestParam String ids) {

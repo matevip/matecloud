@@ -20,8 +20,8 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +53,7 @@ import java.util.UUID;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/code")
-@Api(tags = "代码管理")
+@Tag(name = "代码管理")
 public class SysCodeController {
 
     private final ISysDataSourceService sysDataSourceService;
@@ -65,7 +65,7 @@ public class SysCodeController {
      */
     @PreAuth
     @Log(value = "数据库表信息", exception = "数据库表信息请求异常")
-    @ApiOperation(value = "数据库表信息", notes = "数据库表信息")
+    @Operation(summary = "数据库表信息", description = "数据库表信息")
     @PostMapping("/table-list")
     public Result<List<TableInfo>> tableList(@RequestParam String dataSourceId) {
         SysDataSource sysDataSource = sysDataSourceService.getById(dataSourceId);
@@ -96,7 +96,7 @@ public class SysCodeController {
      */
     @PreAuth
     @Log(value = "代码生成", exception = "代码生成请求异常")
-    @ApiOperation(value = "代码生成", notes = "代码生成")
+    @Operation(summary = "代码生成", description = "代码生成")
     @PostMapping("/generator-code")
     public void execute(@RequestParam String packageName, @RequestParam String prefix,
                         @RequestParam String modelName, @RequestParam String datasourceId,

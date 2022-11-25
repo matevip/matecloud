@@ -1,7 +1,7 @@
 package vip.mate.core.web.listener;
 
 import com.google.common.collect.Maps;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -19,9 +19,9 @@ import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.condition.RequestMethodsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.constant.MateConstant;
+import vip.mate.core.common.util.StringPool;
 import vip.mate.core.common.util.StringUtil;
 import vip.mate.core.redis.core.RedisService;
 
@@ -47,7 +47,8 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 		this.redisService = redisService;
 		this.ignoreApi.add("/error");
 		this.ignoreApi.add("/swagger-resources/**");
-		this.ignoreApi.add("/v2/api-docs-ext/**");
+		this.ignoreApi.add("/v3/api-docs-ext/**");
+		this.ignoreApi.add("/provider/**");
 	}
 
 	/**
@@ -76,10 +77,10 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 			for (Map.Entry<RequestMappingInfo, HandlerMethod> m : map.entrySet()) {
 				RequestMappingInfo info = m.getKey();
 				HandlerMethod method = m.getValue();
-				if (method.getMethodAnnotation(ApiIgnore.class) != null) {
-					// 忽略的接口不扫描
-					continue;
-				}
+//				if (method.getMethodAnnotation(ApiIgnore.class) != null) {
+//					// 忽略的接口不扫描
+//					continue;
+//				}
 				// 请求路径
 				PatternsRequestCondition p = info.getPatternsCondition();
 				String urls = getUrls(p.getPatterns());
@@ -102,45 +103,47 @@ public class RequestMappingScanListener implements ApplicationListener<Applicati
 				String className = method.getMethod().getDeclaringClass().getName();
 				// 方法名
 				String methodName = method.getMethod().getName();
-				String fullName = className + "." + methodName;
+				String returnName = method.getReturnType().getParameterType().getName();
+				if (null != returnName) {
+					returnName = returnName.substring(returnName.lastIndexOf(StringPool.DOT) + 1, returnName.length());
+				}
 				// md5码
 				String md5 = DigestUtils.md5DigestAsHex((microService + urls).getBytes());
 				String name = "";
-				String notes = "";
-				String auth = "0";
+				String description = "";
+				String auth = "1";
 
-				ApiOperation apiOperation = method.getMethodAnnotation(ApiOperation.class);
-				if (apiOperation != null) {
-					name = apiOperation.value();
-					notes = apiOperation.notes();
+				Operation operation = method.getMethodAnnotation(Operation.class);
+				if (operation != null) {
+					name = operation.summary();
+					description = operation.description();
 				}
 				// 判断是否需要权限校验
 				PreAuth preAuth = method.getMethodAnnotation(PreAuth.class);
 				if (preAuth != null) {
-					auth = "1";
+					auth = "0";
 				}
 				name = StringUtil.isBlank(name) ? methodName : name;
 				api.put("name", name);
-				api.put("notes", notes);
+				api.put("notes", description);
 				api.put("path", urls);
 				api.put("code", md5);
 				api.put("className", className);
 				api.put("methodName", methodName);
 				api.put("method", methods);
 				api.put("serviceId", microService);
-				api.put("contentType", mediaTypes);
+				api.put("contentType", returnName);
 				api.put("auth", auth);
 				list.add(api);
-				// log.info("api scan: {}", api);
 			}
 			// 放入redis缓存
-			Map<String,Object> res = Maps.newHashMap();
-			res.put("serviceId",microService);
-			res.put("size",list.size());
-			res.put("list",list);
+			Map<String, Object> res = Maps.newHashMap();
+			res.put("serviceId", microService);
+			res.put("size", list.size());
+			res.put("list", list);
 			redisService.hset(MateConstant.MATE_API_RESOURCE, microService, res, 18000L);
 			redisService.sSetAndTime(MateConstant.MATE_SERVICE_RESOURCE, 18000L, microService);
-			log.info("资源扫描结果:serviceId=[{}] size=[{}] redis缓存key=[{}]", microService,  list.size(), MateConstant.MATE_API_RESOURCE);
+			log.info("资源扫描结果:serviceId=[{}] size=[{}] redis缓存key=[{}]", microService, list.size(), MateConstant.MATE_API_RESOURCE);
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage());
 		}

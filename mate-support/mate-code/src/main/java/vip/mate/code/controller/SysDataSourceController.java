@@ -1,10 +1,11 @@
 package vip.mate.code.controller;
 
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.code.entity.SysDataSource;
@@ -29,7 +30,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/data-source")
-@Api(tags = "数据源管理")
+@Tag(name = "数据源管理")
 public class SysDataSourceController extends BaseController {
 
     private final ISysDataSourceService sysDataSourceService;
@@ -42,13 +43,13 @@ public class SysDataSourceController extends BaseController {
     @PreAuth
     @Log(value = "数据源分页", exception = "数据源分页请求异常")
     @GetMapping("/page")
-    @ApiOperation(value = "数据源分页", notes = "数据源分页")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "数据源分页", description = "数据源分页")
+    @Parameters({
+            @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+            @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(@RequestParam Map<String, String> query) {
         return Result.data(sysDataSourceService.listPage(query));
@@ -62,9 +63,9 @@ public class SysDataSourceController extends BaseController {
     @PreAuth
     @Log(value = "数据源信息", exception = "数据源信息请求异常")
     @GetMapping("/get")
-    @ApiOperation(value = "数据源信息", notes = "数据源信息,根据ID查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "form"),
+    @Operation(summary = "数据源信息", description = "数据源信息,根据ID查询")
+    @Parameters({
+            @Parameter(name = "id", required = true,  description = "用户ID", in = ParameterIn.DEFAULT),
     })
     public Result<?> get(@RequestParam String id) {
         return Result.data(sysDataSourceService.getById(id));
@@ -78,7 +79,7 @@ public class SysDataSourceController extends BaseController {
     @PreAuth
     @Log(value = "数据源设置", exception = "数据源设置请求异常")
     @PostMapping("/set")
-    @ApiOperation(value = "数据源设置", notes = "数据源设置,支持新增或修改")
+    @Operation(summary = "数据源设置", description = "数据源设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody SysDataSource sysDataSource) {
         return Result.condition(sysDataSourceService.saveOrUpdate(sysDataSource));
     }
@@ -91,9 +92,9 @@ public class SysDataSourceController extends BaseController {
     @PreAuth
     @Log(value = "数据源删除", exception = "数据源删除请求异常")
     @PostMapping("/del")
-    @ApiOperation(value = "数据源删除", notes = "数据源删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "数据源删除", description = "数据源删除")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     public Result<?> del(@RequestParam String ids) {
         return Result.condition(sysDataSourceService.removeByIds(CollectionUtil.stringToCollection(ids)));
@@ -106,7 +107,7 @@ public class SysDataSourceController extends BaseController {
     @PreAuth
     @Log(value = "数据源项列表", exception = "数据源项列表请求异常")
     @GetMapping("/option-list")
-    @ApiOperation(value = "数据源项列表", notes = "数据源项列表")
+    @Operation(summary = "数据源项列表", description = "数据源项列表")
     public Result<?> optionList() {
         return Result.data(sysDataSourceService.optionList());
     }

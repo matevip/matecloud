@@ -16,23 +16,22 @@
  */
 package vip.mate.system.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-
+import org.springframework.web.bind.annotation.*;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.database.entity.Search;
 import vip.mate.core.log.annotation.Log;
-import vip.mate.core.web.util.CollectionUtil;
-
-import org.springframework.web.bind.annotation.RestController;
 import vip.mate.core.web.controller.BaseController;
-import vip.mate.system.service.ISysRoleDepartService;
+import vip.mate.core.web.util.CollectionUtil;
 import vip.mate.system.entity.SysRoleDepart;
+import vip.mate.system.service.ISysRoleDepartService;
+
 import javax.validation.Valid;
 
 /**
@@ -46,7 +45,7 @@ import javax.validation.Valid;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sys-role-depart")
-@Api(value = "角色和部门关联表", tags = "角色和部门关联表接口")
+@Tag(name  = "角色和部门关联表", description = "角色和部门关联表接口")
 public class SysRoleDepartController extends BaseController {
 
     private final ISysRoleDepartService sysRoleDepartService;
@@ -60,13 +59,13 @@ public class SysRoleDepartController extends BaseController {
     @PreAuth
     @Log(value = "角色和部门关联表列表", exception = "角色和部门关联表列表请求异常")
     @GetMapping("/page")
-    @ApiOperation(value = "角色和部门关联表列表", notes = "分页查询")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-        @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-        @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-        @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-        @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "角色和部门关联表列表", description = "分页查询")
+    @Parameters({
+        @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+        @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+        @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+        @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+        @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(Search search) {
 		return Result.data(sysRoleDepartService.listPage(search));
@@ -81,9 +80,9 @@ public class SysRoleDepartController extends BaseController {
     @PreAuth
     @Log(value = "角色和部门关联表信息", exception = "角色和部门关联表信息请求异常")
     @GetMapping("/get")
-    @ApiOperation(value = "角色和部门关联表信息", notes = "根据ID查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
+    @Operation(summary = "角色和部门关联表信息", description = "根据ID查询")
+    @Parameters({
+            @Parameter(name = "id", required = true,  description = "ID", in = ParameterIn.DEFAULT),
     })
     public Result<?> get(@RequestParam String id) {
 		return Result.data(sysRoleDepartService.getById(id));
@@ -98,7 +97,7 @@ public class SysRoleDepartController extends BaseController {
     @PreAuth
     @Log(value = "角色和部门关联表设置", exception = "角色和部门关联表设置请求异常")
     @PostMapping("/set")
-    @ApiOperation(value = "角色和部门关联表设置", notes = "角色和部门关联表设置,支持新增或修改")
+    @Operation(summary = "角色和部门关联表设置", description = "角色和部门关联表设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody SysRoleDepart sysRoleDepart) {
 		return Result.condition(sysRoleDepartService.saveOrUpdate(sysRoleDepart));
 	}
@@ -112,9 +111,9 @@ public class SysRoleDepartController extends BaseController {
     @PreAuth
     @Log(value = "角色和部门关联表删除", exception = "角色和部门关联表删除请求异常")
     @PostMapping("/del")
-    @ApiOperation(value = "角色和部门关联表删除", notes = "角色和部门关联表删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "角色和部门关联表删除", description = "角色和部门关联表删除")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     public Result<?> del(@RequestParam String ids) {
 		return Result.condition(sysRoleDepartService.removeByIds(CollectionUtil.stringToCollection(ids)));

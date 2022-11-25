@@ -1,10 +1,10 @@
 package vip.mate.system.controller;
 
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,7 @@ import java.util.Collection;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/blacklist")
-@Api(tags = "黑名单管理")
+@Tag(name = "黑名单管理")
 public class SysBlacklistController extends BaseController {
 
     private final ISysBlacklistService sysBlacklistService;
@@ -49,13 +49,13 @@ public class SysBlacklistController extends BaseController {
     @PreAuth
     @Log(value = "黑名单分页", exception = "黑名单分页请求异常")
     @GetMapping("/page")
-    @ApiOperation(value = "黑名单分页", notes = "黑名单分页")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "黑名单分页", description = "黑名单分页")
+    @Parameters({
+            @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+            @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(Search search) {
         return Result.data(sysBlacklistService.listPage(search));
@@ -69,7 +69,7 @@ public class SysBlacklistController extends BaseController {
     @PreAuth
     @Log(value = "黑名单设置", exception = "黑名单设置请求异常")
     @PostMapping("/set")
-    @ApiOperation(value = "黑名单设置", notes = "黑名单设置,支持新增或修改")
+    @Operation(summary = "黑名单设置", description = "黑名单设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody SysBlacklist sysBlacklist) {
         BlackList blackList = new BlackList();
         //删除缓存
@@ -98,9 +98,9 @@ public class SysBlacklistController extends BaseController {
     @PreAuth
     @Log(value = "黑名单信息", exception = "黑名单信息请求异常")
     @GetMapping("/get")
-    @ApiOperation(value = "黑名单信息", notes = "黑名单信息,根据ID查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "主键ID", paramType = "form"),
+    @Operation(summary = "黑名单信息", description = "黑名单信息,根据ID查询")
+    @Parameters({
+            @Parameter(name = "id", required = true,  description = "主键ID", in = ParameterIn.DEFAULT),
     })
     public Result<?> info(@RequestParam String id) {
         return Result.data(sysBlacklistService.getById(id));
@@ -114,9 +114,9 @@ public class SysBlacklistController extends BaseController {
     @PreAuth
     @Log(value = "黑名单删除", exception = "黑名单删除请求异常")
     @PostMapping("/del")
-    @ApiOperation(value = "黑名单删除", notes = "黑名单删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "黑名单删除", description = "黑名单删除")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     @Transactional(rollbackFor = Exception.class)
     public Result<?> del(@RequestParam String ids) {
@@ -144,10 +144,10 @@ public class SysBlacklistController extends BaseController {
     @PreAuth
     @Log(value = "黑名单状态", exception = "黑名单状态请求异常")
     @PostMapping("/set-status")
-    @ApiOperation(value = "黑名单状态", notes = "黑名单状态,状态包括：启用、禁用")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form"),
-            @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
+    @Operation(summary = "黑名单状态", description = "黑名单状态,状态包括：启用、禁用")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT),
+            @Parameter(name = "status", required = true,  description = "状态", in = ParameterIn.DEFAULT)
     })
     public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
         if (sysBlacklistService.status(ids, status)) {

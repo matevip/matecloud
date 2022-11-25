@@ -17,8 +17,7 @@
 package vip.mate.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import vip.mate.core.database.entity.BaseEntity;
@@ -32,7 +31,7 @@ import vip.mate.core.database.entity.BaseEntity;
 @Data
 @TableName("mate_sys_role_depart")
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "SysRoleDepart对象", description = "角色和部门关联表")
+@Schema(name = "SysRoleDepart对象", description = "角色和部门关联表")
 public class SysRoleDepart extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -40,12 +39,12 @@ public class SysRoleDepart extends BaseEntity {
 	/**
 	* 角色ID
 	*/
-	@ApiModelProperty(value = "角色ID")
+	@Schema(description = "角色ID")
 	private Long roleId;
 	/**
 	* 部门ID
 	*/
-	@ApiModelProperty(value = "部门ID")
+	@Schema(description = "部门ID")
 	private Long departId;
 
 

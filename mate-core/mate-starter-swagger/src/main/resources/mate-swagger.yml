@@ -1,0 +1,33 @@
+springdoc:
+  swagger-ui:
+    oauth:
+      app-name: authority
+      client-id: client
+      client-secret: client
+      use-pkce-with-authorization-code-grant: true
+  plus:
+    servers:
+      - url: http://localhost:10001/mate-uaa/
+        description: 认证授权服务网关地址
+    info:
+      title: MateCloud Swagger API
+      description: 迈特云聚合文档
+      terms-of-service: https://mate.vip/
+      license:
+        name: apache
+        url: apache
+      contact:
+        name: 自在即不同
+        url: https:/mate.vip/
+        email: 7333791@qq.com
+    security-schemes:
+      oauth2:
+        name: oauth2
+        type: oauth2
+        in: header
+        bearer-format: Bearer
+        flows:
+          password:
+            scopes:
+              server: server
+            token-url: http://localhost:10001/mate-uaa/oauth/token?tenant_code=0000

@@ -3,7 +3,7 @@ package vip.mate.system.vo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import vip.mate.core.web.tree.INode;
 import vip.mate.system.entity.MenuMeta;
@@ -27,7 +27,7 @@ public class SysMenuVO implements INode {
 	 * 菜单ID
 	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-	@ApiModelProperty(value = "主键")
+	@Schema(description = "主键")
 	private Long id;
 
 	/**

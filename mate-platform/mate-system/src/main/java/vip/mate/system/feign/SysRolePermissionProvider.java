@@ -1,10 +1,8 @@
 package vip.mate.system.feign;
 
-import com.alicp.jetcache.anno.CachePenetrationProtect;
-import com.alicp.jetcache.anno.CacheRefresh;
 import com.alicp.jetcache.anno.Cached;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +12,6 @@ import vip.mate.core.log.annotation.Log;
 import vip.mate.system.service.ISysRolePermissionService;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 远程调用获取角色权限信息
@@ -24,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Api(tags = "角色权限远程调用")
+@Tag(name = "角色权限远程调用")
 public class SysRolePermissionProvider implements ISysRolePermissionProvider {
 
 	private final ISysRolePermissionService sysRolePermissionService;
@@ -32,7 +29,7 @@ public class SysRolePermissionProvider implements ISysRolePermissionProvider {
 	@Override
 	@GetMapping(ProviderConstant.PROVIDER_ROLE_PERMISSION)
 	@Log(value = "获取菜单列表", exception = "获取菜单列表请求失败")
-	@ApiOperation(value = "获取菜单列表", notes = "根据角色ID获取菜单列表")
+	@Operation(summary = "获取菜单列表", description = "根据角色ID获取菜单列表")
 	//配置一级缓存
 	@Cached(name = "getPermission-", key = "#roleId", expire = 120)
 	//缓存30秒钟自动刷新，从getUserById方法取一次，如果key在600秒内没有访问则不再自动刷新

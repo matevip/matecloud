@@ -1,16 +1,15 @@
 package vip.mate.system.controller;
 
-
 import cn.hutool.core.util.NumberUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 import vip.mate.core.auth.annotation.PreAuth;
 import vip.mate.core.common.api.Result;
 import vip.mate.core.common.constant.SystemConstant;
@@ -44,7 +43,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/role")
-@Api(tags = "角色管理")
+@Tag(name = "角色管理")
 public class SysRoleController extends BaseController {
 
     private final ISysRoleService sysRoleService;
@@ -54,13 +53,13 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色分页")
     @GetMapping("/page")
-    @ApiOperation(value = "角色分页")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "角色分页")
+    @Parameters({
+            @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+            @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(Search search) {
         return Result.data(sysRoleService.listPage(search));
@@ -75,11 +74,11 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色列表", exception = "角色列表请求异常")
     @GetMapping("/list")
-    @ApiOperation(value = "角色列表", notes = "角色列表，根据query查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "角色列表", description = "角色列表，根据query查询")
+    @Parameters({
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> list(@RequestParam Map<String, String> query) {
         return Result.data(sysRoleService.listSearch(query));
@@ -93,7 +92,7 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "所有角色列表")
     @GetMapping("/all-list")
-    @ApiOperation(value = "所有角色列表")
+    @Operation(summary = "所有角色列表")
     public Result<?> allList() {
         // 设置一个未授权的角色信息，提供给前端使用
         SysRole sysRole = new SysRole();
@@ -116,7 +115,7 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色设置", exception = "角色设置请求异常")
     @PostMapping("/set")
-    @ApiOperation(value = "角色设置", notes = "角色设置,支持新增或修改")
+    @Operation(summary = "角色设置", description = "角色设置,支持新增或修改")
     public Result<?> set(@Valid @RequestBody SysRole sysRole) {
         return Result.condition(sysRoleService.set(sysRole));
     }
@@ -130,7 +129,7 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色状态变更")
     @PostMapping("/set-status")
-    @ApiOperation(value = "角色状态变更")
+    @Operation(summary = "角色状态变更")
     public Result<?> setStatus(@Valid @RequestBody SysRole sysRole) {
         return Result.condition(sysRoleService.update(Wrappers.<SysRole>lambdaUpdate().
                 set(SysRole::getStatus, sysRole.getStatus())
@@ -146,9 +145,9 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色信息", exception = "角色信息请求异常")
     @GetMapping("/get")
-    @ApiOperation(value = "角色信息", notes = "根据ID查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "用户ID", paramType = "form"),
+    @Operation(summary = "角色信息", description = "根据ID查询")
+    @Parameters({
+            @Parameter(name = "id", required = true,  description = "用户ID", in = ParameterIn.DEFAULT),
     })
     public Result<?> get(@RequestParam String id) {
         LambdaQueryWrapper<SysRole> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -165,9 +164,9 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色删除", exception = "角色删除请求异常")
     @PostMapping("/delete")
-    @ApiOperation(value = "角色删除", notes = "角色删除，支持批量操作")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "角色删除", description = "角色删除，支持批量操作")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     public Result<?> delete(@RequestParam String ids) {
         return Result.condition(sysRoleService.batchDeleteByIds(ids));
@@ -182,7 +181,7 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色权限列表", exception = "角色权限列表请求异常")
     @GetMapping("/get-permission")
-    @ApiOperation(value = "角色权限列表", notes = "角色权限列表")
+    @Operation(summary = "角色权限列表", description = "角色权限列表")
     public Result<?> getPermission(@RequestParam String id) {
         return Result.data(sysRoleService.getPermission(id));
     }
@@ -197,10 +196,10 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色权限设置", exception = "角色权限设置")
     @PostMapping("/set-permission")
-    @ApiOperation(value = "角色权限设置", notes = "角色权限设置")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", required = true, value = "角色ID", paramType = "form"),
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "角色权限设置", description = "角色权限设置")
+    @Parameters({
+            @Parameter(name = "roleId", required = true,  description = "角色ID", in = ParameterIn.DEFAULT),
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     public Result<?> savePermission(@RequestParam String roleId, @RequestParam String ids) {
         Collection longs = CollectionUtil.stringToCollection(ids);
@@ -227,7 +226,7 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "角色树", exception = "角色树请求异常")
     @GetMapping("/tree")
-    @ApiOperation(value = "角色树", notes = "角色树")
+    @Operation(summary = "角色树", description = "角色树")
     public Result<?> tree() {
         return Result.data(sysRoleService.tree());
     }
@@ -238,8 +237,8 @@ public class SysRoleController extends BaseController {
     @PreAuth
     @Log(value = "导出角色", exception = "导出角色")
     @PostMapping("/export")
-    @ApiOperation(value = "导出角色", notes = "导出角色")
-    public void export(@ApiIgnore HttpServletResponse response) {
+    @Operation(summary = "导出角色", description = "导出角色")
+    public void export(HttpServletResponse response) {
         List<SysRolePOI> sysRolePOIS = sysRoleService.export();
         //使用工具类导出excel
         ExcelUtil.exportExcel(sysRolePOIS, null, "角色", SysRolePOI.class, "role", response);

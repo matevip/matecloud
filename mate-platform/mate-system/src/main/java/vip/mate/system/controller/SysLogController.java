@@ -1,11 +1,11 @@
 package vip.mate.system.controller;
 
-
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import vip.mate.core.auth.annotation.PreAuth;
@@ -27,7 +27,7 @@ import vip.mate.system.service.ISysLogService;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/log")
-@Api(tags = "日志管理")
+@Tag(name = "日志管理")
 public class SysLogController extends BaseController {
 
     private final ISysLogService sysLogService;
@@ -40,15 +40,15 @@ public class SysLogController extends BaseController {
     @PreAuth
     @Log(value = "日志列表", exception = "日志列表请求异常")
     @GetMapping("/page")
-    @ApiOperation(value = "日志列表", notes = "日志列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
-            @ApiImplicitParam(name = "prop", required = true, value = "排序属性", paramType = "form"),
-            @ApiImplicitParam(name = "order", required = true, value = "排序方式", paramType = "form"),
+    @Operation(summary = "日志列表", description = "日志列表")
+    @Parameters({
+            @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+            @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "prop", required = true,  description = "排序属性", in = ParameterIn.DEFAULT),
+            @Parameter(name = "order", required = true,  description = "排序方式", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(Search search) {
         return Result.data(sysLogService.listPage(search));
@@ -62,9 +62,9 @@ public class SysLogController extends BaseController {
     @PreAuth(hasPerm = "sys:log:delete")
     @Log(value = "日志删除", exception = "日志删除")
     @PostMapping("/del")
-    @ApiOperation(value = "日志删除", notes = "日志删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "日志删除", description = "日志删除")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     public Result<?> del(@RequestParam String ids) {
         return Result.condition(sysLogService.removeByIds(CollectionUtil.stringToCollection(ids)));
@@ -73,7 +73,7 @@ public class SysLogController extends BaseController {
     @PreAuth()
     @Log(value = "日志清空")
     @PostMapping("/empty")
-    @ApiOperation(value = "日志清空")
+    @Operation(summary = "日志清空")
     public Result<?> empty() {
         return Result.condition(sysLogService.remove(Wrappers.emptyWrapper()));
     }

@@ -18,8 +18,7 @@ package vip.mate.code.entity;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import vip.mate.core.database.entity.BaseEntity;
@@ -33,7 +32,7 @@ import vip.mate.core.database.entity.BaseEntity;
 @Data
 @TableName("mate_code_column")
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "Column对象", description = "代码生成字段表")
+@Schema(name = "Column对象", description = "代码生成字段表")
 public class Column extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -41,117 +40,117 @@ public class Column extends BaseEntity {
 	/**
 	* 归属表Id
 	*/
-	@ApiModelProperty(value = "归属表Id")
+	@Schema(description = "归属表Id")
 	private String tableId;
 	/**
 	* 列名称
 	*/
-	@ApiModelProperty(value = "列名称")
+	@Schema(description = "列名称")
 	private String name;
 	/**
 	* 列描述
 	*/
-	@ApiModelProperty(value = "列描述")
+	@Schema(description = "列描述")
 	private String comment;
 	/**
 	* 列类型
 	*/
-	@ApiModelProperty(value = "列类型")
+	@Schema(description = "列类型")
 	private String type;
 	/**
 	* JAVA类型
 	*/
-	@ApiModelProperty(value = "JAVA类型")
+	@Schema(description = "JAVA类型")
 	private String javaType;
 	/**
 	* JAVA字段名
 	*/
-	@ApiModelProperty(value = "JAVA字段名")
+	@Schema(description = "JAVA字段名")
 	private String javaField;
 	/**
 	* 主键字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "主键字段（1是 0否）")
+	@Schema(description = "主键字段（1是 0否）")
 	private Boolean isPk;
 	/**
 	* 自增字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "自增字段（1是 0否）")
+	@Schema(description = "自增字段（1是 0否）")
 	private Boolean isIncrement;
 	/**
 	* 必填字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "必填字段（1是 0否）")
+	@Schema(description = "必填字段（1是 0否）")
 	private Boolean isRequired;
 	/**
 	* 查看字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "查看字段（1是 0否）")
+	@Schema(description = "查看字段（1是 0否）")
 	private Boolean isView;
 	/**
 	* 新增字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "新增字段（1是 0否）")
+	@Schema(description = "新增字段（1是 0否）")
 	private Boolean isInsert;
 	/**
 	* 编辑字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "编辑字段（1是 0否）")
+	@Schema(description = "编辑字段（1是 0否）")
 	private Boolean isEdit;
 	/**
 	* 列表字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "列表字段（1是 0否）")
+	@Schema(description = "列表字段（1是 0否）")
 	private Boolean isList;
 	/**
 	* 查询字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "查询字段（1是 0否）")
+	@Schema(description = "查询字段（1是 0否）")
 	private Boolean isQuery;
 	/**
 	* 唯一字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "唯一字段（1是 0否）")
+	@Schema(description = "唯一字段（1是 0否）")
 	private Boolean isUnique;
 	/**
 	* 导入字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "导入字段（1是 0否）")
+	@Schema(description = "导入字段（1是 0否）")
 	private Boolean isImport;
 	/**
 	* 导出字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "导出字段（1是 0否）")
+	@Schema(description = "导出字段（1是 0否）")
 	private Boolean isExport;
 	/**
 	* 隐藏字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "隐藏字段（1是 0否）")
+	@Schema(description = "隐藏字段（1是 0否）")
 	private Boolean isHide;
 	/**
 	* 覆盖字段（1是 0否）
 	*/
-	@ApiModelProperty(value = "覆盖字段（1是 0否）")
+	@Schema(description = "覆盖字段（1是 0否）")
 	private Boolean isCover;
 	/**
 	* 查询方式（等于、不等于、大于、小于、范围）
 	*/
-	@ApiModelProperty(value = "查询方式（等于、不等于、大于、小于、范围）")
+	@Schema(description = "查询方式（等于、不等于、大于、小于、范围）")
 	private String queryType;
 	/**
 	* 显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）
 	*/
-	@ApiModelProperty(value = "显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）")
+	@Schema(description = "显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）")
 	private String htmlType;
 	/**
 	* 字典类型
 	*/
-	@ApiModelProperty(value = "字典类型")
+	@Schema(description = "字典类型")
 	private String dictType;
 	/**
 	* 显示顺序
 	*/
-	@ApiModelProperty(value = "显示顺序")
+	@Schema(description = "显示顺序")
 	private Integer sort;
 
 	public String readNameNoSuffix() {

@@ -21,14 +21,14 @@ import vip.mate.core.log.feign.ICommonLogProvider;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Api(tags = "调用消息生产者")
+@Tag(name = "调用消息生产者")
 public class CommonLogProvider implements ICommonLogProvider {
 
 	private final StreamBridge streamBridge;
 
 	@Override
 	@PostMapping("/provider/common-log/send")
-	@ApiOperation(value = "发送普通消息", notes = "发送普通消息")
+	@Operation(summary = "发送普通消息", description = "发送普通消息")
 	public Result<?> sendCommonLog(@RequestBody CommonLog commonLog) {
 		boolean flag = streamBridge.send(LogConstant.LOG_OUTPUT, commonLog);
 		if (flag) {

@@ -1,7 +1,7 @@
 package vip.mate.system.feign;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -21,14 +21,14 @@ import vip.mate.system.service.ISysLogService;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Api(tags = "日志远程调用")
+@Tag(name = "日志远程调用")
 public class SysLogProvider implements ISysLogProvider {
 
     private final ISysLogService sysLogService;
 
     @Override
     @PostMapping(ProviderConstant.PROVIDER_LOG_SET)
-    @ApiOperation(value = "日志设置", notes = "日志设置")
+    @Operation(summary = "日志设置", description = "日志设置")
     public Result<Boolean> set(CommonLog commonLog) {
         SysLog sysLog = new SysLog();
         BeanUtils.copyProperties(commonLog, sysLog);

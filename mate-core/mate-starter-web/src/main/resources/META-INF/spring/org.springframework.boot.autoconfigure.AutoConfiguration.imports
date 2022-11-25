@@ -1,5 +1,4 @@
 vip.mate.core.web.config.WebConfiguration
 vip.mate.core.web.config.DateConverterConfiguration
 vip.mate.core.web.config.ExceptionConfiguration
-vip.mate.core.web.config.SwaggerConfiguration
 vip.mate.core.web.config.UndertowHttp2Configuration

@@ -21,7 +21,6 @@
         <module>mate-platform</module>
         <module>mate-mq</module>
         <module>mate-examples</module>
-        <module>mate-core/mate-starter-oauth2</module>
     </modules>
 
     <properties>

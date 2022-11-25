@@ -1,10 +1,11 @@
 package vip.mate.component.controller;
 
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +31,7 @@ import java.util.Iterator;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/attachment")
-@Api(tags = "附件管理")
+@Tag(name = "附件管理")
 public class SysAttachmentController extends BaseController {
 
     private final ISysAttachmentService sysAttachmentService;
@@ -43,13 +44,13 @@ public class SysAttachmentController extends BaseController {
     @PreAuth
     @Log(value = "附件分页")
     @GetMapping("/page")
-    @ApiOperation(value = "附件分页")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "附件分页")
+    @Parameters({
+            @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+            @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(Search search) {
         return Result.data(sysAttachmentService.listPage(search));
@@ -61,7 +62,7 @@ public class SysAttachmentController extends BaseController {
      * @return Result
      */
     @Log(value = "附件上传")
-    @ApiOperation(value = "附件上传")
+    @Operation(summary = "附件上传")
     @PostMapping("/upload")
     public Result<?> upload(@RequestParam("file") MultipartFile file) {
         return sysAttachmentService.upload(file);
@@ -74,9 +75,9 @@ public class SysAttachmentController extends BaseController {
      */
     @PreAuth
     @Log(value = "删除文件")
-    @ApiOperation(value = "删除文件")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "删除文件")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     @PostMapping("/del")
     public Result<?> del(@RequestParam String ids) {

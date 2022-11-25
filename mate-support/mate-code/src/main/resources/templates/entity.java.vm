@@ -44,7 +44,7 @@ import io.swagger.annotations.ApiModelProperty;
 @EqualsAndHashCode(callSuper = true)
 #end
 #if($!{swagger2})
-@ApiModel(value = "$!{entity}对象", description = #if ("$!{table.comment}"=="")"$!{entity}对象"#else"$!{table.comment}"#end)
+@Schema(name = "$!{entity}对象", description = #if ("$!{table.comment}"=="")"$!{entity}对象"#else"$!{table.comment}"#end)
 #end
 #if($!{superEntityClass})
 public class $!{entity} extends $!{superEntityClass}#if($!{activeRecord})<$!{entity}>#end {
@@ -68,7 +68,7 @@ public class $!{entity} implements Serializable {
 	* $!{field.comment}
 	*/
 	#if($!{swagger2})
-	@ApiModelProperty(value = "$!{field.comment}")
+	@Schema(description = "$!{field.comment}")
 	#end
 #end
 #if($!{field.keyFlag})

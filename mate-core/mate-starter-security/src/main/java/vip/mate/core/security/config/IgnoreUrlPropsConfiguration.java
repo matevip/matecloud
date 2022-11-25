@@ -30,6 +30,7 @@ public class IgnoreUrlPropsConfiguration {
 			"/login/*",
 			"/actuator/**",
 			"/v2/api-docs",
+			"/v3/api-docs",
 			"/doc.html",
 			"/webjars/**",
 			"**/favicon.ico",
@@ -39,7 +40,6 @@ public class IgnoreUrlPropsConfiguration {
 	private List<String> urls = new ArrayList<>();
 
 	private List<String> client = new ArrayList<>();
-
 	private List<String> ignoreSecurity = new ArrayList<>();
 
 	/**

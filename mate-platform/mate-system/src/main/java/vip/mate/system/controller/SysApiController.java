@@ -18,10 +18,11 @@ package vip.mate.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ import java.util.Set;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
-@Api(value = "API管理")
+@Tag(name  = "API管理")
 public class SysApiController extends BaseController {
 
     private final ISysApiService sysApiService;
@@ -70,13 +71,13 @@ public class SysApiController extends BaseController {
     @PreAuth
     @Log(value = "API分页")
     @GetMapping("/page")
-    @ApiOperation(value = "API分页")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "current", required = true, value = "当前页", paramType = "form"),
-            @ApiImplicitParam(name = "size", required = true, value = "每页显示数据", paramType = "form"),
-            @ApiImplicitParam(name = "keyword", required = true, value = "模糊查询关键词", paramType = "form"),
-            @ApiImplicitParam(name = "startDate", required = true, value = "创建开始日期", paramType = "form"),
-            @ApiImplicitParam(name = "endDate", required = true, value = "创建结束日期", paramType = "form"),
+    @Operation(summary = "API分页")
+    @Parameters({
+            @Parameter(name = "current", required = true,  description = "当前页", in = ParameterIn.DEFAULT),
+            @Parameter(name = "size", required = true,  description = "每页显示数据", in = ParameterIn.DEFAULT),
+            @Parameter(name = "keyword", required = true,  description = "模糊查询关键词", in = ParameterIn.DEFAULT),
+            @Parameter(name = "startDate", required = true,  description = "创建开始日期", in = ParameterIn.DEFAULT),
+            @Parameter(name = "endDate", required = true,  description = "创建结束日期", in = ParameterIn.DEFAULT),
     })
     public Result<?> page(Page<?> page, Search search, @Nullable @RequestParam String serviceId) {
         return Result.data(sysApiService.listPage(page, search, serviceId));
@@ -91,9 +92,9 @@ public class SysApiController extends BaseController {
     @PreAuth
     @Log(value = "API信息")
     @GetMapping("/get")
-    @ApiOperation(value = "API信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true, value = "ID", paramType = "form"),
+    @Operation(summary = "API信息")
+    @Parameters({
+            @Parameter(name = "id", required = true,  description = "ID", in = ParameterIn.DEFAULT),
     })
     public Result<?> get(@RequestParam String id) {
         return Result.data(sysApiService.getById(id));
@@ -108,7 +109,7 @@ public class SysApiController extends BaseController {
     @PreAuth
     @Log(value = "API设置")
     @PostMapping("/set")
-    @ApiOperation(value = "API设置")
+    @Operation(summary = "API设置")
     public Result<?> set(@Valid @RequestBody SysApi sysApi) {
         return Result.condition(sysApiService.saveOrUpdate(sysApi));
     }
@@ -122,9 +123,9 @@ public class SysApiController extends BaseController {
     @PreAuth
     @Log(value = "API删除")
     @PostMapping("/del")
-    @ApiOperation(value = "API删除")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个用,号隔开", paramType = "form")
+    @Operation(summary = "API删除")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个用,号隔开", in = ParameterIn.DEFAULT)
     })
     public Result<?> del(@RequestParam String ids) {
         return Result.condition(sysApiService.removeByIds(CollectionUtil.stringToCollection(ids)));
@@ -140,10 +141,10 @@ public class SysApiController extends BaseController {
     @PreAuth
     @Log(value = "API状态")
     @PostMapping("/set-status")
-    @ApiOperation(value = "API状态")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", required = true, value = "多个id用,号隔开", paramType = "form"),
-            @ApiImplicitParam(name = "status", required = true, value = "状态", paramType = "form")
+    @Operation(summary = "API状态")
+    @Parameters({
+            @Parameter(name = "ids", required = true,  description = "多个id用,号隔开", in = ParameterIn.DEFAULT),
+            @Parameter(name = "status", required = true,  description = "状态", in = ParameterIn.DEFAULT)
     })
     public Result<?> setStatus(@RequestParam String ids, @RequestParam String status) {
         return Result.condition(sysApiService.status(ids, status));
@@ -156,7 +157,7 @@ public class SysApiController extends BaseController {
      */
     @PreAuth
     @PostMapping("/sync")
-    @ApiOperation(value = "API同步")
+    @Operation(summary = "API同步")
     @Log(value = "API同步")
     public Result<?> sync() {
         Set<Object> serviceIds = redisService.sGet(MateConstant.MATE_SERVICE_RESOURCE);

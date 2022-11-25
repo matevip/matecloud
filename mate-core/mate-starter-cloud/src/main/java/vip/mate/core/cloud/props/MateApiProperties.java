@@ -27,6 +27,7 @@ public class MateApiProperties {
 			"/oauth/**",
 			"/actuator/**",
 			"/v2/api-docs/**",
+			"/v3/api-docs/**",
 			"/swagger/api-docs",
 			"/swagger-ui.html",
 			"/doc.html",
