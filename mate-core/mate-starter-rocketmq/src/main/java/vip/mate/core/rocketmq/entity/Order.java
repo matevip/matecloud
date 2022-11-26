@@ -1,6 +1,5 @@
 package vip.mate.core.rocketmq.entity;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
 

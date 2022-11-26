@@ -12,7 +12,7 @@
 
     <groupId>vip.mate</groupId>
     <artifactId>mate-starter-dependencies</artifactId>
-    <version>4.6.8-SNAPSHOT</version>
+    <version>4.6.8</version>
     <packaging>pom</packaging>
     <name>mate-starter-dependencies</name>
     <description>based on Spring Cloud Alibaba dependencies</description>
@@ -39,7 +39,7 @@
     </scm>
 
     <properties>
-        <matecloud.core.version>4.6.8-SNAPSHOT</matecloud.core.version>
+        <matecloud.core.version>4.6.8</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
         <spring.boot.version>2.7.6</spring.boot.version>
@@ -107,6 +107,7 @@
         <caffeine.version>3.0.6</caffeine.version>
         <sun.jaxb.version>2.3.5</sun.jaxb.version>
         <springdoc.version>1.6.13</springdoc.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
     </properties>
 
     <dependencyManagement>
@@ -599,6 +600,11 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
             </dependency>
 
         </dependencies>
