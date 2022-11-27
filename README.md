@@ -198,6 +198,17 @@ matecloud -- 父项目,各模块分离，方便集成和微服务
 
 - 🥥 [https://gitee.com/matevip/mate-demo](https://gitee.com/matevip/mate-demo)
 
+## 🌭 Swagger2 - OpenAPI3
+|  Swagger2      |  OpenAPI3  | 注解位置                         |
+|  ----  | ----  |------------------------------|
+| `@Api`  | @Tag(name = "接口类描述") | Controller 类上                |
+| `@ApiOperation`  | @Operation(summary ="接口方法描述") | Controller 方法上               |
+| `@ApiImplicitParam`  | @Parameter(description="参数描述") | Controller 方法上 @Parameters 里 |
+| `@ApiImplicitParams`  | @Parameters | Controller 方法上               |
+| `@ApiParam`  | @Parameter(description="参数描述") | Controller 方法的参数上            |
+| `@ApiIgnore`  | @Parameter(hidden = true) 或 @Operation(hidden = true) 或 @Hidden | ----                         |
+| `@ApiModel`  | @Schema	 | Entity类上                     |
+| `@ApiModelProperty`  | @Schema	 | Entity属性上                    |
 ## 🍻 贡献者名单
 欢迎提交[PR](https://gitee.com/matevip/matecloud/pulls)一起完善项目，以下为开源项目贡献的战友（排名不分先后）：
 
