@@ -1,4 +1,4 @@
-package vip.mate.core.common.aspect;
+package vip.mate.core.ide.aspect;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
