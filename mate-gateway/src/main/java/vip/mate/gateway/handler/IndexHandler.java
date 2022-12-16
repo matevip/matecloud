@@ -27,7 +27,7 @@ public class IndexHandler {
 		sb.append("<div style='color: blue'>MateCloud gateway has been started!</div>");
 		if (!EnvType.PROD.getValue().equals(env)) {
 			sb.append("<br/>");
-			sb.append("<div><ul><li>文档地址：<a href='swagger-ui.html'>doc.html</a></li></ul></div>");
+			sb.append("<div><ul><li>文档地址：<a href='swagger-ui.html'>swagger-ui.html</a></li></ul></div>");
 		}
 		return sb.toString();
 	}

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>mate-core</artifactId>
         <groupId>vip.mate</groupId>
-        <version>4.6.8</version>
+        <version>4.7.8-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
