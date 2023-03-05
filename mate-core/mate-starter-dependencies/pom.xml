@@ -107,7 +107,7 @@
         <caffeine.version>3.1.2</caffeine.version>
         <sun.jaxb.version>2.3.5</sun.jaxb.version>
         <springdoc.version>1.6.13</springdoc.version>
-        <snakeyaml.version>1.33</snakeyaml.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
     </properties>
 
     <dependencyManagement>
