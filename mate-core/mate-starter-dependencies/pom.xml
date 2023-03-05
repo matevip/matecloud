@@ -102,7 +102,7 @@
         <guava.version>31.1-jre</guava.version>
         <aws-java-sdk-s3.version>1.12.365</aws-java-sdk-s3.version>
         <lombok.version>1.18.24</lombok.version>
-        <hutool.version>5.8.10</hutool.version>
+        <hutool.version>5.8.11</hutool.version>
         <spring.security.version>2.6.6</spring.security.version>
         <caffeine.version>3.1.2</caffeine.version>
         <sun.jaxb.version>2.3.5</sun.jaxb.version>
