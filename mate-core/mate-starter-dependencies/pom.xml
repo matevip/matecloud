@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.8</version>
+        <version>2.7.9</version>
         <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -42,7 +42,7 @@
         <matecloud.core.version>4.7.8-SNAPSHOT</matecloud.core.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-        <spring.boot.version>2.7.8</spring.boot.version>
+        <spring.boot.version>2.7.9</spring.boot.version>
         <spring.cloud.version>2021.0.5</spring.cloud.version>
         <alibaba.cloud.version>2021.0.4.0</alibaba.cloud.version>
 
@@ -57,7 +57,7 @@
         <mysql.connector.version>8.0.31</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.4.3</postgresql.connector.version>
-        <druid.version>1.2.15</druid.version>
+        <druid.version>1.2.16</druid.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
         <mybaits.generator.version>3.4.1</mybaits.generator.version>
         <dynamic-datasource.version>3.5.2</dynamic-datasource.version>
