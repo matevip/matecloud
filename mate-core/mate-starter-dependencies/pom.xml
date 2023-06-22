@@ -99,7 +99,7 @@
 
         <retrofit.version>2.2.3</retrofit.version>
         <gson.version>2.10</gson.version>
-        <guava.version>31.1-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <aws-java-sdk-s3.version>1.12.365</aws-java-sdk-s3.version>
         <lombok.version>1.18.24</lombok.version>
         <hutool.version>5.8.11</hutool.version>
