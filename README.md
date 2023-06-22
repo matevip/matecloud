@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/github/stars/matevip/matecloud" alt="Stars"/>
   <img src="https://img.shields.io/badge/Spring%20Boot-2.7.12-green" alt="SpringBoot"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-2021.0.5-blue" alt="SpringCloud"/>
-  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.4.0-brightgreen" alt="Spring Cloud Alibaba"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.5.0-brightgreen" alt="Spring Cloud Alibaba"/>
 </p>
 
 ## 🍟 如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢
@@ -41,7 +41,7 @@ admin | matecloud123 | 不能执行增删改请求，如需全部权限加微信
 ---|---|---
 Spring Boot | 2.3.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Boot-2.7.12-blue" alt="SpringBoot"/>
 Spring Cloud | Hoxton SR* | <img src="https://img.shields.io/badge/Spring%20Cloud-2021.0.5-blue" alt="SpringCloud"/>
-Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.4.0-blue" alt="SpringCloudAlibaba"/>
+Spring Cloud Alibaba | 2.2.*.RELEASE | <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.5.0-blue" alt="SpringCloudAlibaba"/>
 Nacos | 1.4.*及以下 | <img src="https://img.shields.io/badge/Nacos-2.2.0-blue" alt="nacos"/>
 Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.6-blue" alt="sentinel"/>
 
@@ -81,7 +81,7 @@ Sentinel | 1.8.1 | <img src="https://img.shields.io/badge/Sentinel-1.8.6-blue" a
 </table>
 
 ## 🔧 功能特点
-- 主体框架：采用最新的`Spring Cloud 2021.0.5`, `Spring Boot 2.7.12`, `Spring Cloud Alibaba 2021.0.4.0`版本进行系统设计；
+- 主体框架：采用最新的`Spring Cloud 2021.0.5`, `Spring Boot 2.7.12`, `Spring Cloud Alibaba 2021.0.5.0`版本进行系统设计；
 
 - 统一注册：支持`Nacos`作为注册中心，实现多配置、分群组、分命名空间、多业务模块的注册和发现功能；
 
