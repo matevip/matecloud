@@ -67,7 +67,7 @@ public class CodeConstant {
     public static final String[] COLUMN_TYPE_FLOAT = {"float", "double", "decimal"};
 
     /**
-     * 页面不需要编辑字段
+     * 页面不需要新增字段
      */
     public static final String[] COLUMN_NAME_NOT_INSERT = {"id", "createBy", "createTime", "updateBy", "updateTime"};
 
